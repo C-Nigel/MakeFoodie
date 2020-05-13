@@ -15,6 +15,7 @@
 		472229EB246BC13400E13C81 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 472229E9246BC13400E13C81 /* LaunchScreen.storyboard */; };
 		472229F6246BC13400E13C81 /* MakeFoodieTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472229F5246BC13400E13C81 /* MakeFoodieTests.swift */; };
 		47222A01246BC13400E13C81 /* MakeFoodieUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47222A00246BC13400E13C81 /* MakeFoodieUITests.swift */; };
+		4743CF41246C44A000345286 /* File.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4743CF40246C44A000345286 /* File.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		472229FC246BC13400E13C81 /* MakeFoodieUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MakeFoodieUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		47222A00246BC13400E13C81 /* MakeFoodieUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeFoodieUITests.swift; sourceTree = "<group>"; };
 		47222A02246BC13400E13C81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4743CF40246C44A000345286 /* File.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = File.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 		472229D2246BC13100E13C81 = {
 			isa = PBXGroup;
 			children = (
+				4743CF40246C44A000345286 /* File.strings */,
 				472229DD246BC13100E13C81 /* MakeFoodie */,
 				472229F4246BC13400E13C81 /* MakeFoodieTests */,
 				472229FF246BC13400E13C81 /* MakeFoodieUITests */,
@@ -232,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4743CF41246C44A000345286 /* File.strings in Resources */,
 				472229EB246BC13400E13C81 /* LaunchScreen.storyboard in Resources */,
 				472229E8246BC13400E13C81 /* Assets.xcassets in Resources */,
 				472229E6246BC13100E13C81 /* Main.storyboard in Resources */,
