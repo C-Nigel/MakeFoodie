@@ -15,6 +15,14 @@
 		472229EB246BC13400E13C81 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 472229E9246BC13400E13C81 /* LaunchScreen.storyboard */; };
 		472229F6246BC13400E13C81 /* MakeFoodieTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472229F5246BC13400E13C81 /* MakeFoodieTests.swift */; };
 		47222A01246BC13400E13C81 /* MakeFoodieUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47222A00246BC13400E13C81 /* MakeFoodieUITests.swift */; };
+		F44A4F522484D6AE00D25E49 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F512484D6AE00D25E49 /* Login.storyboard */; };
+		F44A4F542484D6C200D25E49 /* Signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F532484D6C200D25E49 /* Signup.storyboard */; };
+		F44A4F562484D74700D25E49 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F552484D74700D25E49 /* Profile.storyboard */; };
+		F44A4F582484D75500D25E49 /* Following.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F572484D75500D25E49 /* Following.storyboard */; };
+		F44A4F5A2484D76500D25E49 /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F592484D76500D25E49 /* Messages.storyboard */; };
+		F44A4F5C2484D77B00D25E49 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5B2484D77B00D25E49 /* Orders.storyboard */; };
+		F44A4F5E2484D7A400D25E49 /* OrderRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5D2484D7A400D25E49 /* OrderRequest.storyboard */; };
+		F44A4F602484D7F200D25E49 /* Recommendations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5F2484D7F200D25E49 /* Recommendations.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +57,14 @@
 		472229FC246BC13400E13C81 /* MakeFoodieUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MakeFoodieUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		47222A00246BC13400E13C81 /* MakeFoodieUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeFoodieUITests.swift; sourceTree = "<group>"; };
 		47222A02246BC13400E13C81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F44A4F512484D6AE00D25E49 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		F44A4F532484D6C200D25E49 /* Signup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signup.storyboard; sourceTree = "<group>"; };
+		F44A4F552484D74700D25E49 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		F44A4F572484D75500D25E49 /* Following.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Following.storyboard; sourceTree = "<group>"; };
+		F44A4F592484D76500D25E49 /* Messages.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Messages.storyboard; sourceTree = "<group>"; };
+		F44A4F5B2484D77B00D25E49 /* Orders.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Orders.storyboard; sourceTree = "<group>"; };
+		F44A4F5D2484D7A400D25E49 /* OrderRequest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OrderRequest.storyboard; sourceTree = "<group>"; };
+		F44A4F5F2484D7F200D25E49 /* Recommendations.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recommendations.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +122,14 @@
 				472229E7246BC13400E13C81 /* Assets.xcassets */,
 				472229E9246BC13400E13C81 /* LaunchScreen.storyboard */,
 				472229EC246BC13400E13C81 /* Info.plist */,
+				F44A4F512484D6AE00D25E49 /* Login.storyboard */,
+				F44A4F532484D6C200D25E49 /* Signup.storyboard */,
+				F44A4F552484D74700D25E49 /* Profile.storyboard */,
+				F44A4F572484D75500D25E49 /* Following.storyboard */,
+				F44A4F592484D76500D25E49 /* Messages.storyboard */,
+				F44A4F5B2484D77B00D25E49 /* Orders.storyboard */,
+				F44A4F5D2484D7A400D25E49 /* OrderRequest.storyboard */,
+				F44A4F5F2484D7F200D25E49 /* Recommendations.storyboard */,
 			);
 			path = MakeFoodie;
 			sourceTree = "<group>";
@@ -232,9 +256,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F44A4F562484D74700D25E49 /* Profile.storyboard in Resources */,
+				F44A4F522484D6AE00D25E49 /* Login.storyboard in Resources */,
+				F44A4F5A2484D76500D25E49 /* Messages.storyboard in Resources */,
 				472229EB246BC13400E13C81 /* LaunchScreen.storyboard in Resources */,
+				F44A4F5C2484D77B00D25E49 /* Orders.storyboard in Resources */,
 				472229E8246BC13400E13C81 /* Assets.xcassets in Resources */,
+				F44A4F542484D6C200D25E49 /* Signup.storyboard in Resources */,
+				F44A4F582484D75500D25E49 /* Following.storyboard in Resources */,
 				472229E6246BC13100E13C81 /* Main.storyboard in Resources */,
+				F44A4F602484D7F200D25E49 /* Recommendations.storyboard in Resources */,
+				F44A4F5E2484D7A400D25E49 /* OrderRequest.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
