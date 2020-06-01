@@ -14,6 +14,16 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8i-z4-uXa">
+                                <rect key="frame" x="169" y="433" width="76" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Login page"/>
+                                <connections>
+                                    <segue destination="MH0-1V-i1N" kind="show" id="rT1-kk-fRA"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -25,7 +35,9 @@
         <!--Login-->
         <scene sceneID="n2w-n1-i9J">
             <objects>
-                <viewControllerPlaceholder storyboardName="Login" id="MH0-1V-i1N" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Login" id="MH0-1V-i1N" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="hCg-ua-BZY"/>
+                </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Gh-08-IDf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="675" y="6"/>

@@ -14,6 +14,18 @@
                     <view key="view" contentMode="scaleToFill" id="gQ0-zD-6UA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tKX-8x-KWh">
+                                <rect key="frame" x="162" y="433" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sign up page"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHX-Ce-dRg">
+                                <rect key="frame" x="143" y="597" width="128" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Recommendations"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="vXA-lZ-JI9"/>
                     </view>
@@ -25,7 +37,9 @@
         <!--Signup-->
         <scene sceneID="5A4-tM-LWh">
             <objects>
-                <viewControllerPlaceholder storyboardName="Signup" id="uph-AG-wDX" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Signup" id="uph-AG-wDX" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="EDB-cc-QEx"/>
+                </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="94D-iM-LEk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="564" y="6"/>
@@ -33,7 +47,9 @@
         <!--Recommendations-->
         <scene sceneID="ZVH-pO-kWf">
             <objects>
-                <viewControllerPlaceholder storyboardName="Recommendations" id="C2d-Lu-abW" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Recommendations" id="C2d-Lu-abW" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="NgU-p6-PFu"/>
+                </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4zI-VU-LAo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="586" y="107"/>
