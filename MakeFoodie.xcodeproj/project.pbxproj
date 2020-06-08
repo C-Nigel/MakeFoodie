@@ -19,7 +19,6 @@
 		653AAA6B2484F412008FAC14 /* ViewPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA6A2484F412008FAC14 /* ViewPost.storyboard */; };
 		653AAA6D2484F46B008FAC14 /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA6C2484F46B008FAC14 /* Categories.storyboard */; };
 		F44A4F522484D6AE00D25E49 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F512484D6AE00D25E49 /* Login.storyboard */; };
-		F44A4F542484D6C200D25E49 /* Signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F532484D6C200D25E49 /* Signup.storyboard */; };
 		F44A4F562484D74700D25E49 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F552484D74700D25E49 /* Profile.storyboard */; };
 		F44A4F582484D75500D25E49 /* Following.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F572484D75500D25E49 /* Following.storyboard */; };
 		F44A4F5A2484D76500D25E49 /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F592484D76500D25E49 /* Messages.storyboard */; };
@@ -64,7 +63,6 @@
 		653AAA6A2484F412008FAC14 /* ViewPost.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViewPost.storyboard; sourceTree = "<group>"; };
 		653AAA6C2484F46B008FAC14 /* Categories.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Categories.storyboard; sourceTree = "<group>"; };
 		F44A4F512484D6AE00D25E49 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
-		F44A4F532484D6C200D25E49 /* Signup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signup.storyboard; sourceTree = "<group>"; };
 		F44A4F552484D74700D25E49 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		F44A4F572484D75500D25E49 /* Following.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Following.storyboard; sourceTree = "<group>"; };
 		F44A4F592484D76500D25E49 /* Messages.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Messages.storyboard; sourceTree = "<group>"; };
@@ -129,7 +127,6 @@
 				472229E9246BC13400E13C81 /* LaunchScreen.storyboard */,
 				472229EC246BC13400E13C81 /* Info.plist */,
 				F44A4F512484D6AE00D25E49 /* Login.storyboard */,
-				F44A4F532484D6C200D25E49 /* Signup.storyboard */,
 				F44A4F552484D74700D25E49 /* Profile.storyboard */,
 				F44A4F572484D75500D25E49 /* Following.storyboard */,
 				F44A4F592484D76500D25E49 /* Messages.storyboard */,
@@ -274,7 +271,6 @@
 				472229EB246BC13400E13C81 /* LaunchScreen.storyboard in Resources */,
 				F44A4F5C2484D77B00D25E49 /* Orders.storyboard in Resources */,
 				472229E8246BC13400E13C81 /* Assets.xcassets in Resources */,
-				F44A4F542484D6C200D25E49 /* Signup.storyboard in Resources */,
 				F44A4F582484D75500D25E49 /* Following.storyboard in Resources */,
 				472229E6246BC13100E13C81 /* Main.storyboard in Resources */,
 				F44A4F602484D7F200D25E49 /* Recommendations.storyboard in Resources */,
