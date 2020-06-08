@@ -18,6 +18,7 @@
 		653AAA692484F3B7008FAC14 /* Posts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA682484F3B7008FAC14 /* Posts.storyboard */; };
 		653AAA6B2484F412008FAC14 /* ViewPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA6A2484F412008FAC14 /* ViewPost.storyboard */; };
 		653AAA6D2484F46B008FAC14 /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA6C2484F46B008FAC14 /* Categories.storyboard */; };
+		7D00FE16248E26240018BD08 /* Recipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D00FE15248E26240018BD08 /* Recipe.storyboard */; };
 		F44A4F522484D6AE00D25E49 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F512484D6AE00D25E49 /* Login.storyboard */; };
 		F44A4F562484D74700D25E49 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F552484D74700D25E49 /* Profile.storyboard */; };
 		F44A4F582484D75500D25E49 /* Following.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F572484D75500D25E49 /* Following.storyboard */; };
@@ -62,6 +63,7 @@
 		653AAA682484F3B7008FAC14 /* Posts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Posts.storyboard; sourceTree = "<group>"; };
 		653AAA6A2484F412008FAC14 /* ViewPost.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViewPost.storyboard; sourceTree = "<group>"; };
 		653AAA6C2484F46B008FAC14 /* Categories.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Categories.storyboard; sourceTree = "<group>"; };
+		7D00FE15248E26240018BD08 /* Recipe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recipe.storyboard; sourceTree = "<group>"; };
 		F44A4F512484D6AE00D25E49 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		F44A4F552484D74700D25E49 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		F44A4F572484D75500D25E49 /* Following.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Following.storyboard; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				653AAA682484F3B7008FAC14 /* Posts.storyboard */,
 				653AAA6A2484F412008FAC14 /* ViewPost.storyboard */,
 				653AAA6C2484F46B008FAC14 /* Categories.storyboard */,
+				7D00FE15248E26240018BD08 /* Recipe.storyboard */,
 			);
 			path = MakeFoodie;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			files = (
 				653AAA692484F3B7008FAC14 /* Posts.storyboard in Resources */,
 				F44A4F562484D74700D25E49 /* Profile.storyboard in Resources */,
+				7D00FE16248E26240018BD08 /* Recipe.storyboard in Resources */,
 				F44A4F522484D6AE00D25E49 /* Login.storyboard in Resources */,
 				653AAA6B2484F412008FAC14 /* ViewPost.storyboard in Resources */,
 				653AAA6D2484F46B008FAC14 /* Categories.storyboard in Resources */,
