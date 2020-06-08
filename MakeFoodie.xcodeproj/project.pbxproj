@@ -15,6 +15,9 @@
 		472229EB246BC13400E13C81 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 472229E9246BC13400E13C81 /* LaunchScreen.storyboard */; };
 		472229F6246BC13400E13C81 /* MakeFoodieTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472229F5246BC13400E13C81 /* MakeFoodieTests.swift */; };
 		47222A01246BC13400E13C81 /* MakeFoodieUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47222A00246BC13400E13C81 /* MakeFoodieUITests.swift */; };
+		653AAA692484F3B7008FAC14 /* Posts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA682484F3B7008FAC14 /* Posts.storyboard */; };
+		653AAA6B2484F412008FAC14 /* ViewPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA6A2484F412008FAC14 /* ViewPost.storyboard */; };
+		653AAA6D2484F46B008FAC14 /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA6C2484F46B008FAC14 /* Categories.storyboard */; };
 		F44A4F522484D6AE00D25E49 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F512484D6AE00D25E49 /* Login.storyboard */; };
 		F44A4F542484D6C200D25E49 /* Signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F532484D6C200D25E49 /* Signup.storyboard */; };
 		F44A4F562484D74700D25E49 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F552484D74700D25E49 /* Profile.storyboard */; };
@@ -57,6 +60,9 @@
 		472229FC246BC13400E13C81 /* MakeFoodieUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MakeFoodieUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		47222A00246BC13400E13C81 /* MakeFoodieUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeFoodieUITests.swift; sourceTree = "<group>"; };
 		47222A02246BC13400E13C81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		653AAA682484F3B7008FAC14 /* Posts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Posts.storyboard; sourceTree = "<group>"; };
+		653AAA6A2484F412008FAC14 /* ViewPost.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViewPost.storyboard; sourceTree = "<group>"; };
+		653AAA6C2484F46B008FAC14 /* Categories.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Categories.storyboard; sourceTree = "<group>"; };
 		F44A4F512484D6AE00D25E49 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		F44A4F532484D6C200D25E49 /* Signup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signup.storyboard; sourceTree = "<group>"; };
 		F44A4F552484D74700D25E49 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
@@ -130,6 +136,9 @@
 				F44A4F5B2484D77B00D25E49 /* Orders.storyboard */,
 				F44A4F5D2484D7A400D25E49 /* OrderRequest.storyboard */,
 				F44A4F5F2484D7F200D25E49 /* Recommendations.storyboard */,
+				653AAA682484F3B7008FAC14 /* Posts.storyboard */,
+				653AAA6A2484F412008FAC14 /* ViewPost.storyboard */,
+				653AAA6C2484F46B008FAC14 /* Categories.storyboard */,
 			);
 			path = MakeFoodie;
 			sourceTree = "<group>";
@@ -256,8 +265,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				653AAA692484F3B7008FAC14 /* Posts.storyboard in Resources */,
 				F44A4F562484D74700D25E49 /* Profile.storyboard in Resources */,
 				F44A4F522484D6AE00D25E49 /* Login.storyboard in Resources */,
+				653AAA6B2484F412008FAC14 /* ViewPost.storyboard in Resources */,
+				653AAA6D2484F46B008FAC14 /* Categories.storyboard in Resources */,
 				F44A4F5A2484D76500D25E49 /* Messages.storyboard in Resources */,
 				472229EB246BC13400E13C81 /* LaunchScreen.storyboard in Resources */,
 				F44A4F5C2484D77B00D25E49 /* Orders.storyboard in Resources */,
