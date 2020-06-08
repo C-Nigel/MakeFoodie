@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login-->
         <scene sceneID="8ml-Uq-eZe">
             <objects>
-                <viewController id="bgF-PF-Juu" sceneMemberID="viewController">
+                <viewController title="Login" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="bgF-PF-Juu" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gQ0-zD-6UA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -28,7 +28,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign up page"/>
                                 <connections>
-                                    <segue destination="uph-AG-wDX" kind="show" id="IMC-Hm-ktR"/>
+                                    <segue destination="ICH-xl-nTb" kind="show" id="8JH-xV-tsC"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -41,14 +41,20 @@
             <point key="canvasLocation" x="3" y="115"/>
         </scene>
         <!--Signup-->
-        <scene sceneID="5A4-tM-LWh">
+        <scene sceneID="Y1S-eJ-YIE">
             <objects>
-                <viewControllerPlaceholder storyboardName="Signup" id="uph-AG-wDX" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="EDB-cc-QEx"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="94D-iM-LEk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController title="Signup" modalPresentationStyle="fullScreen" id="ICH-xl-nTb" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XVE-v3-mKO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="7bb-Ob-Hba"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="HW8-8J-uPQ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0O1-KM-W5L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="564" y="6"/>
+            <point key="canvasLocation" x="1013" y="-84"/>
         </scene>
         <!--Recommendations-->
         <scene sceneID="ZVH-pO-kWf">
