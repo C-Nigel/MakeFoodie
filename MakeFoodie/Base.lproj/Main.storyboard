@@ -15,37 +15,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8i-z4-uXa">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mFn-45-apD">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8i-z4-uXa">
                                 <rect key="frame" x="143" y="493" width="128" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="GET STARTED"/>
                                 <connections>
                                     <segue destination="MH0-1V-i1N" kind="show" id="rT1-kk-fRA"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MAKEFOODIES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRj-9t-g0P">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAKEFOODIES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRj-9t-g0P">
                                 <rect key="frame" x="128" y="389" width="158" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Share your food journey with everyone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lod-PJ-M4x">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share your food journey with everyone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lod-PJ-M4x">
                                 <rect key="frame" x="70" y="438" width="294" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="lod-PJ-M4x" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="70" id="4IV-ff-4Z5"/>
+                            <constraint firstItem="KRj-9t-g0P" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="345" id="55d-ZS-U2s"/>
+                            <constraint firstItem="mFn-45-apD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="BeD-ao-c5L"/>
+                            <constraint firstItem="P8i-z4-uXa" firstAttribute="top" secondItem="lod-PJ-M4x" secondAttribute="bottom" constant="34" id="Epv-Nr-sd7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lod-PJ-M4x" secondAttribute="trailing" constant="50" id="LAM-Os-z5N"/>
+                            <constraint firstItem="mFn-45-apD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Lwm-J7-2J1"/>
+                            <constraint firstItem="mFn-45-apD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Qcv-fD-o97"/>
+                            <constraint firstItem="lod-PJ-M4x" firstAttribute="top" secondItem="KRj-9t-g0P" secondAttribute="bottom" constant="21" id="Wpe-dS-SsN"/>
+                            <constraint firstItem="P8i-z4-uXa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="143" id="Y7V-Jq-8HE"/>
+                            <constraint firstItem="lod-PJ-M4x" firstAttribute="top" secondItem="KRj-9t-g0P" secondAttribute="bottom" constant="21" id="bCa-Nn-g9d"/>
+                            <constraint firstItem="mFn-45-apD" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="feV-mO-Zks"/>
+                            <constraint firstItem="KRj-9t-g0P" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="128" id="llA-rm-boK"/>
+                            <constraint firstItem="P8i-z4-uXa" firstAttribute="top" secondItem="lod-PJ-M4x" secondAttribute="bottom" constant="34" id="qES-KG-ybj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KRj-9t-g0P" secondAttribute="trailing" constant="128" id="tcp-zS-4ds"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="P8i-z4-uXa" secondAttribute="trailing" constant="143" id="vmo-Eu-IIz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="P8i-z4-uXa" secondAttribute="bottom" constant="333" id="xec-4e-cjr"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="139"/>
+            <point key="canvasLocation" x="137.68115942028987" y="138.61607142857142"/>
         </scene>
         <!--Login-->
         <scene sceneID="n2w-n1-i9J">
