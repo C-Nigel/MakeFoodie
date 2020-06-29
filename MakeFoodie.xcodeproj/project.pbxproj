@@ -18,6 +18,7 @@
 		653AAA692484F3B7008FAC14 /* Posts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA682484F3B7008FAC14 /* Posts.storyboard */; };
 		653AAA6B2484F412008FAC14 /* ViewPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA6A2484F412008FAC14 /* ViewPost.storyboard */; };
 		653AAA6D2484F46B008FAC14 /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA6C2484F46B008FAC14 /* Categories.storyboard */; };
+		775A4A4224983F1D0049E29E /* ViewCategory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 775A4A4124983F1D0049E29E /* ViewCategory.storyboard */; };
 		7D00FE16248E26240018BD08 /* Recipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D00FE15248E26240018BD08 /* Recipe.storyboard */; };
 		F445804A2490C08800F1CAA6 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44580492490C08800F1CAA6 /* ItemCell.swift */; };
 		F445804C2490C0B200F1CAA6 /* RecommendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F445804B2490C0B200F1CAA6 /* RecommendedViewController.swift */; };
@@ -66,6 +67,7 @@
 		653AAA682484F3B7008FAC14 /* Posts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Posts.storyboard; sourceTree = "<group>"; };
 		653AAA6A2484F412008FAC14 /* ViewPost.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViewPost.storyboard; sourceTree = "<group>"; };
 		653AAA6C2484F46B008FAC14 /* Categories.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Categories.storyboard; sourceTree = "<group>"; };
+		775A4A4124983F1D0049E29E /* ViewCategory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = ViewCategory.storyboard; path = MakeFoodie/Views/ViewCategory/ViewCategory.storyboard; sourceTree = SOURCE_ROOT; };
 		7D00FE15248E26240018BD08 /* Recipe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recipe.storyboard; sourceTree = "<group>"; };
 		F44580492490C08800F1CAA6 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		F445804B2490C0B200F1CAA6 /* RecommendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedViewController.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				653AAA6C2484F46B008FAC14 /* Categories.storyboard */,
+				775A4A4124983F1D0049E29E /* ViewCategory.storyboard */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				7D00FE16248E26240018BD08 /* Recipe.storyboard in Resources */,
 				F44A4F522484D6AE00D25E49 /* Login.storyboard in Resources */,
 				653AAA6B2484F412008FAC14 /* ViewPost.storyboard in Resources */,
+				775A4A4224983F1D0049E29E /* ViewCategory.storyboard in Resources */,
 				653AAA6D2484F46B008FAC14 /* Categories.storyboard in Resources */,
 				F44A4F5A2484D76500D25E49 /* Messages.storyboard in Resources */,
 				472229EB246BC13400E13C81 /* LaunchScreen.storyboard in Resources */,
