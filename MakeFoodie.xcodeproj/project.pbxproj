@@ -67,7 +67,7 @@
 		653AAA682484F3B7008FAC14 /* Posts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Posts.storyboard; sourceTree = "<group>"; };
 		653AAA6A2484F412008FAC14 /* ViewPost.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViewPost.storyboard; sourceTree = "<group>"; };
 		653AAA6C2484F46B008FAC14 /* Categories.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Categories.storyboard; sourceTree = "<group>"; };
-		775A4A4124983F1D0049E29E /* ViewCategory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = ViewCategory.storyboard; path = MakeFoodie/Views/ViewCategory/ViewCategory.storyboard; sourceTree = SOURCE_ROOT; };
+		775A4A4124983F1D0049E29E /* ViewCategory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = ViewCategory.storyboard; path = MakeFoodie/Views/Main/ViewCategory/ViewCategory.storyboard; sourceTree = SOURCE_ROOT; };
 		7D00FE15248E26240018BD08 /* Recipe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recipe.storyboard; sourceTree = "<group>"; };
 		F44580492490C08800F1CAA6 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		F445804B2490C0B200F1CAA6 /* RecommendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +155,15 @@
 			path = MakeFoodieUITests;
 			sourceTree = "<group>";
 		};
+		775EF5E124AA94F6007D5FAF /* ViewCategory */ = {
+			isa = PBXGroup;
+			children = (
+				775A4A4124983F1D0049E29E /* ViewCategory.storyboard */,
+			);
+			name = ViewCategory;
+			path = Main/ViewCategory;
+			sourceTree = "<group>";
+		};
 		F44580392490BCBE00F1CAA6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +199,7 @@
 				F44580452490BF8D00F1CAA6 /* Recommended */,
 				F44580442490BF6D00F1CAA6 /* Recipe */,
 				F44580432490BF5D00F1CAA6 /* ViewPost */,
+				775EF5E124AA94F6007D5FAF /* ViewCategory */,
 				F44580422490BF5100F1CAA6 /* Categories */,
 				F44580412490BF4500F1CAA6 /* Posts */,
 				F44580402490BF1C00F1CAA6 /* Orders */,
@@ -244,7 +254,6 @@
 			isa = PBXGroup;
 			children = (
 				653AAA6C2484F46B008FAC14 /* Categories.storyboard */,
-				775A4A4124983F1D0049E29E /* ViewCategory.storyboard */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
