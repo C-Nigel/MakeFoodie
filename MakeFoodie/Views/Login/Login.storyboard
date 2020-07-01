@@ -10,7 +10,7 @@
         <!--Signup-->
         <scene sceneID="0TK-NM-Fzd">
             <objects>
-                <viewController title="Signup" id="jgP-3L-NOM" sceneMemberID="viewController">
+                <viewController title="Signup" id="jgP-3L-NOM" customClass="SignupViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Ex-bk-Hb0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -49,6 +49,9 @@
                         <viewLayoutGuide key="safeArea" id="bhP-z8-gvK"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ii8-up-fEd"/>
+                    <connections>
+                        <outlet property="emailInput" destination="d01-w4-FAN" id="hAB-jH-NZ1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Lq-HO-P4Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -57,7 +60,7 @@
         <!--Signup2-->
         <scene sceneID="bde-Vq-rwc">
             <objects>
-                <viewController title="Signup2" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="foj-27-mbb" sceneMemberID="viewController">
+                <viewController title="Signup2" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="foj-27-mbb" customClass="SignupViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pYh-jl-c68">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -104,6 +107,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aW6-4C-CbU">
                                 <rect key="frame" x="144" y="586" width="141" height="30"/>
                                 <state key="normal" title="Create Account"/>
+                                <connections>
+                                    <action selector="CreateAcc:" destination="foj-27-mbb" eventType="touchUpInside" id="7a9-ia-vrb"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -138,6 +144,13 @@
                     <navigationItem key="navigationItem" id="N3B-Hv-oDV">
                         <barButtonItem key="backBarButtonItem" title="Email" id="c1T-0f-TvY"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="confirmpasswordInput" destination="K4I-NZ-LxQ" id="1hl-28-CcC"/>
+                        <outlet property="dobInput" destination="IhF-P4-e01" id="zrL-sd-lzQ"/>
+                        <outlet property="genderInput" destination="UaS-48-ck3" id="voD-6x-e0c"/>
+                        <outlet property="passwordInput" destination="TzF-Ld-fNg" id="KJb-5o-pqR"/>
+                        <outlet property="usernameInput" destination="ADZ-I7-4oz" id="egr-c7-KYn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="irx-HT-Y0X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
