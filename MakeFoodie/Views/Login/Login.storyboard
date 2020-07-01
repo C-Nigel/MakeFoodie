@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Signup-->
         <scene sceneID="0TK-NM-Fzd">
             <objects>
-                <viewController id="jgP-3L-NOM" sceneMemberID="viewController">
+                <viewController title="Signup" id="jgP-3L-NOM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Ex-bk-Hb0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -143,10 +143,10 @@
             </objects>
             <point key="canvasLocation" x="1608.6956521739132" y="-58.258928571428569"/>
         </scene>
-        <!--View Controller-->
+        <!--MainLogin-->
         <scene sceneID="J6i-pR-LTb">
             <objects>
-                <viewController id="Sey-tj-WFY" sceneMemberID="viewController">
+                <viewController title="MainLogin" id="Sey-tj-WFY" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AVb-G9-Yvi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
