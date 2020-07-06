@@ -28,7 +28,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="357"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDa-dn-Acj">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDa-dn-Acj">
                                             <rect key="frame" x="20" y="11" width="56" height="36"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                             <nil key="textColor"/>
@@ -225,10 +225,12 @@
             </objects>
             <point key="canvasLocation" x="1265" y="52"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Recipe-->
         <scene sceneID="9xf-jH-AQf">
             <objects>
                 <navigationController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="gAQ-0H-UpH" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Recipe" image="doc.plaintext" catalog="system" id="C7h-oC-tD0"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pFd-lH-deY">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -637,6 +639,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="doc.plaintext" catalog="system" width="56" height="64"/>
         <image name="heart" catalog="system" width="64" height="54"/>
         <image name="star.fill" catalog="system" width="64" height="58"/>
     </resources>
