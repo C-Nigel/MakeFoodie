@@ -33,6 +33,10 @@
 		F44A4F5C2484D77B00D25E49 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5B2484D77B00D25E49 /* Orders.storyboard */; };
 		F44A4F5E2484D7A400D25E49 /* OrderRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5D2484D7A400D25E49 /* OrderRequest.storyboard */; };
 		F44A4F602484D7F200D25E49 /* Recommended.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5F2484D7F200D25E49 /* Recommended.storyboard */; };
+		F476E28824B4B8510036858B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F476E28724B4B8510036858B /* libsqlite3.tbd */; };
+		F476E28D24B4B8A80036858B /* BridgingHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F476E28C24B4B8A80036858B /* BridgingHeader.m */; };
+		F476E29124B4B9180036858B /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F476E29024B4B9180036858B /* SQLiteDB.swift */; };
+		F476E29424B4B9570036858B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F476E29324B4B9570036858B /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +89,12 @@
 		F44A4F5B2484D77B00D25E49 /* Orders.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Orders.storyboard; sourceTree = "<group>"; };
 		F44A4F5D2484D7A400D25E49 /* OrderRequest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OrderRequest.storyboard; sourceTree = "<group>"; };
 		F44A4F5F2484D7F200D25E49 /* Recommended.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recommended.storyboard; sourceTree = "<group>"; };
+		F476E28724B4B8510036858B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		F476E28A24B4B8A70036858B /* MakeFoodie-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MakeFoodie-Bridging-Header.h"; sourceTree = "<group>"; };
+		F476E28B24B4B8A80036858B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		F476E28C24B4B8A80036858B /* BridgingHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BridgingHeader.m; sourceTree = "<group>"; };
+		F476E29024B4B9180036858B /* SQLiteDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDB.swift; sourceTree = "<group>"; };
+		F476E29324B4B9570036858B /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F476E28824B4B8510036858B /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +130,7 @@
 				472229F4246BC13400E13C81 /* MakeFoodieTests */,
 				472229FF246BC13400E13C81 /* MakeFoodieUITests */,
 				472229DC246BC13100E13C81 /* Products */,
+				F476E28624B4B8510036858B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,6 +202,7 @@
 		F445803C2490BE3E00F1CAA6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F476E28524B4B81B0036858B /* Database */,
 				F44580482490BFBF00F1CAA6 /* Main */,
 				F44580472490BFAD00F1CAA6 /* Login */,
 				F44580462490BFA200F1CAA6 /* Profile */,
@@ -310,6 +323,42 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		F476E28524B4B81B0036858B /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				F476E29224B4B9250036858B /* DataManager */,
+				F476E28924B4B86B0036858B /* Bridging Header */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		F476E28624B4B8510036858B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F476E28724B4B8510036858B /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F476E28924B4B86B0036858B /* Bridging Header */ = {
+			isa = PBXGroup;
+			children = (
+				F476E29024B4B9180036858B /* SQLiteDB.swift */,
+				F476E28B24B4B8A80036858B /* BridgingHeader.h */,
+				F476E28C24B4B8A80036858B /* BridgingHeader.m */,
+				F476E28A24B4B8A70036858B /* MakeFoodie-Bridging-Header.h */,
+			);
+			path = "Bridging Header";
+			sourceTree = "<group>";
+		};
+		F476E29224B4B9250036858B /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				F476E29324B4B9570036858B /* DataManager.swift */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -378,6 +427,7 @@
 				TargetAttributes = {
 					472229DA246BC13100E13C81 = {
 						CreatedOnToolsVersion = 11.4.1;
+						LastSwiftMigration = 1140;
 					};
 					472229F0246BC13400E13C81 = {
 						CreatedOnToolsVersion = 11.4.1;
@@ -456,11 +506,14 @@
 				F445804A2490C08800F1CAA6 /* ItemCell.swift in Sources */,
 				472229E3246BC13100E13C81 /* ViewController.swift in Sources */,
 				472229DF246BC13100E13C81 /* AppDelegate.swift in Sources */,
+				F476E28D24B4B8A80036858B /* BridgingHeader.m in Sources */,
 				F445804C2490C0B200F1CAA6 /* RecommendedViewController.swift in Sources */,
 				D4A50F9424AC33AE009B0349 /* LoginViewController.swift in Sources */,
 				F445804E2490C0D000F1CAA6 /* Item.swift in Sources */,
 				472229E1246BC13100E13C81 /* SceneDelegate.swift in Sources */,
+				F476E29124B4B9180036858B /* SQLiteDB.swift in Sources */,
 				D4A50F9024AC3121009B0349 /* User.swift in Sources */,
+				F476E29424B4B9570036858B /* DataManager.swift in Sources */,
 				D4787CDA24B302AD00D0A329 /* Recipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -634,6 +687,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "MakeFoodie/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -642,6 +696,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ITP312.MakeFoodie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MakeFoodie/Views/Database/Bridging Header/MakeFoodie-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -651,6 +707,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "MakeFoodie/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -659,6 +716,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ITP312.MakeFoodie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MakeFoodie/Views/Database/Bridging Header/MakeFoodie-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
