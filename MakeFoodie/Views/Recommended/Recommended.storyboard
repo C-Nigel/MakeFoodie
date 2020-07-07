@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="irz-bv-Arx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0Sr-Fb-pp6">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Recommended Picks-->
         <scene sceneID="4Jf-UE-gW5">
             <objects>
                 <viewController id="irz-bv-Arx" customClass="RecommendedViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
@@ -16,18 +16,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="400" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jTa-n4-Mnv">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="Gay-Oy-hfG">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <items>
-                                        <navigationItem title="Recommended Picks" id="2rv-cr-oUZ"/>
-                                    </items>
-                                </navigationBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="400" id="CyC-xX-eHx" customClass="ItemCell" customModule="MakeFoodie" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="414" height="400"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="400"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CyC-xX-eHx" id="LMP-Zg-XIL">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
@@ -98,6 +91,7 @@
                         <viewLayoutGuide key="safeArea" id="Da2-C5-S3I"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="Ba8-SF-m37"/>
+                    <navigationItem key="navigationItem" title="Recommended Picks" id="WuD-4f-9hw"/>
                     <connections>
                         <outlet property="tableView" destination="jTa-n4-Mnv" id="PgH-9d-hSC"/>
                     </connections>
@@ -116,5 +110,26 @@
             </objects>
             <point key="canvasLocation" x="1583" y="-149"/>
         </scene>
+        <!--recommended-->
+        <scene sceneID="Uyw-LN-I2H">
+            <objects>
+                <navigationController title="recommended" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="0Sr-Fb-pp6" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Recipe" image="star.fill" catalog="system" id="dYQ-NC-F1X"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8ru-QR-zMV">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="irz-bv-Arx" kind="relationship" relationship="rootViewController" id="4jj-Ws-Lft"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DCw-fq-OHR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-114" y="92"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
+    </resources>
 </document>
