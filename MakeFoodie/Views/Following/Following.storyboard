@@ -25,7 +25,8 @@
                                     <segments>
                                         <segment title="Posts"/>
                                         <segment title="Recipes"/>
-                                        <segment title="Users"/>
+                                        <segment title="Followers"/>
+                                        <segment title="Following"/>
                                     </segments>
                                 </segmentedControl>
                                 <prototypes>
