@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignupViewController: UIViewController {
+class SignupViewController: UIViewController, UITextFieldDelegate {
     
     var user : [User] = []
     
@@ -25,9 +25,14 @@ class SignupViewController: UIViewController {
     
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        self.dobInput?.delegate = self
 
         // Do any additional setup after loading the view.
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
     
 
@@ -43,11 +48,37 @@ class SignupViewController: UIViewController {
 
     @IBAction func CreateAcc(_ sender: Any) {
         
-        let email: String = emailInput.text!
+        //let email = dobInput.text
 
-            showToast(controller: self, message: email, seconds: 3)
+        if usernameInput.text == "" || dobInput.text == ""{
+            let alert = UIAlertController(
+             title: "Please enter all fields", message: "",
+            preferredStyle:
+            .alert)
+             alert.addAction(UIAlertAction(title: "OK", style:.default, handler: nil))
+
+             self.present(alert, animated: true, completion: nil)
+             return
+        }
+        user.append(User(email: "", username: usernameInput.text!, dob: dobInput.text!, gender: "", phoneNo: "", password: ""))
+        for i in user{
+            print(i.username);
+            print(i.dob);
+            print(i);
+            
+        }
+        
       
         
+    }
+    //Hide keyboard when user touch outside
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    //Hide keyboard when user press return key
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        dobInput.resignFirstResponder()
+        return(true)
     }
     
     func showToast(controller: UIViewController, message : String, seconds: Double){

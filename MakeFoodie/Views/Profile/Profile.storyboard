@@ -68,6 +68,16 @@
             </objects>
             <point key="canvasLocation" x="383" y="-194"/>
         </scene>
+        <!--Following-->
+        <scene sceneID="F47-vY-pyi">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Following" id="HZb-o3-UGs" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="1oQ-Tq-voC"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xuk-tx-Aop" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="220" y="509"/>
+        </scene>
         <!--Login-->
         <scene sceneID="h61-Js-ebB">
             <objects>
@@ -118,6 +128,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="100"/>
+                                        <connections>
+                                            <segue destination="HZb-o3-UGs" kind="show" id="tg3-Cq-gOU"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Followers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYk-cK-irR">
                                         <rect key="frame" x="185" y="54" width="77" height="22"/>

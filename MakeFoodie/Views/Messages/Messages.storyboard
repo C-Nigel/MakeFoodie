@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Title-->
+        <!--Conversation-->
         <scene sceneID="whJ-8j-yp1">
             <objects>
                 <viewController id="PeG-BP-YdU" sceneMemberID="viewController">
@@ -118,7 +118,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MvJ-ZU-SFi"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="9q7-fg-qI8"/>
+                    <navigationItem key="navigationItem" title="Conversation" id="9q7-fg-qI8"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bfn-Fo-RAH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
