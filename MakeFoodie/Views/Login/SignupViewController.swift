@@ -56,34 +56,36 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func CreateAccount(_ sender: Any) {
         //let email = dobInput.text
-               var gender: String = "";
-               if usernameInput.text == "" || dobInput.text == "" || passwordInput.text == "" || confirmpasswordInput.text == ""{
-                   let alert = UIAlertController(
-                    title: "Please enter all input fields", message: "",
-                   preferredStyle:
-                   .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style:.default, handler: nil))
+       var gender: String = "";
+       if usernameInput.text == "" || dobInput.text == "" || passwordInput.text == "" || confirmpasswordInput.text == ""{
+           let alert = UIAlertController(
+            title: "Please enter all input fields", message: "",
+           preferredStyle:
+           .alert)
+            alert.addAction(UIAlertAction(title: "OK", style:.default, handler: nil))
 
-                    self.present(alert, animated: true, completion: nil)
-                    return
-               }
-               if genderInput.selectedSegmentIndex == 0{
-                   gender = "Male"
-               }
-               else{
-                   gender = "Female"
-               }
-               
-               user.append(User(email: emailInput.text!, username: usernameInput.text!, dob: dobInput.text!, gender: gender, phoneNo: "", password: passwordInput.text!))
-               for i in user{
-                   print(i.username);
-                   print(i.dob);
-                   print(i.email);
-                   print(i.password)
-                   print(i.gender)
-                   
-                   
-               }
+            self.present(alert, animated: true, completion: nil)
+            return
+       }
+       if genderInput.selectedSegmentIndex == 0{
+           gender = "Male"
+       }
+       else{
+           gender = "Female"
+       }
+       
+       user.append(User(email: emailInput.text!, username: usernameInput.text!, dob: dobInput.text!, gender: gender, phoneNo: "", password: passwordInput.text!))
+       for i in user{
+           print(i.username);
+           print(i.dob);
+           print(i.email);
+           print(i.password)
+           print(i.gender)
+           
+           
+       }
+        DataManager.insertOrReplaceMovie(user)
+            
     }
     
     

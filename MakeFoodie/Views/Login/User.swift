@@ -8,7 +8,7 @@
 
 import UIKit
 
-class User: NSObject {
+class User: Codable {
     var email: String
     var username: String
     var dob: String
