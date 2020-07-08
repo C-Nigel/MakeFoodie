@@ -24,4 +24,16 @@ class DataManager: NSObject {
     {
         db.collection("users").document("esf6xvYfISw2DnEs9GBR")
     }
+    static func insertOrReplaceMovie(_ usersvar: User)
+    {
+        try? db.collection("user")
+            .document(usersvar.email)
+            .setData(from: usersvar, encoder: Firestore.Encoder())
+        {
+            err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else { print("Document successfully added!")
+     } }
+    }
 }
