@@ -67,7 +67,7 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        //isfocused doesnt work , if has only isempty it shows all errors when one is empty
+        //isfocused doesnt work , if has only isempty it shows all errors when one is empty, jumps to instructions box when typing in desc :"D
         if (self.descTextView.isFocused && self.descTextView.text!.isEmpty) {
             descError.text = "Description required!"
         }
