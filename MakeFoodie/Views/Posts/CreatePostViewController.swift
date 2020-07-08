@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
     
     // Inputs
     @IBOutlet weak var titleTextField: UITextField!
@@ -44,6 +44,8 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        descTextView.delegate = self
         
         // Set round border for descTextView
         self.descTextView.layer.borderColor = UIColor.black.cgColor
@@ -99,6 +101,22 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     // User cancels from taking or selecting image
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        // Check if desc textView is empty (White space + Blank)
+        if (descTextView.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            descError.isHidden = false
+            descTextView.layer.borderColor = UIColor.red.cgColor
+            descTextView.layer.borderWidth = 1.0
+            descTextView.layer.cornerRadius = 6
+        }
+        else {
+            descError.isHidden = true
+            descTextView.layer.borderColor = UIColor.black.cgColor
+            descTextView.layer.borderWidth = 0.3
+            descTextView.layer.cornerRadius = 6
+        }
     }
     
     // Run when user make changes to the title text field
