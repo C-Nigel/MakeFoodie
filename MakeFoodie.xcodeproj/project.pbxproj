@@ -18,6 +18,16 @@
 		653AAA692484F3B7008FAC14 /* Posts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA682484F3B7008FAC14 /* Posts.storyboard */; };
 		653AAA6B2484F412008FAC14 /* ViewPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA6A2484F412008FAC14 /* ViewPost.storyboard */; };
 		653AAA6D2484F46B008FAC14 /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA6C2484F46B008FAC14 /* Categories.storyboard */; };
+		775BF65924B4B9C100845E93 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775BF65824B4B9C100845E93 /* Post.swift */; };
+		775BF65B24B4BF5500845E93 /* CategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775BF65A24B4BF5500845E93 /* CategoriesTableViewController.swift */; };
+		775BF65D24B4C00D00845E93 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775BF65C24B4C00D00845E93 /* CategoryCell.swift */; };
+		775BF65F24B4C7DF00845E93 /* ViewCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775BF65E24B4C7DF00845E93 /* ViewCategoryCell.swift */; };
+		775BF66124B4C7F100845E93 /* ViewCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775BF66024B4C7F100845E93 /* ViewCategoryTableViewController.swift */; };
+		775BF66324B4C8F600845E93 /* ViewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775BF66224B4C8F600845E93 /* ViewPostViewController.swift */; };
+		775BF66524B4C93000845E93 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775BF66424B4C93000845E93 /* EditPostViewController.swift */; };
+		7761BA1724B0F35A003CDDF3 /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7761BA1624B0F35A003CDDF3 /* CreatePostViewController.swift */; };
+		7761BA2324B10540003CDDF3 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7761BA2224B10540003CDDF3 /* PostCell.swift */; };
+		7761BA2724B108FA003CDDF3 /* PostsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7761BA2624B108FA003CDDF3 /* PostsTableViewController.swift */; };
 		7D00FE16248E26240018BD08 /* Recipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D00FE15248E26240018BD08 /* Recipe.storyboard */; };
 		D4A50F9024AC3121009B0349 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F8F24AC3121009B0349 /* User.swift */; };
 		D4A50F9424AC33AE009B0349 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9324AC33AE009B0349 /* LoginViewController.swift */; };
@@ -69,6 +79,16 @@
 		653AAA682484F3B7008FAC14 /* Posts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Posts.storyboard; sourceTree = "<group>"; };
 		653AAA6A2484F412008FAC14 /* ViewPost.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViewPost.storyboard; sourceTree = "<group>"; };
 		653AAA6C2484F46B008FAC14 /* Categories.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Categories.storyboard; sourceTree = "<group>"; };
+		775BF65824B4B9C100845E93 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		775BF65A24B4BF5500845E93 /* CategoriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewController.swift; sourceTree = "<group>"; };
+		775BF65C24B4C00D00845E93 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		775BF65E24B4C7DF00845E93 /* ViewCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCategoryCell.swift; sourceTree = "<group>"; };
+		775BF66024B4C7F100845E93 /* ViewCategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCategoryTableViewController.swift; sourceTree = "<group>"; };
+		775BF66224B4C8F600845E93 /* ViewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPostViewController.swift; sourceTree = "<group>"; };
+		775BF66424B4C93000845E93 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
+		7761BA1624B0F35A003CDDF3 /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
+		7761BA2224B10540003CDDF3 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		7761BA2624B108FA003CDDF3 /* PostsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableViewController.swift; sourceTree = "<group>"; };
 		7D00FE15248E26240018BD08 /* Recipe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recipe.storyboard; sourceTree = "<group>"; };
 		D4A50F8F24AC3121009B0349 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D4A50F9324AC33AE009B0349 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +260,10 @@
 			isa = PBXGroup;
 			children = (
 				653AAA682484F3B7008FAC14 /* Posts.storyboard */,
+				7761BA1624B0F35A003CDDF3 /* CreatePostViewController.swift */,
+				7761BA2224B10540003CDDF3 /* PostCell.swift */,
+				7761BA2624B108FA003CDDF3 /* PostsTableViewController.swift */,
+				775BF65824B4B9C100845E93 /* Post.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -248,6 +272,10 @@
 			isa = PBXGroup;
 			children = (
 				653AAA6C2484F46B008FAC14 /* Categories.storyboard */,
+				775BF65A24B4BF5500845E93 /* CategoriesTableViewController.swift */,
+				775BF65C24B4C00D00845E93 /* CategoryCell.swift */,
+				775BF65E24B4C7DF00845E93 /* ViewCategoryCell.swift */,
+				775BF66024B4C7F100845E93 /* ViewCategoryTableViewController.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -256,6 +284,8 @@
 			isa = PBXGroup;
 			children = (
 				653AAA6A2484F412008FAC14 /* ViewPost.storyboard */,
+				775BF66224B4C8F600845E93 /* ViewPostViewController.swift */,
+				775BF66424B4C93000845E93 /* EditPostViewController.swift */,
 			);
 			path = ViewPost;
 			sourceTree = "<group>";
@@ -449,15 +479,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7761BA1724B0F35A003CDDF3 /* CreatePostViewController.swift in Sources */,
 				D4A50F9624AC3485009B0349 /* SignupViewController.swift in Sources */,
+				7761BA2724B108FA003CDDF3 /* PostsTableViewController.swift in Sources */,
 				F445804A2490C08800F1CAA6 /* ItemCell.swift in Sources */,
+				775BF65924B4B9C100845E93 /* Post.swift in Sources */,
+				775BF66324B4C8F600845E93 /* ViewPostViewController.swift in Sources */,
 				472229E3246BC13100E13C81 /* ViewController.swift in Sources */,
+				775BF66124B4C7F100845E93 /* ViewCategoryTableViewController.swift in Sources */,
+				775BF66524B4C93000845E93 /* EditPostViewController.swift in Sources */,
 				472229DF246BC13100E13C81 /* AppDelegate.swift in Sources */,
 				F445804C2490C0B200F1CAA6 /* RecommendedViewController.swift in Sources */,
 				D4A50F9424AC33AE009B0349 /* LoginViewController.swift in Sources */,
 				F445804E2490C0D000F1CAA6 /* Item.swift in Sources */,
+				775BF65F24B4C7DF00845E93 /* ViewCategoryCell.swift in Sources */,
 				472229E1246BC13100E13C81 /* SceneDelegate.swift in Sources */,
 				D4A50F9024AC3121009B0349 /* User.swift in Sources */,
+				7761BA2324B10540003CDDF3 /* PostCell.swift in Sources */,
+				775BF65B24B4BF5500845E93 /* CategoriesTableViewController.swift in Sources */,
+				775BF65D24B4C00D00845E93 /* CategoryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

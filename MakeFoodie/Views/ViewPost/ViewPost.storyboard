@@ -23,10 +23,10 @@
             </objects>
             <point key="canvasLocation" x="-699" y="138"/>
         </scene>
-        <!--View Controller-->
+        <!--View Post View Controller-->
         <scene sceneID="kb0-jG-6vv">
             <objects>
-                <viewController storyboardIdentifier="ViewPostVC" id="wcz-Z2-7rz" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewPostVC" id="wcz-Z2-7rz" customClass="ViewPostViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RNY-kh-8Ox">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,7 +34,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzS-IK-x4b">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Z4f-PW-yK3">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Z4f-PW-yK3">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="503"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rr-8G-0nn">
@@ -171,13 +171,24 @@
                     <navigationItem key="navigationItem" id="eZI-vR-w1q">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="trash" id="O2e-gt-Qnd"/>
-                            <barButtonItem title="Item" image="pencil" catalog="system" id="gho-V5-Tud">
+                            <barButtonItem systemItem="edit" id="gho-V5-Tud">
                                 <connections>
                                     <segue destination="dnf-GB-hRD" kind="show" id="zle-Z8-bHx"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="categoryLabel" destination="REB-DT-Qb4" id="FA5-Yo-aRe"/>
+                        <outlet property="chatButton" destination="E98-53-ry2" id="PIx-tZ-0Zs"/>
+                        <outlet property="descLabel" destination="y9Z-Y5-czv" id="bWz-B4-VAL"/>
+                        <outlet property="favouriteButton" destination="ZFW-D3-eQ9" id="nZ6-Xq-0WE"/>
+                        <outlet property="orderButton" destination="3qL-ll-PQb" id="jiz-xW-eYd"/>
+                        <outlet property="postImageView" destination="R3g-wT-2uB" id="asF-v9-PYJ"/>
+                        <outlet property="priceLabel" destination="VlP-qc-ytn" id="uVm-Ft-PHX"/>
+                        <outlet property="titleLabel" destination="6rr-8G-0nn" id="E6e-lf-AIY"/>
+                        <outlet property="usernameLabel" destination="79Y-Ow-p9Y" id="PrA-Ek-eG7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ae-wy-gMj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -186,7 +197,7 @@
         <!--Edit Post-->
         <scene sceneID="9QH-eC-303">
             <objects>
-                <viewController id="dnf-GB-hRD" sceneMemberID="viewController">
+                <viewController id="dnf-GB-hRD" customClass="EditPostViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JT9-lK-Bnf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -217,7 +228,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Teh-Qv-QKY">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price of the post" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Teh-Qv-QKY">
                                                         <rect key="frame" x="0.0" y="40" width="374" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -247,11 +258,17 @@
                                                                 <rect key="frame" x="0.0" y="5" width="187" height="42"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                                 <state key="normal" title="Take Picture"/>
+                                                                <connections>
+                                                                    <action selector="takePicturePressed:" destination="dnf-GB-hRD" eventType="touchUpInside" id="v6e-cj-AdP"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wye-Lg-bGv">
                                                                 <rect key="frame" x="187" y="5" width="187" height="42"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                                 <state key="normal" title="Select Picture"/>
+                                                                <connections>
+                                                                    <action selector="selectPicturePressed:" destination="dnf-GB-hRD" eventType="touchUpInside" id="QAW-fQ-WwR"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <edgeInsets key="layoutMargins" top="5" left="0.0" bottom="0.0" right="0.0"/>
@@ -313,9 +330,26 @@
                         <viewLayoutGuide key="safeArea" id="BFT-bn-CZA"/>
                     </view>
                     <navigationItem key="navigationItem" title="Edit Post" id="MlG-bk-MVJ">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="wiR-sq-0zd"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="wxJ-Qp-eMf"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="wiR-sq-0zd">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="dnf-GB-hRD" id="fpD-cS-M70"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="wxJ-Qp-eMf">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="dnf-GB-hRD" id="Yoc-Ss-fA0"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="categoryPickerView" destination="CBY-pS-H9R" id="cQP-zY-VZx"/>
+                        <outlet property="descTextView" destination="OwU-n9-V3h" id="Ev8-Pf-XOc"/>
+                        <outlet property="priceTextField" destination="Teh-Qv-QKY" id="IaC-uk-93a"/>
+                        <outlet property="selectPicture" destination="Wye-Lg-bGv" id="AGZ-jK-yTq"/>
+                        <outlet property="takePicture" destination="YVk-kV-1h2" id="xtt-qy-L2w"/>
+                        <outlet property="thumbnailImageView" destination="GBd-gY-mbP" id="SN1-V2-7ik"/>
+                        <outlet property="titleTextField" destination="dra-9G-ODr" id="OmW-zx-djb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Neb-is-KDu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -331,10 +365,10 @@
             </objects>
             <point key="canvasLocation" x="736" y="187"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--OrderRequest-->
         <scene sceneID="5SO-4V-Y87">
             <objects>
-                <viewControllerPlaceholder id="6v1-bb-EuW" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="OrderRequest" id="6v1-bb-EuW" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="SEO-FS-t8I"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Mc-3f-3gS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -344,6 +378,5 @@
     </scenes>
     <resources>
         <image name="heart" catalog="system" width="128" height="109"/>
-        <image name="pencil" catalog="system" width="128" height="113"/>
     </resources>
 </document>

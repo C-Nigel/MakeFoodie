@@ -20,23 +20,34 @@
         <!--Create Post-->
         <scene sceneID="O05-lD-Pbs">
             <objects>
-                <viewController id="DFX-Zv-RGR" sceneMemberID="viewController">
+                <viewController id="DFX-Zv-RGR" customClass="CreatePostViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EdX-eJ-EjX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ud-2U-hEi">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="803"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sY5-eO-AtP">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="909"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHb-ls-R6p">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="ZXe-lZ-mFA">
                                                 <rect key="frame" x="20" y="10" width="374" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHb-ls-R6p">
+                                                        <rect key="frame" x="0.0" y="0.0" width="54" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter a title." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTT-fq-dPO">
+                                                        <rect key="frame" x="210" y="0.0" width="164" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="A post title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jws-Or-g6P">
                                                 <rect key="frame" x="20" y="40" width="374" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -51,10 +62,10 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aaN-uQ-Y4E">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price of the post" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aaN-uQ-Y4E">
                                                         <rect key="frame" x="0.0" y="40" width="374" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                     </textField>
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="10" left="0.0" bottom="10" right="0.0"/>
@@ -81,11 +92,17 @@
                                                                 <rect key="frame" x="0.0" y="5" width="187" height="42"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                                 <state key="normal" title="Take Picture"/>
+                                                                <connections>
+                                                                    <action selector="takePicturePressed:" destination="DFX-Zv-RGR" eventType="touchUpInside" id="Gwt-B1-fRX"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sux-5I-smk">
                                                                 <rect key="frame" x="187" y="5" width="187" height="42"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                                 <state key="normal" title="Select Picture"/>
+                                                                <connections>
+                                                                    <action selector="selectPicturePressed:" destination="DFX-Zv-RGR" eventType="touchUpInside" id="sKj-Ro-ZZU"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <edgeInsets key="layoutMargins" top="5" left="0.0" bottom="0.0" right="0.0"/>
@@ -120,6 +137,10 @@
                                                     </label>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h2U-JQ-ePu">
                                                         <rect key="frame" x="0.0" y="40" width="374" height="216"/>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="DFX-Zv-RGR" id="EQt-XR-vht"/>
+                                                            <outlet property="delegate" destination="DFX-Zv-RGR" id="2Ty-6F-QXe"/>
+                                                        </connections>
                                                     </pickerView>
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="10" left="0.0" bottom="10" right="0.0"/>
@@ -147,9 +168,27 @@
                         <viewLayoutGuide key="safeArea" id="Zp7-h2-tF9"/>
                     </view>
                     <navigationItem key="navigationItem" title="Create Post" id="Yi7-kp-mMu">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="tws-7T-dUd"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Lcy-WS-fyp"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="tws-7T-dUd">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="DFX-Zv-RGR" id="ffn-Dp-LFo"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Lcy-WS-fyp">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="DFX-Zv-RGR" id="huR-oM-tVp"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="categoryPickerView" destination="h2U-JQ-ePu" id="tIr-Fm-GOB"/>
+                        <outlet property="descTextView" destination="7hb-XL-Frk" id="aT0-4t-ptX"/>
+                        <outlet property="priceTextField" destination="aaN-uQ-Y4E" id="B32-Dg-vmH"/>
+                        <outlet property="selectPicture" destination="Sux-5I-smk" id="Rvk-cH-oRn"/>
+                        <outlet property="takePicture" destination="xhD-2M-3Z1" id="KLN-O8-fYE"/>
+                        <outlet property="thumbnailImageView" destination="w1v-XP-8wW" id="z4f-Y4-7h4"/>
+                        <outlet property="titleError" destination="OTT-fq-dPO" id="ATZ-6n-Qb8"/>
+                        <outlet property="titleTextField" destination="Jws-Or-g6P" id="IaR-ZE-3wc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Tc-CJ-neK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -158,8 +197,8 @@
         <!--Posts-->
         <scene sceneID="g77-qs-aCI">
             <objects>
-                <tableViewController id="PxH-5D-LFf" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="350" sectionHeaderHeight="28" sectionFooterHeight="28" id="zvo-Kk-mp2">
+                <tableViewController id="PxH-5D-LFf" customClass="PostsTableViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="342" sectionHeaderHeight="28" sectionFooterHeight="28" id="zvo-Kk-mp2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -169,15 +208,15 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="350" id="zbp-n9-hay">
-                                <rect key="frame" x="0.0" y="72" width="414" height="350"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="342" id="zbp-n9-hay" customClass="PostCell" customModule="MakeFoodie" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="414" height="342"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zbp-n9-hay" id="IWF-5f-P6d">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="342"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6L-XG-0uA">
-                                            <rect key="frame" x="20" y="11" width="47" height="30"/>
+                                            <rect key="frame" x="20" y="11" width="49" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <nil key="textColor"/>
@@ -187,30 +226,39 @@
                                             <rect key="frame" x="20" y="49" width="374" height="200"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xg-Ui-CzC">
-                                            <rect key="frame" x="20" y="257" width="103" height="28"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HhV-5S-Rvc">
-                                            <rect key="frame" x="343" y="257" width="51" height="28"/>
+                                            <rect key="frame" x="338" y="257" width="56" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJe-AH-HOY">
-                                            <rect key="frame" x="33" y="293" width="100" height="24"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpa-NV-16x">
+                                            <rect key="frame" x="20" y="257" width="90" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVs-Bn-TQG">
+                                            <rect key="frame" x="30" y="308" width="372.5" height="24"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="qVs-Bn-TQG" firstAttribute="leading" secondItem="IWF-5f-P6d" secondAttribute="leading" constant="30" id="13h-u5-LQo"/>
+                                        <constraint firstAttribute="bottom" secondItem="qVs-Bn-TQG" secondAttribute="bottom" constant="10" id="kWi-x1-kZn"/>
+                                        <constraint firstItem="qVs-Bn-TQG" firstAttribute="width" secondItem="IWF-5f-P6d" secondAttribute="width" multiplier="0.899758" id="vmF-Bx-91z"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="descLabel" destination="qVs-Bn-TQG" id="RMq-eh-ggb"/>
+                                    <outlet property="postImageView" destination="XlU-5P-x55" id="UxH-3N-idZ"/>
+                                    <outlet property="priceLabel" destination="HhV-5S-Rvc" id="tur-Qd-gR6"/>
+                                    <outlet property="titleLabel" destination="y6L-XG-0uA" id="5Fv-Zp-HSe"/>
+                                    <outlet property="usernameLabel" destination="rpa-NV-16x" id="5FV-IO-JtO"/>
                                     <segue destination="AG2-pU-SfM" kind="show" id="b0K-Cd-lBE"/>
                                 </connections>
                             </tableViewCell>
@@ -232,15 +280,20 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="postTableView" destination="zvo-Kk-mp2" id="Jdr-O3-iEO"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qAE-oI-Fnd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="549.27536231884062" y="134.59821428571428"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Posts-->
         <scene sceneID="gTJ-aM-2Tt">
             <objects>
                 <navigationController id="jNs-Ds-Sh9" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Posts" image="square.grid.2x2" catalog="system" id="HdR-YF-5Cm"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Tjp-RZ-xdP">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -266,5 +319,6 @@
     </scenes>
     <resources>
         <image name="filter" width="24" height="24"/>
+        <image name="square.grid.2x2" catalog="system" width="128" height="114"/>
     </resources>
 </document>
