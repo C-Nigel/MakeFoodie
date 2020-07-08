@@ -12,10 +12,16 @@ import FirebaseFirestoreSwift
 
 class DataManager: NSObject {
 
-    //Create a new database if it does not already exists
+    static let db = Firestore.firestore()
     
-    static func createDatabase()
+    static func insertData()
     {
-
+        // Adding a document with a specific document ID / Or Replacing the data for a specific document ID
+        db.collection("users").document("esf6xvYfISw2DnEs9GBR").setData(["username":"durian"])
+    }
+    
+    static func retrieveData()
+    {
+        db.collection("users").document("esf6xvYfISw2DnEs9GBR")
     }
 }

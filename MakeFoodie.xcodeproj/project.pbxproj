@@ -50,9 +50,6 @@
 		F44A4F5E2484D7A400D25E49 /* OrderRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5D2484D7A400D25E49 /* OrderRequest.storyboard */; };
 		F44A4F602484D7F200D25E49 /* Recommended.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5F2484D7F200D25E49 /* Recommended.storyboard */; };
 		F45A3BBA24B61F1900178E08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F45A3BB924B61F1900178E08 /* GoogleService-Info.plist */; };
-		F476E28824B4B8510036858B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F476E28724B4B8510036858B /* libsqlite3.tbd */; };
-		F476E28D24B4B8A80036858B /* BridgingHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F476E28C24B4B8A80036858B /* BridgingHeader.m */; };
-		F476E29124B4B9180036858B /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F476E29024B4B9180036858B /* SQLiteDB.swift */; };
 		F476E29424B4B9570036858B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F476E29324B4B9570036858B /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -130,10 +127,6 @@
 		F44A4F5F2484D7F200D25E49 /* Recommended.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recommended.storyboard; sourceTree = "<group>"; };
 		F45A3BB924B61F1900178E08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F476E28724B4B8510036858B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		F476E28A24B4B8A70036858B /* MakeFoodie-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MakeFoodie-Bridging-Header.h"; sourceTree = "<group>"; };
-		F476E28B24B4B8A80036858B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
-		F476E28C24B4B8A80036858B /* BridgingHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BridgingHeader.m; sourceTree = "<group>"; };
-		F476E29024B4B9180036858B /* SQLiteDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDB.swift; sourceTree = "<group>"; };
 		F476E29324B4B9570036858B /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,7 +135,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F476E28824B4B8510036858B /* libsqlite3.tbd in Frameworks */,
 				19C9ED4DF29F85ECF2819255 /* Pods_MakeFoodie.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -398,7 +390,6 @@
 			isa = PBXGroup;
 			children = (
 				F476E29224B4B9250036858B /* DataManager */,
-				F476E28924B4B86B0036858B /* Bridging Header */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -412,17 +403,6 @@
 				A0D9AB852046ADA495D49303 /* Pods_MakeFoodieTests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F476E28924B4B86B0036858B /* Bridging Header */ = {
-			isa = PBXGroup;
-			children = (
-				F476E29024B4B9180036858B /* SQLiteDB.swift */,
-				F476E28B24B4B8A80036858B /* BridgingHeader.h */,
-				F476E28C24B4B8A80036858B /* BridgingHeader.m */,
-				F476E28A24B4B8A70036858B /* MakeFoodie-Bridging-Header.h */,
-			);
-			path = "Bridging Header";
 			sourceTree = "<group>";
 		};
 		F476E29224B4B9250036858B /* DataManager */ = {
@@ -698,14 +678,12 @@
 				775BF66124B4C7F100845E93 /* ViewCategoryTableViewController.swift in Sources */,
 				775BF66524B4C93000845E93 /* EditPostViewController.swift in Sources */,
 				472229DF246BC13100E13C81 /* AppDelegate.swift in Sources */,
-				F476E28D24B4B8A80036858B /* BridgingHeader.m in Sources */,
 				F445804C2490C0B200F1CAA6 /* RecommendedViewController.swift in Sources */,
 				D4A50F9424AC33AE009B0349 /* LoginViewController.swift in Sources */,
 				F445804E2490C0D000F1CAA6 /* Item.swift in Sources */,
 				D46E21DE24B56ADA00F752CF /* Recipe.swift in Sources */,
 				775BF65F24B4C7DF00845E93 /* ViewCategoryCell.swift in Sources */,
 				472229E1246BC13100E13C81 /* SceneDelegate.swift in Sources */,
-				F476E29124B4B9180036858B /* SQLiteDB.swift in Sources */,
 				D4A50F9024AC3121009B0349 /* User.swift in Sources */,
 				F476E29424B4B9570036858B /* DataManager.swift in Sources */,
 				7761BA2324B10540003CDDF3 /* PostCell.swift in Sources */,
@@ -885,7 +863,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "MakeFoodie/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -893,7 +873,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ITP312.MakeFoodie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "MakeFoodie/Views/Database/Bridging Header/MakeFoodie-Bridging-Header.h";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -906,7 +887,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "MakeFoodie/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -914,7 +897,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ITP312.MakeFoodie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "MakeFoodie/Views/Database/Bridging Header/MakeFoodie-Bridging-Header.h";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

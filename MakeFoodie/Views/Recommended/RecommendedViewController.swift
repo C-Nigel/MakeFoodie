@@ -39,6 +39,8 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
         
         itemList.append(Item(
         title: "Very good duck rice", price: 5, desc: "Best duck and rice u will ever taste", imageName: "Ah-Seng-Braised-Duck-Rice", userName: "Ah Seng"))
+        
+        DataManager.insertData()
     }
     
 
