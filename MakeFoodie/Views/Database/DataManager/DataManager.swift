@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class DataManager: NSObject {
 
@@ -14,7 +16,6 @@ class DataManager: NSObject {
     
     static func createDatabase()
     {
-        
+
     }
-    
 }
