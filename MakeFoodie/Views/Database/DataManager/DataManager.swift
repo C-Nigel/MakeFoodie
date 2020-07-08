@@ -13,7 +13,7 @@ import FirebaseFirestoreSwift
 class DataManager: NSObject {
 
     //Create a new database if it does not already exists
-    
+    static let db = Firestore.firestore()
     static func createDatabase()
     {
 

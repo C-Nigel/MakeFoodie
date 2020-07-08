@@ -82,9 +82,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
            print(i.password)
            print(i.gender)
            
-           
+        DataManager.insertOrReplaceMovie(i)
        }
-        DataManager.insertOrReplaceMovie(user)
+        //DataManager.insertOrReplaceMovie(user)
             
     }
     
