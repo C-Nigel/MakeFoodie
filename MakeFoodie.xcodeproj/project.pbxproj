@@ -38,6 +38,9 @@
 		D4A50F9024AC3121009B0349 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F8F24AC3121009B0349 /* User.swift */; };
 		D4A50F9424AC33AE009B0349 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9324AC33AE009B0349 /* LoginViewController.swift */; };
 		D4A50F9624AC3485009B0349 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9524AC3485009B0349 /* SignupViewController.swift */; };
+		D4E0721B24B57CF50035F967 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E0721A24B57CF50035F967 /* ProfileViewController.swift */; };
+		D4E0721D24B57D3D0035F967 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E0721C24B57D3D0035F967 /* OrdersViewController.swift */; };
+		D4F1298024B582C600767D11 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4F1297F24B582C600767D11 /* GoogleService-Info.plist */; };
 		F445804A2490C08800F1CAA6 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44580492490C08800F1CAA6 /* ItemCell.swift */; };
 		F445804C2490C0B200F1CAA6 /* RecommendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F445804B2490C0B200F1CAA6 /* RecommendedViewController.swift */; };
 		F445804E2490C0D000F1CAA6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F445804D2490C0D000F1CAA6 /* Item.swift */; };
@@ -114,6 +117,9 @@
 		D4A50F8F24AC3121009B0349 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D4A50F9324AC33AE009B0349 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D4A50F9524AC3485009B0349 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		D4E0721A24B57CF50035F967 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		D4E0721C24B57D3D0035F967 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
+		D4F1297F24B582C600767D11 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D8A80922B46711C821A3413A /* Pods-MakeFoodieTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeFoodieTests.release.xcconfig"; path = "Target Support Files/Pods-MakeFoodieTests/Pods-MakeFoodieTests.release.xcconfig"; sourceTree = "<group>"; };
 		F44580492490C08800F1CAA6 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		F445804B2490C0B200F1CAA6 /* RecommendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedViewController.swift; sourceTree = "<group>"; };
@@ -229,7 +235,7 @@
 		F44580392490BCBE00F1CAA6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D46E21E724B5832200F752CF /* GoogleService-Info.plist */,
+				D4F1297F24B582C600767D11 /* GoogleService-Info.plist */,
 				472229E9246BC13400E13C81 /* LaunchScreen.storyboard */,
 				472229EC246BC13400E13C81 /* Info.plist */,
 			);
@@ -301,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				F44A4F5B2484D77B00D25E49 /* Orders.storyboard */,
+				D4E0721C24B57D3D0035F967 /* OrdersViewController.swift */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -364,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				F44A4F552484D74700D25E49 /* Profile.storyboard */,
+				D4E0721A24B57CF50035F967 /* ProfileViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -545,7 +553,7 @@
 				653AAA6D2484F46B008FAC14 /* Categories.storyboard in Resources */,
 				F44A4F5A2484D76500D25E49 /* Messages.storyboard in Resources */,
 				472229EB246BC13400E13C81 /* LaunchScreen.storyboard in Resources */,
-				D46E21E824B5832200F752CF /* GoogleService-Info.plist in Resources */,
+				D4F1298024B582C600767D11 /* GoogleService-Info.plist in Resources */,
 				F44A4F5C2484D77B00D25E49 /* Orders.storyboard in Resources */,
 				472229E8246BC13400E13C81 /* Assets.xcassets in Resources */,
 				F44A4F582484D75500D25E49 /* Following.storyboard in Resources */,
@@ -680,12 +688,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D46E21EA24B5858E00F752CF /* CreateRecipeViewController.swift in Sources */,
+				D4E0721D24B57D3D0035F967 /* OrdersViewController.swift in Sources */,
 				7761BA1724B0F35A003CDDF3 /* CreatePostViewController.swift in Sources */,
 				D4A50F9624AC3485009B0349 /* SignupViewController.swift in Sources */,
 				7761BA2724B108FA003CDDF3 /* PostsTableViewController.swift in Sources */,
 				F445804A2490C08800F1CAA6 /* ItemCell.swift in Sources */,
 				775BF65924B4B9C100845E93 /* Post.swift in Sources */,
 				775BF66324B4C8F600845E93 /* ViewPostViewController.swift in Sources */,
+				D4E0721B24B57CF50035F967 /* ProfileViewController.swift in Sources */,
 				472229E3246BC13100E13C81 /* ViewController.swift in Sources */,
 				775BF66124B4C7F100845E93 /* ViewCategoryTableViewController.swift in Sources */,
 				775BF66524B4C93000845E93 /* EditPostViewController.swift in Sources */,

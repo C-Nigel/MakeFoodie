@@ -53,7 +53,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="titleLabelChanged:" destination="DFX-Zv-RGR" eventType="editingChanged" id="deh-f3-427"/>
+                                                    <action selector="titleTextFieldChanged:" destination="DFX-Zv-RGR" eventType="editingChanged" id="xR6-36-1yz"/>
                                                 </connections>
                                             </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pgw-ma-7LA">
