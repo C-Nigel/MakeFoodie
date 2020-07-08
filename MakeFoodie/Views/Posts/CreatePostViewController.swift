@@ -21,6 +21,9 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     // Error messages
     @IBOutlet weak var titleError: UILabel!
+    @IBOutlet weak var priceError: UILabel!
+    @IBOutlet weak var thumbnailError: UILabel!
+    @IBOutlet weak var descError: UILabel!
     
     // String array for categories
     var categoryPickerData : [String] = [
@@ -62,6 +65,10 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         // Hide error messages
         titleError.isHidden = true
+        priceError.isHidden = true
+        thumbnailError.isHidden = true
+        descError.isHidden = true
+        
     }
     
     // Picker view columns
@@ -94,6 +101,40 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         picker.dismiss(animated: true)
     }
     
+    // Run when user make changes to the title text field
+    @IBAction func titleTextFieldChanged(_ sender: Any) {
+        // Check if title textField is empty (White space + Blank)
+        if (titleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            titleError.isHidden = false
+            titleTextField.layer.borderColor = UIColor.red.cgColor
+            titleTextField.layer.borderWidth = 1
+            titleTextField.layer.cornerRadius = 6
+        }
+        else {
+            titleError.isHidden = true
+            titleTextField.layer.borderColor = UIColor.black.cgColor
+            titleTextField.layer.borderWidth = 0.3
+            titleTextField.layer.cornerRadius = 6
+        }
+    }
+    
+    // Run when user make changes to the price text field
+    @IBAction func priceTextFieldChanged(_ sender: Any) {
+        // Check if price textField is empty (White space + Blank)
+        if (priceTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            priceError.isHidden = false
+            priceTextField.layer.borderColor = UIColor.red.cgColor
+            priceTextField.layer.borderWidth = 1.0
+            priceTextField.layer.cornerRadius = 6
+        }
+        else {
+            priceError.isHidden = true
+            priceTextField.layer.borderColor = UIColor.black.cgColor
+            priceTextField.layer.borderWidth = 0.3
+            priceTextField.layer.cornerRadius = 6
+        }
+    }
+    
     // Click on Take Picture
     @IBAction func takePicturePressed(_ sender: Any) {
         let picker = UIImagePickerController()
@@ -111,6 +152,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         picker.sourceType = .photoLibrary // Use image from library
         self.present(picker, animated: true)
     }
+
     
     // Click cancel button
     @IBAction func cancelButtonPressed(_ sender: Any) {
@@ -120,18 +162,39 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     // Click save button
     @IBAction func saveButtonPressed(_ sender: Any) {
         // Bool var to check valid creation
-        let verified = false
+        var verified = true
         
-        // Check if title textField is empty (White space + Blank)
+        // Check again if title textField is empty (White space + Blank) - If user click save after clicking add icon from prev controller
         if (titleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
             titleError.isHidden = false
             titleTextField.layer.borderColor = UIColor.red.cgColor
             titleTextField.layer.borderWidth = 1.0
+            titleTextField.layer.cornerRadius = 6
+            verified = false
         }
         else {
             titleError.isHidden = true
             titleTextField.layer.borderColor = UIColor.black.cgColor
+            titleTextField.layer.borderWidth = 0.3
+            titleTextField.layer.cornerRadius = 6
         }
+        
+        // Check again if price textField is empty (White space + Blank) - If user click save after clicking add icon from prev controller
+        if (priceTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            priceError.isHidden = false
+            priceTextField.layer.borderColor = UIColor.red.cgColor
+            priceTextField.layer.borderWidth = 1.0
+            priceTextField.layer.cornerRadius = 6
+            verified = false
+        }
+        else {
+            priceError.isHidden = true
+            priceTextField.layer.borderColor = UIColor.black.cgColor
+            priceTextField.layer.borderWidth = 0.3
+            priceTextField.layer.cornerRadius = 6
+        }
+        
+        
         
         // Selected row of picker view
         let row = categoryPickerView.selectedRow(inComponent: 0)
