@@ -30,6 +30,7 @@
 		7761BA2724B108FA003CDDF3 /* PostsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7761BA2624B108FA003CDDF3 /* PostsTableViewController.swift */; };
 		7D00FE16248E26240018BD08 /* Recipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D00FE15248E26240018BD08 /* Recipe.storyboard */; };
 		7D5285BF24B4CAA400FA5824 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5285BE24B4CAA400FA5824 /* RecipeViewController.swift */; };
+		D46E21DE24B56ADA00F752CF /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46E21DD24B56ADA00F752CF /* Recipe.swift */; };
 		D4A50F9024AC3121009B0349 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F8F24AC3121009B0349 /* User.swift */; };
 		D4A50F9424AC33AE009B0349 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9324AC33AE009B0349 /* LoginViewController.swift */; };
 		D4A50F9624AC3485009B0349 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9524AC3485009B0349 /* SignupViewController.swift */; };
@@ -96,6 +97,7 @@
 		7761BA2624B108FA003CDDF3 /* PostsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableViewController.swift; sourceTree = "<group>"; };
 		7D00FE15248E26240018BD08 /* Recipe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recipe.storyboard; sourceTree = "<group>"; };
 		7D5285BE24B4CAA400FA5824 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
+		D46E21DD24B56ADA00F752CF /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		D4A50F8F24AC3121009B0349 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D4A50F9324AC33AE009B0349 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D4A50F9524AC3485009B0349 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 			children = (
 				7D00FE15248E26240018BD08 /* Recipe.storyboard */,
 				7D5285BE24B4CAA400FA5824 /* RecipeViewController.swift */,
+				D46E21DD24B56ADA00F752CF /* Recipe.swift */,
 			);
 			path = Recipe;
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 				D4A50F9424AC33AE009B0349 /* LoginViewController.swift in Sources */,
 				7D5285BF24B4CAA400FA5824 /* RecipeViewController.swift in Sources */,
 				F445804E2490C0D000F1CAA6 /* Item.swift in Sources */,
+				D46E21DE24B56ADA00F752CF /* Recipe.swift in Sources */,
 				775BF65F24B4C7DF00845E93 /* ViewCategoryCell.swift in Sources */,
 				472229E1246BC13100E13C81 /* SceneDelegate.swift in Sources */,
 				F476E29124B4B9180036858B /* SQLiteDB.swift in Sources */,
