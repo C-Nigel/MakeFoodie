@@ -36,6 +36,7 @@
 		D4A50F9024AC3121009B0349 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F8F24AC3121009B0349 /* User.swift */; };
 		D4A50F9424AC33AE009B0349 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9324AC33AE009B0349 /* LoginViewController.swift */; };
 		D4A50F9624AC3485009B0349 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9524AC3485009B0349 /* SignupViewController.swift */; };
+		D4F1298024B582C600767D11 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4F1297F24B582C600767D11 /* GoogleService-Info.plist */; };
 		F445804A2490C08800F1CAA6 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44580492490C08800F1CAA6 /* ItemCell.swift */; };
 		F445804C2490C0B200F1CAA6 /* RecommendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F445804B2490C0B200F1CAA6 /* RecommendedViewController.swift */; };
 		F445804E2490C0D000F1CAA6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F445804D2490C0D000F1CAA6 /* Item.swift */; };
@@ -46,7 +47,6 @@
 		F44A4F5C2484D77B00D25E49 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5B2484D77B00D25E49 /* Orders.storyboard */; };
 		F44A4F5E2484D7A400D25E49 /* OrderRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5D2484D7A400D25E49 /* OrderRequest.storyboard */; };
 		F44A4F602484D7F200D25E49 /* Recommended.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5F2484D7F200D25E49 /* Recommended.storyboard */; };
-		F44FB28524B57726007AFA98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F44FB28424B57726007AFA98 /* GoogleService-Info.plist */; };
 		F476E28824B4B8510036858B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F476E28724B4B8510036858B /* libsqlite3.tbd */; };
 		F476E28D24B4B8A80036858B /* BridgingHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F476E28C24B4B8A80036858B /* BridgingHeader.m */; };
 		F476E29124B4B9180036858B /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F476E29024B4B9180036858B /* SQLiteDB.swift */; };
@@ -111,6 +111,7 @@
 		D4A50F8F24AC3121009B0349 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D4A50F9324AC33AE009B0349 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D4A50F9524AC3485009B0349 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		D4F1297F24B582C600767D11 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D8A80922B46711C821A3413A /* Pods-MakeFoodieTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeFoodieTests.release.xcconfig"; path = "Target Support Files/Pods-MakeFoodieTests/Pods-MakeFoodieTests.release.xcconfig"; sourceTree = "<group>"; };
 		F44580492490C08800F1CAA6 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		F445804B2490C0B200F1CAA6 /* RecommendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedViewController.swift; sourceTree = "<group>"; };
@@ -122,7 +123,6 @@
 		F44A4F5B2484D77B00D25E49 /* Orders.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Orders.storyboard; sourceTree = "<group>"; };
 		F44A4F5D2484D7A400D25E49 /* OrderRequest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OrderRequest.storyboard; sourceTree = "<group>"; };
 		F44A4F5F2484D7F200D25E49 /* Recommended.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recommended.storyboard; sourceTree = "<group>"; };
-		F44FB28424B57726007AFA98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F476E28724B4B8510036858B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		F476E28A24B4B8A70036858B /* MakeFoodie-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MakeFoodie-Bridging-Header.h"; sourceTree = "<group>"; };
 		F476E28B24B4B8A80036858B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 		F44580392490BCBE00F1CAA6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F44FB28424B57726007AFA98 /* GoogleService-Info.plist */,
+				D4F1297F24B582C600767D11 /* GoogleService-Info.plist */,
 				472229E9246BC13400E13C81 /* LaunchScreen.storyboard */,
 				472229EC246BC13400E13C81 /* Info.plist */,
 			);
@@ -536,13 +536,13 @@
 			files = (
 				653AAA692484F3B7008FAC14 /* Posts.storyboard in Resources */,
 				F44A4F562484D74700D25E49 /* Profile.storyboard in Resources */,
-				F44FB28524B57726007AFA98 /* GoogleService-Info.plist in Resources */,
 				7D00FE16248E26240018BD08 /* Recipe.storyboard in Resources */,
 				F44A4F522484D6AE00D25E49 /* Login.storyboard in Resources */,
 				653AAA6B2484F412008FAC14 /* ViewPost.storyboard in Resources */,
 				653AAA6D2484F46B008FAC14 /* Categories.storyboard in Resources */,
 				F44A4F5A2484D76500D25E49 /* Messages.storyboard in Resources */,
 				472229EB246BC13400E13C81 /* LaunchScreen.storyboard in Resources */,
+				D4F1298024B582C600767D11 /* GoogleService-Info.plist in Resources */,
 				F44A4F5C2484D77B00D25E49 /* Orders.storyboard in Resources */,
 				472229E8246BC13400E13C81 /* Assets.xcassets in Resources */,
 				F44A4F582484D75500D25E49 /* Following.storyboard in Resources */,
