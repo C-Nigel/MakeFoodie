@@ -182,7 +182,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         // Bool var to check valid creation
         var verified = true
         
-        // Check again if title textField is empty (White space + Blank) - If user click save after clicking add icon from prev controller
+        // Check again if title,price,desc is empty (White space + Blank) - If user click save after clicking add icon from prev controller
         if (titleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
             titleError.isHidden = false
             titleTextField.layer.borderColor = UIColor.red.cgColor
@@ -197,7 +197,6 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             titleTextField.layer.cornerRadius = 6
         }
         
-        // Check again if price textField is empty (White space + Blank) - If user click save after clicking add icon from prev controller
         if (priceTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
             priceError.isHidden = false
             priceTextField.layer.borderColor = UIColor.red.cgColor
@@ -212,6 +211,28 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             priceTextField.layer.cornerRadius = 6
         }
         
+        if (descTextView.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            descError.isHidden = false
+            descTextView.layer.borderColor = UIColor.red.cgColor
+            descTextView.layer.borderWidth = 1.0
+            descTextView.layer.cornerRadius = 6
+            verified = false
+        }
+        else {
+            descError.isHidden = true
+            descTextView.layer.borderColor = UIColor.black.cgColor
+            descTextView.layer.borderWidth = 0.3
+            descTextView.layer.cornerRadius = 6
+        }
+        
+        if (self.thumbnailImageView.image == nil) {
+            thumbnailError.isHidden = false
+            verified = false
+        }
+        else {
+            thumbnailError.isHidden = true
+        }
+        
         
         
         // Selected row of picker view
@@ -219,9 +240,9 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         // Get data selected from picker data
         let selectedText = categoryPickerData[row]
         
-        // Test what selected (Delete after)
+        /* Test what selected (Delete after)
         let uiAlert = UIAlertController( title: "You selected \(selectedText)", message: "Thank you for choosing", preferredStyle: .alert)
         uiAlert.addAction(UIAlertAction( title: "You are welcome", style: .default, handler: nil))
-        self.present(uiAlert, animated: true, completion: nil)
+        self.present(uiAlert, animated: true, completion: nil)*/
     }
 }
