@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class DataManager: NSObject {
 
@@ -14,9 +16,6 @@ class DataManager: NSObject {
     
     static func createDatabase()
     {
-        SQLiteDB.sharedInstance.execute(sql:
-        "CREATE TABLE IF NOT EXISTS " + "Recipe ( " + " rID int primary key autoincrement, " + " username text not null, " + "rTitle text not null, " + " rDescription text not null, " + " rIngredients text not null, " + " rInstructions text not null" +
-        " rThumbnail text )")
+
     }
-    
 }
