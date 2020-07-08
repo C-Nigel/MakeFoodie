@@ -48,7 +48,7 @@
 		F44A4F5C2484D77B00D25E49 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5B2484D77B00D25E49 /* Orders.storyboard */; };
 		F44A4F5E2484D7A400D25E49 /* OrderRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5D2484D7A400D25E49 /* OrderRequest.storyboard */; };
 		F44A4F602484D7F200D25E49 /* Recommended.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44A4F5F2484D7F200D25E49 /* Recommended.storyboard */; };
-		F44FB28324B5668C007AFA98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F44FB28224B5668C007AFA98 /* GoogleService-Info.plist */; };
+		F44FB28524B57726007AFA98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F44FB28424B57726007AFA98 /* GoogleService-Info.plist */; };
 		F476E28824B4B8510036858B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F476E28724B4B8510036858B /* libsqlite3.tbd */; };
 		F476E28D24B4B8A80036858B /* BridgingHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F476E28C24B4B8A80036858B /* BridgingHeader.m */; };
 		F476E29124B4B9180036858B /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F476E29024B4B9180036858B /* SQLiteDB.swift */; };
@@ -126,7 +126,7 @@
 		F44A4F5B2484D77B00D25E49 /* Orders.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Orders.storyboard; sourceTree = "<group>"; };
 		F44A4F5D2484D7A400D25E49 /* OrderRequest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OrderRequest.storyboard; sourceTree = "<group>"; };
 		F44A4F5F2484D7F200D25E49 /* Recommended.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recommended.storyboard; sourceTree = "<group>"; };
-		F44FB28224B5668C007AFA98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F44FB28424B57726007AFA98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F476E28724B4B8510036858B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		F476E28A24B4B8A70036858B /* MakeFoodie-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MakeFoodie-Bridging-Header.h"; sourceTree = "<group>"; };
 		F476E28B24B4B8A80036858B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 		F44580392490BCBE00F1CAA6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F44FB28224B5668C007AFA98 /* GoogleService-Info.plist */,
+				F44FB28424B57726007AFA98 /* GoogleService-Info.plist */,
 				472229E9246BC13400E13C81 /* LaunchScreen.storyboard */,
 				472229EC246BC13400E13C81 /* Info.plist */,
 			);
@@ -542,7 +542,7 @@
 			files = (
 				653AAA692484F3B7008FAC14 /* Posts.storyboard in Resources */,
 				F44A4F562484D74700D25E49 /* Profile.storyboard in Resources */,
-				F44FB28324B5668C007AFA98 /* GoogleService-Info.plist in Resources */,
+				F44FB28524B57726007AFA98 /* GoogleService-Info.plist in Resources */,
 				7D00FE16248E26240018BD08 /* Recipe.storyboard in Resources */,
 				F44A4F522484D6AE00D25E49 /* Login.storyboard in Resources */,
 				653AAA6B2484F412008FAC14 /* ViewPost.storyboard in Resources */,
