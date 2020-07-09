@@ -8,20 +8,23 @@
 
 import UIKit
 
-class CreateRecipeViewController: UIViewController, UITextViewDelegate {
+class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    //inputs
     @IBOutlet weak var titleInput: UITextField!
     @IBOutlet weak var descTextView: UITextView!
     @IBOutlet weak var ingredientTextView: UITextView!
     @IBOutlet weak var instructionsTextView: UITextView!
     @IBOutlet weak var thumbnailImage: UIImageView!
     
+    //buttons
     @IBOutlet weak var takePictureButton: UIButton!
     @IBOutlet weak var selectPictureButton: UIButton!
 
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
+    //error messages
     @IBOutlet weak var titleError: UILabel!
     @IBOutlet weak var descError: UILabel!
     @IBOutlet weak var ingredientError: UILabel!
@@ -35,17 +38,17 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate {
 
         // Do any additional setup after loading the view.
         //set round border for desc and instructions
-    self.descTextView.layer.borderColor = UIColor.black.cgColor
-    self.descTextView.layer.borderWidth = 0.3
-    self.descTextView.layer.cornerRadius = 6
-        
-    self.ingredientTextView.layer.borderColor = UIColor.black.cgColor
-    self.ingredientTextView.layer.borderWidth = 0.3
-    self.ingredientTextView.layer.cornerRadius = 6
-   
-    self.instructionsTextView.layer.borderColor = UIColor.black.cgColor
-    self.instructionsTextView.layer.borderWidth = 0.3
-    self.instructionsTextView.layer.cornerRadius = 6
+        self.descTextView.layer.borderColor = UIColor.black.cgColor
+        self.descTextView.layer.borderWidth = 0.3
+        self.descTextView.layer.cornerRadius = 6
+            
+        self.ingredientTextView.layer.borderColor = UIColor.black.cgColor
+        self.ingredientTextView.layer.borderWidth = 0.3
+        self.ingredientTextView.layer.cornerRadius = 6
+       
+        self.instructionsTextView.layer.borderColor = UIColor.black.cgColor
+        self.instructionsTextView.layer.borderWidth = 0.3
+        self.instructionsTextView.layer.cornerRadius = 6
     
         // If no image in imageView, hide it
         if (self.thumbnailImage.image == nil)
@@ -66,60 +69,189 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate {
         
     }
     
+    //when user leaves title blank or whitespace after clicking in
+    @IBAction func titleInputChanged(_ sender: Any) {
+        if (titleInput.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            titleError.text = "Title required!"
+            titleInput.layer.borderColor = UIColor.red.cgColor
+            titleInput.layer.borderWidth = 1
+            titleInput.layer.cornerRadius = 6
+        }
+        else {
+            titleError.text = ""
+            titleInput.layer.borderColor = UIColor.black.cgColor
+            titleInput.layer.borderWidth = 0.3
+            titleInput.layer.cornerRadius = 6
+        }
+    }
+        
+    //textview edited
     func textViewDidChange(_ textView: UITextView) {
         //isfocused doesnt work , if has only isempty it shows all errors when one is empty, jumps to instructions box when typing in desc :"D
-        if (self.descTextView.isFocused && self.descTextView.text!.isEmpty) {
-            descError.text = "Description required!"
-        }
-        else {
-            descError.text = ""
+        if (textView == descTextView) {
+            if (descTextView.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+                descError.text = "Description required!"
+                descTextView.layer.borderColor = UIColor.red.cgColor
+                descTextView.layer.borderWidth = 1
+                descTextView.layer.cornerRadius = 6
+            }
+            else {
+                descError.text = ""
+                descTextView.layer.borderColor = UIColor.black.cgColor
+                descTextView.layer.borderWidth = 0.3
+                descTextView.layer.cornerRadius = 6
+            }
         }
         
-        if (self.ingredientTextView.isFocused && self.ingredientTextView.text!.isEmpty) {
-            ingredientError.text = "Ingredients required!"
-        }
-        else {
-            ingredientError.text = ""
+        if (textView == ingredientTextView) {
+            if (ingredientTextView.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+                ingredientError.text = "Ingredients required!"
+                ingredientTextView.layer.borderColor = UIColor.red.cgColor
+                ingredientTextView.layer.borderWidth = 1
+                ingredientTextView.layer.cornerRadius = 6
+                
+            }
+            else {
+                ingredientError.text = ""
+                ingredientTextView.layer.borderColor = UIColor.black.cgColor
+                ingredientTextView.layer.borderWidth = 0.3
+                ingredientTextView.layer.cornerRadius = 6
+                
+            }
         }
         
-        if (self.instructionsTextView.isFocused && self.instructionsTextView.text!.isEmpty) {
-            instructionError.text = "Instructions required!"
-        }
-        else {
-            instructionError.text = ""
+        if (textView == instructionsTextView) {
+            if (instructionsTextView.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+                instructionError.text = "Instructions required!"
+                instructionsTextView.layer.borderColor = UIColor.red.cgColor
+                instructionsTextView.layer.borderWidth = 1
+                instructionsTextView.layer.cornerRadius = 6
+            }
+            else {
+                instructionError.text = ""
+                instructionsTextView.layer.borderColor = UIColor.black.cgColor
+                instructionsTextView.layer.borderWidth = 0.3
+                instructionsTextView.layer.cornerRadius = 6
+                
+            }
         }
     }
     
+    // Called after selecting or taking picture and place into the imageView then closing the picker
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let chosenImage : UIImage = info[.editedImage] as! UIImage
+        self.thumbnailImage.isHidden = false // Ensure imageView is not hidden after selection
+        self.thumbnailImage!.image = chosenImage
+        UIImageWriteToSavedPhotosAlbum(chosenImage, nil, nil, nil) // Save the image selected/taken by user
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        picker.dismiss(animated: true) // Close picker
     }
-    */
+    
+    //when user cancel image picker
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+    
+    //when user click take pic
+    @IBAction func takePictureButtonPressed(_ sender: Any) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true // Allows editing of image
+        picker.sourceType = .camera // Use camera
+        self.present(picker, animated: true)
+    }
+    
+    //when user click select pic
+    @IBAction func selectPictureButtonPressed(_ sender: Any) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true // Allows editing of image
+        picker.sourceType = .photoLibrary // Use image from library
+        self.present(picker, animated: true)
+    }
+
+    //when user click cancel button
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //when user click save button
     @IBAction func saveButtonPressed(_ sender: Any) {
-        if (titleInput.text!.isEmpty) {
+        //variable to check if inputs are valid
+        var valid = true
+        
+        if (titleInput.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
             titleError.text = "Title required!"
+            titleInput.layer.borderColor = UIColor.red.cgColor
+            titleInput.layer.borderWidth = 1
+            titleInput.layer.cornerRadius = 6
+            valid = false
         }
         else {
             titleError.text = ""
+            titleInput.layer.borderColor = UIColor.black.cgColor
+            titleInput.layer.borderWidth = 0.3
+            titleInput.layer.cornerRadius = 6
         }
+        if (descTextView.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            descError.text = "Description required!"
+            descTextView.layer.borderColor = UIColor.red.cgColor
+            descTextView.layer.borderWidth = 1
+            descTextView.layer.cornerRadius = 6
+            valid = false
+                }
+        else {
+            descError.text = ""
+            descTextView.layer.borderColor = UIColor.black.cgColor
+            descTextView.layer.borderWidth = 0.3
+            descTextView.layer.cornerRadius = 6
+            
+        }
+
+        if (ingredientTextView.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            ingredientError.text = "Ingredients required!"
+            ingredientTextView.layer.borderColor = UIColor.red.cgColor
+            ingredientTextView.layer.borderWidth = 1
+            ingredientTextView.layer.cornerRadius = 6
+            valid = false
+                }
+        else {
+            ingredientError.text = ""
+            ingredientTextView.layer.borderColor = UIColor.black.cgColor
+            ingredientTextView.layer.borderWidth = 0.3
+            ingredientTextView.layer.cornerRadius = 6
+            
+        }
+
+        if (instructionsTextView.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            instructionError.text = "Instructions required!"
+            instructionsTextView.layer.borderColor = UIColor.red.cgColor
+            instructionsTextView.layer.borderWidth = 1
+            instructionsTextView.layer.cornerRadius = 6
+            valid = false
+        }
+        else {
+            instructionError.text = ""
+            instructionsTextView.layer.borderColor = UIColor.black.cgColor
+            instructionsTextView.layer.borderWidth = 0.3
+            instructionsTextView.layer.cornerRadius = 6
+            
+        }
+
+        if (self.thumbnailImage.image == nil) {
+            thumbnailError.text = "Thumbnail required!"
+            valid = false
+        }
+        else {
+            thumbnailError.isHidden = true
+        }
+
         
-        if !(titleInput.text!.isEmpty && descTextView.text!.isEmpty && ingredientTextView.text!.isEmpty && instructionsTextView.text!.isEmpty) {
+        
+        if (valid == true) {
             /*Recipe(title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView, instructions: self.instructionsTextView.text!, thumbnail: "TEST", username: self.username)*/
         }
         
-    }
-    @IBAction func titleChanged(_ sender: Any) {
-        if (titleInput.text!.isEmpty) {
-            titleError.text = "Title required!"
-        }
-        else {
-            titleError.text = ""
-        }
     }
     
 }

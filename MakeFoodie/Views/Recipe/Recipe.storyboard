@@ -152,6 +152,9 @@
                                                 <rect key="frame" x="20" y="41" width="374" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="titleInputChanged:" destination="8op-Uw-A9D" eventType="editingChanged" id="HES-xf-tSi"/>
+                                                </connections>
                                             </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PdN-i1-u0A">
                                                 <rect key="frame" x="20" y="83" width="374" height="25"/>
@@ -288,11 +291,17 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="187" height="25"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <state key="normal" title="Take Picture"/>
+                                                        <connections>
+                                                            <action selector="takePictureButtonPressed:" destination="8op-Uw-A9D" eventType="touchUpInside" id="35d-oY-3WC"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="01l-CU-uEo">
                                                         <rect key="frame" x="187" y="0.0" width="187" height="25"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <state key="normal" title="Select Picture"/>
+                                                        <connections>
+                                                            <action selector="selectPictureButtonPressed:" destination="8op-Uw-A9D" eventType="touchUpInside" id="I1p-t2-oQD"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -322,8 +331,16 @@
                         <viewLayoutGuide key="safeArea" id="GdM-96-Tq7"/>
                     </view>
                     <navigationItem key="navigationItem" title="Create recipe" id="LHf-FT-QQP">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="KsW-cW-HI6"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="gWt-lL-ZSu"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="KsW-cW-HI6">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="8op-Uw-A9D" id="ZRc-cb-qCb"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="gWt-lL-ZSu">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="8op-Uw-A9D" id="hZ9-6T-oMV"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="cancelButton" destination="KsW-cW-HI6" id="SRf-yD-lP6"/>
@@ -598,9 +615,6 @@
                                                 <rect key="frame" x="20" y="41" width="374" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <action selector="titleChanged:" destination="8op-Uw-A9D" eventType="editingChanged" id="Wsy-ZK-Qh5"/>
-                                                </connections>
                                             </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="JIl-Ef-blK">
                                                 <rect key="frame" x="20" y="83" width="374" height="25"/>
