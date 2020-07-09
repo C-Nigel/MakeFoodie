@@ -15,18 +15,6 @@ class DataManager: NSObject {
     //Create a new database if it does not already exists
     static let db = Firestore.firestore()
     
-    static func insertData()
-    {
-
-        // Adding a document with a specific document ID / Or Replacing the data for a specific document ID
-        db.collection("users").document("esf6xvYfISw2DnEs9GBR").setData(["username":"durian"])
-    }
-
-    static func retrieveData()
-    {
-        db.collection("users").document("esf6xvYfISw2DnEs9GBR")
-    }
-    
     //ADD NEW USER IN DATABASE OR REPLACE CURRENT INFO
     static func insertOrReplaceUser(_ usersvar: User)
     {
@@ -49,5 +37,57 @@ class DataManager: NSObject {
          print("Error removing document: \(err)") } else {
          print("Document successfully removed!") }
          }
+    }
+    
+    // ========================================================================================================================================================
+    // ========================================================================================================================================================
+    
+    static func insertData()
+    {
+
+        // Adding a document with a specific document ID / Or Replacing the data for a specific document ID
+        db.collection("users").document("esf6xvYfISw2DnEs9GBR").setData(["username":"durian"])
+    }
+
+    static func retrieveData()
+    {
+        db.collection("users").document("esf6xvYfISw2DnEs9GBR")
+    }
+    
+    
+    static func loadRecomendedItems(onComplete: (([Item]) -> Void)?)
+    {
+        db.collection("posts").getDocuments()
+        {
+            // get all items from firestore and store inside Item array
+            (querySnapshot, err) in
+            
+            var itemList : [Item] = []
+            
+            if let err = err
+            {
+                // handles error here
+                
+                print("Error getting all items: \(err)")
+            }
+            else
+            {
+                for document in querySnapshot!.documents
+                {
+                    // this line tells Firestore to retrieve all fields and update it into our Item object automatically.
+                    
+                    // The requires the Movie object to implement the Codable protocol
+                    
+                    var item = try? document.data(as: Item.self) as! Item
+                    
+                    if item != nil
+                    {
+                        itemList.append(item!)
+                    }
+                }
+            }
+            // Once we have compeleted processing, call the onComplete closure passed in by the caller
+            onComplete?(itemList)
+        }
     }
 }

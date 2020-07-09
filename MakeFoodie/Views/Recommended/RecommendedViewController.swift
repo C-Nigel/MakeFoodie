@@ -26,6 +26,24 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
+    func loadRecommendedItems()
+    {
+        DataManager.loadRecomendedItems()
+        {
+            itemListFromFirestore in
+            
+            // This is a closure
+            
+            // This block of codes is executed when the async loading from Firestore is complete.
+            // What it is to reassigned the new list loaded from Firestore.
+            
+            self.itemList = itemListFromFirestore
+            
+            //Once done, call on the Table View to reload all its contents
+            
+            self.tableView.reloadData()
+        }
+    }
     
     var itemList : [Item] = []
     
@@ -37,10 +55,10 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
 
         // Do any additional setup after loading the view.
         
-        itemList.append(Item(
-        title: "Very good duck rice", price: 5, desc: "Best duck and rice u will ever taste", imageName: "Ah-Seng-Braised-Duck-Rice", userName: "Ah Seng"))
+        //itemList.append(Item(
+        //title: "Very good duck rice", price: 5, desc: "Best duck and rice u will ever taste", imageName: "Ah-Seng-Braised-Duck-Rice", userName: "Ah Seng"))
         
-        DataManager.insertData()
+        loadRecommendedItems()
     }
     
 
