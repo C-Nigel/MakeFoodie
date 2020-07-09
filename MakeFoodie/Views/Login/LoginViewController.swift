@@ -11,17 +11,17 @@ import UIKit
 class LoginViewController: UIViewController {
     
     
-
-    @IBOutlet weak var emailInput: UITextField!
-    @IBOutlet weak var passwordInput: UITextField!
     
+    @IBOutlet weak var emaily: UITextField!
+    
+    @IBOutlet weak var passwordy: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         let myColor = UIColor.black
-        emailInput.layer.borderColor = myColor.cgColor
-        emailInput.layer.borderWidth = 1.0
-        passwordInput.layer.borderColor = myColor.cgColor
-        passwordInput.layer.borderWidth = 1.0
+        emaily.layer.borderColor = myColor.cgColor
+        emaily.layer.borderWidth = 1.0
+        passwordy.layer.borderColor = myColor.cgColor
+        passwordy.layer.borderWidth = 1.0
 
         // Do any additional setup after loading the view.
     }

@@ -428,6 +428,7 @@
 				472229D8246BC13100E13C81 /* Frameworks */,
 				472229D9246BC13100E13C81 /* Resources */,
 				AD6E30ABCDCCB33091214385 /* [CP] Embed Pods Frameworks */,
+				3D07C8CF4C9B1398D27D310E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -466,6 +467,7 @@
 				472229F9246BC13400E13C81 /* Frameworks */,
 				472229FA246BC13400E13C81 /* Resources */,
 				AD5CE00928D019231E230E14 /* [CP] Embed Pods Frameworks */,
+				935BA2C6F0B0B7A7A13E8E41 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -561,6 +563,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3D07C8CF4C9B1398D27D310E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MakeFoodie/Pods-MakeFoodie-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MakeFoodie/Pods-MakeFoodie-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MakeFoodie/Pods-MakeFoodie-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6DA9FEEFDDEF548DDBB5D729 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -581,6 +600,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		935BA2C6F0B0B7A7A13E8E41 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MakeFoodie-MakeFoodieUITests/Pods-MakeFoodie-MakeFoodieUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MakeFoodie-MakeFoodieUITests/Pods-MakeFoodie-MakeFoodieUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MakeFoodie-MakeFoodieUITests/Pods-MakeFoodie-MakeFoodieUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A83A04F429D255F06B9547DC /* [CP] Check Pods Manifest.lock */ = {

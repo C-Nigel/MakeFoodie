@@ -152,8 +152,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="YJ0-xS-EKC"/>
                     <connections>
-                        <outlet property="passwordInput" destination="gY6-wC-VnO" id="rhv-zC-DE9"/>
-                        <outlet property="usernameInput" destination="NLJ-ME-GEi" id="eZ4-lY-ojO"/>
+                        <outlet property="emaily" destination="NLJ-ME-GEi" id="2BM-uK-e92"/>
+                        <outlet property="passwordy" destination="gY6-wC-VnO" id="EWw-We-Vfi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y6I-Ol-ZfE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
