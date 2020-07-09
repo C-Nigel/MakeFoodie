@@ -15,14 +15,16 @@ class User: Codable {
     var gender: String
     var phoneNo: String
     var password: String
+    var description: String
     
-    init(email: String, username: String, dob: String, gender: String, phoneNo: String, password: String){
+    init(email: String, username: String, dob: String, gender: String, phoneNo: String, password: String, description: String){
         self.email = email
         self.username = username
         self.dob = dob
         self.gender = gender
         self.phoneNo = phoneNo
         self.password = password
+        self.description = description
     }
 
 }
