@@ -9,8 +9,6 @@
 import UIKit
 import Firebase
 import FirebaseAuth
-import FirebaseFirestoreSwift
-import FirebaseFirestore
 
 class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -114,7 +112,6 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
             // What it is to reassigned the new list loaded
             // from Firestore. //
             self.recipeList = recipeListFromFirestore
-            print("recipelist", self.recipeList)
         }
     }
     
@@ -209,11 +206,27 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         UIImageWriteToSavedPhotosAlbum(resizedImage, nil, nil, nil) // Save the image selected/taken by user
 
         picker.dismiss(animated: true) // Close picker
+        
+        if (self.thumbnailImage.image == nil) {
+            thumbnailError.text = "Thumbnail required!"
+        }
+        else {
+            thumbnailError.text = ""
+        }
+        
     }
     
     //when user cancel image picker
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
+        
+        if (self.thumbnailImage.image == nil) {
+            thumbnailError.text = "Thumbnail required!"
+        }
+        else {
+            thumbnailError.text = ""
+        }
+        
     }
     
     //when user click take pic
@@ -308,7 +321,7 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
             valid = false
         }
         else {
-            thumbnailError.isHidden = true
+            thumbnailError.text = ""
         }
 
         
@@ -336,7 +349,7 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
             
             recipeList.append(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews: [], username: parent.username))
             
-            for i in recipeList {
+            /*for i in recipeList {
                 /*print (i.title)
                 print(i.desc)
                 print(i.ingredients)
@@ -346,7 +359,8 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
                 print(i.username)*/
                 
                 DataManager.insertOrReplaceRecipe(i)
-            }
+            }*/
+            DataManager.insertOrReplaceRecipe(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews: [], username: parent.username))
             
             parent.loadRecipes()
             
