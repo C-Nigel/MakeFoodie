@@ -76,6 +76,17 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         thumbnailError.isHidden = true
         descError.isHidden = true
         
+        loadPosts()
+    }
+    
+    func loadPosts() {
+        DataManager.loadPosts ()
+        {
+            postListFromFirestore in
+
+            // Assign list to list from Firestore
+            self.postList = postListFromFirestore
+        }
     }
     
     // Picker view columns
@@ -115,6 +126,13 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         UIImageWriteToSavedPhotosAlbum(chosenImage, nil, nil, nil) // Save the image selected/taken by user
 
         picker.dismiss(animated: true) // Close picker
+        
+        if (self.thumbnailImageView.image == nil) {
+            thumbnailError.isHidden = false
+        }
+        else {
+            thumbnailError.isHidden = true
+        }
     }
     
     // User cancels from taking or selecting image
@@ -159,6 +177,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func priceTextFieldChanged(_ sender: Any) {
         // Check if price textField is empty (White space + Blank)
         if (priceTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            priceError.text = "Please enter a price."
             priceError.isHidden = false
             priceTextField.layer.borderColor = UIColor.red.cgColor
             priceTextField.layer.borderWidth = 1.0
@@ -168,6 +187,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             // Check for decimal number
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 2
             if let decimalNo = formatter.number(from: priceTextField.text!) {
                 priceError.isHidden = true
                 priceTextField.layer.borderColor = UIColor.black.cgColor
@@ -175,7 +195,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 priceTextField.layer.cornerRadius = 6
             }
             else {
-                priceError.text = "Please input a valid number."
+                priceError.text = "Please enter a valid number."
                 priceError.isHidden = false
                 priceTextField.layer.borderColor = UIColor.red.cgColor
                 priceTextField.layer.borderWidth = 1.0
@@ -229,6 +249,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
         
         if (priceTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            priceError.text = "Please enter a price."
             priceError.isHidden = false
             priceTextField.layer.borderColor = UIColor.red.cgColor
             priceTextField.layer.borderWidth = 1.0
@@ -239,6 +260,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             // Check for decimal number
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 2
             if let decimalNo = formatter.number(from: priceTextField.text!) {
                 print(decimalNo)
                 priceError.isHidden = true
@@ -285,8 +307,6 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let selectedCategory = categoryPickerData[row]
             
             var listCount: Int = 0
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
             
             // Set id to increment every addition
             // If list empty, id starts from 0
@@ -298,12 +318,19 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 listCount = postList.count - 1
             }
             
-            postList.append(Post(id: listCount, title: titleTextField.text!, price: formatter.number(from: priceTextField.text!) as! Decimal, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, userName: "LetsBake"))
+            let viewControllers = self.navigationController?.viewControllers
+            let parent = viewControllers?[0] as! PostsTableViewController
+            
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            
+            let post:Post = Post(id: listCount, title: titleTextField.text!, price: formatter.number(from: priceTextField.text!)!.decimalValue, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, userName: parent.username)
+            
+            DataManager.insertOrEditPost(post)
+            parent.loadPosts()
+            
+            // Redirect back to tableView
+            self.navigationController?.popViewController(animated: true)
         }
-        
-        /* Test what selected (Delete after)
-        let uiAlert = UIAlertController( title: "You selected \(selectedText)", message: "Thank you for choosing", preferredStyle: .alert)
-        uiAlert.addAction(UIAlertAction( title: "You are welcome", style: .default, handler: nil))
-        self.present(uiAlert, animated: true, completion: nil)*/
     }
 }

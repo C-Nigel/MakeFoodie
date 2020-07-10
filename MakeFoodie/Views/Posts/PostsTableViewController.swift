@@ -7,13 +7,34 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class PostsTableViewController: UITableViewController {
     @IBOutlet var postTableView: UITableView!
     var postList: [Post] = []
+    var userList:[User] = []
+    var username: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Check username
+        if Auth.auth().currentUser != nil {
+            let user = Auth.auth().currentUser
+            if let user = user {
+                let uidd: String = user.uid
+                DataManager.loadUser() {
+                    userListFromFirestore in
+                    self.userList = userListFromFirestore
+                    for i in self.userList {
+                        if (i.uid == uidd) {
+                            self.username = i.username
+                        }
+                    }
+                }
+            }
+        }
 
         loadPosts()
         
