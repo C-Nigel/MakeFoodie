@@ -23,7 +23,7 @@ class PostsTableViewController: UITableViewController {
         postList.append(Post(title: "Juice", price: 100, desc: "Not actually juice but more than juice and better and more improved than juice can ever be", thumbnail: "Ah-Seng-Braised-Duck-Rice", category: "Western", userName: "LetsBakeaaaaaaaaaa")) */
     }
     
-    // Function
+    // Function that loads data from Firestore and refreshes tableView
     func loadPosts() {
         DataManager.loadPosts ()
         {
@@ -58,7 +58,7 @@ class PostsTableViewController: UITableViewController {
         let p = postList[indexPath.row]
         cell.titleLabel.text = p.title
         cell.titleLabel.sizeToFit()
-        //cell.postImageView.image = UIImage(named: p.thumbnail.getImage())
+        cell.postImageView.image = p.thumbnail.getImage()
         cell.usernameLabel.text = p.userName
         cell.usernameLabel.sizeToFit()
         cell.priceLabel.text = "$\(p.price)"

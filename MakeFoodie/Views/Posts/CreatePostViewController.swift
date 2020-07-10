@@ -41,11 +41,16 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         "Others"
     ]
     
+    var postList: [Post] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         descTextView.delegate = self
+        
+        // Close keyboard when click outside textField
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         
         // Set round border for descTextView
         self.descTextView.layer.borderColor = UIColor.black.cgColor
@@ -88,11 +93,25 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         return categoryPickerData[row]
     }
     
+    // Resize thumbnail image
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
+    
     // Called after selecting or taking picture and place into the imageView then closing the picker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let chosenImage : UIImage = info[.editedImage] as! UIImage
+        var resizedImage: UIImage
+        
+        resizedImage = resizeImage(image: chosenImage, newWidth: 374)
         self.thumbnailImageView.isHidden = false // Ensure imageView is not hidden after selection
-        self.thumbnailImageView!.image = chosenImage
+        self.thumbnailImageView!.image = resizedImage
         UIImageWriteToSavedPhotosAlbum(chosenImage, nil, nil, nil) // Save the image selected/taken by user
 
         picker.dismiss(animated: true) // Close picker
@@ -146,10 +165,22 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             priceTextField.layer.cornerRadius = 6
         }
         else {
-            priceError.isHidden = true
-            priceTextField.layer.borderColor = UIColor.black.cgColor
-            priceTextField.layer.borderWidth = 0.3
-            priceTextField.layer.cornerRadius = 6
+            // Check for decimal number
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            if let decimalNo = formatter.number(from: priceTextField.text!) {
+                priceError.isHidden = true
+                priceTextField.layer.borderColor = UIColor.black.cgColor
+                priceTextField.layer.borderWidth = 0.3
+                priceTextField.layer.cornerRadius = 6
+            }
+            else {
+                priceError.text = "Please input a valid number."
+                priceError.isHidden = false
+                priceTextField.layer.borderColor = UIColor.red.cgColor
+                priceTextField.layer.borderWidth = 1.0
+                priceTextField.layer.cornerRadius = 6
+            }
         }
     }
     
@@ -205,10 +236,24 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             verified = false
         }
         else {
-            priceError.isHidden = true
-            priceTextField.layer.borderColor = UIColor.black.cgColor
-            priceTextField.layer.borderWidth = 0.3
-            priceTextField.layer.cornerRadius = 6
+            // Check for decimal number
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            if let decimalNo = formatter.number(from: priceTextField.text!) {
+                print(decimalNo)
+                priceError.isHidden = true
+                priceTextField.layer.borderColor = UIColor.black.cgColor
+                priceTextField.layer.borderWidth = 0.3
+                priceTextField.layer.cornerRadius = 6
+            }
+            else {
+                priceError.text = "Please input a valid number."
+                priceError.isHidden = false
+                priceTextField.layer.borderColor = UIColor.red.cgColor
+                priceTextField.layer.borderWidth = 1.0
+                priceTextField.layer.cornerRadius = 6
+                verified = false
+            }
         }
         
         if (descTextView.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
@@ -233,12 +278,28 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             thumbnailError.isHidden = true
         }
         
-        
-        
-        // Selected row of picker view
-        let row = categoryPickerView.selectedRow(inComponent: 0)
-        // Get data selected from picker data
-        let selectedText = categoryPickerData[row]
+        if (verified == true) {
+            // Selected row of picker view
+            let row = categoryPickerView.selectedRow(inComponent: 0)
+            // Get data selected from picker data
+            let selectedCategory = categoryPickerData[row]
+            
+            var listCount: Int = 0
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            
+            // Set id to increment every addition
+            // If list empty, id starts from 0
+            if (postList.isEmpty) {
+                listCount = 0
+            }
+            // else add 1 to total list count
+            else {
+                listCount = postList.count - 1
+            }
+            
+            postList.append(Post(id: listCount, title: titleTextField.text!, price: formatter.number(from: priceTextField.text!) as! Decimal, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, userName: "LetsBake"))
+        }
         
         /* Test what selected (Delete after)
         let uiAlert = UIAlertController( title: "You selected \(selectedText)", message: "Thank you for choosing", preferredStyle: .alert)
