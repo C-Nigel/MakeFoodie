@@ -38,6 +38,28 @@ class DataManager: NSObject {
          print("Document successfully removed!") }
          }
     }
+    static func loadUser(onComplete: (([User]) -> Void)?)
+     {
+        db.collection("user").getDocuments { (data, err) in
+        var userList : [User] = []
+            if let err = err
+            { // Handle errors here.
+    //
+                print("Error getting documents: \(err)") }
+            else
+            {
+                for document in data!.documents{
+                    let userss = try? document.data(as: User.self)!
+                    if userss != nil{
+                        userList.append(userss!)
+                        
+                    }
+                }
+          }
+   
+            onComplete?(userList)
+            
+        } }
     
     // ========================================================================================================================================================
     // ========================================================================================================================================================
@@ -107,22 +129,23 @@ class DataManager: NSObject {
     
     //load recipe list
     static func loadRecipes(onComplete: (([Recipe]) -> Void)?) {
-        db.collection("recipes").getDocuments() { (querySnapshot, err) in
-        var recipeList : [Recipe] = []
-        if let err = err { // Handle errors here.
-            print("Error getting documents: \(err)")
-            
-        }
-        else {
-            for document in querySnapshot!.documents {
-                let recipe = try? document.data(as: Recipe.self)!
-                if recipe != nil {
-                    recipeList.append(recipe!)
-                    
+        db.collection("recipes").getDocuments() {
+            (querySnapshot, err) in
+            var recipeList : [Recipe] = []
+            if let err = err { // Handle errors here.
+                print("Error getting documents: \(err)")
+                
+            }
+            else {
+                for document in querySnapshot!.documents {
+                    var recipe = try? document.data(as: Recipe.self) as! Recipe
+                    if recipe != nil {
+                        recipeList.append(recipe!)
+                        
+                    }
                 }
-            } 
-        }
-        onComplete?(recipeList)
+            }
+            onComplete?(recipeList)
         }
         
     }

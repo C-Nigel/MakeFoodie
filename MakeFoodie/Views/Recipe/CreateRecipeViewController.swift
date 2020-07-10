@@ -80,9 +80,16 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
     func loadRecipes() {
         DataManager.loadRecipes() {
             recipeListFromFirestore in
-                self.recipeList = recipeListFromFirestore
+
+            // This is a closure.
+            //
+            // This block of codes is executed when the // async loading from Firestore is complete.
+            // What it is to reassigned the new list loaded
+            // from Firestore. //
+            self.recipeList = recipeListFromFirestore
+            print("recipelist", self.recipeList)
+
         }
-        print("RECIPE LIST", self.recipeList)
     }
     
     //when user leaves title blank or whitespace after clicking in
@@ -153,12 +160,27 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         }
     }
     
+    //resize image
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+        
+    }
+    
     // Called after selecting or taking picture and place into the imageView then closing the picker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let chosenImage : UIImage = info[.editedImage] as! UIImage
+        var resizedImage: UIImage
+        
+        resizedImage = resizeImage(image: chosenImage, newWidth: 374)
         self.thumbnailImage.isHidden = false // Ensure imageView is not hidden after selection
-        self.thumbnailImage!.image = chosenImage
-        UIImageWriteToSavedPhotosAlbum(chosenImage, nil, nil, nil) // Save the image selected/taken by user
+        self.thumbnailImage!.image = resizedImage
+        UIImageWriteToSavedPhotosAlbum(resizedImage, nil, nil, nil) // Save the image selected/taken by user
 
         picker.dismiss(animated: true) // Close picker
     }
@@ -267,29 +289,38 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         //if all inputs are filled
         if (valid == true) {
             //init id
-            var rID: Int
+            var rID: Int = 0
+            var highestID: Int = 0
             
             //if list is empty, id of new recipe is 0
             if (recipeList.isEmpty) {
                 rID = 0
             }
             else {
-                rID = recipeList.count
+                for i in recipeList {
+                    if (highestID <= i.recipeID) {
+                        highestID = i.recipeID
+                    }
+                }
+                rID = highestID + 1
             }
             
             recipeList.append(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews: [], username: "zoeey"))
             for i in recipeList {
-                print (i.title)
+                /*print (i.title)
                 print(i.desc)
                 print(i.ingredients)
                 print(i.instructions)
                 print(i.thumbnail)
                 print(i.reviews)
-                print(i.username)
+                print(i.username)*/
                 
                 DataManager.insertOrReplaceRecipe(i)
-                loadRecipes()
             }
+            
+            //going back to tableviewcontroller after adding
+            self.navigationController?.popViewController(animated: true)
+            
         }
         
     }
