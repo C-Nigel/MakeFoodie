@@ -285,6 +285,7 @@
                                                 <rect key="frame" x="20" y="587" width="374" height="185"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="185" id="Sm6-rU-Bb5"/>
+                                                    <constraint firstAttribute="width" constant="374" id="swf-wH-d9O"/>
                                                 </constraints>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="j93-4s-rhX">
@@ -353,6 +354,7 @@
                         <outlet property="ingredientTextView" destination="Skb-M2-yG7" id="tLg-xO-MNY"/>
                         <outlet property="instructionError" destination="ttY-Va-juV" id="tBN-cz-t5Y"/>
                         <outlet property="instructionsTextView" destination="Uo7-sQ-CkD" id="bW2-9y-7Lj"/>
+                        <outlet property="recipeScrollView" destination="BcU-jl-1ge" id="kkr-Iv-7Yt"/>
                         <outlet property="saveButton" destination="gWt-lL-ZSu" id="kl6-kz-Rnc"/>
                         <outlet property="selectPictureButton" destination="01l-CU-uEo" id="1eB-Js-0Wr"/>
                         <outlet property="takePictureButton" destination="nai-AU-Zcw" id="HTJ-hb-vC3"/>

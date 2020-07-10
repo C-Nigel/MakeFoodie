@@ -16,10 +16,33 @@ class RecipesTableViewController: UITableViewController {
 
     @IBOutlet var recipeTableView: UITableView!
     var recipeList: Array<Recipe> = []
+    var userList: Array<User> = []
+    var username: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if Auth.auth().currentUser != nil {
+            let user = Auth.auth().currentUser
+            if let user = user {
+                let uidd: String = user.uid
+                DataManager.loadUser() {
+                    userListFromFirestore in
+                    self.userList = userListFromFirestore
+                    for i in self.userList {
+                        if (i.uid == uidd) {
+                            self.username = i.username
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
+            let newViewController = storyBoard.instantiateViewController(withIdentifier: "MainLogin")
+            
+            self.present(newViewController, animated: true, completion: nil)
+            
+        }
         loadRecipes()
     }
     
@@ -46,12 +69,6 @@ class RecipesTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 0
     }*/
-
-    override func viewWillAppear(_ animated:Bool) {
-        super.viewWillAppear(animated)
-        loadRecipes()
-        tableView.reloadData()
-    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipeList.count

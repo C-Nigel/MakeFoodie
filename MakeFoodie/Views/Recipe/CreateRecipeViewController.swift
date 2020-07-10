@@ -35,6 +35,8 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
     @IBOutlet weak var instructionError: UILabel!
     @IBOutlet weak var thumbnailError: UILabel!
     
+    @IBOutlet weak var recipeScrollView: UIScrollView!
+    
     var username: String = ""
     var recipeList: Array<Recipe> = []
     
@@ -74,6 +76,31 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         
         loadRecipes()
         
+        //hide keyboard when clicking outside input area
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        
+        //for scroll when editing
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
+    } //end viewDidLoad
+    
+    
+    //for scroll when editing
+    @objc func keyboardWillShow(notification:NSNotification){
+
+        let userInfo = notification.userInfo!
+        var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+
+        var contentInset:UIEdgeInsets = self.recipeScrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height + 20
+        recipeScrollView.contentInset = contentInset
+    }
+
+    @objc func keyboardWillHide(notification:NSNotification){
+
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+        recipeScrollView.contentInset = contentInset
     }
     
     //load recipes
@@ -88,7 +115,6 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
             // from Firestore. //
             self.recipeList = recipeListFromFirestore
             print("recipelist", self.recipeList)
-
         }
     }
     
@@ -305,7 +331,11 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
                 rID = highestID + 1
             }
             
-            recipeList.append(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews: [], username: "zoeey"))
+            let viewControllers = self.navigationController?.viewControllers
+            let parent = viewControllers?[0] as! RecipesTableViewController
+            
+            recipeList.append(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews: [], username: parent.username))
+            
             for i in recipeList {
                 /*print (i.title)
                 print(i.desc)
@@ -317,6 +347,8 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
                 
                 DataManager.insertOrReplaceRecipe(i)
             }
+            
+            parent.loadRecipes()
             
             //going back to tableviewcontroller after adding
             self.navigationController?.popViewController(animated: true)
