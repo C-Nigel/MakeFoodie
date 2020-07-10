@@ -7,14 +7,59 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet weak var username: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if Auth.auth().currentUser != nil{
+            let user = Auth.auth().currentUser
+            if let user = user {
+              // The user's ID, unique to the Firebase project.
+              // Do NOT use this value to authenticate with your backend server,
+              // if you have one. Use getTokenWithCompletion:completion: instead.
+                let uidd: String = user.uid
+                let db = Firestore.firestore()
+                db.collection("user").getDocuments { (data, err) in
+                    var userList : [User] = []
+                    if err != nil{
+                        print("Error getting data")
+                    }
+                    else{
+                        for document in data!.documents{
+                            let userss = try? document.data(as: User.self)!
+                            if userss != nil{
+                                userList.append(userss!)
+                                for i in userList{
+                                    if i.uid == uidd{
+                                        self.username.text = i.username
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+              //let email = user.email
+              
+             
+              // ...
+        }
+        else{
+            
+        }
+    }
 
         // Do any additional setup after loading the view.
-    }
+}
     
 
     /*
@@ -27,4 +72,4 @@ class ProfileViewController: UIViewController {
     }
     */
 
-}
+

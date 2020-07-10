@@ -184,16 +184,40 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
            gender = "Female"
        }
        //THROW INPUT IN CLASS ARRAY AND THEN STORE IN DATABASE
-        user.append(User(email: emailInput.text!, username: usernameInput.text!, dob: dobInput.text!, gender: gender, phoneNo: "", password: passwordInput.text!, description: ""))
-       for i in user{
-           print(i.username);
-           print(i.dob);
-           print(i.email);
-           print(i.password)
-           print(i.gender)
-           
-        DataManager.insertOrReplaceUser(i)
-       }
+        Auth.auth().createUser(withEmail: emailInput.text!, password: passwordInput.text!) { (result, err) in
+            // Check for errors
+            //if err != nil{
+                
+                // There was an error creating the user
+               // print("Error creating user")
+            //}
+            //else{
+                let db = Firestore.firestore()
+            self.user.append(User(username: self.usernameInput.text!, dob: self.dobInput.text!, gender: gender, phoneNo: "", description: "", uid: result!.user.uid))
+                for i in self.user{
+                    print(i.username);
+                    print(i.dob);
+                    print(i.gender)
+                    
+                    db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"", "uid": i.uid]){ (error) in
+                        
+                        if error != nil{
+                            print("database not work")
+                        }
+                    }
+                    //self.movetologinpage()
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
+                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "Login") as! LoginViewController
+                            self.present(newViewController, animated: true, completion: nil)
+              
+                }
+                
+           // }
+        }
+        
+        
+        
+        
         //DataManager.insertOrReplaceMovie(user)
             
     }
@@ -204,7 +228,12 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
  
-    
+    func movetologinpage(){
+        let loginViewController = storyboard?.instantiateViewController(identifier: "LoginVC") as? LoginViewController
+        
+        view.window?.rootViewController = loginViewController
+        view.window?.makeKeyAndVisible()
+    }
     
     func showToast(controller: UIViewController, message : String, seconds: Double){
         

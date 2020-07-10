@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dWu-VE-KCV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dWu-VE-KCV">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -10,7 +10,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="gxI-w2-Se9">
             <objects>
-                <tabBarController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="dWu-VE-KCV" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabbar" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="dWu-VE-KCV" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qZA-88-2FJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -31,7 +31,7 @@
         <!--Recommended-->
         <scene sceneID="oZi-C7-pax">
             <objects>
-                <viewControllerPlaceholder storyboardName="Recommended" id="Hkl-Je-AMi" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardIdentifier="recommendedtab" storyboardName="Recommended" id="Hkl-Je-AMi" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="featured" id="OQ0-ZE-dgy"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5x6-Gq-lgJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -89,7 +89,7 @@
         <!--Profile-->
         <scene sceneID="eoK-FZ-ZTy">
             <objects>
-                <viewController title="Profile" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="SJ2-0Q-0dp" sceneMemberID="viewController">
+                <viewController title="Profile" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="SJ2-0Q-0dp" customClass="ProfileViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="on3-eb-YN8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -148,8 +148,8 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gordon Ramsey" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvS-8g-ICO">
-                                <rect key="frame" x="20" y="220" width="136" height="23"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nil" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvS-8g-ICO">
+                                <rect key="frame" x="20" y="220" width="23" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <nil key="textColor"/>
@@ -198,10 +198,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="username" destination="zvS-8g-ICO" id="7p5-EL-Rkd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ECt-gU-rmD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-331.8840579710145" y="328.79464285714283"/>
+            <point key="canvasLocation" x="-323" y="329"/>
         </scene>
         <!--Edit Profile-->
         <scene sceneID="KZ2-9m-CEM">
