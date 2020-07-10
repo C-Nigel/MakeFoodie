@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -32,6 +36,7 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
     @IBOutlet weak var thumbnailError: UILabel!
     
     var username: String = ""
+    var recipeList: Array<Recipe> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +72,17 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         ingredientTextView.delegate = self
         instructionsTextView.delegate = self
         
+        loadRecipes()
+        
+    }
+    
+    //load recipes
+    func loadRecipes() {
+        DataManager.loadRecipes() {
+            recipeListFromFirestore in
+                self.recipeList = recipeListFromFirestore
+        }
+        print("RECIPE LIST", self.recipeList)
     }
     
     //when user leaves title blank or whitespace after clicking in
@@ -180,6 +196,7 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         //variable to check if inputs are valid
         var valid = true
         
+        //checking inputs for errors
         if (titleInput.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
             titleError.text = "Title required!"
             titleInput.layer.borderColor = UIColor.red.cgColor
@@ -247,9 +264,32 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         }
 
         
-        
+        //if all inputs are filled
         if (valid == true) {
-            /*Recipe(title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView, instructions: self.instructionsTextView.text!, thumbnail: "TEST", username: self.username)*/
+            //init id
+            var rID: Int
+            
+            //if list is empty, id of new recipe is 0
+            if (recipeList.isEmpty) {
+                rID = 0
+            }
+            else {
+                rID = recipeList.count
+            }
+            
+            recipeList.append(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews: [], username: "zoeey"))
+            for i in recipeList {
+                print (i.title)
+                print(i.desc)
+                print(i.ingredients)
+                print(i.instructions)
+                print(i.thumbnail)
+                print(i.reviews)
+                print(i.username)
+                
+                DataManager.insertOrReplaceRecipe(i)
+                loadRecipes()
+            }
         }
         
     }

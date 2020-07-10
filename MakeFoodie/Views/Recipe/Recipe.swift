@@ -8,22 +8,45 @@
 
 import UIKit
 
-class Recipe: NSObject {
+class Recipe: Codable {
+    var recipeID: Int
     var title: String
     var desc: String
-    var ingredients: Array<String>
+    var ingredients: String
     var instructions: String
-    var thumbnail: String
+    var thumbnail: Image
+    var reviews: Array<[String]>
     var username: String
     
-    init(title: String, desc: String, ingredients: Array<String>, instructions: String, thumbnail: String, username: String){
+    init(recipeID: Int, title: String, desc: String, ingredients: String, instructions: String, thumbnail: Image, reviews: Array<[String]>,username: String){
         
+        self.recipeID = recipeID
         self.title = title
         self.desc = desc
         self.ingredients = ingredients
         self.instructions = instructions
         self.thumbnail = thumbnail
+        self.reviews = reviews
         self.username = username
         
     }
+    
+    
+    struct Image: Codable{
+        let imageData: Data?
+        
+        init(withImage image: UIImage) {
+            self.imageData = image.pngData()
+        }
+
+        func getImage() -> UIImage? {
+            guard let imageData = self.imageData else {
+                return nil
+            }
+            let image = UIImage(data: imageData)
+            
+            return image
+        }
+    }
+    
 }
