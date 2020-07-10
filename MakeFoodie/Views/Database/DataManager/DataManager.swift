@@ -79,7 +79,7 @@ class DataManager: NSObject {
                     
                     // The requires the Movie object to implement the Codable protocol
                     
-                    var item = try? document.data(as: Item.self) as! Item
+                    let item = try? document.data(as: Item.self)!
                     
                     if item != nil
                     {
@@ -115,7 +115,7 @@ class DataManager: NSObject {
         }
         else {
             for document in querySnapshot!.documents {
-                var recipe = try? document.data(as: Recipe.self) as! Recipe
+                let recipe = try? document.data(as: Recipe.self)!
                 if recipe != nil {
                     recipeList.append(recipe!)
                     

@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      
         if Auth.auth().currentUser != nil{
             let user = Auth.auth().currentUser
             if let user = user {
@@ -41,6 +41,7 @@ class ProfileViewController: UIViewController {
                                 for i in userList{
                                     if i.uid == uidd{
                                         self.username.text = i.username
+                                        
                                     }
                                 }
                             }
@@ -56,6 +57,7 @@ class ProfileViewController: UIViewController {
         else{
             
         }
+        
     }
 
         // Do any additional setup after loading the view.
