@@ -17,7 +17,7 @@ class PostsTableViewController: UITableViewController {
 
         // Test data
         postList.append(Post(title: "Chicken rice", price: 10, desc: "RICEE", thumbnail: "Ah-Seng-Braised-Duck-Rice", category: "Chinese", userName: "LetsBake"))
-        postList.append(Post(title: "Juice", price: 20, desc: "Not actually juice", thumbnail: "movie_oklahoma", category: "Beverages", userName: "LetsBakeaaaa"))
+        postList.append(Post(title: "Juice", price: 20, desc: "Not actually juice but I made the assumption it was juice and now realise I was mistaken the whole time oops", thumbnail: "movie_oklahoma", category: "Beverages", userName: "LetsBakeaaaa"))
         postList.append(Post(title: "Juice", price: 100, desc: "Not actually juice but more than juice and better and more improved than juice can ever be", thumbnail: "Ah-Seng-Braised-Duck-Rice", category: "Western", userName: "LetsBakeaaaaaaaaaa"))
     }
 
