@@ -9,8 +9,6 @@
 import UIKit
 import Firebase
 import FirebaseAuth
-import FirebaseFirestoreSwift
-import FirebaseFirestore
 
 class RecipesTableViewController: UITableViewController {
 
@@ -37,17 +35,13 @@ class RecipesTableViewController: UITableViewController {
             }
         }
         else {
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
-            let newViewController = storyBoard.instantiateViewController(withIdentifier: "MainLogin")
-            
-            self.present(newViewController, animated: true, completion: nil)
-            
         }
         loadRecipes()
     }
     
     //load recipes
     func loadRecipes() {
+        
         DataManager.loadRecipes() {
             recipeListFromFirestore in
 
@@ -57,8 +51,8 @@ class RecipesTableViewController: UITableViewController {
             // What it is to reassigned the new list loaded
             // from Firestore. //
             self.recipeList = recipeListFromFirestore
-            print("recipelist", self.recipeList)
-
+            
+            //reload tableView
             self.recipeTableView.reloadData()
         }
     }

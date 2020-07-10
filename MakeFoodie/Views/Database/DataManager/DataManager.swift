@@ -129,24 +129,24 @@ class DataManager: NSObject {
     
     //load recipe list
     static func loadRecipes(onComplete: (([Recipe]) -> Void)?) {
-        db.collection("recipes").getDocuments() {
+        db.collection("recipes").order(by: "recipeID", descending: true).getDocuments() {
             (querySnapshot, err) in
-            var recipeList : [Recipe] = []
-            if let err = err { // Handle errors here.
-                print("Error getting documents: \(err)")
-                
-            }
-            else {
-                for document in querySnapshot!.documents {
-                    var recipe = try? document.data(as: Recipe.self) as! Recipe
-                    if recipe != nil {
-                        recipeList.append(recipe!)
-                        
+                var recipeList : [Recipe] = []
+                if let err = err { // Handle errors here.
+                    print("Error getting documents: \(err)")
+                    
+                }
+                else {
+                    for document in querySnapshot!.documents {
+                        var recipe = try? document.data(as: Recipe.self) as! Recipe
+                        if recipe != nil {
+                            recipeList.append(recipe!)
+                            
+                        }
                     }
                 }
+                onComplete?(recipeList)
             }
-            onComplete?(recipeList)
-        }
         
     }
     
