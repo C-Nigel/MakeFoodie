@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController {
 
     @IBOutlet weak var username: UILabel!
     
-    
+    var userList : [User] = [];
     override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController {
               // Do NOT use this value to authenticate with your backend server,
               // if you have one. Use getTokenWithCompletion:completion: instead.
                 let uidd: String = user.uid
-                let db = Firestore.firestore()
+                /*let db = Firestore.firestore()
                 db.collection("user").getDocuments { (data, err) in
                     var userList : [User] = []
                     if err != nil{
@@ -40,11 +40,21 @@ class ProfileViewController: UIViewController {
                                 userList.append(userss!)
                                 for i in userList{
                                     if i.uid == uidd{
+                                        
                                         self.username.text = i.username
                                         
                                     }
                                 }
                             }
+                        }
+                    }
+                }*/
+                DataManager.loadUser(){
+                    userListFromFirestore in
+                    self.userList = userListFromFirestore
+                    for i in self.userList{
+                        if i.uid == uidd{
+                            self.username.text = i.username
                         }
                     }
                 }
