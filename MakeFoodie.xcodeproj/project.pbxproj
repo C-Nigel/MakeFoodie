@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		19C9ED4DF29F85ECF2819255 /* Pods_MakeFoodie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8151CC4A9D32F30B842A8C6C /* Pods_MakeFoodie.framework */; };
+		25D10E8E24B705F1000F6DE5 /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D10E8D24B705F1000F6DE5 /* DateTextField.swift */; };
 		472229DF246BC13100E13C81 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472229DE246BC13100E13C81 /* AppDelegate.swift */; };
 		472229E1246BC13100E13C81 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472229E0246BC13100E13C81 /* SceneDelegate.swift */; };
 		472229E3246BC13100E13C81 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472229E2246BC13100E13C81 /* ViewController.swift */; };
@@ -71,6 +72,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		25D10E8D24B705F1000F6DE5 /* DateTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
 		2AB9FDAF0D3AFF49BABD7D32 /* Pods_MakeFoodie_MakeFoodieUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MakeFoodie_MakeFoodieUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FE8F8F411FBC29084B6451D /* Pods-MakeFoodie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeFoodie.release.xcconfig"; path = "Target Support Files/Pods-MakeFoodie/Pods-MakeFoodie.release.xcconfig"; sourceTree = "<group>"; };
 		472229DB246BC13100E13C81 /* MakeFoodie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakeFoodie.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -373,6 +375,7 @@
 				D4A50F8F24AC3121009B0349 /* User.swift */,
 				D4A50F9324AC33AE009B0349 /* LoginViewController.swift */,
 				D4A50F9524AC3485009B0349 /* SignupViewController.swift */,
+				25D10E8D24B705F1000F6DE5 /* DateTextField.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				472229D8246BC13100E13C81 /* Frameworks */,
 				472229D9246BC13100E13C81 /* Resources */,
 				AD6E30ABCDCCB33091214385 /* [CP] Embed Pods Frameworks */,
+				3D07C8CF4C9B1398D27D310E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -463,6 +467,7 @@
 				472229F9246BC13400E13C81 /* Frameworks */,
 				472229FA246BC13400E13C81 /* Resources */,
 				AD5CE00928D019231E230E14 /* [CP] Embed Pods Frameworks */,
+				935BA2C6F0B0B7A7A13E8E41 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -558,6 +563,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3D07C8CF4C9B1398D27D310E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MakeFoodie/Pods-MakeFoodie-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MakeFoodie/Pods-MakeFoodie-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MakeFoodie/Pods-MakeFoodie-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6DA9FEEFDDEF548DDBB5D729 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -578,6 +600,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		935BA2C6F0B0B7A7A13E8E41 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MakeFoodie-MakeFoodieUITests/Pods-MakeFoodie-MakeFoodieUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MakeFoodie-MakeFoodieUITests/Pods-MakeFoodie-MakeFoodieUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MakeFoodie-MakeFoodieUITests/Pods-MakeFoodie-MakeFoodieUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A83A04F429D255F06B9547DC /* [CP] Check Pods Manifest.lock */ = {
@@ -673,6 +712,7 @@
 				F445804A2490C08800F1CAA6 /* ItemCell.swift in Sources */,
 				775BF65924B4B9C100845E93 /* Post.swift in Sources */,
 				775BF66324B4C8F600845E93 /* ViewPostViewController.swift in Sources */,
+				25D10E8E24B705F1000F6DE5 /* DateTextField.swift in Sources */,
 				D4E0721B24B57CF50035F967 /* ProfileViewController.swift in Sources */,
 				472229E3246BC13100E13C81 /* ViewController.swift in Sources */,
 				775BF66124B4C7F100845E93 /* ViewCategoryTableViewController.swift in Sources */,

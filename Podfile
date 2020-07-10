@@ -9,6 +9,11 @@ target 'MakeFoodie' do
 
   pod 'Firebase/Firestore' 
   pod 'FirebaseFirestoreSwift'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Core'
+  pod 'Firebase/Analytics'
+  pod 'GoogleSignIn'
+
 
   target 'MakeFoodieTests' do
     inherit! :search_paths
