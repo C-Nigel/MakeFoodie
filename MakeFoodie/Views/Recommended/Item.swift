@@ -10,12 +10,12 @@ import UIKit
 
 class Item: Codable {
     var title: String
-    var price: Int
+    var price: Float
     var desc: String
     var imageName: String
     var userName: String
     
-    init(title: String, price: Int, desc: String, imageName: String, userName: String)
+    init(title: String, price: Float, desc: String, imageName: String, userName: String)
     {
         self.title = title
         self.price = price

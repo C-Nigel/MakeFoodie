@@ -10,7 +10,7 @@
         <!--Signup-->
         <scene sceneID="0TK-NM-Fzd">
             <objects>
-                <viewController title="Signup" id="jgP-3L-NOM" customClass="SignupViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="signup" title="Signup" id="jgP-3L-NOM" customClass="SignupViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Ex-bk-Hb0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -60,7 +60,6 @@
                                 <state key="normal" title="Create Account"/>
                                 <connections>
                                     <action selector="CreateAccount:" destination="jgP-3L-NOM" eventType="touchUpInside" id="4xl-Cd-yTI"/>
-                                    <segue destination="fPf-nJ-DAU" kind="showDetail" id="PIv-Pt-HIE"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="esO-kb-b9a">
@@ -90,7 +89,7 @@
         <!--MainLogin-->
         <scene sceneID="J6i-pR-LTb">
             <objects>
-                <viewController title="MainLogin" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Sey-tj-WFY" customClass="LoginViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Login" title="MainLogin" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Sey-tj-WFY" customClass="LoginViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AVb-G9-Yvi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -116,7 +115,7 @@
                                 <rect key="frame" x="130" y="537" width="154" height="30"/>
                                 <state key="normal" title="Sign in"/>
                                 <connections>
-                                    <segue destination="qOd-LJ-UYs" kind="showDetail" id="1gD-YA-wUx"/>
+                                    <action selector="onLogin:" destination="Sey-tj-WFY" eventType="touchUpInside" id="Vhu-TB-PtL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5FP-ky-xUF">
@@ -159,16 +158,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y6I-Ol-ZfE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="752.17391304347836" y="811.60714285714278"/>
-        </scene>
-        <!--Profile-->
-        <scene sceneID="bmF-O2-k9K">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Profile" id="qOd-LJ-UYs" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="AWU-rY-6gC"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="woB-fo-SRx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="743" y="1329"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="PJL-kb-3AF">
