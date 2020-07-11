@@ -153,8 +153,8 @@ class DataManager: NSObject {
     // Kang Ning
     // Loads from firebase and convert to Post array
     static func loadPosts(onComplete: (([Post]) -> Void)?) {
-        // getDocuments loads full list of posts
-        db.collection("post").getDocuments() {
+        // getDocuments loads full list of posts in descending order of id field
+        db.collection("post").order(by: "id", descending: true).getDocuments() {
             (querySnapshot, err) in
             
             var postList : [Post] = []

@@ -313,7 +313,7 @@
                                     <outlet property="priceLabel" destination="HhV-5S-Rvc" id="tur-Qd-gR6"/>
                                     <outlet property="titleLabel" destination="y6L-XG-0uA" id="5Fv-Zp-HSe"/>
                                     <outlet property="usernameLabel" destination="rpa-NV-16x" id="5FV-IO-JtO"/>
-                                    <segue destination="AG2-pU-SfM" kind="show" id="b0K-Cd-lBE"/>
+                                    <segue destination="AG2-pU-SfM" kind="show" identifier="ShowPostDetails" id="b0K-Cd-lBE"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -325,12 +325,12 @@
                     <navigationItem key="navigationItem" title="Posts" id="tzQ-jf-aLQ">
                         <barButtonItem key="leftBarButtonItem" title="Filter" image="filter" id="cLu-w1-Sdk">
                             <connections>
-                                <segue destination="PvQ-UU-QKQ" kind="show" id="TCm-Q2-5t4"/>
+                                <segue destination="PvQ-UU-QKQ" kind="show" identifier="" id="TCm-Q2-5t4"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="KmE-eg-jSC">
                             <connections>
-                                <segue destination="DFX-Zv-RGR" kind="show" id="6Dw-Iu-Mvk"/>
+                                <segue destination="DFX-Zv-RGR" kind="show" identifier="" id="6Dw-Iu-Mvk"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

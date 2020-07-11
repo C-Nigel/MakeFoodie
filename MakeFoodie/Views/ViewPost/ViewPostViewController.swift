@@ -19,21 +19,39 @@ class ViewPostViewController: UIViewController {
     @IBOutlet weak var chatButton: UIButton!
     @IBOutlet weak var orderButton: UIButton!
     
+    var post: Post?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
+    // This function is triggered when the view is about to appear.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
 
-    /*
+        titleLabel.text = post?.title
+        postImageView.image = post?.thumbnail.getImage()
+        usernameLabel.text = post?.userName
+        priceLabel.text = "$\(post!.price)"
+        descLabel.text = post?.desc
+        categoryLabel.text = post?.category
+    }
+    
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if (segue.identifier == "ShowPostDetails")
+        {
+            // Get the new view controller using segue.destination.
+            // Pass the selected object to the new view controller.
+            let editPostViewController = segue.destination as! EditPostViewController
+        }
     }
-    */
-
 }
