@@ -129,24 +129,72 @@ class DataManager: NSObject {
     
     //load recipe list
     static func loadRecipes(onComplete: (([Recipe]) -> Void)?) {
-        db.collection("recipes").getDocuments() { (querySnapshot, err) in
-        var recipeList : [Recipe] = []
-        if let err = err { // Handle errors here.
-            print("Error getting documents: \(err)")
-            
-        }
-        else {
-            for document in querySnapshot!.documents {
-                let recipe = try? document.data(as: Recipe.self)!
-                if recipe != nil {
-                    recipeList.append(recipe!)
+        db.collection("recipes").order(by: "recipeID", descending: true).getDocuments() {
+            (querySnapshot, err) in
+                var recipeList : [Recipe] = []
+                if let err = err { // Handle errors here.
+                    print("Error getting documents: \(err)")
                     
                 }
-            } 
-        }
-        onComplete?(recipeList)
-        }
+                else {
+                    for document in querySnapshot!.documents {
+                        var recipe = try? document.data(as: Recipe.self) as! Recipe
+                        if recipe != nil {
+                            recipeList.append(recipe!)
+                            
+                        }
+                    }
+                }
+                onComplete?(recipeList)
+            }
         
+    }
+    
+    // Kang Ning
+    // Loads from firebase and convert to Post array
+    static func loadPosts(onComplete: (([Post]) -> Void)?) {
+        // getDocuments loads full list of posts
+        db.collection("post").getDocuments() {
+            (querySnapshot, err) in
+            
+            var postList : [Post] = []
+            
+            if let err = err {
+                // Handle errors here.
+                print("Error getting documents: \(err)") // Print err to console
+                
+            }
+            else {
+                for document in querySnapshot!.documents {
+                    // Retrieve fields and update into Post object
+                    let post = try? document.data(as: Post.self)!
+                    if post != nil {
+                        postList.append(post!)
+                        
+                    }
+                }
+            }
+            // Call onComplete when completed processing
+            onComplete?(postList)
+        }
+    }
+    
+    // Add or Edit Post
+    static func insertOrEditPost(_ post: Post) {
+        try? db.collection("post")
+            .document(String(post.id))
+            .setData(from: post, encoder: Firestore.Encoder()) // Closure omitted because last parameter accepts function
+        {
+                
+            err in
+                
+            if let err = err {
+                print("Error adding document: \(err)")
+            }
+            else {
+                print("Document successfully added!")
+            }
+        }
     }
     
     

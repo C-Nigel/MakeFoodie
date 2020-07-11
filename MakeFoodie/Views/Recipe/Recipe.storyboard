@@ -10,7 +10,7 @@
         <!--Recipes-->
         <scene sceneID="Gp9-Jg-ryO">
             <objects>
-                <tableViewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Y8V-FF-DNP" sceneMemberID="viewController">
+                <tableViewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Y8V-FF-DNP" customClass="RecipesTableViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="u36-HP-k6f">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,7 +21,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="357" id="FGy-mh-OV1">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeItem" rowHeight="357" id="FGy-mh-OV1" customClass="RecipeTableViewCell" customModule="MakeFoodie" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="414" height="357"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FGy-mh-OV1" id="HPB-KR-mgl">
@@ -29,13 +29,20 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDa-dn-Acj">
-                                            <rect key="frame" x="20" y="11" width="56" height="36"/>
+                                            <rect key="frame" x="20" y="11" width="238" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="238" id="QNC-jB-Tz7"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8yp-VW-3jG">
                                             <rect key="frame" x="20" y="53" width="374" height="203"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="203" id="I1k-xW-2UV"/>
+                                                <constraint firstAttribute="width" constant="374" id="PXc-sj-REf"/>
+                                            </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCJ-Gd-Bao">
                                             <rect key="frame" x="266" y="11" width="83" height="36"/>
@@ -58,9 +65,11 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T09-S9-k3O">
-                                            <rect key="frame" x="133" y="268" width="23" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T09-S9-k3O">
+                                            <rect key="frame" x="133" y="268" width="74.5" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="22" id="mkF-8p-a0r"/>
+                                            </constraints>
                                             <state key="normal" title="Button" image="heart" catalog="system"/>
                                         </button>
                                     </subviews>
@@ -73,23 +82,29 @@
                                         <constraint firstItem="8yp-VW-3jG" firstAttribute="top" secondItem="nCJ-Gd-Bao" secondAttribute="bottom" constant="6" id="CEN-h1-pTH"/>
                                         <constraint firstItem="8yp-VW-3jG" firstAttribute="trailing" secondItem="HPB-KR-mgl" secondAttribute="trailingMargin" id="Ekc-1o-hgq"/>
                                         <constraint firstItem="8yp-VW-3jG" firstAttribute="top" secondItem="pDa-dn-Acj" secondAttribute="bottom" constant="6" id="FeY-UW-3c9"/>
-                                        <constraint firstItem="nCJ-Gd-Bao" firstAttribute="leading" secondItem="pDa-dn-Acj" secondAttribute="trailing" constant="190" id="IpY-M6-LYs"/>
                                         <constraint firstItem="pDa-dn-Acj" firstAttribute="top" secondItem="HPB-KR-mgl" secondAttribute="topMargin" id="L91-vl-Xe2"/>
                                         <constraint firstItem="8yp-VW-3jG" firstAttribute="top" secondItem="jGk-eU-xfC" secondAttribute="bottom" constant="6" id="L9Y-jB-zq4"/>
                                         <constraint firstItem="9M5-0H-boF" firstAttribute="top" secondItem="8yp-VW-3jG" secondAttribute="bottom" constant="8" id="NVe-Gi-TTC"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="jGk-eU-xfC" secondAttribute="trailing" constant="15" id="Nid-pi-ha3"/>
                                         <constraint firstItem="8yp-VW-3jG" firstAttribute="top" secondItem="pDa-dn-Acj" secondAttribute="bottom" constant="6" id="O6D-4X-Gaz"/>
+                                        <constraint firstItem="T09-S9-k3O" firstAttribute="top" secondItem="8yp-VW-3jG" secondAttribute="bottom" constant="12" id="Rx9-7Q-Nbk"/>
+                                        <constraint firstItem="T09-S9-k3O" firstAttribute="leading" secondItem="9M5-0H-boF" secondAttribute="trailing" constant="2" id="TI5-VG-mJZ"/>
                                         <constraint firstItem="jwY-9p-c9t" firstAttribute="top" secondItem="9M5-0H-boF" secondAttribute="bottom" constant="8" id="Ulv-WB-kp2"/>
                                         <constraint firstItem="9M5-0H-boF" firstAttribute="leading" secondItem="HPB-KR-mgl" secondAttribute="leadingMargin" id="Uz0-u4-Mnj"/>
                                         <constraint firstItem="jwY-9p-c9t" firstAttribute="leading" secondItem="HPB-KR-mgl" secondAttribute="leadingMargin" constant="28" id="aSr-tl-m4T"/>
                                         <constraint firstItem="jGk-eU-xfC" firstAttribute="top" secondItem="HPB-KR-mgl" secondAttribute="topMargin" id="aiU-dK-OkP"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="jwY-9p-c9t" secondAttribute="bottom" constant="20" id="bKu-Td-HCP"/>
-                                        <constraint firstItem="nCJ-Gd-Bao" firstAttribute="leading" secondItem="pDa-dn-Acj" secondAttribute="trailing" constant="190" id="c2I-rB-ihy"/>
                                         <constraint firstItem="9M5-0H-boF" firstAttribute="top" secondItem="8yp-VW-3jG" secondAttribute="bottom" constant="8" id="gd5-0U-Rkg"/>
                                         <constraint firstItem="nCJ-Gd-Bao" firstAttribute="top" secondItem="HPB-KR-mgl" secondAttribute="topMargin" id="lly-8Y-ZnK"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="descLabel" destination="jwY-9p-c9t" id="0Mh-8m-ZP9"/>
+                                    <outlet property="heartButton" destination="T09-S9-k3O" id="zA7-yX-OMt"/>
+                                    <outlet property="ratingLabel" destination="nCJ-Gd-Bao" id="jt0-7s-vN4"/>
+                                    <outlet property="thumbnailImage" destination="8yp-VW-3jG" id="nfM-ir-MgQ"/>
+                                    <outlet property="titleLabel" destination="pDa-dn-Acj" id="rwc-UN-xGc"/>
+                                    <outlet property="usernameLabel" destination="9M5-0H-boF" id="Elr-u3-uBC"/>
                                     <segue destination="v7T-2Q-sR7" kind="show" id="qDI-ib-vli"/>
                                 </connections>
                             </tableViewCell>
@@ -106,6 +121,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="recipeTableView" destination="u36-HP-k6f" id="0bK-Br-UJV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dqH-CD-2fl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -267,6 +285,7 @@
                                                 <rect key="frame" x="20" y="587" width="374" height="185"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="185" id="Sm6-rU-Bb5"/>
+                                                    <constraint firstAttribute="width" constant="374" id="swf-wH-d9O"/>
                                                 </constraints>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="j93-4s-rhX">
@@ -335,6 +354,7 @@
                         <outlet property="ingredientTextView" destination="Skb-M2-yG7" id="tLg-xO-MNY"/>
                         <outlet property="instructionError" destination="ttY-Va-juV" id="tBN-cz-t5Y"/>
                         <outlet property="instructionsTextView" destination="Uo7-sQ-CkD" id="bW2-9y-7Lj"/>
+                        <outlet property="recipeScrollView" destination="BcU-jl-1ge" id="kkr-Iv-7Yt"/>
                         <outlet property="saveButton" destination="gWt-lL-ZSu" id="kl6-kz-Rnc"/>
                         <outlet property="selectPictureButton" destination="01l-CU-uEo" id="1eB-Js-0Wr"/>
                         <outlet property="takePictureButton" destination="nai-AU-Zcw" id="HTJ-hb-vC3"/>

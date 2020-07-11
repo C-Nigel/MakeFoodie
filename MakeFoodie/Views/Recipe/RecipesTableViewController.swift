@@ -1,8 +1,8 @@
 //
-//  PostsTableViewController.swift
+//  RecipesTableViewController.swift
 //  MakeFoodie
 //
-//  Created by Chen Kang Ning on 5/7/20.
+//  Created by M06-3 on 7/10/20.
 //  Copyright © 2020 ITP312. All rights reserved.
 //
 
@@ -10,16 +10,15 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class PostsTableViewController: UITableViewController {
-    @IBOutlet var postTableView: UITableView!
-    var postList: [Post] = []
-    var userList:[User] = []
-    var username: String = ""
+class RecipesTableViewController: UITableViewController {
 
+    @IBOutlet var recipeTableView: UITableView!
+    var recipeList: Array<Recipe> = []
+    var userList: Array<User> = []
+    var username: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Check username
         if Auth.auth().currentUser != nil {
             let user = Auth.auth().currentUser
             if let user = user {
@@ -35,55 +34,63 @@ class PostsTableViewController: UITableViewController {
                 }
             }
         }
-
-        loadPosts()
-        
-        /* Test data
-        postList.append(Post(title: "Chicken rice", price: 10, desc: "RICEE", thumbnail: "Ah-Seng-Braised-Duck-Rice", category: "Chinese", userName: "LetsBake"))
-        postList.append(Post(title: "Juice", price: 20, desc: "Not actually juice but I made the assumption it was juice and now realise I was mistaken the whole time oops", thumbnail: "movie_oklahoma", category: "Beverages", userName: "LetsBakeaaaa"))
-        postList.append(Post(title: "Juice", price: 100, desc: "Not actually juice but more than juice and better and more improved than juice can ever be", thumbnail: "Ah-Seng-Braised-Duck-Rice", category: "Western", userName: "LetsBakeaaaaaaaaaa")) */
+        else {
+        }
+        loadRecipes()
     }
     
-    // Function that loads data from Firestore and refreshes tableView
-    func loadPosts() {
-        DataManager.loadPosts ()
-        {
-            postListFromFirestore in
+    //load recipes
+    func loadRecipes() {
+        
+        DataManager.loadRecipes() {
+            recipeListFromFirestore in
 
-            // Assign list to list from Firestore
-            self.postList = postListFromFirestore
-
-            // Reload content in tableView
-            self.tableView.reloadData()
+            // This is a closure.
+            //
+            // This block of codes is executed when the // async loading from Firestore is complete.
+            // What it is to reassigned the new list loaded
+            // from Firestore. //
+            self.recipeList = recipeListFromFirestore
+            
+            //reload tableView
+            self.recipeTableView.reloadData()
         }
     }
-
+    
     // MARK: - Table view data source
 
     /*override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 0
     }*/
-
-    // Tells the UITableView how many rows there will be.
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postList.count
+        return recipeList.count
     }
-
-    //  To create / reuse a UITableViewCell and return it to the UITableView to draw on the screen.
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Query table view to see if there are any UITableViewCells that can be reused. iOS will create a new one if there aren't any.
-        let cell : PostCell = tableView.dequeueReusableCell (withIdentifier: "PostCell", for: indexPath) as! PostCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeItem", for: indexPath) as! RecipeTableViewCell
 
-        // Use the reused cell/newly created cell and update it
-        let p = postList[indexPath.row]
-        cell.titleLabel.text = p.title
-        cell.titleLabel.sizeToFit()
-        cell.postImageView.image = p.thumbnail.getImage()
-        cell.usernameLabel.text = p.userName
-        cell.usernameLabel.sizeToFit()
-        cell.priceLabel.text = "$\(p.price)"
-        cell.descLabel.text = p.desc
+        let r = recipeList[indexPath.row]
+        cell.titleLabel.text = r.title
+        cell.thumbnailImage.image = r.thumbnail.getImage()
+        
+        if (r.reviews == []) {
+            cell.ratingLabel.text = "-"
+        }
+        else {
+            var totalRating: Int = 0
+            var avgRating: Int
+            for i in r.reviews {
+                totalRating += Int(i[1])!
+            }
+            avgRating = totalRating/r.reviews.count
+            
+            cell.ratingLabel.text = String(avgRating)
+        }
+        
+        cell.descLabel.text = r.desc
+        cell.usernameLabel.text = r.username
         
         return cell
     }
