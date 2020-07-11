@@ -19,6 +19,8 @@ class RecipesTableViewController: UITableViewController {
     var uid: String = ""
     var curruid: String = ""
     
+    var selectedRow: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if Auth.auth().currentUser != nil {
@@ -151,6 +153,11 @@ class RecipesTableViewController: UITableViewController {
         return true
     }
     */
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedRow = indexPath.row
+        
+    }
 
     /*
     // MARK: - Navigation
