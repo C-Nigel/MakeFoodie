@@ -22,6 +22,12 @@ class RecipeDetailViewController: UIViewController {
     @IBOutlet weak var ingLabel: UILabel!
     @IBOutlet weak var instructionLabel: UILabel!
     
+    //edit and delete buttons
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
+    
+    @IBOutlet weak var reviewTitle: UILabel!
+    
     //add review button
     @IBOutlet weak var addReviewButton: UIButton!
     
@@ -37,16 +43,34 @@ class RecipeDetailViewController: UIViewController {
     var recipeList: Array<Recipe> = []
     var selectedRow: Int = 0
     var userList: Array<User> = []
+    var curruid: String = ""
+    var otherReviews: Array<[String]> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let viewControllers = self.navigationController?.viewControllers
-        let parent = viewControllers?[0] as! RecipesTableViewController
         
-        self.recipeList = parent.recipeList
-        self.selectedRow = parent.selectedRow
                
         
+        //check user
+        if Auth.auth().currentUser != nil {
+            let user = Auth.auth().currentUser
+            if let user = user {
+                let uidd: String = user.uid
+                DataManager.loadUser() {
+                    userListFromFirestore in
+                    self.userList = userListFromFirestore
+                    for i in self.userList {
+                        if (i.uid == uidd) {
+                            self.curruid = i.uid
+                        }
+                    }
+                }
+            }
+        }
+        else {
+        }
+        
+        //loading data to view the recipe
         titleLabel.text = self.recipeList[selectedRow].title
         
         //calculate rating
@@ -82,19 +106,69 @@ class RecipeDetailViewController: UIViewController {
         ingLabel.text = self.recipeList[selectedRow].ingredients
         instructionLabel.text = self.recipeList[selectedRow].instructions
         
+                
+        //check if recipe belongs to current user
+        if (self.recipeList[selectedRow].uid == self.curruid) {
+            //if match, show edit and delete button
+            editButton.accessibilityElementsHidden = false
+            deleteButton.accessibilityElementsHidden = false
+        }
+        //else, hide edit and delete button
+        else {
+            editButton.accessibilityElementsHidden = true
+            editButton.accessibilityElementsHidden = true
+        }
         
-        // Do any additional setup after loading the view.
-    }
-    
+        //check if user has a review for this recipe
+        for i in 0..<self.recipeList.count {
+            if !(self.recipeList[selectedRow].reviews.isEmpty) {
+                if (self.recipeList[selectedRow].reviews[i][0] == self.curruid) {
+                    //if has review, hide add review button and show your review stack
+                    addReviewButton.isHidden = true
+                    yourReviewStack.isHidden = false
+                    
+                    //change text of reviewTitle to Other Reviews
+                    reviewTitle.text = "Other Reviews"
+                    //pop the record of current user's review, add the updated list to otherReviews
+                    self.recipeList[selectedRow].reviews.remove(at: i)
+                    self.otherReviews = self.recipeList[selectedRow].reviews
+                    
+                }
+                //else, show add review and hide your review stack
+                    //with reviewTitle text being Reviews
+                else {
+                    addReviewButton.isHidden = false
+                    yourReviewStack.isHidden = true
+                    reviewTitle.text = "Reviews"
+                }
+            }
+        }
+        
 
-    /*
+        
+    }
+
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if (segue.identifier == "addReview") {
+            
+        }
+        if (segue.identifier == "editReview") {
+            
+        }
+        if (segue.identifier == "editRecipe") {
+            let destView = segue.destination as! EditRecipeViewController
+            destView.recipeList = self.recipeList
+            destView.selectedRow = self.selectedRow
+            destView.curruid = self.curruid
+            destView.userList = self.userList
+        }
     }
-    */
+    
 
 }
