@@ -16,6 +16,8 @@ class RecipesTableViewController: UITableViewController {
     var recipeList: Array<Recipe> = []
     var userList: Array<User> = []
     var username: String = ""
+    var uid: String = ""
+    var curruid: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,7 @@ class RecipesTableViewController: UITableViewController {
                     for i in self.userList {
                         if (i.uid == uidd) {
                             self.username = i.username
+                            self.curruid = i.uid
                         }
                     }
                 }
@@ -90,7 +93,26 @@ class RecipesTableViewController: UITableViewController {
         }
         
         cell.descLabel.text = r.desc
-        cell.usernameLabel.text = r.username
+        
+        DataManager.loadUser() {
+            userListFromFirestore in
+            self.userList = userListFromFirestore
+            for i in self.userList {
+                if (i.uid == r.uid) {
+                    cell.usernameLabel.text = i.username
+                }
+            }
+        }
+            
+        
+        
+        /*print("for loop")
+        for i in self.userList {
+            print("in for loop")
+            if (i.uid == r.uid) {
+                cell.titleLabel.text = i.username
+            }
+        }*/
         
         return cell
     }
