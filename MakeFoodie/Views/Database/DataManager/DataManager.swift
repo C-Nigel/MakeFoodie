@@ -138,7 +138,7 @@ class DataManager: NSObject {
                 }
                 else {
                     for document in querySnapshot!.documents {
-                        var recipe = try? document.data(as: Recipe.self) as! Recipe
+                        let recipe = try? document.data(as: Recipe.self)!
                         if recipe != nil {
                             recipeList.append(recipe!)
                             
