@@ -15,6 +15,9 @@ import FirebaseFirestore
 class ProfileViewController: UIViewController {
 
     @IBOutlet weak var username: UILabel!
+    @IBOutlet weak var imagey: UIImageView!
+  
+    @IBOutlet weak var descriptions: UITextView!
     
     var userList : [User] = [];
     override func viewDidLoad() {
@@ -23,51 +26,33 @@ class ProfileViewController: UIViewController {
         if Auth.auth().currentUser != nil{
             let user = Auth.auth().currentUser
             if let user = user {
-              // The user's ID, unique to the Firebase project.
-              // Do NOT use this value to authenticate with your backend server,
-              // if you have one. Use getTokenWithCompletion:completion: instead.
+              
                 let uidd: String = user.uid
-                /*let db = Firestore.firestore()
-                db.collection("user").getDocuments { (data, err) in
-                    var userList : [User] = []
-                    if err != nil{
-                        print("Error getting data")
-                    }
-                    else{
-                        for document in data!.documents{
-                            let userss = try? document.data(as: User.self)!
-                            if userss != nil{
-                                userList.append(userss!)
-                                for i in userList{
-                                    if i.uid == uidd{
-                                        
-                                        self.username.text = i.username
-                                        
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }*/
+                
                 DataManager.loadUser(){
                     userListFromFirestore in
                     self.userList = userListFromFirestore
                     for i in self.userList{
                         if i.uid == uidd{
                             self.username.text = i.username
+                            if i.imagelink.getImage() != nil{
+                                self.imagey.image = i.imagelink.getImage()
+                            }
+                            self.descriptions.text = i.description
+                            
                         }
                     }
                 }
             }
-              //let email = user.email
               
-             
-              // ...
         }
         else{
             
         }
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        viewDidLoad()
     }
 
         // Do any additional setup after loading the view.

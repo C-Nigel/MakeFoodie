@@ -46,13 +46,13 @@
                                 <rect key="frame" x="109" y="533" width="195" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aEi-i3-Tku">
                                 <rect key="frame" x="109" y="597" width="195" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAp-KW-RpF">
                                 <rect key="frame" x="109" y="654" width="195" height="30"/>
@@ -66,7 +66,7 @@
                                 <rect key="frame" x="109" y="325" width="195" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="email"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -89,7 +89,7 @@
         <!--MainLogin-->
         <scene sceneID="J6i-pR-LTb">
             <objects>
-                <viewController storyboardIdentifier="Login" title="MainLogin" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Sey-tj-WFY" customClass="LoginViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="MainLogin" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Sey-tj-WFY" customClass="LoginViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AVb-G9-Yvi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,12 +98,12 @@
                                 <rect key="frame" x="130" y="391" width="154" height="34"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gY6-wC-VnO">
                                 <rect key="frame" x="130" y="465" width="154" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELp-CM-st4">
                                 <rect key="frame" x="174" y="324" width="67" height="34"/>
@@ -179,7 +179,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" textContentType="email"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUm-09-JyN">
                                 <rect key="frame" x="136" y="509" width="142" height="42"/>
@@ -199,7 +199,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="ye8-ER-5QI">
             <objects>
-                <tabBarController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="fPf-nJ-DAU" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="Login" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="fPf-nJ-DAU" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="olW-V5-w6S"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nTv-I6-x0r">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -219,7 +219,7 @@
         <scene sceneID="YmK-a3-g9b">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EbN-vb-iOA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Signup" id="4Gi-KJ-HuA"/>
+                    <tabBarItem key="tabBarItem" title="Signup" image="person.badge.plus" catalog="system" id="4Gi-KJ-HuA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sI6-2Z-2ZC">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -238,7 +238,7 @@
         <scene sceneID="s8Z-Tj-9BQ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="KAZ-qg-DDq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Login" id="JEo-bF-pCI"/>
+                    <tabBarItem key="tabBarItem" title="Login" image="arrowshape.turn.up.right.circle" catalog="system" id="JEo-bF-pCI"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="I7W-X1-ElE"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XZd-ma-7rJ">
@@ -255,4 +255,8 @@
             <point key="canvasLocation" x="-157.97101449275362" y="811.60714285714278"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrowshape.turn.up.right.circle" catalog="system" width="128" height="121"/>
+        <image name="person.badge.plus" catalog="system" width="128" height="116"/>
+    </resources>
 </document>

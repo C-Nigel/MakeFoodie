@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		19C9ED4DF29F85ECF2819255 /* Pods_MakeFoodie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8151CC4A9D32F30B842A8C6C /* Pods_MakeFoodie.framework */; };
+		2583F3B924B8D230008AD820 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2583F3B824B8D230008AD820 /* EditProfileViewController.swift */; };
 		25D10E8E24B705F1000F6DE5 /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D10E8D24B705F1000F6DE5 /* DateTextField.swift */; };
 		472229DF246BC13100E13C81 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472229DE246BC13100E13C81 /* AppDelegate.swift */; };
 		472229E1246BC13100E13C81 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472229E0246BC13100E13C81 /* SceneDelegate.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2583F3B824B8D230008AD820 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		25D10E8D24B705F1000F6DE5 /* DateTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
 		2AB9FDAF0D3AFF49BABD7D32 /* Pods_MakeFoodie_MakeFoodieUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MakeFoodie_MakeFoodieUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FE8F8F411FBC29084B6451D /* Pods-MakeFoodie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeFoodie.release.xcconfig"; path = "Target Support Files/Pods-MakeFoodie/Pods-MakeFoodie.release.xcconfig"; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 			children = (
 				F44A4F552484D74700D25E49 /* Profile.storyboard */,
 				D4E0721A24B57CF50035F967 /* ProfileViewController.swift */,
+				2583F3B824B8D230008AD820 /* EditProfileViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -704,6 +707,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2583F3B924B8D230008AD820 /* EditProfileViewController.swift in Sources */,
 				D46E21EA24B5858E00F752CF /* CreateRecipeViewController.swift in Sources */,
 				D4E0721D24B57D3D0035F967 /* OrdersViewController.swift in Sources */,
 				7761BA1724B0F35A003CDDF3 /* CreatePostViewController.swift in Sources */,
