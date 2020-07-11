@@ -347,7 +347,7 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
             let viewControllers = self.navigationController?.viewControllers
             let parent = viewControllers?[0] as! RecipesTableViewController
             
-            recipeList.append(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews: [], username: parent.username))
+            recipeList.append(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews: [], uid: parent.curruid))
             
             /*for i in recipeList {
                 /*print (i.title)
@@ -360,7 +360,7 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
                 
                 DataManager.insertOrReplaceRecipe(i)
             }*/
-            DataManager.insertOrReplaceRecipe(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews: [], username: parent.username))
+            DataManager.insertOrReplaceRecipe(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews: [], uid: parent.curruid))
             
             parent.loadRecipes()
             
