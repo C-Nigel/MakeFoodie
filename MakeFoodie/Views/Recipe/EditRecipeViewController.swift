@@ -341,7 +341,8 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
         if (valid == true) {
             
             let viewControllers = self.navigationController?.viewControllers
-            let parent = viewControllers?[0] as! RecipesTableViewController
+            let tableViewController = viewControllers?[0] as! RecipesTableViewController
+            let parent = viewControllers?[1] as! RecipeDetailViewController
             
             recipeList.append(Recipe(recipeID: self.recipeList[selectedRow].recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipeList[selectedRow].reviews, uid: self.curruid))
             
@@ -358,9 +359,11 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
             }*/
             DataManager.insertOrReplaceRecipe(Recipe(recipeID: self.recipeList[selectedRow].recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipeList[selectedRow].reviews, uid: self.curruid))
             
+            //loadRecipe
+            tableViewController.loadRecipes()
             parent.loadRecipes()
             
-            //going back to tableviewcontroller after adding
+            //going back to RecipeDetailViewController after editing
             self.navigationController?.popViewController(animated: true)
             
         }
