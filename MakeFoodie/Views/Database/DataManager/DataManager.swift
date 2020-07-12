@@ -167,6 +167,7 @@ class DataManager: NSObject {
                         
                         if item != nil
                         {
+                            item?.uid = getNameByUID(UID: item!.uid)
                             followItems.append(item!)
                         }
                         
@@ -176,6 +177,36 @@ class DataManager: NSObject {
                 }
             }
         }
+        
+        
+    }
+    
+    static func getNameByUID(UID: String) -> String
+    {
+        var username: String = ""
+        db.collection("user").document(UID).getDocument()
+        {
+            (querySnapshot, err) in
+            
+            if let err = err
+            {
+                print("Error getting user by UID: \(err)")
+            }
+            else
+            {
+                let item = try? querySnapshot!.data(as: userDetails.self)!
+                
+                if item != nil
+                {
+                    username = item!.username
+                }
+                else
+                {
+                    username = "Unknown"
+                }
+            }
+        }
+        return username
     }
     
     //zoe//
