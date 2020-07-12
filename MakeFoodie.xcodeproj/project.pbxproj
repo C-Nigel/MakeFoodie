@@ -42,6 +42,9 @@
 		D4A50F9624AC3485009B0349 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9524AC3485009B0349 /* SignupViewController.swift */; };
 		D4E0721B24B57CF50035F967 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E0721A24B57CF50035F967 /* ProfileViewController.swift */; };
 		D4E0721D24B57D3D0035F967 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E0721C24B57D3D0035F967 /* OrdersViewController.swift */; };
+		F40B9CAA24B9824100B03A12 /* FollowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40B9CA924B9824100B03A12 /* FollowingViewController.swift */; };
+		F40B9CAC24B9831600B03A12 /* Follow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40B9CAB24B9831600B03A12 /* Follow.swift */; };
+		F40B9CAE24B986EB00B03A12 /* FollowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40B9CAD24B986EB00B03A12 /* FollowCell.swift */; };
 		F445804A2490C08800F1CAA6 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44580492490C08800F1CAA6 /* ItemCell.swift */; };
 		F445804C2490C0B200F1CAA6 /* RecommendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F445804B2490C0B200F1CAA6 /* RecommendedViewController.swift */; };
 		F445804E2490C0D000F1CAA6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F445804D2490C0D000F1CAA6 /* Item.swift */; };
@@ -121,6 +124,9 @@
 		D4E0721A24B57CF50035F967 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D4E0721C24B57D3D0035F967 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
 		D8A80922B46711C821A3413A /* Pods-MakeFoodieTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeFoodieTests.release.xcconfig"; path = "Target Support Files/Pods-MakeFoodieTests/Pods-MakeFoodieTests.release.xcconfig"; sourceTree = "<group>"; };
+		F40B9CA924B9824100B03A12 /* FollowingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingViewController.swift; sourceTree = "<group>"; };
+		F40B9CAB24B9831600B03A12 /* Follow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follow.swift; sourceTree = "<group>"; };
+		F40B9CAD24B986EB00B03A12 /* FollowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCell.swift; sourceTree = "<group>"; };
 		F44580492490C08800F1CAA6 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		F445804B2490C0B200F1CAA6 /* RecommendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedViewController.swift; sourceTree = "<group>"; };
 		F445804D2490C0D000F1CAA6 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -279,6 +285,9 @@
 			isa = PBXGroup;
 			children = (
 				F44A4F572484D75500D25E49 /* Following.storyboard */,
+				F40B9CA924B9824100B03A12 /* FollowingViewController.swift */,
+				F40B9CAB24B9831600B03A12 /* Follow.swift */,
+				F40B9CAD24B986EB00B03A12 /* FollowCell.swift */,
 			);
 			path = Following;
 			sourceTree = "<group>";
@@ -714,6 +723,7 @@
 				D4E0721D24B57D3D0035F967 /* OrdersViewController.swift in Sources */,
 				7761BA1724B0F35A003CDDF3 /* CreatePostViewController.swift in Sources */,
 				D4A50F9624AC3485009B0349 /* SignupViewController.swift in Sources */,
+				F40B9CAE24B986EB00B03A12 /* FollowCell.swift in Sources */,
 				7D8E836224B84C7700F560F2 /* RecipesTableViewController.swift in Sources */,
 				7761BA2724B108FA003CDDF3 /* PostsTableViewController.swift in Sources */,
 				F445804A2490C08800F1CAA6 /* ItemCell.swift in Sources */,
@@ -722,6 +732,7 @@
 				25D10E8E24B705F1000F6DE5 /* DateTextField.swift in Sources */,
 				D4E0721B24B57CF50035F967 /* ProfileViewController.swift in Sources */,
 				472229E3246BC13100E13C81 /* ViewController.swift in Sources */,
+				F40B9CAA24B9824100B03A12 /* FollowingViewController.swift in Sources */,
 				7D8E836624B8500100F560F2 /* RecipeTableViewCell.swift in Sources */,
 				775BF66124B4C7F100845E93 /* ViewCategoryTableViewController.swift in Sources */,
 				775BF66524B4C93000845E93 /* EditPostViewController.swift in Sources */,
@@ -737,6 +748,7 @@
 				7761BA2324B10540003CDDF3 /* PostCell.swift in Sources */,
 				775BF65B24B4BF5500845E93 /* CategoriesTableViewController.swift in Sources */,
 				775BF65D24B4C00D00845E93 /* CategoryCell.swift in Sources */,
+				F40B9CAC24B9831600B03A12 /* Follow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
