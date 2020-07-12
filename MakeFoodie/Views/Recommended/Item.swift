@@ -8,19 +8,58 @@
 
 import UIKit
 
+//class Item: Codable {
+//    var title: String
+//    var price: Float
+//    var desc: String
+//    var imageName: String
+//    var userName: String
+//    
+//    init(title: String, price: Float, desc: String, imageName: String, userName: String)
+//    {
+//        self.title = title
+//        self.price = price
+//        self.desc = desc
+//        self.imageName = imageName
+//        self.userName = userName
+//    }
+//}
+
 class Item: Codable {
+    var id: Int
     var title: String
-    var price: Float
+    var price: Decimal
     var desc: String
-    var imageName: String
-    var userName: String
-    
-    init(title: String, price: Float, desc: String, imageName: String, userName: String)
+    var thumbnail: Image
+    var category: String
+    var uid: String
+        
+    init(id:Int, title: String, price: Decimal, desc: String, thumbnail: Image, category: String, uid: String)
     {
+        self.id = id
         self.title = title
         self.price = price
         self.desc = desc
-        self.imageName = imageName
-        self.userName = userName
+        self.thumbnail = thumbnail
+        self.category = category
+        self.uid = uid
+    }
+    
+    struct Image: Codable{
+        let imageData: Data?
+        
+        init(withImage image: UIImage) {
+            self.imageData = image.pngData()
+        }
+
+        func getImage() -> UIImage? {
+            guard let imageData = self.imageData else {
+                return nil
+            }
+            let image = UIImage(data: imageData)
+            
+            return image
+        }
     }
 }
+

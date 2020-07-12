@@ -80,7 +80,7 @@ class DataManager: NSObject {
     
     static func loadRecomendedItems(onComplete: (([Item]) -> Void)?)
     {
-        db.collection("posts").getDocuments()
+        db.collection("post").getDocuments()
         {
             // get all items from firestore and store inside Item array
             (querySnapshot, err) in
@@ -112,6 +112,101 @@ class DataManager: NSObject {
             // Once we have compeleted processing, call the onComplete closure passed in by the caller
             onComplete?(itemList)
         }
+    }
+    
+    static func loadFollowPostItems(onComplete: (([followDetails]) -> Void)?)
+    {
+        var followList : [Follow] = []
+        var followItems : [followDetails] = []
+
+        
+        db.collection("follow - post").getDocuments()
+        {
+            // get all items from firestore and store inside Item array
+            (querySnapshot, err) in
+            
+            if let err = err
+            {
+                // handles error here
+                
+                print("Error getting all items: \(err)")
+            }
+            else
+            {
+                for document in querySnapshot!.documents
+                {
+                    // this line tells Firestore to retrieve all fields and update it into our Item object automatically.
+                    
+                    // The requires the Movie object to implement the Codable protocol
+                    
+                    let item = try? document.data(as: Follow.self)!
+                    
+                    if item != nil
+                    {
+                        followList.append(item!)
+                    }
+                }
+            }
+            
+            for i in followList
+            {
+                db.collection("post").document(String(i.following)).getDocument()
+                {
+                    // get all items from firestore and store inside Item array
+                    (querySnapshot, err) in
+                                        
+                    if let err = err
+                    {
+                        // handles error here
+                        
+                        print("Error getting all items: \(err)")
+                    }
+                    else
+                    {
+                        let item = try? querySnapshot!.data(as: followDetails.self)!
+                        
+                        if item != nil
+                        {
+                            item?.uid = getNameByUID(UID: item!.uid)
+                            followItems.append(item!)
+                        }
+                        
+                    }
+                    // Once we have compeleted processing, call the onComplete closure passed in by the caller
+                    onComplete?(followItems)
+                }
+            }
+        }
+        
+        
+    }
+    
+    static func getNameByUID(UID: String) -> String
+    {
+        var username: String = ""
+        db.collection("user").document(UID).getDocument()
+        {
+            (querySnapshot, err) in
+            
+            if let err = err
+            {
+                print("Error getting user by UID: \(err)")
+            }
+            else
+            {
+                let item = try? querySnapshot!.data(as: userDetails.self)!
+                
+                if item != nil
+                {
+                    username = item!.username
+                }
+                else
+                {
+                    username = "Unknown"
+                }
+            }
+        }
+        return username
     }
     
     //zoe//

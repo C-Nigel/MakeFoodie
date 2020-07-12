@@ -15,10 +15,10 @@ class Recipe: Codable {
     var ingredients: String
     var instructions: String
     var thumbnail: Image
-    var reviews: Array<[String]>
+    var reviews: Dictionary<String, Dictionary<String, String>>
     var uid: String
     
-    init(recipeID: Int, title: String, desc: String, ingredients: String, instructions: String, thumbnail: Image, reviews: Array<[String]>,uid: String){
+    init(recipeID: Int, title: String, desc: String, ingredients: String, instructions: String, thumbnail: Image, reviews: Dictionary<String, Dictionary<String, String>>, uid: String){
         
         self.recipeID = recipeID
         self.title = title

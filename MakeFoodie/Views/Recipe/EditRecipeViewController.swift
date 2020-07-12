@@ -1,16 +1,14 @@
 //
-//  CreateRecipeViewController.swift
+//  EditRecipeViewController.swift
 //  MakeFoodie
 //
-//  Created by ITP312Grp2 on 8/7/20.
+//  Created by M06-3 on 7/11/20.
 //  Copyright © 2020 ITP312. All rights reserved.
 //
 
 import UIKit
-import Firebase
-import FirebaseAuth
 
-class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //inputs
     @IBOutlet weak var titleInput: UITextField!
@@ -34,17 +32,29 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
     @IBOutlet weak var thumbnailError: UILabel!
     
     @IBOutlet weak var recipeScrollView: UIScrollView!
-    
-    var username: String = ""
+        
     var recipeList: Array<Recipe> = []
-    
-    var reviews: Dictionary<String, Dictionary<String, String>> = [:]
+    var selectedRow: Int = 0
+    var userList: Array<User> = []
+    var curruid: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         // Do any additional setup after loading the view.
         //set round border for desc and instructions
+        
+        //loading data to put it in the inputs
+        titleInput.text = self.recipeList[selectedRow].title
+        descTextView.text = self.recipeList[selectedRow].desc
+        ingredientTextView.text = self.recipeList[selectedRow].ingredients
+        instructionsTextView.text = self.recipeList[selectedRow].instructions
+        
+        //convert image
+        thumbnailImage.image = Recipe.Image.getImage(self.recipeList[selectedRow].thumbnail)()
+        
+        
         self.descTextView.layer.borderColor = UIColor.black.cgColor
         self.descTextView.layer.borderWidth = 0.3
         self.descTextView.layer.cornerRadius = 6
@@ -80,8 +90,8 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         
         //for scroll when editing
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     } //end viewDidLoad
     
     
@@ -329,27 +339,12 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         
         //if all inputs are filled
         if (valid == true) {
-            //init id
-            var rID: Int = 0
-            var highestID: Int = 0
-            
-            //if list is empty, id of new recipe is 0
-            if (recipeList.isEmpty) {
-                rID = 0
-            }
-            else {
-                for i in recipeList {
-                    if (highestID <= i.recipeID) {
-                        highestID = i.recipeID
-                    }
-                }
-                rID = highestID + 1
-            }
             
             let viewControllers = self.navigationController?.viewControllers
-            let parent = viewControllers?[0] as! RecipesTableViewController
+            let tableViewController = viewControllers?[0] as! RecipesTableViewController
+            let parent = viewControllers?[1] as! RecipeDetailViewController
             
-            recipeList.append(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid))
+            recipeList.append(Recipe(recipeID: self.recipeList[selectedRow].recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipeList[selectedRow].reviews, uid: self.curruid))
             
             /*for i in recipeList {
                 /*print (i.title)
@@ -362,11 +357,13 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
                 
                 DataManager.insertOrReplaceRecipe(i)
             }*/
-            DataManager.insertOrReplaceRecipe(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid))
+            DataManager.insertOrReplaceRecipe(Recipe(recipeID: self.recipeList[selectedRow].recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipeList[selectedRow].reviews, uid: self.curruid))
             
+            //loadRecipe
+            tableViewController.loadRecipes()
             parent.loadRecipes()
             
-            //going back to tableviewcontroller after adding
+            //going back to RecipeDetailViewController after editing
             self.navigationController?.popViewController(animated: true)
             
         }
