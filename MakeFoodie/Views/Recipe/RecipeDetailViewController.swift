@@ -48,25 +48,7 @@ class RecipeDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //check user
-        if Auth.auth().currentUser != nil {
-            let user = Auth.auth().currentUser
-            if let user = user {
-                let uidd: String = user.uid
-                DataManager.loadUser() {
-                    userListFromFirestore in
-                    self.userList = userListFromFirestore
-                    for i in self.userList {
-                        if (i.uid == uidd) {
-                            self.curruid = i.uid
-                        }
-                    }
-                }
-            }
-        }
-        else {
-        }
+
         
         //loading data to view the recipe
         titleLabel.text = self.recipeList[selectedRow].title
@@ -96,6 +78,7 @@ class RecipeDetailViewController: UIViewController {
             for i in self.userList {
                 if (i.uid == self.recipeList[self.selectedRow].uid) {
                     self.usernameLabel.text = i.username
+                    self.curruid = i.uid
                 }
             }
         }
@@ -116,9 +99,7 @@ class RecipeDetailViewController: UIViewController {
                     for i in self.userList {
                         if (i.uid == uidd) {
                             self.curruid = i.uid
-                            print(self.recipeList[self.selectedRow].uid)
-                            print(self.curruid)
-                            
+                             
                             //check if recipe uid matches current user
                             if (self.recipeList[self.selectedRow].uid != self.curruid) {
                                 //if doesnt match, hide edit and delete button
@@ -176,6 +157,7 @@ class RecipeDetailViewController: UIViewController {
         
     } //end viewDidLoad
     
+    
     //load recipes
     func loadRecipes() {
         
@@ -189,8 +171,17 @@ class RecipeDetailViewController: UIViewController {
             // from Firestore. //
             self.recipeList = recipeListFromFirestore
             
-            //reload tableView
-            self.allReviewsTableView.reloadData()
+            
+            //putting data into the labels to view the recipe when view appears (after editing)
+            self.titleLabel.text = self.recipeList[self.selectedRow].title
+            
+            //convert image
+            self.thumbnailImage.image = Recipe.Image.getImage(self.recipeList[self.selectedRow].thumbnail)()
+        
+            
+            self.descLabel.text = self.recipeList[self.selectedRow].desc
+            self.ingLabel.text = self.recipeList[self.selectedRow].ingredients
+            self.instructionLabel.text = self.recipeList[self.selectedRow].instructions
         }
     }
     
