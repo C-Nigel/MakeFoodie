@@ -192,22 +192,18 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                // print("Error creating user")
             //}
             //else{
-                let db = Firestore.firestore()
-            self.user.append(User(username: self.usernameInput.text!, dob: self.dobInput.text!, gender: gender, phoneNo: "", description: "", uid: result!.user.uid))
+                
+            self.user.append(User(username: self.usernameInput.text!, dob: self.dobInput.text!, gender: gender, phoneNo: "", description: "", imagelink: User.Image.init(withImage: UIImage()), uid: result!.user.uid))
                 for i in self.user{
                     print(i.username);
                     print(i.dob);
                     print(i.gender)
+                     /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
                     
-                    db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"", "uid": i.uid]){ (error) in
-                        
-                        if error != nil{
-                            print("database not work")
-                        }
-                    }
+                    DataManager.insertOrReplaceUser(i)
                     //self.movetologinpage()
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
-                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "Login") as! LoginViewController
+                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "Login")
                             self.present(newViewController, animated: true, completion: nil)
               
                 }
@@ -229,7 +225,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
  
     func movetologinpage(){
-        let loginViewController = storyboard?.instantiateViewController(identifier: "LoginVC") as? LoginViewController
+        let loginViewController = storyboard?.instantiateViewController(identifier: "Login")
         
         view.window?.rootViewController = loginViewController
         view.window?.makeKeyAndVisible()

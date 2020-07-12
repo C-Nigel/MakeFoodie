@@ -16,9 +16,9 @@ class Recipe: Codable {
     var instructions: String
     var thumbnail: Image
     var reviews: Array<[String]>
-    var username: String
+    var uid: String
     
-    init(recipeID: Int, title: String, desc: String, ingredients: String, instructions: String, thumbnail: Image, reviews: Array<[String]>,username: String){
+    init(recipeID: Int, title: String, desc: String, ingredients: String, instructions: String, thumbnail: Image, reviews: Array<[String]>,uid: String){
         
         self.recipeID = recipeID
         self.title = title
@@ -27,7 +27,7 @@ class Recipe: Codable {
         self.instructions = instructions
         self.thumbnail = thumbnail
         self.reviews = reviews
-        self.username = username
+        self.uid = uid
         
     }
     

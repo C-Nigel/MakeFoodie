@@ -16,10 +16,10 @@ class DataManager: NSObject {
     static let db = Firestore.firestore()
     
     //ADD NEW USER IN DATABASE OR REPLACE CURRENT INFO
-    /*static func insertOrReplaceUser(_ usersvar: User)
+    static func insertOrReplaceUser(_ usersvar: User)
     {
         try? db.collection("user")
-            .document(usersvar.email)
+            .document(usersvar.uid)
             .setData(from: usersvar, encoder: Firestore.Encoder())
         {
             err in
@@ -27,7 +27,7 @@ class DataManager: NSObject {
                 print("Error adding document: \(err)")
             } else { print("Document successfully added!")
      } }
-    }*/
+    }
     //CLEAR USER INFO dun touch pls:p
     static func deleteUSER(_ email: String) {
         db.collection("user").document(email).delete() {
@@ -174,7 +174,7 @@ class DataManager: NSObject {
                 }
                 else {
                     for document in querySnapshot!.documents {
-                        var recipe = try? document.data(as: Recipe.self) as! Recipe
+                        let recipe = try? document.data(as: Recipe.self)!
                         if recipe != nil {
                             recipeList.append(recipe!)
                             
