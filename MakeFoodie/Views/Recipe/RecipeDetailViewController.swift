@@ -11,7 +11,7 @@ import Firebase
 import FirebaseAuth
 
 class RecipeDetailViewController: UIViewController {
-    
+
     //labels for recipe
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
@@ -21,6 +21,12 @@ class RecipeDetailViewController: UIViewController {
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var ingLabel: UILabel!
     @IBOutlet weak var instructionLabel: UILabel!
+    
+    //edit and delete buttons
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
+    
+    @IBOutlet weak var reviewTitle: UILabel!
     
     //add review button
     @IBOutlet weak var addReviewButton: UIButton!
@@ -37,27 +43,44 @@ class RecipeDetailViewController: UIViewController {
     var recipeList: Array<Recipe> = []
     var selectedRow: Int = 0
     var userList: Array<User> = []
+    var curruid: String = ""
+    var otherReviews: Dictionary<String, Dictionary<String, String>> = [:]
+    @IBOutlet weak var noReviewsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let viewControllers = self.navigationController?.viewControllers
-        let parent = viewControllers?[0] as! RecipesTableViewController
         
-        self.recipeList = parent.recipeList
-        self.selectedRow = parent.selectedRow
-               
+        //check user
+        if Auth.auth().currentUser != nil {
+            let user = Auth.auth().currentUser
+            if let user = user {
+                let uidd: String = user.uid
+                DataManager.loadUser() {
+                    userListFromFirestore in
+                    self.userList = userListFromFirestore
+                    for i in self.userList {
+                        if (i.uid == uidd) {
+                            self.curruid = i.uid
+                        }
+                    }
+                }
+            }
+        }
+        else {
+        }
         
+        //loading data to view the recipe
         titleLabel.text = self.recipeList[selectedRow].title
         
         //calculate rating
-        if (self.recipeList[selectedRow].reviews == []) {
+        if (self.recipeList[selectedRow].reviews.isEmpty) {
             ratingLabel.text = "-"
         }
         else {
             var totalRating: Int = 0
             var avgRating: Int
-            for i in self.recipeList[selectedRow].reviews {
-                totalRating += Int(i[1])!
+            for i in self.recipeList[selectedRow].reviews.keys {
+                totalRating += Int(self.recipeList[selectedRow].reviews[i]!["Rating"]!)!
             }
             avgRating = totalRating/self.recipeList[selectedRow].reviews.count
             
@@ -82,19 +105,119 @@ class RecipeDetailViewController: UIViewController {
         ingLabel.text = self.recipeList[selectedRow].ingredients
         instructionLabel.text = self.recipeList[selectedRow].instructions
         
+        //checkUser
         
-        // Do any additional setup after loading the view.
+        if Auth.auth().currentUser != nil {
+            let user = Auth.auth().currentUser
+            if let user = user {
+                let uidd: String = user.uid
+                DataManager.loadUser() {
+                    userListFromFirestore in
+                    self.userList = userListFromFirestore
+                    for i in self.userList {
+                        if (i.uid == uidd) {
+                            self.curruid = i.uid
+                            print(self.recipeList[self.selectedRow].uid)
+                            print(self.curruid)
+                            
+                            //check if recipe uid matches current user
+                            if (self.recipeList[self.selectedRow].uid != self.curruid) {
+                                //if doesnt match, hide edit and delete button
+                                self.editButton.isEnabled = false
+                                self.editButton.tintColor = UIColor.clear
+                                self.deleteButton.isEnabled = false
+                                self.deleteButton.tintColor = UIColor.clear
+                                
+                            }
+                            
+                            //check if user has a review for this recipe
+
+                            if !(self.recipeList[self.selectedRow].reviews.isEmpty) { //if reviews not empty
+                                for i in self.recipeList[self.selectedRow].reviews.keys { //i = keys in reviews dict
+                                    if (self.recipeList[self.selectedRow].reviews[i]!["uid"] == self.curruid) {
+                                        //if has current user review, hide add review button and show your review stack
+                                        self.addReviewButton.isHidden = true
+                                        self.yourReviewStack.alpha = 1.0
+                                        
+                                        //change text of reviewTitle to Other Reviews
+                                        self.reviewTitle.text = "Other Reviews"
+                                        //pop the record of current user's review, add the updated list to otherReviews
+                                        self.recipeList[self.selectedRow].reviews.removeValue(forKey: self.curruid)
+                                        self.otherReviews = self.recipeList[self.selectedRow].reviews
+                                        //if other reviews is empty
+                                        if (self.otherReviews.isEmpty) {
+                                            //hide allReviewsTableView and show label no reviews
+                                            self.allReviewsTableView.isHidden = true
+                                            self.noReviewsLabel.isHidden = false
+                                        }
+                                        
+                                    }
+                                    //else, show add review and hide your review stack
+                                        //with reviewTitle text being Reviews
+                                    else {
+                                        self.addReviewButton.isHidden = false
+                                        self.yourReviewStack.alpha = 0.0
+                                        self.reviewTitle.text = "Reviews"
+                                    }
+                                }
+                            }
+                            //else (if reviews empty)
+                            else {
+                                //hide allReviewsTableView and show label no reviews
+                                self.allReviewsTableView.isHidden = true
+                                self.noReviewsLabel.isHidden = false
+                                
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+
+        
+    } //end viewDidLoad
+    
+    //load recipes
+    func loadRecipes() {
+        
+        DataManager.loadRecipes() {
+            recipeListFromFirestore in
+
+            // This is a closure.
+            //
+            // This block of codes is executed when the // async loading from Firestore is complete.
+            // What it is to reassigned the new list loaded
+            // from Firestore. //
+            self.recipeList = recipeListFromFirestore
+            
+            //reload tableView
+            self.allReviewsTableView.reloadData()
+        }
     }
     
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if (segue.identifier == "addReview") {
+            
+        }
+        if (segue.identifier == "editReview") {
+            
+        }
+        if (segue.identifier == "editRecipe") {
+            let destView = segue.destination as! EditRecipeViewController
+            destView.recipeList = self.recipeList
+            destView.selectedRow = self.selectedRow
+            destView.curruid = self.curruid
+            destView.userList = self.userList
+        }
     }
-    */
+    
 
 }
