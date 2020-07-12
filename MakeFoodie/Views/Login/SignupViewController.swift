@@ -190,6 +190,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         }*/
+        
         let isValidateEmail = validateEmailId(emailID: email)
         if (isValidateEmail == false){
            print("Incorrect Email")
@@ -197,6 +198,17 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             emailerrorimg.isHidden = false
             emailerror.isHidden = false
             emailerror.text = "Invalid Email"
+            errory = errory + 1
+        }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+
+        if dateFormatter.date(from: dobInput.text!) == nil {
+            print("date is invalid")
+            doberrorimg.isHidden = false
+            doberror.isHidden = false
+            doberror.text = "Date must be in dd/MM/yyyy"
             errory = errory + 1
         }
         let isValidatePass = validatePassword(password: password)
