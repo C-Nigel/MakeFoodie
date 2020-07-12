@@ -155,7 +155,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="nil" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VRT-Gq-amf">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="nil" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRT-Gq-amf">
                                 <rect key="frame" x="20" y="248" width="374" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>

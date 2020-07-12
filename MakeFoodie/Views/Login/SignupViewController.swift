@@ -15,7 +15,7 @@ import FirebaseFirestore
 class SignupViewController: UIViewController, UITextFieldDelegate {
     
     var user : [User] = []
-    
+    var errory: Int = 0;
   
     
     @IBOutlet weak var emailInput: UITextField!
@@ -25,6 +25,18 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var genderInput: UISegmentedControl!
     @IBOutlet weak var passwordInput: UITextField!
     @IBOutlet weak var confirmpasswordInput: UITextField!
+    @IBOutlet weak var emailerrorimg: UIImageView!
+    @IBOutlet weak var emailerror: UILabel!
+    @IBOutlet weak var usernameerrorimg: UIImageView!
+    @IBOutlet weak var usernameerror: UILabel!
+    @IBOutlet weak var doberrorimg: UIImageView!
+    @IBOutlet weak var doberror: UILabel!
+    @IBOutlet weak var passworderrorimg: UIImageView!
+    @IBOutlet weak var passworderror: UILabel!
+    @IBOutlet weak var confirmpassworderrorimg: UIImageView!
+    @IBOutlet weak var confirmpassworderror: UILabel!
+    var userList : [User] = [];
+    
     
     private var datePicker: UIDatePicker?
     
@@ -33,7 +45,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-
+        //DataManager.deleteUSER("dkilWD5p3XVG1uBq3sLxw9CR2qV2")
         self.dobInput.delegate = self
         //CHANGE BORDER OF INPUT FIELDS TO BLACK
         let myColor = UIColor.black
@@ -81,7 +93,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     //VALIDATIONS
     public func validateName(name: String) ->Bool {
        // Length be 18 characters max and 3 characters minimum, you can always modify.
-       let nameRegex = "^\\w{3,18}$"
+       let nameRegex = "^\\w{3,10}$"
        let trimmedString = name.trimmingCharacters(in: .whitespaces)
        let validateName = NSPredicate(format: "SELF MATCHES %@", nameRegex)
        let isValidateName = validateName.evaluate(with: trimmedString)
@@ -116,30 +128,36 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
        let isValidateOtherString = validateOtherString.evaluate(with: trimmedString)
        return isValidateOtherString
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
-    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var oneVC: Signup1ViewController = segue.destination as! Signup1ViewController
-        
-        var emailss: String = oneVC.getemail
-    }*/
+    
+    
+    
+    
+    
+    
+    
+    
     
     //CREATE ACCOUNT BUTTON ACTIONS
     @IBAction func CreateAccount(_ sender: Any) {
         //validate
+        
+        emailerrorimg.isHidden = true
+        emailerror.isHidden = true
+        usernameerrorimg.isHidden = true
+        usernameerror.isHidden = true
+        doberrorimg.isHidden = true
+        doberror.isHidden = true
+        passworderrorimg.isHidden = true
+        passworderror.isHidden = true
+        confirmpassworderror.isHidden = true
+        confirmpassworderrorimg.isHidden = true
+        errory = 0;
         guard let name = usernameInput.text, let email = emailInput.text, let password = passwordInput.text
         else {
            return
         }
-        if usernameInput.text == "" || dobInput.text == "" || passwordInput.text == "" || confirmpasswordInput.text == ""{
+        if usernameInput.text == "" || dobInput.text == "" || passwordInput.text == "" || confirmpasswordInput.text == "" || emailInput.text == ""{
             let alert = UIAlertController(
              title: "Please enter all input fields", message: "",
             preferredStyle:
@@ -151,26 +169,61 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         }
         let isValidateName = validateName(name: name)
         if (isValidateName == false) {
-           print("Length be 18 characters max and 3 characters minimum")
-            
-           return
+           print("Length be 10 characters max and 3 characters minimum")
+            usernameerrorimg.isHidden = false
+            usernameerror.isHidden = false
+            usernameerror.text = "Length be 10 characters max and 3 characters minimum"
+            errory = errory + 1
         }
+        /*else{
+            DataManager.loadUser(){
+                userListFromFirestore in
+                self.userList = userListFromFirestore
+                for i in self.userList{
+                    if i.username == self.usernameInput.text{
+                        self.usernameerrorimg.isHidden = false
+                        self.usernameerror.isHidden = false
+                        self.usernameerror.text = "Username taken"
+                        self.errory = self.errory + 1
+                        
+                    }
+                }
+            }
+        }*/
+        
         let isValidateEmail = validateEmailId(emailID: email)
         if (isValidateEmail == false){
            print("Incorrect Email")
-            let alert = UIAlertController(
-             title: "Please enter all input fields", message: "",
-            preferredStyle:
-            .alert)
-             alert.addAction(UIAlertAction(title: "OK", style:.default, handler: nil))
+            
+            emailerrorimg.isHidden = false
+            emailerror.isHidden = false
+            emailerror.text = "Invalid Email"
+            errory = errory + 1
+        }
 
-             self.present(alert, animated: true, completion: nil)
-           return
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+
+        if dateFormatter.date(from: dobInput.text!) == nil {
+            print("date is invalid")
+            doberrorimg.isHidden = false
+            doberror.isHidden = false
+            doberror.text = "Date must be in dd/MM/yyyy"
+            errory = errory + 1
         }
         let isValidatePass = validatePassword(password: password)
         if (isValidatePass == false) {
-           print("Minimum 8 characters at least 1 Alphabet and 1 Number")
-           return
+           print("Min 8 char at least 1 Alphabet and 1 Num")
+            passworderrorimg.isHidden = false
+            passworderror.isHidden = false
+            passworderror.text = "Min 8 char at least 1 Alphabet and 1 Num"
+           errory = errory + 1
+        }
+        if(passwordInput.text != confirmpasswordInput.text){
+            confirmpassworderrorimg.isHidden = false
+            confirmpassworderror.isHidden = false
+            confirmpassworderror.text = "Confirm password not the same as password"
+            errory = errory + 1
         }
         
         
@@ -183,38 +236,44 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
        else{
            gender = "Female"
        }
-       //THROW INPUT IN CLASS ARRAY AND THEN STORE IN DATABASE
-        Auth.auth().createUser(withEmail: emailInput.text!, password: passwordInput.text!) { (result, err) in
-            // Check for errors
-            //if err != nil{
-                
-                // There was an error creating the user
-               // print("Error creating user")
-            //}
-            //else{
-                
-            self.user.append(User(username: self.usernameInput.text!, dob: self.dobInput.text!, gender: gender, phoneNo: "", description: "", imagelink: User.Image.init(withImage: UIImage()), uid: result!.user.uid))
-                for i in self.user{
-                    print(i.username);
-                    print(i.dob);
-                    print(i.gender)
-                     /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
+        if errory == 0{
+            //THROW INPUT IN CLASS ARRAY AND THEN STORE IN DATABASE
+            Auth.auth().createUser(withEmail: emailInput.text!, password: passwordInput.text!) { (result, err) in
+                // Check for errors
+                if err != nil{
                     
-                    DataManager.insertOrReplaceUser(i)
-                    //self.movetologinpage()
-                    let storyBoard: UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
-                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "Login")
-                            self.present(newViewController, animated: true, completion: nil)
-              
+                    // There was an error creating the user
+                    print("User taken")
+                    self.emailerrorimg.isHidden = false
+                    self.emailerror.isHidden = false
+                    self.emailerror.text = "Account with Email exists"
                 }
-                
-           // }
+                else{
+                    
+                    self.user.append(User(username: self.usernameInput.text!, dob: self.dobInput.text!, gender: gender, phoneNo: "", description: "", imagelink: User.Image.init(withImage: UIImage()), uid: result!.user.uid))
+                        for i in self.user{
+                            print(i.username);
+                            print(i.dob);
+                            print(i.gender)
+                             /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
+                            
+                            DataManager.insertOrReplaceUser(i)
+                            //self.movetologinpage()
+                            let storyBoard: UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
+                            let newViewController = storyBoard.instantiateViewController(withIdentifier: "Login")
+                                    self.present(newViewController, animated: true, completion: nil)
+                      
+                        }
+                    
+                }
+            }
         }
+       
         
         
         
         
-        //DataManager.insertOrReplaceMovie(user)
+       
             
     }
     
@@ -245,6 +304,21 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             alert.dismiss(animated: true)
         }
     }
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+    
+    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var oneVC: Signup1ViewController = segue.destination as! Signup1ViewController
+        
+        var emailss: String = oneVC.getemail
+    }*/
     
 
 
