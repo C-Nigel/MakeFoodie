@@ -38,7 +38,7 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
     var username: String = ""
     var recipeList: Array<Recipe> = []
     
-    var reviews: Array<[String]> = [[]]
+    var reviews: Dictionary<String, Dictionary<String, String>> = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()

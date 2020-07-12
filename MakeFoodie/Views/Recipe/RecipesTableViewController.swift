@@ -86,8 +86,8 @@ class RecipesTableViewController: UITableViewController {
         else {
             var totalRating: Int = 0
             var avgRating: Int
-            for i in r.reviews {
-                totalRating += Int(i[1])!
+            for i in r.reviews.keys {
+                totalRating += Int(r.reviews[i]!["Rating"]!)!
             }
             avgRating = totalRating/r.reviews.count
             

@@ -38,8 +38,6 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
     var userList: Array<User> = []
     var curruid: String = ""
     
-    var reviews: Array<[String]> = [[]]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -341,27 +339,11 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
         
         //if all inputs are filled
         if (valid == true) {
-            //init id
-            var rID: Int = 0
-            var highestID: Int = 0
-            
-            //if list is empty, id of new recipe is 0
-            if (recipeList.isEmpty) {
-                rID = 0
-            }
-            else {
-                for i in recipeList {
-                    if (highestID <= i.recipeID) {
-                        highestID = i.recipeID
-                    }
-                }
-                rID = highestID + 1
-            }
             
             let viewControllers = self.navigationController?.viewControllers
             let parent = viewControllers?[0] as! RecipesTableViewController
             
-            recipeList.append(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: self.curruid))
+            recipeList.append(Recipe(recipeID: self.recipeList[selectedRow].recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipeList[selectedRow].reviews, uid: self.curruid))
             
             /*for i in recipeList {
                 /*print (i.title)
@@ -374,7 +356,7 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
                 
                 DataManager.insertOrReplaceRecipe(i)
             }*/
-            DataManager.insertOrReplaceRecipe(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: self.curruid))
+            DataManager.insertOrReplaceRecipe(Recipe(recipeID: self.recipeList[selectedRow].recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipeList[selectedRow].reviews, uid: self.curruid))
             
             parent.loadRecipes()
             
