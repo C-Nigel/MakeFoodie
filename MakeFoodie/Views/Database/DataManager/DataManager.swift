@@ -80,7 +80,7 @@ class DataManager: NSObject {
     
     static func loadRecomendedItems(onComplete: (([Item]) -> Void)?)
     {
-        db.collection("posts").getDocuments()
+        db.collection("post").getDocuments()
         {
             // get all items from firestore and store inside Item array
             (querySnapshot, err) in
@@ -111,6 +111,42 @@ class DataManager: NSObject {
             }
             // Once we have compeleted processing, call the onComplete closure passed in by the caller
             onComplete?(itemList)
+        }
+    }
+    
+    static func loadFollowPostItems(onComplete: (([followDetails]) -> Void)?)
+    {
+        db.collection("post").getDocuments()
+        {
+            // get all items from firestore and store inside Item array
+            (querySnapshot, err) in
+            
+            var followList : [followDetails] = []
+            
+            if let err = err
+            {
+                // handles error here
+                
+                print("Error getting all items: \(err)")
+            }
+            else
+            {
+                for document in querySnapshot!.documents
+                {
+                    // this line tells Firestore to retrieve all fields and update it into our Item object automatically.
+                    
+                    // The requires the Movie object to implement the Codable protocol
+                    
+                    let item = try? document.data(as: followDetails.self)!
+                    
+                    if item != nil
+                    {
+                        followList.append(item!)
+                    }
+                }
+            }
+            // Once we have compeleted processing, call the onComplete closure passed in by the caller
+            onComplete?(followList)
         }
     }
     

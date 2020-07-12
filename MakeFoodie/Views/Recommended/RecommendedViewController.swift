@@ -18,8 +18,9 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
         
         let p = itemList[indexPath.row]
         cell.titleLabel.text = p.title
-        cell.itemImageView.image = UIImage(named: p.imageName)
-        cell.usernameLabel.text = p.userName
+//        cell.itemImageView.image = UIImage(named: p.imageName)
+        cell.itemImageView.image = p.thumbnail.getImage()
+        cell.usernameLabel.text = p.uid
         cell.priceLabel.text = "$ \(p.price)"
         cell.descriptionLabel.text = p.desc
         
