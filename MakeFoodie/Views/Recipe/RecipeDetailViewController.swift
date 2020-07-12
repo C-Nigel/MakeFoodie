@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class RecipeDetailViewController: UIViewController {
+class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
 
     //labels for recipe
     @IBOutlet weak var titleLabel: UILabel!
@@ -36,6 +36,10 @@ class RecipeDetailViewController: UIViewController {
     @IBOutlet weak var yourRatingLabel: UILabel!
     @IBOutlet weak var yourCommentsLabel: UILabel!
     
+    //scroll view
+    @IBOutlet weak var recipeScrollView: UIScrollView!
+    
+    
     //all other reviews stack
     @IBOutlet weak var allReviewsTableView: UITableView!
     
@@ -49,6 +53,10 @@ class RecipeDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //***NEW*** set scroll view content size
+        recipeScrollView.delegate = self
+        recipeScrollView.contentSize.width = 414
+        recipeScrollView.contentSize.height = 700
         
         //loading data to view the recipe
         titleLabel.text = self.recipeList[selectedRow].title
@@ -192,7 +200,7 @@ class RecipeDetailViewController: UIViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if (segue.identifier == "addReview") {
-            
+            //pass recipeID and curruid into add review vc
         }
         if (segue.identifier == "editReview") {
             
