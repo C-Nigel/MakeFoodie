@@ -15,7 +15,7 @@ class Recipe: Codable {
     var ingredients: String
     var instructions: String
     var thumbnail: Image
-    var reviews: Array<[String]>
+    var reviews: Array<[String]> // nested arrays not supported in firebase great :)))
     var uid: String
     
     init(recipeID: Int, title: String, desc: String, ingredients: String, instructions: String, thumbnail: Image, reviews: Array<[String]>,uid: String){
