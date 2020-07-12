@@ -32,7 +32,6 @@ class RecipeDetailViewController: UIViewController {
     @IBOutlet weak var addReviewButton: UIButton!
     
     //current user review
-    @IBOutlet weak var yourReviewStack: UIStackView!
     @IBOutlet weak var yourUsernameLabel: UILabel!
     @IBOutlet weak var yourRatingLabel: UILabel!
     @IBOutlet weak var yourCommentsLabel: UILabel!
@@ -137,7 +136,6 @@ class RecipeDetailViewController: UIViewController {
                                     if (self.recipeList[self.selectedRow].reviews[i]!["uid"] == self.curruid) {
                                         //if has current user review, hide add review button and show your review stack
                                         self.addReviewButton.isHidden = true
-                                        self.yourReviewStack.alpha = 1.0
                                         
                                         //change text of reviewTitle to Other Reviews
                                         self.reviewTitle.text = "Other Reviews"
@@ -156,7 +154,6 @@ class RecipeDetailViewController: UIViewController {
                                         //with reviewTitle text being Reviews
                                     else {
                                         self.addReviewButton.isHidden = false
-                                        self.yourReviewStack.alpha = 0.0
                                         self.reviewTitle.text = "Reviews"
                                     }
                                 }
@@ -164,7 +161,6 @@ class RecipeDetailViewController: UIViewController {
                             //else (if reviews empty)
                             else {
                                 //hide allReviewsTableView and show label no reviews
-                                self.allReviewsTableView.isHidden = true
                                 self.noReviewsLabel.isHidden = false
                                 
                             }
