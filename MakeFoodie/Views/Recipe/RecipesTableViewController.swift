@@ -19,6 +19,8 @@ class RecipesTableViewController: UITableViewController {
     var uid: String = ""
     var curruid: String = ""
     
+    var selectedRow: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if Auth.auth().currentUser != nil {
@@ -78,14 +80,14 @@ class RecipesTableViewController: UITableViewController {
         cell.titleLabel.text = r.title
         cell.thumbnailImage.image = r.thumbnail.getImage()
         
-        if (r.reviews == []) {
+        if (r.reviews.isEmpty) {
             cell.ratingLabel.text = "-"
         }
         else {
             var totalRating: Int = 0
             var avgRating: Int
-            for i in r.reviews {
-                totalRating += Int(i[1])!
+            for i in r.reviews.keys {
+                totalRating += Int(r.reviews[i]!["Rating"]!)!
             }
             avgRating = totalRating/r.reviews.count
             
@@ -151,15 +153,26 @@ class RecipesTableViewController: UITableViewController {
         return true
     }
     */
+    
+    /*override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedRow = indexPath.row
+    }*/
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.storyboard?.instantiateViewController(identifier: "RecipeDetailViewController")
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if (segue.identifier == "viewRecipeDetails") {
+            let destView = segue.destination as! RecipeDetailViewController
+            destView.recipeList = self.recipeList
+            destView.selectedRow = self.recipeTableView.indexPathForSelectedRow!.row
+
+        }
     }
-    */
+    
 
 }

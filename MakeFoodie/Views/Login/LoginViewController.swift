@@ -17,8 +17,13 @@ class LoginViewController: UIViewController {
     var errory: Int = 0;
     
     @IBOutlet weak var emaily: UITextField!
-    
     @IBOutlet weak var passwordy: UITextField!
+    @IBOutlet weak var emailerrorimg: UIImageView!
+    @IBOutlet weak var emailerror: UILabel!
+    @IBOutlet weak var passworderror: UILabel!
+    @IBOutlet weak var passworderrorimg: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let myColor = UIColor.black
@@ -46,6 +51,10 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func onLogin(_ sender: Any) {
+        emailerrorimg.isHidden = true
+        emailerror.isHidden = true
+        passworderrorimg.isHidden = true
+        passworderror.isHidden = true
         errory = 0;
         guard let email = emaily.text, let password = passwordy.text
         else {
@@ -64,27 +73,48 @@ class LoginViewController: UIViewController {
         
         let isValidateEmail = validateEmailId(emailID: email)
         if (isValidateEmail == false){
-           print("Incorrect Email")
-            let alert = UIAlertController(
-             title: "Please enter all input fields", message: "",
-            preferredStyle:
-            .alert)
-             alert.addAction(UIAlertAction(title: "OK", style:.default, handler: nil))
-
-             self.present(alert, animated: true, completion: nil)
+            emailerrorimg.isHidden = false
+            emailerror.isHidden = false
+            emailerror.text = "Invalid Email"
+            print("Incorrect Email")
+            
             errory = errory + 1;
-           return
+           
         }
         let isValidatePass = validatePassword(password: password)
         if (isValidatePass == false) {
            print("Minimum 8 characters at least 1 Alphabet and 1 Number")
+            passworderrorimg.isHidden = false
+            passworderror.isHidden = false
+            passworderror.text = "Invalid password"
             errory = errory + 1;
            return
         }
         if errory == 0{
             Auth.auth().signIn(withEmail: emaily.text!, password: passwordy.text!) { (result, error) in
-                if error != nil{
-                    print("Login Failed!")
+                
+                //if error != nil{
+                 //   print("Login Failed!")
+                //}
+                if let x = error {
+                    let err = x as NSError
+                    switch err.code {
+                    case AuthErrorCode.wrongPassword.rawValue:
+                        print("wrong password")
+                        self.passworderrorimg.isHidden = false
+                        self.passworderror.isHidden = false
+                        self.passworderror.text = "Invalid password"
+                    case AuthErrorCode.invalidEmail.rawValue:
+                        print("invalid email")
+                        self.emailerrorimg.isHidden = false
+                        self.emailerror.isHidden = false
+                        self.emailerror.text = "Invalid Email"
+                    
+                    
+                    default:
+                       print("unknown error: \(err.localizedDescription)")
+                    }
+                
                 }
                 else{
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Profile", bundle: nil)
