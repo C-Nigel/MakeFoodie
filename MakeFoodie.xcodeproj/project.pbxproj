@@ -38,6 +38,8 @@
 		7D8E836624B8500100F560F2 /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E836524B8500100F560F2 /* RecipeTableViewCell.swift */; };
 		7DC108BE24BA100E00C553AA /* EditRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC108BD24BA100E00C553AA /* EditRecipeViewController.swift */; };
 		CA38AEA75CC022710C945B86 /* Pods_MakeFoodie_MakeFoodieUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB9FDAF0D3AFF49BABD7D32 /* Pods_MakeFoodie_MakeFoodieUITests.framework */; };
+		D42FB78B24BC4BB200F586C2 /* ForgetpwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42FB78A24BC4BB200F586C2 /* ForgetpwViewController.swift */; };
+		D42FB78D24BC4C2200F586C2 /* OrderReqViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42FB78C24BC4C2200F586C2 /* OrderReqViewController.swift */; };
 		D46E21DE24B56ADA00F752CF /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46E21DD24B56ADA00F752CF /* Recipe.swift */; };
 		D46E21EA24B5858E00F752CF /* CreateRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46E21E924B5858E00F752CF /* CreateRecipeViewController.swift */; };
 		D4A50F9024AC3121009B0349 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F8F24AC3121009B0349 /* User.swift */; };
@@ -122,6 +124,8 @@
 		83DB079EB02E24FF513E485F /* Pods-MakeFoodie-MakeFoodieUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeFoodie-MakeFoodieUITests.debug.xcconfig"; path = "Target Support Files/Pods-MakeFoodie-MakeFoodieUITests/Pods-MakeFoodie-MakeFoodieUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A0D9AB852046ADA495D49303 /* Pods_MakeFoodieTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MakeFoodieTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3EF67D4F2CB8E5EA941FA70 /* Pods-MakeFoodie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeFoodie.debug.xcconfig"; path = "Target Support Files/Pods-MakeFoodie/Pods-MakeFoodie.debug.xcconfig"; sourceTree = "<group>"; };
+		D42FB78A24BC4BB200F586C2 /* ForgetpwViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgetpwViewController.swift; sourceTree = "<group>"; };
+		D42FB78C24BC4C2200F586C2 /* OrderReqViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderReqViewController.swift; sourceTree = "<group>"; };
 		D46E21DD24B56ADA00F752CF /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		D46E21E924B5858E00F752CF /* CreateRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeViewController.swift; sourceTree = "<group>"; };
 		D4A50F8F24AC3121009B0349 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -309,6 +313,7 @@
 		F445803F2490BF1100F1CAA6 /* OrderRequest */ = {
 			isa = PBXGroup;
 			children = (
+				D42FB78C24BC4C2200F586C2 /* OrderReqViewController.swift */,
 				F44A4F5D2484D7A400D25E49 /* OrderRequest.storyboard */,
 			);
 			path = OrderRequest;
@@ -395,6 +400,7 @@
 		F44580472490BFAD00F1CAA6 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				D42FB78A24BC4BB200F586C2 /* ForgetpwViewController.swift */,
 				F44A4F512484D6AE00D25E49 /* Login.storyboard */,
 				D4A50F8F24AC3121009B0349 /* User.swift */,
 				D4A50F9324AC33AE009B0349 /* LoginViewController.swift */,
@@ -730,6 +736,7 @@
 			files = (
 				2583F3B924B8D230008AD820 /* EditProfileViewController.swift in Sources */,
 				D46E21EA24B5858E00F752CF /* CreateRecipeViewController.swift in Sources */,
+				D42FB78D24BC4C2200F586C2 /* OrderReqViewController.swift in Sources */,
 				D4E0721D24B57D3D0035F967 /* OrdersViewController.swift in Sources */,
 				7D34C5FD24B9C690008858C6 /* RecipeDetailViewController.swift in Sources */,
 				7761BA1724B0F35A003CDDF3 /* CreatePostViewController.swift in Sources */,
@@ -744,6 +751,7 @@
 				7DC108BE24BA100E00C553AA /* EditRecipeViewController.swift in Sources */,
 				D4E0721B24B57CF50035F967 /* ProfileViewController.swift in Sources */,
 				472229E3246BC13100E13C81 /* ViewController.swift in Sources */,
+				D42FB78B24BC4BB200F586C2 /* ForgetpwViewController.swift in Sources */,
 				F40B9CAA24B9824100B03A12 /* FollowingViewController.swift in Sources */,
 				7D8E836624B8500100F560F2 /* RecipeTableViewCell.swift in Sources */,
 				775BF66124B4C7F100845E93 /* ViewCategoryTableViewController.swift in Sources */,
