@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fPf-nJ-DAU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fPf-nJ-DAU">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -256,10 +256,10 @@
             </objects>
             <point key="canvasLocation" x="752.17391304347836" y="811.60714285714278"/>
         </scene>
-        <!--View Controller-->
+        <!--Forgetpw View Controller-->
         <scene sceneID="PJL-kb-3AF">
             <objects>
-                <viewController id="Q4K-rl-pHQ" sceneMemberID="viewController">
+                <viewController id="Q4K-rl-pHQ" customClass="ForgetpwViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RUs-cx-bI4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -271,27 +271,33 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1LE-9J-TTc">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1LE-9J-TTc">
                                 <rect key="frame" x="120" y="413" width="174" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="textColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUm-09-JyN">
                                 <rect key="frame" x="136" y="509" width="142" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Send Code"/>
+                                <state key="normal" title="Send Email"/>
+                                <connections>
+                                    <action selector="sendemail:" destination="Q4K-rl-pHQ" eventType="touchUpInside" id="M8P-nJ-OzH"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="P69-CX-KuS"/>
                     </view>
                     <navigationItem key="navigationItem" id="hIS-Wb-FIg"/>
+                    <connections>
+                        <outlet property="emailinput" destination="1LE-9J-TTc" id="di5-GW-lfa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lcq-Qc-VDG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1721.7391304347827" y="807.58928571428567"/>
+            <point key="canvasLocation" x="1726" y="807"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ye8-ER-5QI">
@@ -353,8 +359,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrowshape.turn.up.right.circle" catalog="system" width="128" height="121"/>
-        <image name="exclamationmark.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="person.badge.plus" catalog="system" width="128" height="116"/>
+        <image name="arrowshape.turn.up.right.circle" catalog="system" width="64" height="60"/>
+        <image name="exclamationmark.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="person.badge.plus" catalog="system" width="64" height="58"/>
     </resources>
 </document>
