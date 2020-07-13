@@ -19,11 +19,6 @@ class PostsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        loadPosts()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         // Check username
         if Auth.auth().currentUser != nil {
             // Get the current user
@@ -44,6 +39,11 @@ class PostsTableViewController: UITableViewController {
                 }
             }
         }
+        loadPosts()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
     }
     
     // Function that loads data from Firestore and refreshes tableView
@@ -56,7 +56,7 @@ class PostsTableViewController: UITableViewController {
             self.postList = postListFromFirestore
 
             // Reload content in tableView
-            self.tableView.reloadData()
+            self.postTableView.reloadData()
         }
     }
 
