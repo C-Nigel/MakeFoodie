@@ -16,8 +16,6 @@ class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     
-    @IBOutlet weak var heartButton: UIButton!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

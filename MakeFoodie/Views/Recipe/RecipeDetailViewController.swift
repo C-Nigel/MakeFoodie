@@ -13,34 +13,40 @@ import FirebaseAuth
 class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
 
     //labels for recipe
+
     @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var thumbnailImage: UIImageView!
+    
     @IBOutlet weak var usernameLabel: UILabel!
+    
     @IBOutlet weak var heartButton: UIButton!
+    
     @IBOutlet weak var descLabel: UILabel!
+    
     @IBOutlet weak var ingLabel: UILabel!
+    
     @IBOutlet weak var instructionLabel: UILabel!
+    
     
     //edit and delete buttons
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     
-    @IBOutlet weak var reviewTitle: UILabel!
-    
     //add review button
+
     @IBOutlet weak var addReviewButton: UIButton!
     
+    @IBOutlet weak var editReviewButton: UIButton!
+    @IBOutlet weak var deleteReviewButton: UIButton!
     //current user review
     @IBOutlet weak var yourUsernameLabel: UILabel!
     @IBOutlet weak var yourRatingLabel: UILabel!
     @IBOutlet weak var yourCommentsLabel: UILabel!
     
-    //scroll view
-    @IBOutlet weak var recipeScrollView: UIScrollView!
     
-    
-    //all other reviews stack
+    @IBOutlet weak var reviewTitle: UILabel!
     @IBOutlet weak var allReviewsTableView: UITableView!
     
     var recipeList: Array<Recipe> = []
@@ -48,16 +54,12 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
     var userList: Array<User> = []
     var curruid: String = ""
     var otherReviews: Dictionary<String, Dictionary<String, String>> = [:]
+
     @IBOutlet weak var noReviewsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //***NEW*** set scroll view content size
-        recipeScrollView.delegate = self
-        recipeScrollView.contentSize.width = 414
-        recipeScrollView.contentSize.height = 700
-        
         //loading data to view the recipe
         titleLabel.text = self.recipeList[selectedRow].title
         
