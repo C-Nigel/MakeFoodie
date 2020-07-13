@@ -179,6 +179,32 @@ class DataManager: NSObject {
         }
     }
     
+    // Load post by category name
+    static func loadPostsByCategory(_ category:String, onComplete: (([Post]) -> Void)?) {
+        db.collection("post").whereField("category", isEqualTo: category).order(by: "id", descending: true).getDocuments() {
+            (querySnapshot, err) in
+                
+            var postList : [Post] = []
+                
+            if let err = err {
+                // Handle errors here.
+                print("Error getting documents: \(err)") // Print err to console
+                    
+            }
+            else {
+                for document in querySnapshot!.documents {
+                    // Retrieve fields and update into Post object
+                    let post = try? document.data(as: Post.self)!
+                    if post != nil {
+                        postList.append(post!)
+                    }
+                }
+            }
+            // Call onComplete when completed processing
+            onComplete?(postList)
+        }
+    }
+    
     // Add or Edit Post
     static func insertOrEditPost(_ post: Post) {
         try? db.collection("post")

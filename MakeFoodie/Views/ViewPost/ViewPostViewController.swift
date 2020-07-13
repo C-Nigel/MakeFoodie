@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class ViewPostViewController: UIViewController {
+    // Labels + fav button
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var postImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -16,15 +19,29 @@ class ViewPostViewController: UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
+    
+    // Buttons
     @IBOutlet weak var chatButton: UIButton!
     @IBOutlet weak var orderButton: UIButton!
     
     var post: Post?
+    var userList:[User] = []
+    var username: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Check if current logged in user is the user that created the post
+        if Auth.auth().currentUser != nil {
+            let user = Auth.auth().currentUser
+            if let user = user {
+                let uidd: String = user.uid
+                // If current user is not the user who created the post remove edit and delete button
+                if (uidd != self.post?.uid) {
+                    self.navigationItem.rightBarButtonItems = nil
+                }
+            }
+        }
     }
     
     // This function is triggered when the view is about to appear.
@@ -36,7 +53,15 @@ class ViewPostViewController: UIViewController {
 
         titleLabel.text = post?.title
         postImageView.image = post?.thumbnail.getImage()
-        usernameLabel.text = post?.userName
+        DataManager.loadUser() {
+            userListFromFirestore in
+            self.userList = userListFromFirestore
+            for i in self.userList {
+                if (i.uid == self.post?.uid) {
+                    self.usernameLabel.text = i.username
+                }
+            }
+        }
         priceLabel.text = "$\(post!.price)"
         descLabel.text = post?.desc
         categoryLabel.text = post?.category

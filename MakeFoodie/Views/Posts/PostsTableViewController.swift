@@ -15,38 +15,40 @@ class PostsTableViewController: UITableViewController {
     var postList: [Post] = []
     var userList:[User] = []
     var username: String = ""
+    var curruid: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        loadPosts()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         // Check username
         if Auth.auth().currentUser != nil {
+            // Get the current user
             let user = Auth.auth().currentUser
             if let user = user {
+                // Get current user id
                 let uidd: String = user.uid
                 DataManager.loadUser() {
                     userListFromFirestore in
                     self.userList = userListFromFirestore
                     for i in self.userList {
+                        // Get current user's user name and save user id
                         if (i.uid == uidd) {
                             self.username = i.username
+                            self.curruid = i.uid
                         }
                     }
                 }
             }
         }
-
-        loadPosts()
-        
-        /* Test data
-        postList.append(Post(title: "Chicken rice", price: 10, desc: "RICEE", thumbnail: "Ah-Seng-Braised-Duck-Rice", category: "Chinese", userName: "LetsBake"))
-        postList.append(Post(title: "Juice", price: 20, desc: "Not actually juice but I made the assumption it was juice and now realise I was mistaken the whole time oops", thumbnail: "movie_oklahoma", category: "Beverages", userName: "LetsBakeaaaa"))
-        postList.append(Post(title: "Juice", price: 100, desc: "Not actually juice but more than juice and better and more improved than juice can ever be", thumbnail: "Ah-Seng-Braised-Duck-Rice", category: "Western", userName: "LetsBakeaaaaaaaaaa")) */
     }
     
     // Function that loads data from Firestore and refreshes tableView
     func loadPosts() {
-        DataManager.loadPosts ()
+        DataManager.loadPosts()
         {
             postListFromFirestore in
 
@@ -80,10 +82,15 @@ class PostsTableViewController: UITableViewController {
         cell.titleLabel.text = p.title
         cell.titleLabel.sizeToFit()
         cell.postImageView.image = p.thumbnail.getImage()
-        cell.usernameLabel.text = p.userName
-        cell.usernameLabel.sizeToFit()
         cell.priceLabel.text = "$\(p.price)"
         cell.descLabel.text = p.desc
+
+        for i in self.userList {
+            if (i.uid == p.uid) {
+                cell.usernameLabel.text = i.username
+            }
+        }
+        cell.usernameLabel.sizeToFit()
         
         return cell
     }

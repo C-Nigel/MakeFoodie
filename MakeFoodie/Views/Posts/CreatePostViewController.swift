@@ -89,6 +89,8 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
+    // MARK: - Category PickerView
+    
     // Picker view columns
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -103,6 +105,8 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categoryPickerData[row]
     }
+    
+    // MARK: - Image
     
     // Resize thumbnail image
     func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
@@ -139,6 +143,8 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
+    
+    // MARK: - TextView + TextField Change
     
     func textViewDidChange(_ textView: UITextView) {
         // Check if desc textView is empty (White space + Blank)
@@ -189,13 +195,32 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             formatter.numberStyle = .decimal
             formatter.maximumFractionDigits = 2
             if let decimalNo = formatter.number(from: priceTextField.text!) {
-                priceError.isHidden = true
-                priceTextField.layer.borderColor = UIColor.black.cgColor
-                priceTextField.layer.borderWidth = 0.3
-                priceTextField.layer.cornerRadius = 6
+                // Check if textField has decimal
+                if (priceTextField.text!.contains(".")) {
+                    // If there is decimal place, ensure that only 2dp max
+                    if priceTextField.text!.components(separatedBy: ".")[1].count == 2 {
+                        priceError.isHidden = true
+                        priceTextField.layer.borderColor = UIColor.black.cgColor
+                        priceTextField.layer.borderWidth = 0.3
+                        priceTextField.layer.cornerRadius = 6
+                    }
+                    else {
+                        priceError.text = "Maximum of 2 decimal places."
+                        priceError.isHidden = false
+                        priceTextField.layer.borderColor = UIColor.red.cgColor
+                        priceTextField.layer.borderWidth = 1.0
+                        priceTextField.layer.cornerRadius = 6
+                    }
+                }
+                else {
+                    priceError.isHidden = true
+                    priceTextField.layer.borderColor = UIColor.black.cgColor
+                    priceTextField.layer.borderWidth = 0.3
+                    priceTextField.layer.cornerRadius = 6
+                }
             }
             else {
-                priceError.text = "Please enter a valid number."
+                priceError.text = "Please input a valid number."
                 priceError.isHidden = false
                 priceTextField.layer.borderColor = UIColor.red.cgColor
                 priceTextField.layer.borderWidth = 1.0
@@ -203,6 +228,8 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
         }
     }
+    
+    // MARK: - Button actions
     
     // Click on Take Picture
     @IBAction func takePicturePressed(_ sender: Any) {
@@ -262,11 +289,30 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             formatter.numberStyle = .decimal
             formatter.maximumFractionDigits = 2
             if let decimalNo = formatter.number(from: priceTextField.text!) {
-                print(decimalNo)
-                priceError.isHidden = true
-                priceTextField.layer.borderColor = UIColor.black.cgColor
-                priceTextField.layer.borderWidth = 0.3
-                priceTextField.layer.cornerRadius = 6
+                // Check if textField has decimal
+                if (priceTextField.text!.contains(".")) {
+                    // If there is decimal place, ensure that only 2dp max
+                    if priceTextField.text!.components(separatedBy: ".")[1].count == 2 {
+                        priceError.isHidden = true
+                        priceTextField.layer.borderColor = UIColor.black.cgColor
+                        priceTextField.layer.borderWidth = 0.3
+                        priceTextField.layer.cornerRadius = 6
+                    }
+                    else {
+                        priceError.text = "Maximum of 2 decimal places."
+                        priceError.isHidden = false
+                        priceTextField.layer.borderColor = UIColor.red.cgColor
+                        priceTextField.layer.borderWidth = 1.0
+                        priceTextField.layer.cornerRadius = 6
+                        verified = false
+                    }
+                }
+                else {
+                    priceError.isHidden = true
+                    priceTextField.layer.borderColor = UIColor.black.cgColor
+                    priceTextField.layer.borderWidth = 0.3
+                    priceTextField.layer.cornerRadius = 6
+                }
             }
             else {
                 priceError.text = "Please input a valid number."
@@ -305,26 +351,32 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let row = categoryPickerView.selectedRow(inComponent: 0)
             // Get data selected from picker data
             let selectedCategory = categoryPickerData[row]
-            
             var listCount: Int = 0
+            var highestId: Int = 0
             
             // Set id to increment every addition
             // If list empty, id starts from 0
             if (postList.isEmpty) {
                 listCount = 0
             }
-            // else add 1 to total list count
+            // Check current postList highest id then set newly created post as highest id + 1
             else {
-                listCount = postList.count - 1
+                for i in postList {
+                    if (highestId <= i.id) {
+                        highestId = i.id
+                    }
+                }
+                listCount = highestId + 1
             }
-            
+
             let viewControllers = self.navigationController?.viewControllers
             let parent = viewControllers?[0] as! PostsTableViewController
             
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 2
             
-            let post:Post = Post(id: listCount, title: titleTextField.text!, price: formatter.number(from: priceTextField.text!)!.decimalValue, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, userName: parent.username)
+            let post:Post = Post(id: listCount, title: titleTextField.text!, price: formatter.number(from: priceTextField.text!)!.decimalValue, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: parent.curruid)
             
             DataManager.insertOrEditPost(post)
             parent.loadPosts()

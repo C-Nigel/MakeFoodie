@@ -25,6 +25,21 @@ class CategoriesTableViewController: UITableViewController {
         "Others"
     ]
     
+    var categoryImages: [String] = [
+        "western",
+        "chinese",
+        "indian",
+        "japanese",
+        "korean",
+        "thai",
+        "halal",
+        "vegetarian",
+        "baked-goods",
+        "snacks",
+        "beverages",
+        "others"
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,6 +64,9 @@ class CategoriesTableViewController: UITableViewController {
         let c = categories[indexPath.row]
         cell.categoryLabel.text = c
         cell.categoryLabel.sizeToFit()
+        
+        let i = categoryImages[indexPath.row]
+        cell.categoryImageView.image = UIImage(named: i)
         
         return cell
     }

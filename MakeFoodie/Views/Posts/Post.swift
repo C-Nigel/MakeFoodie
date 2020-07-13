@@ -15,9 +15,9 @@ class Post: Codable {
     var desc: String
     var thumbnail: Image
     var category: String
-    var userName: String
+    var uid: String
         
-    init(id:Int, title: String, price: Decimal, desc: String, thumbnail: Image, category: String, userName: String)
+    init(id:Int, title: String, price: Decimal, desc: String, thumbnail: Image, category: String, uid: String)
     {
         self.id = id
         self.title = title
@@ -25,10 +25,10 @@ class Post: Codable {
         self.desc = desc
         self.thumbnail = thumbnail
         self.category = category
-        self.userName = userName
+        self.uid = uid
     }
     
-    struct Image: Codable{
+    struct Image: Codable {
         let imageData: Data?
         
         init(withImage image: UIImage) {
