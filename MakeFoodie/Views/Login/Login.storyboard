@@ -198,7 +198,9 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fro-HA-eu9">
                                 <rect key="frame" x="130" y="537" width="154" height="30"/>
-                                <state key="normal" title="Sign in"/>
+                                <state key="normal" title="Sign in">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="onLogin:" destination="Sey-tj-WFY" eventType="touchUpInside" id="Vhu-TB-PtL"/>
                                 </connections>
@@ -263,6 +265,7 @@
                         <outlet property="emailerror" destination="d3c-kL-if3" id="ITI-58-Geu"/>
                         <outlet property="emailerrorimg" destination="joH-Wf-8az" id="xIK-nI-YVG"/>
                         <outlet property="emaily" destination="NLJ-ME-GEi" id="2BM-uK-e92"/>
+                        <outlet property="loginbutton" destination="Fro-HA-eu9" id="8YV-SI-ic7"/>
                         <outlet property="passworderror" destination="8CY-Hy-JVf" id="a2y-OU-7jR"/>
                         <outlet property="passworderrorimg" destination="tyo-2Q-Goq" id="Y89-Hq-XR3"/>
                         <outlet property="passwordy" destination="gY6-wC-VnO" id="EWw-We-Vfi"/>
@@ -286,7 +289,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUm-09-JyN">
                                         <rect key="frame" x="136" y="436" width="142" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Send Email"/>
+                                        <state key="normal" title="Send Email">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="sendemail:" destination="Q4K-rl-pHQ" eventType="touchUpInside" id="M8P-nJ-OzH"/>
                                         </connections>
@@ -321,6 +326,7 @@
                     <navigationItem key="navigationItem" id="hIS-Wb-FIg"/>
                     <connections>
                         <outlet property="emailinput" destination="1LE-9J-TTc" id="di5-GW-lfa"/>
+                        <outlet property="sendemail" destination="CUm-09-JyN" id="q93-OY-JAg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lcq-Qc-VDG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

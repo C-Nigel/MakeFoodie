@@ -343,6 +343,14 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZG-0j-lSe">
+                                        <rect key="frame" x="45" y="580" width="326" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
@@ -373,6 +381,7 @@
                         <outlet property="descriptions" destination="yI2-ny-lb1" id="y1c-n3-sWC"/>
                         <outlet property="dobs" destination="ocH-UI-kRg" id="d1Q-zv-MvW"/>
                         <outlet property="emails" destination="YWA-gp-LDx" id="vhr-Tk-hxw"/>
+                        <outlet property="errormsg" destination="CZG-0j-lSe" id="BoU-Y0-C2E"/>
                         <outlet property="genders" destination="Aom-gN-hPU" id="8Ad-2s-wA4"/>
                         <outlet property="phoneno" destination="G8w-P0-Bmx" id="f07-1I-mzj"/>
                         <outlet property="uiddd" destination="S2J-qO-fYe" id="3PS-4J-Jdx"/>
