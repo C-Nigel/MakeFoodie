@@ -55,7 +55,15 @@ class ProfileViewController: UIViewController {
         viewDidLoad()
     }
 
-        // Do any additional setup after loading the view.
+    @IBAction func logout(_ sender: Any) {
+        let firebaseAuth = Auth.auth()
+        do {
+          try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+          print ("Error signing out: %@", signOutError)
+        }
+    }
+    // Do any additional setup after loading the view.
 }
     
 

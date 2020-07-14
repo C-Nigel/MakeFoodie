@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A7V-sO-UOc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A7V-sO-UOc">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -129,7 +129,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <state key="normal" title="Order now!"/>
                                                         <connections>
-                                                            <segue destination="6v1-bb-EuW" kind="show" id="eM5-4Z-wkD"/>
+                                                            <action selector="OrderNavigation:" destination="wcz-Z2-7rz" eventType="touchUpInside" id="uA9-7M-YjR"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -177,6 +177,7 @@
                         <outlet property="priceLabel" destination="VlP-qc-ytn" id="uVm-Ft-PHX"/>
                         <outlet property="titleLabel" destination="6rr-8G-0nn" id="E6e-lf-AIY"/>
                         <outlet property="usernameLabel" destination="79Y-Ow-p9Y" id="PrA-Ek-eG7"/>
+                        <segue destination="6v1-bb-EuW" kind="show" identifier="orderreq" id="TWm-V2-Vqe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ae-wy-gMj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -363,7 +364,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Mc-3f-3gS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="736" y="249"/>
+            <point key="canvasLocation" x="736" y="248"/>
         </scene>
     </scenes>
     <resources>
