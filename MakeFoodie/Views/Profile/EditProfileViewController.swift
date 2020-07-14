@@ -119,7 +119,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
        return isValidateName
     }
     public func validatePhoneNumber(phoneNumber: String) -> Bool {
-       let phoneNumberRegex = "^[6-9]\\d{9}$"
+       let phoneNumberRegex = "^[6-9]\\d{7}$"
        let trimmedString = phoneNumber.trimmingCharacters(in: .whitespaces)
        let validatePhone = NSPredicate(format: "SELF MATCHES %@", phoneNumberRegex)
        let isValidPhone = validatePhone.evaluate(with: trimmedString)
@@ -149,6 +149,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     @IBAction func update(_ sender: Any) {
+        errormsg.text = ""
         errormsg.isHidden = true
         errory = 0;
         var Gender: String = ""
