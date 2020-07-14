@@ -38,6 +38,10 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Set color to buttons
+        takePicture.tintColor = UIColor.orange
+        selectPicture.tintColor = UIColor.orange
+        
         // Set round border for descTextView
         self.descTextView.layer.borderColor = UIColor.black.cgColor
         self.descTextView.layer.borderWidth = 0.3

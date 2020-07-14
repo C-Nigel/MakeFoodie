@@ -34,7 +34,11 @@ class ViewPostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // Set color to buttons
+        chatButton.tintColor = UIColor.orange
+        orderButton.tintColor = UIColor.orange
+        
         // Check if current logged in user is the user that created the post
         if Auth.auth().currentUser != nil {
             let user = Auth.auth().currentUser
@@ -77,7 +81,6 @@ class ViewPostViewController: UIViewController {
         
         descLabel.text = post?.desc
         categoryLabel.text = post?.category
-        
         
     }
     

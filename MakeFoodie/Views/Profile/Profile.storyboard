@@ -42,7 +42,7 @@
         <scene sceneID="8Y8-Nz-x0p">
             <objects>
                 <viewControllerPlaceholder storyboardName="Posts" id="0fq-Ma-NY6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Posts" image="square.grid.2x2" catalog="system" id="HBY-dE-WOU"/>
+                    <tabBarItem key="tabBarItem" title="Posts" image="square.grid.2x2" catalog="system" selectedImage="square.grid.2x2.fill" id="HBY-dE-WOU"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y7g-t5-sSV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -72,7 +72,7 @@
         <scene sceneID="Ke5-Yq-dmC">
             <objects>
                 <viewControllerPlaceholder storyboardName="Orders" id="6UW-ku-JHI" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Orders" image="bag" catalog="system" id="i3v-rg-ytU"/>
+                    <tabBarItem key="tabBarItem" title="Orders" image="bag" catalog="system" selectedImage="bag.fill" id="i3v-rg-ytU"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZGy-bJ-E0z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -414,9 +414,11 @@
     </scenes>
     <resources>
         <image name="bag" catalog="system" width="128" height="128"/>
+        <image name="bag.fill" catalog="system" width="128" height="128"/>
         <image name="camera" catalog="system" width="128" height="96"/>
         <image name="doc.plaintext" catalog="system" width="115" height="128"/>
         <image name="square.and.pencil" catalog="system" width="128" height="118"/>
         <image name="square.grid.2x2" catalog="system" width="128" height="114"/>
+        <image name="square.grid.2x2.fill" catalog="system" width="128" height="114"/>
     </resources>
 </document>

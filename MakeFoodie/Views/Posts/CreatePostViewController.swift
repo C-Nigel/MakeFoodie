@@ -50,6 +50,10 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         descTextView.delegate = self
         
+        // Set color to buttons
+        takePicture.tintColor = UIColor.orange
+        selectPicture.tintColor = UIColor.orange
+        
         // Close keyboard when click outside textField
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         
