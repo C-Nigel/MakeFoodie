@@ -18,6 +18,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     var errory: Int = 0;
   
     
+    @IBOutlet weak var titlelabel: UILabel!
     @IBOutlet weak var emailInput: UITextField!
     
     @IBOutlet weak var usernameInput: UITextField!
@@ -35,8 +36,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passworderror: UILabel!
     @IBOutlet weak var confirmpassworderrorimg: UIImageView!
     @IBOutlet weak var confirmpassworderror: UILabel!
+    @IBOutlet weak var createbutton: UIButton!
     var userList : [User] = [];
     
+
     
     private var datePicker: UIDatePicker?
     
@@ -49,6 +52,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         self.dobInput.delegate = self
         //CHANGE BORDER OF INPUT FIELDS TO BLACK
         let myColor = UIColor.black
+        createbutton.backgroundColor = UIColor.orange
+        tabBarController?.tabBar.backgroundColor = UIColor.orange
         emailInput.layer.borderColor = myColor.cgColor
         usernameInput.layer.borderColor = myColor.cgColor
         dobInput.layer.borderColor = myColor.cgColor

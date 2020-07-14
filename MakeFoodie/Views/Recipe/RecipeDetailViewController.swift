@@ -44,6 +44,10 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var yourUsernameLabel: UILabel!
     @IBOutlet weak var yourRatingLabel: UILabel!
     @IBOutlet weak var yourCommentsLabel: UILabel!
+    @IBOutlet weak var yourStar: UIImageView!
+    @IBOutlet weak var yourReviewLabel: UILabel!
+    @IBOutlet weak var yourReviewEditButton: UIButton!
+    @IBOutlet weak var yourReviewDeleteButton: UIButton!
     
     
     @IBOutlet weak var reviewTitle: UILabel!
@@ -97,6 +101,16 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
         ingLabel.text = self.recipeList[selectedRow].ingredients
         instructionLabel.text = self.recipeList[selectedRow].instructions
         
+        //check if recipe uid matches current user
+        if (self.recipeList[self.selectedRow].uid != self.curruid) {
+            //if doesnt match, hide edit and delete button
+            self.editButton.isEnabled = false
+            self.editButton.tintColor = UIColor.clear
+            self.deleteButton.isEnabled = false
+            self.deleteButton.tintColor = UIColor.clear
+            
+        }
+        
         //checkUser
         
         if Auth.auth().currentUser != nil {
@@ -110,7 +124,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
                         if (i.uid == uidd) {
                             self.curruid = i.uid
                              
-                            //check if recipe uid matches current user
+                            /*//check if recipe uid matches current user
                             if (self.recipeList[self.selectedRow].uid != self.curruid) {
                                 //if doesnt match, hide edit and delete button
                                 self.editButton.isEnabled = false
@@ -118,15 +132,20 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
                                 self.deleteButton.isEnabled = false
                                 self.deleteButton.tintColor = UIColor.clear
                                 
-                            }
+                            }*/
                             
                             //check if user has a review for this recipe
 
                             if !(self.recipeList[self.selectedRow].reviews.isEmpty) { //if reviews not empty
                                 for i in self.recipeList[self.selectedRow].reviews.keys { //i = keys in reviews dict
                                     if (self.recipeList[self.selectedRow].reviews[i]!["uid"] == self.curruid) {
-                                        //if has current user review, hide add review button and show your review stack
+                                        //if has current user review, hide add review button and show your review
                                         self.addReviewButton.isHidden = true
+                                        self.yourUsernameLabel.isHidden = false
+                                        self.yourRatingLabel.isHidden = false
+                                        self.yourCommentsLabel.isHidden = false
+                                        self.yourStar.isHidden = false
+                                        self.yourReviewLabel.isHidden = false
                                         
                                         //change text of reviewTitle to Other Reviews
                                         self.reviewTitle.text = "Other Reviews"
@@ -141,19 +160,35 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
                                         }
                                         
                                     }
-                                    //else, show add review and hide your review stack
+                                    //if current user has no review, show add review and hide your review
                                         //with reviewTitle text being Reviews
                                     else {
                                         self.addReviewButton.isHidden = false
                                         self.reviewTitle.text = "Reviews"
+                                        self.yourUsernameLabel.isHidden = true
+                                        self.yourRatingLabel.isHidden = true
+                                        self.yourCommentsLabel.isHidden = true
+                                        self.yourStar.isHidden = true
+                                        self.yourReviewLabel.isHidden = true
+                                        self.yourReviewEditButton.isHidden = true
+                                        self.yourReviewDeleteButton.isHidden = true
+
                                     }
                                 }
                             }
                             //else (if reviews empty)
                             else {
                                 //hide allReviewsTableView and show label no reviews
+                                //hide your review
+                                self.allReviewsTableView.isHidden = true
                                 self.noReviewsLabel.isHidden = false
-                                
+                                self.yourUsernameLabel.isHidden = true
+                                self.yourRatingLabel.isHidden = true
+                                self.yourCommentsLabel.isHidden = true
+                                self.yourStar.isHidden = true
+                                self.yourReviewLabel.isHidden = true
+                                self.yourReviewEditButton.isHidden = true
+                                self.yourReviewDeleteButton.isHidden = true
                             }
                             
                         }

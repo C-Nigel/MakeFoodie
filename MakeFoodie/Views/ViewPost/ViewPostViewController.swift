@@ -30,7 +30,7 @@ class ViewPostViewController: UIViewController {
     var post: Post?
     var userList:[User] = []
     var username: String = ""
-    
+    var nameText = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -75,6 +75,8 @@ class ViewPostViewController: UIViewController {
         
         descLabel.text = post?.desc
         categoryLabel.text = post?.category
+        
+        
     }
     
     // Click on trash icon
@@ -114,6 +116,13 @@ class ViewPostViewController: UIViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+   
+    @IBAction func OrderNavigation(_ sender: Any) {
+        nameText = titleLabel.text!
+        performSegue(withIdentifier: "orderreq", sender: self)
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "EditPost")
         {
@@ -125,6 +134,11 @@ class ViewPostViewController: UIViewController {
                 let currentPost = post!
                 editPostViewController.post = currentPost
             }
+        }
+        
+        if (segue.identifier == "orderreq"){
+            let vc = segue.destination as! OrderReqViewController
+            vc.finalName = self.nameText
         }
     }
 }

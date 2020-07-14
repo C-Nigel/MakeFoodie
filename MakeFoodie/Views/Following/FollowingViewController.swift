@@ -11,16 +11,21 @@ import UIKit
 class FollowingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
      // Declare an array of Movie objects
-    var followList : [followDetails] = []
+    var indexSelected : String = "post"
+    var postList : [postDetails] = []
+    var recipeList : [recipeDetails] = []
+    var followingUserList : [userDetails] = []
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        loadFollowItems()
+        loadFollowItems(type: "post")
+        DataManager.getNameByUID()
     }
     
     // This is a function that the UITableViewDataSource
@@ -29,7 +34,25 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
     //
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-    return followList.count
+        var count : Int = 0
+        if indexSelected == "post"
+        {
+            count = postList.count
+        }
+        else if indexSelected == "recipes"
+        {
+            count = recipeList.count
+        }
+        else if indexSelected == "user following"
+        {
+            count = followingUserList.count
+        }
+        else if indexSelected == "following user"
+        {
+            count = followingUserList.count
+        }
+        
+        return count
     }
     
     // This is a function that the UITableViewDataSource
@@ -48,30 +71,135 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         // Using the re-used cell, or the newly created
         // cell, we update the text label's text property.
         //
-        let p = followList[indexPath.row]
-        cell.titleLabel.text = p.title
-        cell.usernameLabel.text = p.uid
-        cell.pictureImageView.image = p.thumbnail.getImage()
+        
+        if indexSelected == "post"
+        {
+            let p = postList[indexPath.row]
+            cell.titleLabel.text = p.title
+            cell.usernameLabel.text = p.uid
+            cell.pictureImageView.image = p.thumbnail.getImage()
+        }
+        else if indexSelected == "recipes"
+        {
+            let p = recipeList[indexPath.row]
+            cell.titleLabel.text = p.title
+            cell.usernameLabel.text = p.uid
+            cell.pictureImageView.image = p.thumbnail.getImage()
+        }
+        else if indexSelected == "user following"
+        {
+            let p = followingUserList[indexPath.row]
+            cell.titleLabel.text = p.username
+            cell.usernameLabel.text = p.description
+            cell.pictureImageView.image = p.imagelink.getImage()
+        }
+        
+        else if indexSelected == "following user"
+        {
+            let p = followingUserList[indexPath.row]
+            cell.titleLabel.text = p.username
+            cell.usernameLabel.text = p.description
+            cell.pictureImageView.image = p.imagelink.getImage()
+        }
 
         return cell
-        }
+    }
     
-    func loadFollowItems()
+    
+    @IBAction func segmentedControlChangedIndex(_ sender: Any)
     {
-        DataManager.loadFollowPostItems()
+        switch segmentedControl.selectedSegmentIndex
         {
-            itemListFromFirestore in
-            
-            // This is a closure
-            
-            // This block of codes is executed when the async loading from Firestore is complete.
-            // What it is to reassigned the new list loaded from Firestore.
-            
-            self.followList = itemListFromFirestore
-            
-            //Once done, call on the Table View to reload all its contents
-            
-            self.tableView.reloadData()
+            case 0:
+                loadFollowItems(type: "post")
+                indexSelected = "post"
+            case 1:
+                loadFollowItems(type: "recipes")
+                indexSelected = "recipes"
+            case 2:
+                loadFollowItems(type: "user following")
+                indexSelected = "user following"
+            case 3:
+                loadFollowItems(type: "following user")
+                indexSelected = "following user"
+            default:
+                break
+        }
+    }
+    
+    func loadFollowItems(type: String)
+    {
+        if type == "post"
+        {
+            DataManager.loadFollowPostItems()
+            {
+                itemListFromFirestore in
+                
+                // This is a closure
+                
+                // This block of codes is executed when the async loading from Firestore is complete.
+                // What it is to reassigned the new list loaded from Firestore.
+                
+                self.postList = itemListFromFirestore
+                
+                //Once done, call on the Table View to reload all its contents
+                
+                self.tableView.reloadData()
+            }
+        }
+        else if type == "recipes"
+        {
+            DataManager.loadFollowRecipeItems()
+            {
+                itemListFromFirestore in
+                
+                // This is a closure
+                
+                // This block of codes is executed when the async loading from Firestore is complete.
+                // What it is to reassigned the new list loaded from Firestore.
+                
+                self.recipeList = itemListFromFirestore
+                
+                //Once done, call on the Table View to reload all its contents
+                
+                self.tableView.reloadData()
+            }
+        }
+        else if type == "user following"
+        {
+            DataManager.loadFollowingUserItems()
+            {
+                itemListFromFirestore in
+                
+                // This is a closure
+                
+                // This block of codes is executed when the async loading from Firestore is complete.
+                // What it is to reassigned the new list loaded from Firestore.
+                
+                self.followingUserList = itemListFromFirestore
+                
+                //Once done, call on the Table View to reload all its contents
+                
+                self.tableView.reloadData()
+            }
+        }
+        else if type == "following user"
+        {
+            DataManager.loadUserFollowingItems()
+            {
+                itemListFromFirestore in
+                
+                // This is a closure
+                
+                // This block of codes is executed when the async loading from Firestore is complete.
+                // What it is to reassigned the new list loaded from Firestore.
+                
+                self.followingUserList = itemListFromFirestore
+                
+                //Once done, call on the Table View to reload all its contents
+                
+                self.tableView.reloadData()
+            }
         }
     }
     
