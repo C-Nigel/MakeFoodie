@@ -23,11 +23,13 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var dobs: UITextField!
     @IBOutlet weak var emails: UILabel!
     @IBOutlet weak var genders: UISegmentedControl!
+    @IBOutlet weak var errormsg: UITextView!
     
     @IBOutlet weak var phoneno: UITextField!
     private var datePicker: UIDatePicker?
     var userList : [User] = [];
     var newlist : [User] = [];
+    var errory: Int = 0;
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dobs.delegate = self
@@ -108,9 +110,47 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     
-    
+    public func validateName(name: String) ->Bool {
+       // Length be 18 characters max and 3 characters minimum, you can always modify.
+       let nameRegex = "^\\w{3,10}$"
+       let trimmedString = name.trimmingCharacters(in: .whitespaces)
+       let validateName = NSPredicate(format: "SELF MATCHES %@", nameRegex)
+       let isValidateName = validateName.evaluate(with: trimmedString)
+       return isValidateName
+    }
+    public func validatePhoneNumber(phoneNumber: String) -> Bool {
+       let phoneNumberRegex = "^[6-9]\\d{9}$"
+       let trimmedString = phoneNumber.trimmingCharacters(in: .whitespaces)
+       let validatePhone = NSPredicate(format: "SELF MATCHES %@", phoneNumberRegex)
+       let isValidPhone = validatePhone.evaluate(with: trimmedString)
+       return isValidPhone
+    }
+    public func validateEmailId(emailID: String) -> Bool {
+       let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+       let trimmedString = emailID.trimmingCharacters(in: .whitespaces)
+       let validateEmail = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+       let isValidateEmail = validateEmail.evaluate(with: trimmedString)
+       return isValidateEmail
+    }
+    public func validatePassword(password: String) -> Bool {
+       //Minimum 8 characters at least 1 Alphabet and 1 Number:
+       let passRegEx = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+       let trimmedString = password.trimmingCharacters(in: .whitespaces)
+       let validatePassord = NSPredicate(format:"SELF MATCHES %@", passRegEx)
+       let isvalidatePass = validatePassord.evaluate(with: trimmedString)
+       return isvalidatePass
+    }
+    public func validateAnyOtherTextField(otherField: String) -> Bool {
+       let otherRegexString = "Your regex String"
+       let trimmedString = otherField.trimmingCharacters(in: .whitespaces)
+       let validateOtherString = NSPredicate(format: "SELF MATCHES %@", otherRegexString)
+       let isValidateOtherString = validateOtherString.evaluate(with: trimmedString)
+       return isValidateOtherString
+    }
     
     @IBAction func update(_ sender: Any) {
+        errormsg.isHidden = true
+        errory = 0;
         var Gender: String = ""
         if self.genders.selectedSegmentIndex == 0{
             Gender = "Male"
@@ -118,15 +158,59 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         else{
             Gender = "Female"
         }
-        self.newlist.append(User(username: self.username.text!, dob: self.dobs.text!, gender: Gender, phoneNo: phoneno.text!, description: descriptions.text!, imagelink: User.Image.init(withImage: Image.image!), uid: uiddd.text!))
-           for i in self.newlist{
-               print(i.username);
-               print(i.dob);
-               print(i.gender)
-                /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
-               
-               DataManager.insertOrReplaceUser(i)
-               //self.movetologinpage()
+        if username.text == ""{
+            let alert = UIAlertController(
+             title: "Username cannot be empty", message: "",
+            preferredStyle:
+            .alert)
+             alert.addAction(UIAlertAction(title: "OK", style:.default, handler: nil))
+
+             self.present(alert, animated: true, completion: nil)
+             return
+        }
+        if username.text != ""{
+            let isValidateName = validateName(name: username.text!)
+            if (isValidateName == false) {
+               print("Length be 10 characters max and 3 characters minimum")
+                errormsg.text = errormsg.text + "Length be 10 characters max and 3 characters minimum" + "\n"
+                errory = errory + 1
+            }
+        }
+        if dobs.text != ""{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+
+            if dateFormatter.date(from: dobs.text!) == nil {
+                print("date is invalid")
+
+                errormsg.text = errormsg.text + "Date must be in dd/MM/yyyy" + "\n"
+                errory = errory + 1
+            }
+        }
+        if phoneno.text != ""{
+            let isValidatePhoneNumber = validatePhoneNumber(phoneNumber: phoneno.text!)
+            if (isValidatePhoneNumber == false) {
+               print("Invalid Phone Number")
+                errormsg.text = errormsg.text + "Invalid Phone Number" + "\n"
+                errory = errory + 1
+            }
+        }
+        
+        if errory > 0{
+            errormsg.isHidden = false
+        }
+        else{
+            self.newlist.append(User(username: self.username.text!, dob: self.dobs.text!, gender: Gender, phoneNo: phoneno.text!, description: descriptions.text!, imagelink: User.Image.init(withImage: Image.image!), uid: uiddd.text!))
+            for i in self.newlist{
+                print(i.username);
+                print(i.dob);
+                print(i.gender)
+                 /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
+                
+                DataManager.insertOrReplaceUser(i)
+                //self.movetologinpage()
+        }
+        
                
                      
             }

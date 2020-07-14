@@ -16,17 +16,21 @@ class LoginViewController: UIViewController {
     
     var errory: Int = 0;
     
+    //declaration
     @IBOutlet weak var emaily: UITextField!
     @IBOutlet weak var passwordy: UITextField!
     @IBOutlet weak var emailerrorimg: UIImageView!
     @IBOutlet weak var emailerror: UILabel!
     @IBOutlet weak var passworderror: UILabel!
     @IBOutlet weak var passworderrorimg: UIImageView!
+    @IBOutlet weak var loginbutton: UIButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //design
         let myColor = UIColor.black
+        loginbutton.backgroundColor = UIColor.orange
         emaily.layer.borderColor = myColor.cgColor
         emaily.layer.borderWidth = 1.0
         passwordy.layer.borderColor = myColor.cgColor
@@ -34,6 +38,7 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    //all validations functions
     public func validateEmailId(emailID: String) -> Bool {
        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
        let trimmedString = emailID.trimmingCharacters(in: .whitespaces)
@@ -49,7 +54,7 @@ class LoginViewController: UIViewController {
        let isvalidatePass = validatePassord.evaluate(with: trimmedString)
        return isvalidatePass
     }
-
+    //when login button pressed
     @IBAction func onLogin(_ sender: Any) {
         emailerrorimg.isHidden = true
         emailerror.isHidden = true
@@ -60,6 +65,7 @@ class LoginViewController: UIViewController {
         else {
            return
         }
+        //if input is empty
         if emaily.text == "" || passwordy.text == ""{
             let alert = UIAlertController(
              title: "Please enter all input fields", message: "",
@@ -70,7 +76,7 @@ class LoginViewController: UIViewController {
              self.present(alert, animated: true, completion: nil)
              return
         }
-        
+        //if email invalid
         let isValidateEmail = validateEmailId(emailID: email)
         if (isValidateEmail == false){
             emailerrorimg.isHidden = false
@@ -81,6 +87,7 @@ class LoginViewController: UIViewController {
             errory = errory + 1;
            
         }
+        //if password invalid
         let isValidatePass = validatePassword(password: password)
         if (isValidatePass == false) {
            print("Minimum 8 characters at least 1 Alphabet and 1 Number")
@@ -90,15 +97,13 @@ class LoginViewController: UIViewController {
             errory = errory + 1;
            return
         }
+        //if there is no error proceed
         if errory == 0{
             Auth.auth().signIn(withEmail: emaily.text!, password: passwordy.text!) { (result, error) in
-                
-                //if error != nil{
-                 //   print("Login Failed!")
-                //}
                 if let x = error {
                     let err = x as NSError
                     switch err.code {
+                        //check if
                     case AuthErrorCode.wrongPassword.rawValue:
                         print("wrong password")
                         self.passworderrorimg.isHidden = false
@@ -108,7 +113,7 @@ class LoginViewController: UIViewController {
                         print("invalid email")
                         self.emailerrorimg.isHidden = false
                         self.emailerror.isHidden = false
-                        self.emailerror.text = "Invalid Email"
+                        self.emailerror.text = "Email Does not exist"
                     
                     
                     default:
@@ -117,6 +122,7 @@ class LoginViewController: UIViewController {
                 
                 }
                 else{
+                    // if no error then navigate to home page
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Profile", bundle: nil)
                     let newViewController = storyBoard.instantiateViewController(withIdentifier: "tabbar")
                             self.present(newViewController, animated: true, completion: nil)

@@ -15,10 +15,11 @@ import FirebaseFirestore
 class ForgetpwViewController: UIViewController {
 
     @IBOutlet weak var emailinput: UITextField!
+    @IBOutlet weak var sendemail: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        sendemail.backgroundColor = UIColor.orange
         // Do any additional setup after loading the view.
     }
     
