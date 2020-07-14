@@ -43,6 +43,13 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //colors
+        self.takePictureButton.tintColor = UIColor.orange
+        self.selectPictureButton.tintColor = UIColor.orange
+        
+        
+        
+        
         // Do any additional setup after loading the view.
         //set round border for desc and instructions
         self.descTextView.layer.borderColor = UIColor.black.cgColor

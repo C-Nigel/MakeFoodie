@@ -40,11 +40,14 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
         // Do any additional setup after loading the view.
-        //set round border for desc and instructions
         
+        //colors
+        self.takePictureButton.tintColor = UIColor.orange
+        self.selectPictureButton.tintColor = UIColor.orange
+        
+        
+        //set round border for desc and instructions
         //loading data to put it in the inputs
         titleInput.text = self.recipeList[selectedRow].title
         descTextView.text = self.recipeList[selectedRow].desc

@@ -61,9 +61,16 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var noReviewsLabel: UILabel!
     
-    override func viewDidLoad() {
+       override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //colors
+        self.addReviewButton.tintColor = UIColor.white
+        self.addReviewButton.backgroundColor = UIColor.orange
+        self.editReviewButton.tintColor = UIColor.orange
+        self.deleteReviewButton.tintColor = UIColor.orange
+        
+        
         //loading data to view the recipe
         titleLabel.text = self.recipeList[selectedRow].title
         
@@ -111,92 +118,63 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
             
         }
         
-        //checkUser
-        
-        if Auth.auth().currentUser != nil {
-            let user = Auth.auth().currentUser
-            if let user = user {
-                let uidd: String = user.uid
-                DataManager.loadUser() {
-                    userListFromFirestore in
-                    self.userList = userListFromFirestore
-                    for i in self.userList {
-                        if (i.uid == uidd) {
-                            self.curruid = i.uid
-                             
-                            /*//check if recipe uid matches current user
-                            if (self.recipeList[self.selectedRow].uid != self.curruid) {
-                                //if doesnt match, hide edit and delete button
-                                self.editButton.isEnabled = false
-                                self.editButton.tintColor = UIColor.clear
-                                self.deleteButton.isEnabled = false
-                                self.deleteButton.tintColor = UIColor.clear
-                                
-                            }*/
-                            
-                            //check if user has a review for this recipe
 
-                            if !(self.recipeList[self.selectedRow].reviews.isEmpty) { //if reviews not empty
-                                for i in self.recipeList[self.selectedRow].reviews.keys { //i = keys in reviews dict
-                                    if (self.recipeList[self.selectedRow].reviews[i]!["uid"] == self.curruid) {
-                                        //if has current user review, hide add review button and show your review
-                                        self.addReviewButton.isHidden = true
-                                        self.yourUsernameLabel.isHidden = false
-                                        self.yourRatingLabel.isHidden = false
-                                        self.yourCommentsLabel.isHidden = false
-                                        self.yourStar.isHidden = false
-                                        self.yourReviewLabel.isHidden = false
-                                        
-                                        //change text of reviewTitle to Other Reviews
-                                        self.reviewTitle.text = "Other Reviews"
-                                        //pop the record of current user's review, add the updated list to otherReviews
-                                        self.recipeList[self.selectedRow].reviews.removeValue(forKey: self.curruid)
-                                        self.otherReviews = self.recipeList[self.selectedRow].reviews
-                                        //if other reviews is empty
-                                        if (self.otherReviews.isEmpty) {
-                                            //hide allReviewsTableView and show label no reviews
-                                            self.allReviewsTableView.isHidden = true
-                                            self.noReviewsLabel.isHidden = false
-                                        }
-                                        
-                                    }
-                                    //if current user has no review, show add review and hide your review
-                                        //with reviewTitle text being Reviews
-                                    else {
-                                        self.addReviewButton.isHidden = false
-                                        self.reviewTitle.text = "Reviews"
-                                        self.yourUsernameLabel.isHidden = true
-                                        self.yourRatingLabel.isHidden = true
-                                        self.yourCommentsLabel.isHidden = true
-                                        self.yourStar.isHidden = true
-                                        self.yourReviewLabel.isHidden = true
-                                        self.yourReviewEditButton.isHidden = true
-                                        self.yourReviewDeleteButton.isHidden = true
 
-                                    }
-                                }
-                            }
-                            //else (if reviews empty)
-                            else {
-                                //hide allReviewsTableView and show label no reviews
-                                //hide your review
-                                self.allReviewsTableView.isHidden = true
-                                self.noReviewsLabel.isHidden = false
-                                self.yourUsernameLabel.isHidden = true
-                                self.yourRatingLabel.isHidden = true
-                                self.yourCommentsLabel.isHidden = true
-                                self.yourStar.isHidden = true
-                                self.yourReviewLabel.isHidden = true
-                                self.yourReviewEditButton.isHidden = true
-                                self.yourReviewDeleteButton.isHidden = true
-                            }
-                            
-                        }
+        if !(self.recipeList[self.selectedRow].reviews.isEmpty) { //if reviews not empty
+            for i in self.recipeList[self.selectedRow].reviews.keys { //i = keys in reviews dict
+                if (self.recipeList[self.selectedRow].reviews[i]!["uid"] == self.curruid) {
+                    //if has current user review, hide add review button and show your review
+                    self.addReviewButton.isHidden = true
+                    self.yourUsernameLabel.isHidden = false
+                    self.yourRatingLabel.isHidden = false
+                    self.yourCommentsLabel.isHidden = false
+                    self.yourStar.isHidden = false
+                    self.yourReviewLabel.isHidden = false
+                    
+                    //change text of reviewTitle to Other Reviews
+                    self.reviewTitle.text = "Other Reviews"
+                    //pop the record of current user's review, add the updated list to otherReviews
+                    self.recipeList[self.selectedRow].reviews.removeValue(forKey: self.curruid)
+                    self.otherReviews = self.recipeList[self.selectedRow].reviews
+                    //if other reviews is empty
+                    if (self.otherReviews.isEmpty) {
+                        //hide allReviewsTableView and show label no reviews
+                        self.allReviewsTableView.isHidden = true
+                        self.noReviewsLabel.isHidden = false
                     }
+                    
+                }
+                //if current user has no review, show add review and hide your review
+                    //with reviewTitle text being Reviews
+                else {
+                    self.addReviewButton.isHidden = false
+                    self.reviewTitle.text = "Reviews"
+                    self.yourUsernameLabel.isHidden = true
+                    self.yourRatingLabel.isHidden = true
+                    self.yourCommentsLabel.isHidden = true
+                    self.yourStar.isHidden = true
+                    self.yourReviewLabel.isHidden = true
+                    self.yourReviewEditButton.isHidden = true
+                    self.yourReviewDeleteButton.isHidden = true
+
                 }
             }
-            
         }
+        //else (if reviews empty)
+        else {
+            //hide allReviewsTableView and show label no reviews
+            //hide your review
+            self.allReviewsTableView.isHidden = true
+            self.noReviewsLabel.isHidden = false
+            self.yourUsernameLabel.isHidden = true
+            self.yourRatingLabel.isHidden = true
+            self.yourCommentsLabel.isHidden = true
+            self.yourStar.isHidden = true
+            self.yourReviewLabel.isHidden = true
+            self.yourReviewEditButton.isHidden = true
+            self.yourReviewDeleteButton.isHidden = true
+        }
+    
         
 
         
