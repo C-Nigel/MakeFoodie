@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var thumbnailImageView: UIImageView!
@@ -32,6 +32,9 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         "Others"
     ]
     
+    var post: Post?
+    var currPostId: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,6 +48,25 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         {
             // Hide if not available
             takePicture.isHidden = true
+        }
+    }
+    
+    // This function is triggered when the view is about to appear.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        currPostId = post?.id // Get current post id to know which post to edit
+        titleTextField.text = post?.title
+        if post?.price != nil {
+            priceTextField.text = String(post!.price)
+        }
+        else {
+            priceTextField.text = ""
+        }
+        thumbnailImageView.image = post?.thumbnail.getImage()
+        descTextView.text = post?.desc
+        if let selectedCategory = categoryPickerData.firstIndex(of: post!.category) {
+            categoryPickerView.selectRow(selectedCategory, inComponent: 0, animated: false)
         }
     }
     
@@ -96,12 +118,29 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         self.present(picker, animated: true)
     }
     
+    // Click on cancel button
     @IBAction func cancelButtonPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
+        /* Selected row of picker view
+        let row = categoryPickerView.selectedRow(inComponent: 0)
+        // Get data selected from picker data
+        let selectedCategory = categoryPickerData[row]
         
+        let viewControllers = self.navigationController?.viewControllers
+        let postsTableView = viewControllers?[0] as! PostsTableViewController
+        //let parent = viewControllers?[1] as! ViewPostViewController
+        let priceValue = Double(priceTextField.text!)
+        
+        let post:Post = Post(id: currPostId!, title: titleTextField.text!, price: priceValue!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: postsTableView.curruid)
+        
+        DataManager.insertOrEditPost(post)
+        postsTableView.loadPosts()
+        
+        // Redirect back to tableView
+        self.navigationController?.popViewController(animated: true)*/
     }
     
     /*

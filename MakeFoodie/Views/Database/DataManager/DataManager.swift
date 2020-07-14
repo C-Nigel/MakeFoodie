@@ -318,5 +318,15 @@ class DataManager: NSObject {
         }
     }
     
+    // Deletes a post from db
+     static func deletePost(_ post: Post) {
+        db.collection("post").document(String(post.id)).delete() { err in
+         if let err = err {
+            print("Error removing document: \(err)") }
+         else {
+            print("Document successfully removed!") }
+         }
+    }
+    
     
 }

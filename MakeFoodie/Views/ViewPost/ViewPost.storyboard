@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A7V-sO-UOc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A7V-sO-UOc">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -159,7 +159,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="eZI-vR-w1q">
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="trash" id="O2e-gt-Qnd"/>
+                            <barButtonItem systemItem="trash" id="O2e-gt-Qnd">
+                                <connections>
+                                    <action selector="deleteButtonPressed:" destination="wcz-Z2-7rz" id="fYx-a2-nBC"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem systemItem="edit" id="gho-V5-Tud">
                                 <connections>
                                     <segue destination="dnf-GB-hRD" kind="show" identifier="EditPost" id="zle-Z8-bHx"/>
@@ -170,6 +174,7 @@
                     <connections>
                         <outlet property="categoryLabel" destination="REB-DT-Qb4" id="FA5-Yo-aRe"/>
                         <outlet property="chatButton" destination="E98-53-ry2" id="PIx-tZ-0Zs"/>
+                        <outlet property="deleteButton" destination="O2e-gt-Qnd" id="qj1-yF-lgt"/>
                         <outlet property="descLabel" destination="y9Z-Y5-czv" id="bWz-B4-VAL"/>
                         <outlet property="favouriteButton" destination="ZFW-D3-eQ9" id="nZ6-Xq-0WE"/>
                         <outlet property="orderButton" destination="3qL-ll-PQb" id="jiz-xW-eYd"/>
@@ -293,6 +298,10 @@
                                                     </label>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CBY-pS-H9R">
                                                         <rect key="frame" x="0.0" y="40" width="374" height="216"/>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="dnf-GB-hRD" id="u6l-gd-Jjm"/>
+                                                            <outlet property="delegate" destination="dnf-GB-hRD" id="79S-H6-bov"/>
+                                                        </connections>
                                                     </pickerView>
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="10" left="0.0" bottom="10" right="0.0"/>

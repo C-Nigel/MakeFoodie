@@ -41,6 +41,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         "Others"
     ]
     
+    // Create list to contain posts from Firebase
     var postList: [Post] = []
     
     override func viewDidLoad() {
@@ -79,6 +80,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         loadPosts()
     }
     
+    // Function that loads data from Firestore and refreshes tableView
     func loadPosts() {
         DataManager.loadPosts ()
         {
@@ -146,6 +148,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     // MARK: - TextView + TextField Change
     
+    // Run if changes made to descTextView
     func textViewDidChange(_ textView: UITextView) {
         // Check if desc textView is empty (White space + Blank)
         if (descTextView.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
@@ -190,26 +193,33 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             priceTextField.layer.cornerRadius = 6
         }
         else {
-            // Check for decimal number
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
-            formatter.maximumFractionDigits = 2
-            if let decimalNo = formatter.number(from: priceTextField.text!) {
+            // Check for double
+            if Double(priceTextField.text!) != nil {
                 // Check if textField has decimal
                 if (priceTextField.text!.contains(".")) {
-                    // If there is decimal place, ensure that only 2dp max
-                    if priceTextField.text!.components(separatedBy: ".")[1].count == 2 {
-                        priceError.isHidden = true
-                        priceTextField.layer.borderColor = UIColor.black.cgColor
-                        priceTextField.layer.borderWidth = 0.3
-                        priceTextField.layer.cornerRadius = 6
-                    }
-                    else {
-                        priceError.text = "Maximum of 2 decimal places."
+                    // If there is decimal place, and after another decimal, show error
+                    if (priceTextField.text!.components(separatedBy: ".")[1].contains(".")) {
+                        priceError.text = "Please input a valid number."
                         priceError.isHidden = false
                         priceTextField.layer.borderColor = UIColor.red.cgColor
                         priceTextField.layer.borderWidth = 1.0
                         priceTextField.layer.cornerRadius = 6
+                    }
+                    else {
+                        // Else ensure that only 2dp max
+                        switch priceTextField.text!.components(separatedBy: ".")[1].count {
+                            case 1, 2: // If 1 or 2dp, accept
+                                priceError.isHidden = true
+                                priceTextField.layer.borderColor = UIColor.black.cgColor
+                                priceTextField.layer.borderWidth = 0.3
+                                priceTextField.layer.cornerRadius = 6
+                            default:  // If 0 or more than 2dp, reject
+                                priceError.text = "Maximum of 2 decimal places."
+                                priceError.isHidden = false
+                                priceTextField.layer.borderColor = UIColor.red.cgColor
+                                priceTextField.layer.borderWidth = 1.0
+                                priceTextField.layer.cornerRadius = 6
+                        }
                     }
                 }
                 else {
@@ -284,27 +294,35 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             verified = false
         }
         else {
-            // Check for decimal number
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
-            formatter.maximumFractionDigits = 2
-            if let decimalNo = formatter.number(from: priceTextField.text!) {
+            // Check for double
+            if Double(priceTextField.text!) != nil {
                 // Check if textField has decimal
                 if (priceTextField.text!.contains(".")) {
-                    // If there is decimal place, ensure that only 2dp max
-                    if priceTextField.text!.components(separatedBy: ".")[1].count == 2 {
-                        priceError.isHidden = true
-                        priceTextField.layer.borderColor = UIColor.black.cgColor
-                        priceTextField.layer.borderWidth = 0.3
-                        priceTextField.layer.cornerRadius = 6
-                    }
-                    else {
-                        priceError.text = "Maximum of 2 decimal places."
+                    // If there is decimal place, and after another decimal, show error
+                    if (priceTextField.text!.components(separatedBy: ".")[1].contains(".")) {
+                        priceError.text = "Please input a valid number."
                         priceError.isHidden = false
                         priceTextField.layer.borderColor = UIColor.red.cgColor
                         priceTextField.layer.borderWidth = 1.0
                         priceTextField.layer.cornerRadius = 6
                         verified = false
+                    }
+                    else {
+                        // Else ensure that only 2dp max
+                        switch priceTextField.text!.components(separatedBy: ".")[1].count {
+                            case 1, 2: // If 1 or 2dp, accept
+                                priceError.isHidden = true
+                                priceTextField.layer.borderColor = UIColor.black.cgColor
+                                priceTextField.layer.borderWidth = 0.3
+                                priceTextField.layer.cornerRadius = 6
+                            default:  // If 0 or more than 2dp, reject
+                                priceError.text = "Maximum of 2 decimal places."
+                                priceError.isHidden = false
+                                priceTextField.layer.borderColor = UIColor.red.cgColor
+                                priceTextField.layer.borderWidth = 1.0
+                                priceTextField.layer.cornerRadius = 6
+                                verified = false
+                        }
                     }
                 }
                 else {
@@ -371,12 +389,9 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             let viewControllers = self.navigationController?.viewControllers
             let parent = viewControllers?[0] as! PostsTableViewController
+            let priceValue = Double(priceTextField.text!)
             
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
-            formatter.maximumFractionDigits = 2
-            
-            let post:Post = Post(id: listCount, title: titleTextField.text!, price: formatter.number(from: priceTextField.text!)!.decimalValue, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: parent.curruid)
+            let post:Post = Post(id: listCount, title: titleTextField.text!, price: priceValue!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: parent.curruid)
             
             DataManager.insertOrEditPost(post)
             parent.loadPosts()

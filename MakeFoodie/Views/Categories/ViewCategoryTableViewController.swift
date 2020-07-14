@@ -27,6 +27,7 @@ class ViewCategoryTableViewController: UITableViewController {
         loadPostsByCategory(viewCategoryTitle)
     }
     
+    // This function is triggered when the view is about to appear.
     override func viewWillAppear(_ animated: Bool) {
         // Check username
         if Auth.auth().currentUser != nil {
@@ -50,6 +51,17 @@ class ViewCategoryTableViewController: UITableViewController {
         }
     }
     
+    // Called when the view is visible
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // Deselect selected row
+        let selectedRow: IndexPath? = tableView.indexPathForSelectedRow
+        if let selectedRowNotNill = selectedRow {
+            tableView.deselectRow(at: selectedRowNotNill, animated: true)
+        }
+    }
+    
     // Function that loads data based on category from Firestore and refreshes tableView
     func loadPostsByCategory(_ category:String) {
         DataManager.loadPostsByCategory(category)
@@ -65,11 +77,6 @@ class ViewCategoryTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
-    /*override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }*/
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -87,9 +94,13 @@ class ViewCategoryTableViewController: UITableViewController {
         cell.priceLabel.text = "$\(p.price)"
         cell.descLabel.text = p.desc
         
-        for i in self.userList {
-            if (i.uid == p.uid) {
-                cell.usernameLabel.text = i.username
+        DataManager.loadUser() {
+            userListFromFirestore in
+            self.userList = userListFromFirestore
+            for i in self.userList {
+                if (i.uid == p.uid) {
+                    cell.usernameLabel.text = i.username
+                }
             }
         }
         cell.usernameLabel.sizeToFit()

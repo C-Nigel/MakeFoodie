@@ -13,12 +13,18 @@ import FirebaseAuth
 class PostsTableViewController: UITableViewController {
     @IBOutlet var postTableView: UITableView!
     var postList: [Post] = []
-    var userList:[User] = []
+    var userList: [User] = []
     var username: String = ""
     var curruid: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        loadPosts()
+    }
+    
+    // This function is triggered when the view is about to appear.
+    override func viewWillAppear(_ animated: Bool) {
         // Check username
         if Auth.auth().currentUser != nil {
             // Get the current user
@@ -39,11 +45,17 @@ class PostsTableViewController: UITableViewController {
                 }
             }
         }
-        loadPosts()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
+    // Called when the view is visible
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // Deselect selected row
+        let selectedRow: IndexPath? = tableView.indexPathForSelectedRow
+        if let selectedRowNotNill = selectedRow {
+            tableView.deselectRow(at: selectedRowNotNill, animated: true)
+        }
     }
     
     // Function that loads data from Firestore and refreshes tableView
@@ -61,11 +73,6 @@ class PostsTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
-    /*override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }*/
 
     // Tells the UITableView how many rows there will be.
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -85,9 +92,13 @@ class PostsTableViewController: UITableViewController {
         cell.priceLabel.text = "$\(p.price)"
         cell.descLabel.text = p.desc
 
-        for i in self.userList {
-            if (i.uid == p.uid) {
-                cell.usernameLabel.text = i.username
+        DataManager.loadUser() {
+            userListFromFirestore in
+            self.userList = userListFromFirestore
+            for i in self.userList {
+                if (i.uid == p.uid) {
+                    cell.usernameLabel.text = i.username
+                }
             }
         }
         cell.usernameLabel.sizeToFit()

@@ -10,6 +10,7 @@ import UIKit
 
 class CategoriesTableViewController: UITableViewController {
     @IBOutlet var categoriesTableView: UITableView!
+    // Array for categories
     var categories : [String] = [
         "Western",
         "Chinese",
@@ -25,6 +26,7 @@ class CategoriesTableViewController: UITableViewController {
         "Others"
     ]
     
+    // Array of images from assets
     var categoryImages: [String] = [
         "western",
         "chinese",
@@ -47,11 +49,6 @@ class CategoriesTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    /*override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }*/
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
@@ -61,10 +58,12 @@ class CategoriesTableViewController: UITableViewController {
         let cell : CategoryCell = tableView.dequeueReusableCell (withIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
 
         // Use the reused cell/newly created cell and update it
+        // Category name
         let c = categories[indexPath.row]
         cell.categoryLabel.text = c
         cell.categoryLabel.sizeToFit()
         
+        // Image
         let i = categoryImages[indexPath.row]
         cell.categoryImageView.image = UIImage(named: i)
         
@@ -107,6 +106,8 @@ class CategoriesTableViewController: UITableViewController {
     }
     */
 
+    // MARK: - Navigation
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Set the category name to the selected table view cell
