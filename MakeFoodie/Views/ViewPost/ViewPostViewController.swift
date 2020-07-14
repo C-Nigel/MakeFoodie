@@ -31,6 +31,7 @@ class ViewPostViewController: UIViewController {
     var userList:[User] = []
     var username: String = ""
     var nameText = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,6 +45,7 @@ class ViewPostViewController: UIViewController {
                     self.navigationItem.rightBarButtonItems = nil
                 }
                 else {
+                    // Hide follow btn + order btn if user and post creator is the same
                     favouriteButton.isHidden = true
                 }
             }
