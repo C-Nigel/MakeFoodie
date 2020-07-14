@@ -170,6 +170,7 @@ class RecipesTableViewController: UITableViewController {
             let destView = segue.destination as! RecipeDetailViewController
             destView.recipeList = self.recipeList
             destView.selectedRow = self.recipeTableView.indexPathForSelectedRow!.row
+            destView.curruid = self.curruid
 
         }
     }

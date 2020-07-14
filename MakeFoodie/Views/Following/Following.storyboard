@@ -28,6 +28,9 @@
                                         <segment title="Followers"/>
                                         <segment title="Following"/>
                                     </segments>
+                                    <connections>
+                                        <action selector="segmentedControlChangedIndex:" destination="zGb-4Y-xNj" eventType="valueChanged" id="a3e-1c-kqI"/>
+                                    </connections>
                                 </segmentedControl>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowCell" rowHeight="100" id="UMZ-bb-Rhu" customClass="FollowCell" customModule="MakeFoodie" customModuleProvider="target">
@@ -42,14 +45,14 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="titleLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yo8-fd-rjV">
-                                                    <rect key="frame" x="128" y="24" width="266" height="21"/>
+                                                    <rect key="frame" x="128" y="11" width="266" height="42"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="usernameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwa-qf-yRd">
-                                                    <rect key="frame" x="128" y="61" width="266" height="21"/>
+                                                    <rect key="frame" x="128" y="51" width="266" height="38"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
@@ -75,6 +78,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Posts" id="yj4-dU-uHh"/>
                     <connections>
+                        <outlet property="segmentedControl" destination="rku-OL-gVO" id="PwR-em-kWB"/>
                         <outlet property="tableView" destination="qvW-8b-mc8" id="cmY-1H-s9A"/>
                     </connections>
                 </viewController>

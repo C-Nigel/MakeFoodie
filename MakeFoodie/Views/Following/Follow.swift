@@ -12,16 +12,17 @@ class Follow: Codable {
 
     var followeruid: String
     var following: Int
+    var type : String
     
-    init(followeruid: String, following: Int)
+    init(followeruid: String, following: Int, type: String)
     {
         self.followeruid = followeruid
         self.following = following
-        
+        self.type = type
     }
 }
 
-class followDetails: Codable {
+class postDetails: Codable {
     var id: Int
     var title: String
     var price: Decimal
@@ -57,6 +58,49 @@ class followDetails: Codable {
             return image
         }
     }
+}
+
+class recipeDetails: Codable {
+    var recipeID: Int
+    var title: String
+    var desc: String
+    var ingredients: String
+    var instructions: String
+    var thumbnail: Image
+    var reviews: Dictionary<String, Dictionary<String, String>>
+    var uid: String
+    
+    init(recipeID: Int, title: String, desc: String, ingredients: String, instructions: String, thumbnail: Image, reviews: Dictionary<String, Dictionary<String, String>>, uid: String){
+        
+        self.recipeID = recipeID
+        self.title = title
+        self.desc = desc
+        self.ingredients = ingredients
+        self.instructions = instructions
+        self.thumbnail = thumbnail
+        self.reviews = reviews
+        self.uid = uid
+        
+    }
+    
+    
+    struct Image: Codable{
+        let imageData: Data?
+        
+        init(withImage image: UIImage) {
+            self.imageData = image.pngData()
+        }
+
+        func getImage() -> UIImage? {
+            guard let imageData = self.imageData else {
+                return nil
+            }
+            let image = UIImage(data: imageData)
+            
+            return image
+        }
+    }
+    
 }
 
 class userDetails: Codable
@@ -95,5 +139,19 @@ class userDetails: Codable
             
             return image
         }
+    }
+}
+
+class followForUsers: Codable {
+
+    var followeruid: String
+    var following: String
+    var type : String
+    
+    init(followeruid: String, following: String, type: String)
+    {
+        self.followeruid = followeruid
+        self.following = following
+        self.type = type
     }
 }
