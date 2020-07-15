@@ -92,7 +92,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         super.viewWillAppear(animated)
 
         currPostId = post?.id // Get current post id to know which post to edit
-        currPostUid = post?.uid
+        currPostUid = post?.uid // Get curret post uid
         titleTextField.text = post?.title
         if post?.price != nil {
             priceTextField.text = String(post!.price)

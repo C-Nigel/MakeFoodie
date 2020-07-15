@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gAQ-0H-UpH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gAQ-0H-UpH">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -396,31 +396,42 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6hs-6m-0Hl">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="902.5"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eTM-v3-abM">
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eTM-v3-abM">
                                                 <rect key="frame" x="20" y="8" width="374" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zi7-Wl-mAJ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="187" height="50"/>
+                                                        <rect key="frame" x="0.0" y="7" width="187" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdW-Ir-Kjw">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2Pi-E2-hNL">
                                                         <rect key="frame" x="187" y="0.0" width="187" height="50"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rating" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhC-8S-wSS">
-                                                                <rect key="frame" x="8" y="7" width="143" height="36"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="X8Y-gO-hsq">
-                                                                <rect key="frame" x="151" y="6" width="36" height="36"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            </imageView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdW-Ir-Kjw">
+                                                                <rect key="frame" x="0.0" y="0.0" width="187" height="50"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhC-8S-wSS">
+                                                                        <rect key="frame" x="82" y="0.0" width="83" height="50"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="X8Y-gO-hsq">
+                                                                        <rect key="frame" x="165" y="0.0" width="22" height="50"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="X8Y-gO-hsq" firstAttribute="leading" secondItem="vhC-8S-wSS" secondAttribute="trailing" id="0uC-I1-4IR"/>
+                                                                    <constraint firstItem="vhC-8S-wSS" firstAttribute="top" secondItem="pdW-Ir-Kjw" secondAttribute="top" id="78X-W0-lW4"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="X8Y-gO-hsq" secondAttribute="trailing" id="AvV-bP-mH2"/>
+                                                                    <constraint firstItem="X8Y-gO-hsq" firstAttribute="top" secondItem="pdW-Ir-Kjw" secondAttribute="top" id="Iof-Hz-SvY"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="X8Y-gO-hsq" secondAttribute="bottom" id="MqU-E7-T5S"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="vhC-8S-wSS" secondAttribute="bottom" id="iyK-kF-Mj3"/>
+                                                                </constraints>
+                                                            </view>
                                                         </subviews>
-                                                    </view>
+                                                    </stackView>
                                                 </subviews>
                                             </stackView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rXF-1D-5dT">
@@ -612,8 +623,8 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="mBm-4Z-JjP" firstAttribute="top" secondItem="psG-RJ-0VW" secondAttribute="bottom" constant="8" id="GLK-N2-rfl"/>
+                                            <constraint firstItem="rXF-1D-5dT" firstAttribute="top" secondItem="eTM-v3-abM" secondAttribute="bottom" constant="8" id="Gsw-fK-bbd"/>
                                             <constraint firstItem="psG-RJ-0VW" firstAttribute="top" secondItem="kp5-zn-m9D" secondAttribute="bottom" constant="8" id="TB6-uL-hli"/>
-                                            <constraint firstItem="rXF-1D-5dT" firstAttribute="top" secondItem="6hs-6m-0Hl" secondAttribute="top" constant="66" id="gI2-Be-3Tj"/>
                                         </constraints>
                                         <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
                                     </stackView>
@@ -954,9 +965,16 @@
                         <viewLayoutGuide key="safeArea" id="qPj-cj-84G"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add review" id="KQb-82-VG0">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="X9w-5t-dX3"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="X9w-5t-dX3">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="qxj-Ia-cEx" id="V9M-YM-1nd"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="9WS-gS-nKn"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cancelButton" destination="X9w-5t-dX3" id="zJq-Y2-spl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o5H-g7-GGx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1004,9 +1022,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="doc.plaintext" catalog="system" width="115" height="128"/>
-        <image name="heart" catalog="system" width="128" height="109"/>
-        <image name="star.fill" catalog="system" width="128" height="116"/>
-        <image name="trash" catalog="system" width="121" height="128"/>
+        <image name="doc.plaintext" catalog="system" width="56" height="64"/>
+        <image name="heart" catalog="system" width="64" height="54"/>
+        <image name="star.fill" catalog="system" width="64" height="58"/>
+        <image name="trash" catalog="system" width="60" height="64"/>
     </resources>
 </document>
