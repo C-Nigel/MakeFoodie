@@ -332,8 +332,8 @@
 			isa = PBXGroup;
 			children = (
 				653AAA682484F3B7008FAC14 /* Posts.storyboard */,
-				7761BA1624B0F35A003CDDF3 /* CreatePostViewController.swift */,
 				7761BA2224B10540003CDDF3 /* PostCell.swift */,
+				7761BA1624B0F35A003CDDF3 /* CreatePostViewController.swift */,
 				7761BA2624B108FA003CDDF3 /* PostsTableViewController.swift */,
 				775BF65824B4B9C100845E93 /* Post.swift */,
 			);

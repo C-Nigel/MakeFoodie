@@ -34,6 +34,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     var post: Post?
     var currPostId: Int?
+    var currPostUid: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +61,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         super.viewWillAppear(animated)
 
         currPostId = post?.id // Get current post id to know which post to edit
+        currPostUid = post?.uid // Get curret post uid
         titleTextField.text = post?.title
         if post?.price != nil {
             priceTextField.text = String(post!.price)
@@ -138,7 +140,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         //let parent = viewControllers?[1] as! ViewPostViewController
         let priceValue = Double(priceTextField.text!)
         
-        let post:Post = Post(id: currPostId!, title: titleTextField.text!, price: priceValue!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: postsTableView.curruid)
+        let post:Post = Post(id: currPostId!, title: titleTextField.text!, price: priceValue!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: currPostUid!)
         
         DataManager.insertOrEditPost(post)
         postsTableView.loadPosts()
