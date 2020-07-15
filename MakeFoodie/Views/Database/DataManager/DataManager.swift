@@ -544,7 +544,7 @@ class DataManager: NSObject {
                 print("Error adding document: \(err)")
             }
             else {
-                print("Document successfully added!")
+                print("Document successfully added/modified!")
             }
         }
     }

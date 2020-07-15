@@ -153,6 +153,7 @@ class PostsTableViewController: UITableViewController {
             if(myIndexPath != nil) {
                 // Set the post object to selected post
                 let post = postList[myIndexPath!.row]
+                viewPostViewController.selectedRow = myIndexPath!.row
                 viewPostViewController.post = post
             }
         }

@@ -28,9 +28,11 @@ class ViewPostViewController: UIViewController {
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     
     var post: Post?
-    var userList:[User] = []
+    var userList: [User] = []
+    var postList: [Post] = []
     var username: String = ""
     var nameText = ""
+    var selectedRow: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +55,26 @@ class ViewPostViewController: UIViewController {
                     favouriteButton.isHidden = true
                 }
             }
+        }
+        
+        loadPosts()
+    }
+    
+    // Function that loads data from Firestore and refreshes tableView
+    func loadPosts() {
+        DataManager.loadPosts ()
+        {
+            postListFromFirestore in
+
+            // Assign list to list from Firestore
+            self.postList = postListFromFirestore
+            
+            // For edit, set labels to new edited data
+            self.titleLabel.text = self.postList[self.selectedRow].title
+            self.priceLabel.text = String(self.postList[self.selectedRow].price)
+            self.postImageView.image = self.postList[self.selectedRow].thumbnail.getImage()
+            self.descLabel.text = self.postList[self.selectedRow].desc
+            self.categoryLabel.text = self.postList[self.selectedRow].category
         }
     }
     
