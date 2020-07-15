@@ -411,18 +411,24 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdW-Ir-Kjw">
                                                                 <rect key="frame" x="0.0" y="0.0" width="187" height="50"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rating" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhC-8S-wSS">
-                                                                        <rect key="frame" x="8" y="7" width="143" height="36"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhC-8S-wSS">
+                                                                        <rect key="frame" x="82" y="0.0" width="83" height="50"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="X8Y-gO-hsq">
-                                                                        <rect key="frame" x="151" y="6" width="36" height="36"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="X8Y-gO-hsq">
+                                                                        <rect key="frame" x="165" y="0.0" width="22" height="50"/>
                                                                     </imageView>
                                                                 </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="X8Y-gO-hsq" firstAttribute="leading" secondItem="vhC-8S-wSS" secondAttribute="trailing" id="0uC-I1-4IR"/>
+                                                                    <constraint firstItem="vhC-8S-wSS" firstAttribute="top" secondItem="pdW-Ir-Kjw" secondAttribute="top" id="78X-W0-lW4"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="X8Y-gO-hsq" secondAttribute="trailing" id="AvV-bP-mH2"/>
+                                                                    <constraint firstItem="X8Y-gO-hsq" firstAttribute="top" secondItem="pdW-Ir-Kjw" secondAttribute="top" id="Iof-Hz-SvY"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="X8Y-gO-hsq" secondAttribute="bottom" id="MqU-E7-T5S"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="vhC-8S-wSS" secondAttribute="bottom" id="iyK-kF-Mj3"/>
+                                                                </constraints>
                                                             </view>
                                                         </subviews>
                                                     </stackView>
