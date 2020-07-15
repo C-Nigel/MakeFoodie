@@ -42,6 +42,7 @@
 		D42FB78D24BC4C2200F586C2 /* OrderReqViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42FB78C24BC4C2200F586C2 /* OrderReqViewController.swift */; };
 		D46E21DE24B56ADA00F752CF /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46E21DD24B56ADA00F752CF /* Recipe.swift */; };
 		D46E21EA24B5858E00F752CF /* CreateRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46E21E924B5858E00F752CF /* CreateRecipeViewController.swift */; };
+		D4A4AD8B24BE90F10011F00B /* addReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A4AD8A24BE90F10011F00B /* addReviewViewController.swift */; };
 		D4A50F9024AC3121009B0349 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F8F24AC3121009B0349 /* User.swift */; };
 		D4A50F9424AC33AE009B0349 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9324AC33AE009B0349 /* LoginViewController.swift */; };
 		D4A50F9624AC3485009B0349 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9524AC3485009B0349 /* SignupViewController.swift */; };
@@ -128,6 +129,7 @@
 		D42FB78C24BC4C2200F586C2 /* OrderReqViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderReqViewController.swift; sourceTree = "<group>"; };
 		D46E21DD24B56ADA00F752CF /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		D46E21E924B5858E00F752CF /* CreateRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeViewController.swift; sourceTree = "<group>"; };
+		D4A4AD8A24BE90F10011F00B /* addReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addReviewViewController.swift; sourceTree = "<group>"; };
 		D4A50F8F24AC3121009B0349 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D4A50F9324AC33AE009B0349 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D4A50F9524AC3485009B0349 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				7D8E836524B8500100F560F2 /* RecipeTableViewCell.swift */,
 				7D34C5FC24B9C690008858C6 /* RecipeDetailViewController.swift */,
 				7DC108BD24BA100E00C553AA /* EditRecipeViewController.swift */,
+				D4A4AD8A24BE90F10011F00B /* addReviewViewController.swift */,
 			);
 			path = Recipe;
 			sourceTree = "<group>";
@@ -760,6 +763,7 @@
 				F445804C2490C0B200F1CAA6 /* RecommendedViewController.swift in Sources */,
 				D4A50F9424AC33AE009B0349 /* LoginViewController.swift in Sources */,
 				F445804E2490C0D000F1CAA6 /* Item.swift in Sources */,
+				D4A4AD8B24BE90F10011F00B /* addReviewViewController.swift in Sources */,
 				D46E21DE24B56ADA00F752CF /* Recipe.swift in Sources */,
 				775BF65F24B4C7DF00845E93 /* ViewCategoryCell.swift in Sources */,
 				472229E1246BC13100E13C81 /* SceneDelegate.swift in Sources */,
