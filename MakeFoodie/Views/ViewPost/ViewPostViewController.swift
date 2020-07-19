@@ -34,6 +34,7 @@ class ViewPostViewController: UIViewController {
     var nameText = ""
     var selectedRow: Int = 0
     var currentUser: String = ""
+    var favourite:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +60,7 @@ class ViewPostViewController: UIViewController {
             }
         }
         
-        checkIfFollowed()
+        checkIfFollowedPost()
         loadPosts()
     }
     
@@ -81,18 +82,22 @@ class ViewPostViewController: UIViewController {
         }
     }
     
-    func checkIfFollowed() {
+    // check if the logged in user has a record that they followed this post
+    func checkIfFollowedPost() {
 
         DataManager.retrieveRecipeAndPosttFollowData(followeruid: currentUser, following: post!.id, type: "post") { (result) in
             let documentFound: Bool = result
             
             if documentFound
             {
+                // if record found, change button image to filld heart
                 self.favouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 self.favourite = true
             }
             else
             {
+                // just in case
+                // if record not found, change button image to hollow heart
                 self.favouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
                 self.favourite = false
             }
@@ -161,6 +166,25 @@ class ViewPostViewController: UIViewController {
         self.present(alertController, animated: true, completion:nil)
     }
     
+    
+    // activate when follow button is pressed
+    @IBAction func FavouriteButtonPressed(_ sender: UIButton) {
+        
+        if favourite == false
+        {
+            favouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            favourite = true
+            DataManager.insertRecipeAndPosttFollowData(followeruid: currentUser, following: post!.id, type: "post")
+            
+        }
+        else
+        {
+            favouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            favourite = false
+            DataManager.deleteRecipeAndPosttFollowData(followeruid: currentUser, following: post!.id, type: "post")
+        }
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -187,24 +211,6 @@ class ViewPostViewController: UIViewController {
         if (segue.identifier == "orderreq"){
             let vc = segue.destination as! OrderReqViewController
             vc.finalName = self.nameText
-        }
-    }
-    
-    var favourite:Bool = false
-    @IBAction func FavouriteButtonPressed(_ sender: UIButton) {
-        
-        if favourite == false
-        {
-            favouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            favourite = true
-            DataManager.insertRecipeAndPosttFollowData(followeruid: currentUser, following: post!.id, type: "post")
-            
-        }
-        else
-        {
-            favouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
-            favourite = false
-            DataManager.deleteRecipeAndPosttFollowData(followeruid: currentUser, following: post!.id, type: "post")
         }
     }
 }
