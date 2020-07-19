@@ -33,6 +33,7 @@ class ViewPostViewController: UIViewController {
     var username: String = ""
     var nameText = ""
     var selectedRow: Int = 0
+    var currentUser: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,7 @@ class ViewPostViewController: UIViewController {
             let user = Auth.auth().currentUser
             if let user = user {
                 let uidd: String = user.uid
+                currentUser = user.uid
                 // If current user is not the user who created the post remove edit and delete button
                 if (uidd != self.post?.uid) {
                     self.navigationItem.rightBarButtonItems = nil
@@ -57,6 +59,7 @@ class ViewPostViewController: UIViewController {
             }
         }
         
+        checkIfFollowed()
         loadPosts()
     }
     
@@ -75,6 +78,24 @@ class ViewPostViewController: UIViewController {
             self.postImageView.image = self.postList[self.selectedRow].thumbnail.getImage()
             self.descLabel.text = self.postList[self.selectedRow].desc
             self.categoryLabel.text = self.postList[self.selectedRow].category
+        }
+    }
+    
+    func checkIfFollowed() {
+
+        DataManager.retrieveRecipeAndPosttFollowData(followeruid: currentUser, following: post!.id, type: "post") { (result) in
+            let documentFound: Bool = result
+            
+            if documentFound
+            {
+                self.favouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                self.favourite = true
+            }
+            else
+            {
+                self.favouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                self.favourite = false
+            }
         }
     }
     
@@ -166,6 +187,24 @@ class ViewPostViewController: UIViewController {
         if (segue.identifier == "orderreq"){
             let vc = segue.destination as! OrderReqViewController
             vc.finalName = self.nameText
+        }
+    }
+    
+    var favourite:Bool = false
+    @IBAction func FavouriteButtonPressed(_ sender: UIButton) {
+        
+        if favourite == false
+        {
+            favouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            favourite = true
+            DataManager.insertRecipeAndPosttFollowData(followeruid: currentUser, following: post!.id, type: "post")
+            
+        }
+        else
+        {
+            favouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            favourite = false
+            DataManager.deleteRecipeAndPosttFollowData(followeruid: currentUser, following: post!.id, type: "post")
         }
     }
 }

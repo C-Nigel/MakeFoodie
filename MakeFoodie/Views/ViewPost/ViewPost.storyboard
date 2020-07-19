@@ -66,6 +66,9 @@
                                                                 <rect key="frame" x="119" y="7" width="20.5" height="30"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                                 <state key="normal" image="heart" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="FavouriteButtonPressed:" destination="wcz-Z2-7rz" eventType="touchUpInside" id="wpo-F7-hVj"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
