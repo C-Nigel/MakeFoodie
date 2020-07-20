@@ -9,7 +9,7 @@
 import UIKit
 
 class Recipe: Codable {
-    var recipeID: Int
+    var recipeID: String
     var title: String
     var desc: String
     var ingredients: String
@@ -18,7 +18,7 @@ class Recipe: Codable {
     var reviews: Dictionary<String, Dictionary<String, String>>
     var uid: String
     
-    init(recipeID: Int, title: String, desc: String, ingredients: String, instructions: String, thumbnail: Image, reviews: Dictionary<String, Dictionary<String, String>>, uid: String){
+    init(recipeID: String, title: String, desc: String, ingredients: String, instructions: String, thumbnail: Image, reviews: Dictionary<String, Dictionary<String, String>>, uid: String){
         
         self.recipeID = recipeID
         self.title = title

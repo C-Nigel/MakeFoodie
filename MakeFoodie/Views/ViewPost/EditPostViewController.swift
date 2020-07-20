@@ -45,7 +45,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     var post: Post?
     var postList: [Post] = []
-    var currPostId: Int?
+    var currPostId: String?
     var currPostUid: String?
     
     override func viewDidLoad() {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
     
@@ -43,6 +44,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     // Create list to contain posts from Firebase
     var postList: [Post] = []
+    let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -373,29 +375,15 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let row = categoryPickerView.selectedRow(inComponent: 0)
             // Get data selected from picker data
             let selectedCategory = categoryPickerData[row]
-            var listCount: Int = 0
-            var highestId: Int = 0
-            
-            // Set id to increment every addition
-            // If list empty, id starts from 0
-            if (postList.isEmpty) {
-                listCount = 0
-            }
-            // Check current postList highest id then set newly created post as highest id + 1
-            else {
-                for i in postList {
-                    if (highestId <= i.id) {
-                        highestId = i.id
-                    }
-                }
-                listCount = highestId + 1
-            }
 
             let viewControllers = self.navigationController?.viewControllers
             let parent = viewControllers?[0] as! PostsTableViewController
             let priceValue = Double(priceTextField.text!)
             
-            let post:Post = Post(id: listCount, title: titleTextField.text!, price: priceValue!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: parent.curruid)
+            let ref = db.collection("post")
+            let docId = ref.document().documentID
+            
+            let post:Post = Post(id: docId, title: titleTextField.text!, price: priceValue!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: parent.curruid)
             
             DataManager.insertOrEditPost(post)
             parent.loadPosts()

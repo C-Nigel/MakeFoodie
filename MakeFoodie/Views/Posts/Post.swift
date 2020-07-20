@@ -9,7 +9,7 @@
 import UIKit
 
 class Post: Codable {
-    var id: Int
+    var id: String
     var title: String
     var price: Double
     var desc: String
@@ -17,7 +17,7 @@ class Post: Codable {
     var category: String
     var uid: String
         
-    init(id: Int, title: String, price: Double, desc: String, thumbnail: Image, category: String, uid: String)
+    init(id: String, title: String, price: Double, desc: String, thumbnail: Image, category: String, uid: String)
     {
         self.id = id
         self.title = title

@@ -37,6 +37,7 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
     
     var username: String = ""
     var recipeList: Array<Recipe> = []
+    let db = Firestore.firestore()
     
     var reviews: Dictionary<String, Dictionary<String, String>> = [:]
     
@@ -336,27 +337,13 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         
         //if all inputs are filled
         if (valid == true) {
-            //init id
-            var rID: Int = 0
-            var highestID: Int = 0
-            
-            //if list is empty, id of new recipe is 0
-            if (recipeList.isEmpty) {
-                rID = 0
-            }
-            else {
-                for i in recipeList {
-                    if (highestID <= i.recipeID) {
-                        highestID = i.recipeID
-                    }
-                }
-                rID = highestID + 1
-            }
-            
             let viewControllers = self.navigationController?.viewControllers
             let parent = viewControllers?[0] as! RecipesTableViewController
             
-            recipeList.append(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid))
+            let ref = db.collection("recipes")
+            let docId = ref.document().documentID
+            
+            recipeList.append(Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid))
             
             /*for i in recipeList {
                 /*print (i.title)
@@ -369,7 +356,7 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
                 
                 DataManager.insertOrReplaceRecipe(i)
             }*/
-            DataManager.insertOrReplaceRecipe(Recipe(recipeID: rID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid))
+            DataManager.insertOrReplaceRecipe(Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid))
             
             parent.loadRecipes()
             

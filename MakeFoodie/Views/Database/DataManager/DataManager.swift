@@ -455,7 +455,7 @@ class DataManager: NSObject {
     
     //load recipe list
     static func loadRecipes(onComplete: (([Recipe]) -> Void)?) {
-        db.collection("recipes").order(by: "recipeID", descending: true).getDocuments() {
+        db.collection("recipes").getDocuments() {
             (querySnapshot, err) in
                 var recipeList : [Recipe] = []
                 if let err = err { // Handle errors here.
@@ -480,7 +480,7 @@ class DataManager: NSObject {
     // Loads from firebase and convert to Post array
     static func loadPosts(onComplete: (([Post]) -> Void)?) {
         // getDocuments loads full list of posts in descending order of id field
-        db.collection("post").order(by: "id", descending: true).getDocuments() {
+        db.collection("post").getDocuments() {
             (querySnapshot, err) in
             
             var postList : [Post] = []

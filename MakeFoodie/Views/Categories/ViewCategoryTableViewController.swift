@@ -71,6 +71,21 @@ class ViewCategoryTableViewController: UITableViewController {
             // Assign list to list from Firestore
             self.postList = postListFromFirestore
 
+            // Check if list is empty
+            if self.postList.count == 0 {
+                let labelDisplay = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)) // Create label
+                labelDisplay.text = "No posts under this category" // Set label text
+                labelDisplay.textAlignment = .center
+                labelDisplay.sizeToFit()
+                
+                self.tableView.backgroundView = labelDisplay
+                self.tableView.separatorStyle = .none   // Remove the lines from tableview
+            }
+            else {
+                self.tableView.backgroundView = nil  // Remove label if present
+                self.tableView.separatorStyle = .singleLine // Set lines to tableview
+            }
+            
             // Reload content in tableView
             self.tableView.reloadData()
         }
