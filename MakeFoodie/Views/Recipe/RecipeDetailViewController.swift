@@ -58,11 +58,15 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
     var userList: Array<User> = []
     var curruid: String = ""
     var otherReviews: Dictionary<String, Dictionary<String, String>> = [:]
+    var favourite:Bool = false
+    var loggedInUserUID = ""
 
     @IBOutlet weak var noReviewsLabel: UILabel!
     
        override func viewDidLoad() {
         super.viewDidLoad()
+        getLoggedInUID()
+        checkIfFollowedRecipes()
         
         //colors
         self.addReviewButton.tintColor = UIColor.white
@@ -180,6 +184,55 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
         
     } //end viewDidLoad
     
+    // when heart Button is pressed
+    @IBAction func heartButtonPressed(_ sender: UIButton) {
+        
+        if favourite == false
+        {
+            heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            favourite = true
+            DataManager.insertRecipeAndPosttFollowData(followeruid: loggedInUserUID, following: self.recipeList[selectedRow].recipeID, type: "recipes")
+            
+        }
+        else
+        {
+            heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            favourite = false
+            DataManager.deleteRecipeAndPosttFollowData(followeruid: loggedInUserUID, following: self.recipeList[selectedRow].recipeID, type: "recipes")
+        }
+    }
+    
+    // get uid of curent logged in user
+    func getLoggedInUID() {
+        if Auth.auth().currentUser != nil {
+            let user = Auth.auth().currentUser
+            if let user = user {
+                loggedInUserUID = user.uid
+            }
+        }
+    }
+    
+    // check if the logged in user has a existing record that follows the opened recipe post
+    func checkIfFollowedRecipes() {
+
+        DataManager.retrieveRecipeAndPosttFollowData(followeruid: loggedInUserUID, following: self.recipeList[selectedRow].recipeID, type: "recipes") { (result) in
+            let documentFound: Bool = result
+            
+            if documentFound
+            {
+                // if record found, change button image to fill heart
+                self.heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                self.favourite = true
+            }
+            else
+            {
+                // just in case
+                // if record not found, change button image to hollow heart
+                self.heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                self.favourite = false
+            }
+        }
+    }
     
     //load recipes
     func loadRecipes() {
