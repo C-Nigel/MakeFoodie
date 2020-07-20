@@ -26,7 +26,7 @@ import UIKit
 //}
 
 class Item: Codable {
-    var id: Int
+    var id: String
     var title: String
     var price: Decimal
     var desc: String
@@ -34,7 +34,7 @@ class Item: Codable {
     var category: String
     var uid: String
         
-    init(id:Int, title: String, price: Decimal, desc: String, thumbnail: Image, category: String, uid: String)
+    init(id:String, title: String, price: Decimal, desc: String, thumbnail: Image, category: String, uid: String)
     {
         self.id = id
         self.title = title

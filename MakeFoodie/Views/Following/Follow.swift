@@ -11,10 +11,10 @@ import UIKit
 class Follow: Codable {
 
     var followeruid: String
-    var following: Int
+    var following: String
     var type : String
     
-    init(followeruid: String, following: Int, type: String)
+    init(followeruid: String, following: String, type: String)
     {
         self.followeruid = followeruid
         self.following = following
@@ -23,7 +23,7 @@ class Follow: Codable {
 }
 
 class postDetails: Codable {
-    var id: Int
+    var id: String
     var title: String
     var price: Decimal
     var desc: String
@@ -31,7 +31,7 @@ class postDetails: Codable {
     var category: String
     var uid: String
         
-    init(id:Int, title: String, price: Decimal, desc: String, thumbnail: Image, category: String, uid: String)
+    init(id: String, title: String, price: Decimal, desc: String, thumbnail: Image, category: String, uid: String)
     {
         self.id = id
         self.title = title
@@ -61,7 +61,7 @@ class postDetails: Codable {
 }
 
 class recipeDetails: Codable {
-    var recipeID: Int
+    var recipeID: String
     var title: String
     var desc: String
     var ingredients: String
@@ -70,7 +70,7 @@ class recipeDetails: Codable {
     var reviews: Dictionary<String, Dictionary<String, String>>
     var uid: String
     
-    init(recipeID: Int, title: String, desc: String, ingredients: String, instructions: String, thumbnail: Image, reviews: Dictionary<String, Dictionary<String, String>>, uid: String){
+    init(recipeID: String, title: String, desc: String, ingredients: String, instructions: String, thumbnail: Image, reviews: Dictionary<String, Dictionary<String, String>>, uid: String){
         
         self.recipeID = recipeID
         self.title = title

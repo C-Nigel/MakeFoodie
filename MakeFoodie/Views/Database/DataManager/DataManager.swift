@@ -68,14 +68,14 @@ class DataManager: NSObject {
     
     static var names = [(String, String)]()
     
-    static func insertRecipeAndPosttFollowData(followeruid: String, following: Int, type: String)
+    static func insertRecipeAndPosttFollowData(followeruid: String, following: String, type: String)
     {
 
         // Adding a document with a specific document ID / Or Replacing the data for a specific document ID
         db.collection("follow").document(type + "_" + followeruid + "_" + String(following)).setData(["followeruid":followeruid, "following": following, "type": type])
     }
 
-    static func retrieveRecipeAndPosttFollowData(followeruid: String, following: Int, type: String, completed: @escaping (_ documentExist: Bool) -> ())
+    static func retrieveRecipeAndPosttFollowData(followeruid: String, following: String, type: String, completed: @escaping (_ documentExist: Bool) -> ())
     {
         var documentExist: Bool = false
         db.collection("follow").document(type + "_" + followeruid + "_" + String(following)).getDocument
@@ -95,7 +95,7 @@ class DataManager: NSObject {
         }
     }
     
-    static func deleteRecipeAndPosttFollowData(followeruid: String, following: Int, type: String)
+    static func deleteRecipeAndPosttFollowData(followeruid: String, following: String, type: String)
     {
         db.collection("follow").document(type + "_" + followeruid + "_" + String(following)).delete()
     }
