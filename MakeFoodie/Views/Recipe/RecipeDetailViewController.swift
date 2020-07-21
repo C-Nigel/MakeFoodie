@@ -38,8 +38,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var addReviewButton: UIButton!
     
-    @IBOutlet weak var editReviewButton: UIButton!
-    @IBOutlet weak var deleteReviewButton: UIButton!
     //current user review
     @IBOutlet weak var yourUsernameLabel: UILabel!
     @IBOutlet weak var yourRatingLabel: UILabel!
@@ -71,8 +69,8 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
         //colors
         self.addReviewButton.tintColor = UIColor.white
         self.addReviewButton.backgroundColor = UIColor.orange
-        self.editReviewButton.tintColor = UIColor.orange
-        self.deleteReviewButton.tintColor = UIColor.orange
+        self.yourReviewEditButton.tintColor = UIColor.orange
+        self.yourReviewDeleteButton.tintColor = UIColor.orange
         
         //check if recipe uid matches current user
         if (self.recipeList[self.selectedRow].uid != self.curruid) {
@@ -88,15 +86,11 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
     } //end viewDidLoad
     
     override func viewWillAppear(_ animated: Bool) {
-        print("VIEWWILLAPPEAR")
-        print("selectedRow", self.selectedRow)
         loadRecipes()
     }
     
     //function to assign all labels and do checking
     func refreshContent() {
-        print("refreshContent")
-        
         //loading data to view the recipe
         titleLabel.text = self.recipeList[selectedRow].title
         
@@ -138,9 +132,10 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
         if !(self.recipeList[self.selectedRow].reviews.isEmpty) { //if reviews not empty
             for i in self.recipeList[self.selectedRow].reviews.keys { //i = keys in reviews dict
                 if (i == self.curruid) {
-                    print("i==curruid", i == self.curruid)
                     //if has current user review, hide add review button and show your review
                     self.addReviewButton.isHidden = true
+                    self.yourReviewEditButton.isHidden = false
+                    self.yourReviewDeleteButton.isHidden = false
                     self.yourUsernameLabel.isHidden = false
                     self.yourRatingLabel.isHidden = false
                     self.yourCommentsLabel.isHidden = false
@@ -293,6 +288,11 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
             
         }
         if (segue.identifier == "editReview") {
+            let destView = segue.destination as! editReviewViewController
+            destView.recipeList = self.recipeList
+            destView.selectedRow = self.selectedRow
+            destView.curruid = self.curruid
+            destView.userList = self.userList
             
         }
         if (segue.identifier == "editRecipe") {

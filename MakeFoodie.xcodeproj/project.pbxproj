@@ -36,6 +36,7 @@
 		7D34C5FD24B9C690008858C6 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34C5FC24B9C690008858C6 /* RecipeDetailViewController.swift */; };
 		7D8E836224B84C7700F560F2 /* RecipesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E836124B84C7700F560F2 /* RecipesTableViewController.swift */; };
 		7D8E836624B8500100F560F2 /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E836524B8500100F560F2 /* RecipeTableViewCell.swift */; };
+		7DB949D724C6E90F008CE681 /* editReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB949D624C6E90F008CE681 /* editReviewViewController.swift */; };
 		7DC108BE24BA100E00C553AA /* EditRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC108BD24BA100E00C553AA /* EditRecipeViewController.swift */; };
 		7DF5EF6024C68CB1001B5B5A /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF5EF5F24C68CB1001B5B5A /* RatingControl.swift */; };
 		CA38AEA75CC022710C945B86 /* Pods_MakeFoodie_MakeFoodieUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB9FDAF0D3AFF49BABD7D32 /* Pods_MakeFoodie_MakeFoodieUITests.framework */; };
@@ -120,6 +121,7 @@
 		7D34C5FC24B9C690008858C6 /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
 		7D8E836124B84C7700F560F2 /* RecipesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesTableViewController.swift; sourceTree = "<group>"; };
 		7D8E836524B8500100F560F2 /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
+		7DB949D624C6E90F008CE681 /* editReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editReviewViewController.swift; sourceTree = "<group>"; };
 		7DC108BD24BA100E00C553AA /* EditRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeViewController.swift; sourceTree = "<group>"; };
 		7DF5EF5F24C68CB1001B5B5A /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		814E339EB185CAB3AEF34260 /* Pods-MakeFoodieTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeFoodieTests.debug.xcconfig"; path = "Target Support Files/Pods-MakeFoodieTests/Pods-MakeFoodieTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				7DC108BD24BA100E00C553AA /* EditRecipeViewController.swift */,
 				D4A4AD8A24BE90F10011F00B /* addReviewViewController.swift */,
 				7DF5EF5F24C68CB1001B5B5A /* RatingControl.swift */,
+				7DB949D624C6E90F008CE681 /* editReviewViewController.swift */,
 			);
 			path = Recipe;
 			sourceTree = "<group>";
@@ -752,6 +755,7 @@
 				7761BA2724B108FA003CDDF3 /* PostsTableViewController.swift in Sources */,
 				F445804A2490C08800F1CAA6 /* ItemCell.swift in Sources */,
 				7DF5EF6024C68CB1001B5B5A /* RatingControl.swift in Sources */,
+				7DB949D724C6E90F008CE681 /* editReviewViewController.swift in Sources */,
 				775BF65924B4B9C100845E93 /* Post.swift in Sources */,
 				775BF66324B4C8F600845E93 /* ViewPostViewController.swift in Sources */,
 				25D10E8E24B705F1000F6DE5 /* DateTextField.swift in Sources */,

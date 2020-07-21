@@ -682,10 +682,8 @@
                         <outlet property="addReviewButton" destination="3kH-OO-HiY" id="iff-xs-hX6"/>
                         <outlet property="allReviewsTableView" destination="uDi-NW-9Lz" id="JcZ-AO-Tq8"/>
                         <outlet property="deleteButton" destination="kEB-pt-cD3" id="fvG-8W-Ro2"/>
-                        <outlet property="deleteReviewButton" destination="pRp-mE-tar" id="q8J-od-mgM"/>
                         <outlet property="descLabel" destination="psG-RJ-0VW" id="26e-vr-beC"/>
                         <outlet property="editButton" destination="bSD-cj-9Cg" id="qyX-O3-vGt"/>
-                        <outlet property="editReviewButton" destination="fVG-5Z-Xtb" id="Rec-eO-uwj"/>
                         <outlet property="heartButton" destination="Na8-6s-Qel" id="eA3-qj-vhu"/>
                         <outlet property="ingLabel" destination="BWU-49-DI9" id="GJ3-4p-fNb"/>
                         <outlet property="instructionLabel" destination="xhd-ji-Bgc" id="u3V-Xt-DZo"/>
@@ -1025,7 +1023,7 @@
         <!--Edit review-->
         <scene sceneID="nwN-rc-V98">
             <objects>
-                <viewController id="Fog-5X-Vwt" sceneMemberID="viewController">
+                <viewController id="Fog-5X-Vwt" customClass="editReviewViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1mE-Pr-ncY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1072,8 +1070,17 @@
                         <viewLayoutGuide key="safeArea" id="z6h-CX-AtX"/>
                     </view>
                     <navigationItem key="navigationItem" title="Edit review" id="4FU-Zn-AS5">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="rA3-d5-yOT"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="rA3-d5-yOT">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="Fog-5X-Vwt" id="vZc-be-5gf"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="commentsTextView" destination="nPl-dg-4Lx" id="udG-CD-Pn6"/>
+                        <outlet property="ratingControl" destination="hiJ-WW-6vc" id="krB-iV-S20"/>
+                        <outlet property="saveButton" destination="rA3-d5-yOT" id="aLL-Mg-ci4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQA-BI-3vg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
