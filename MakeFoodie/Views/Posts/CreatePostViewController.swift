@@ -468,17 +468,38 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 verified = false
             }
             else {
-                timeError.isHidden = true
-                startTimeTextField.layer.borderColor = UIColor.black.cgColor
-                startTimeTextField.layer.borderWidth = 0.3
-                startTimeTextField.layer.cornerRadius = 6
+                // Check if endTime before startTime, assume same day
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "hh:mm a"
+                dateFormatter.timeZone = TimeZone.current
+
+                // Convert start and end time to date
+                let startingTime = dateFormatter.date(from: startTimeTextField.text!)
+                let endingTime = dateFormatter.date(from: endTimeTextField.text!)
                 
-                endTimeTextField.layer.borderColor = UIColor.black.cgColor
-                endTimeTextField.layer.borderWidth = 0.3
-                endTimeTextField.layer.cornerRadius = 6
+                // Compare timing
+                if endingTime?.compare(startingTime!) == .orderedAscending {
+                    timeError.text = "End time is earlier."
+                    timeError.isHidden = false
+                    endTimeTextField.layer.borderColor = UIColor.red.cgColor
+                    endTimeTextField.layer.borderWidth = 1.0
+                    endTimeTextField.layer.cornerRadius = 6
+                    verified = false
+                }
+                else {
+                    timeError.isHidden = true
+                    startTimeTextField.layer.borderColor = UIColor.black.cgColor
+                    startTimeTextField.layer.borderWidth = 0.3
+                    startTimeTextField.layer.cornerRadius = 6
+                    
+                    endTimeTextField.layer.borderColor = UIColor.black.cgColor
+                    endTimeTextField.layer.borderWidth = 0.3
+                    endTimeTextField.layer.cornerRadius = 6
+                }
             }
         }
         else {
+            // If both nil
             if (startTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true && endTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
                 timeError.text = "No time chosen."
                 timeError.isHidden = false
