@@ -619,7 +619,7 @@ class DataManager: NSObject {
     }
     
     // Add or Edit Post
-    static func insertOrEditPost(_ post: Post) {
+    static func insertOrEditPost(_ post: Post, _ completion: (() -> Void)?) {
         try? db.collection("post")
             .document(String(post.id))
             .setData(from: post, encoder: Firestore.Encoder()) // Closure omitted because last parameter accepts function
@@ -633,6 +633,8 @@ class DataManager: NSObject {
             else {
                 print("Document successfully added/modified!")
             }
+            
+            completion?()
         }
     }
     
