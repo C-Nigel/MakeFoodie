@@ -49,6 +49,7 @@
 		D4A50F9024AC3121009B0349 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F8F24AC3121009B0349 /* User.swift */; };
 		D4A50F9424AC33AE009B0349 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9324AC33AE009B0349 /* LoginViewController.swift */; };
 		D4A50F9624AC3485009B0349 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9524AC3485009B0349 /* SignupViewController.swift */; };
+		D4A9E44824C7E6E50056691B /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A9E44724C7E6E50056691B /* Order.swift */; };
 		D4E0721B24B57CF50035F967 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E0721A24B57CF50035F967 /* ProfileViewController.swift */; };
 		D4E0721D24B57D3D0035F967 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E0721C24B57D3D0035F967 /* OrdersViewController.swift */; };
 		F40B9CAA24B9824100B03A12 /* FollowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40B9CA924B9824100B03A12 /* FollowingViewController.swift */; };
@@ -139,6 +140,7 @@
 		D4A50F8F24AC3121009B0349 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D4A50F9324AC33AE009B0349 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D4A50F9524AC3485009B0349 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		D4A9E44724C7E6E50056691B /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		D4E0721A24B57CF50035F967 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D4E0721C24B57D3D0035F967 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
 		D8A80922B46711C821A3413A /* Pods-MakeFoodieTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeFoodieTests.release.xcconfig"; path = "Target Support Files/Pods-MakeFoodieTests/Pods-MakeFoodieTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 			children = (
 				D42FB78C24BC4C2200F586C2 /* OrderReqViewController.swift */,
 				F44A4F5D2484D7A400D25E49 /* OrderRequest.storyboard */,
+				D4A9E44724C7E6E50056691B /* Order.swift */,
 			);
 			path = OrderRequest;
 			sourceTree = "<group>";
@@ -769,6 +772,7 @@
 				F40B9CAA24B9824100B03A12 /* FollowingViewController.swift in Sources */,
 				7D8E836624B8500100F560F2 /* RecipeTableViewCell.swift in Sources */,
 				775BF66124B4C7F100845E93 /* ViewCategoryTableViewController.swift in Sources */,
+				D4A9E44824C7E6E50056691B /* Order.swift in Sources */,
 				775BF66524B4C93000845E93 /* EditPostViewController.swift in Sources */,
 				472229DF246BC13100E13C81 /* AppDelegate.swift in Sources */,
 				F445804C2490C0B200F1CAA6 /* RecommendedViewController.swift in Sources */,

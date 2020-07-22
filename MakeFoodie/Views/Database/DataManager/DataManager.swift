@@ -85,6 +85,19 @@ class DataManager: NSObject {
              onComplete?(followList)
              
          } }
+    static func insertOrReplaceOrder(_ ordersvar: Order)
+    {
+        try? db.collection("order")
+            .document(ordersvar.buyeruid)
+            .setData(from: ordersvar, encoder: Firestore.Encoder())
+        {
+            err in
+            if let err = err {
+                print("Error adding document: \(err)")
+                
+            } else { print("Document successfully added!")
+     } }
+    }
     
     // ========================================================================================================================================================
     // ========================================================================================================================================================
