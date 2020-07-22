@@ -34,6 +34,7 @@
 		78A8FAAD3D0431FC0CC52DD3 /* Pods_MakeFoodieTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9AB852046ADA495D49303 /* Pods_MakeFoodieTests.framework */; };
 		7D00FE16248E26240018BD08 /* Recipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D00FE15248E26240018BD08 /* Recipe.storyboard */; };
 		7D34C5FD24B9C690008858C6 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34C5FC24B9C690008858C6 /* RecipeDetailViewController.swift */; };
+		7D62D19F24C6F77E004E6137 /* AllReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D62D19E24C6F77E004E6137 /* AllReviewsTableViewCell.swift */; };
 		7D8E836224B84C7700F560F2 /* RecipesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E836124B84C7700F560F2 /* RecipesTableViewController.swift */; };
 		7D8E836624B8500100F560F2 /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E836524B8500100F560F2 /* RecipeTableViewCell.swift */; };
 		7DB949D724C6E90F008CE681 /* editReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB949D624C6E90F008CE681 /* editReviewViewController.swift */; };
@@ -119,6 +120,7 @@
 		7761BA2624B108FA003CDDF3 /* PostsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableViewController.swift; sourceTree = "<group>"; };
 		7D00FE15248E26240018BD08 /* Recipe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recipe.storyboard; sourceTree = "<group>"; };
 		7D34C5FC24B9C690008858C6 /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
+		7D62D19E24C6F77E004E6137 /* AllReviewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		7D8E836124B84C7700F560F2 /* RecipesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesTableViewController.swift; sourceTree = "<group>"; };
 		7D8E836524B8500100F560F2 /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
 		7DB949D624C6E90F008CE681 /* editReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editReviewViewController.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				D4A4AD8A24BE90F10011F00B /* addReviewViewController.swift */,
 				7DF5EF5F24C68CB1001B5B5A /* RatingControl.swift */,
 				7DB949D624C6E90F008CE681 /* editReviewViewController.swift */,
+				7D62D19E24C6F77E004E6137 /* AllReviewsTableViewCell.swift */,
 			);
 			path = Recipe;
 			sourceTree = "<group>";
@@ -773,6 +776,7 @@
 				F445804E2490C0D000F1CAA6 /* Item.swift in Sources */,
 				D4A4AD8B24BE90F10011F00B /* addReviewViewController.swift in Sources */,
 				D46E21DE24B56ADA00F752CF /* Recipe.swift in Sources */,
+				7D62D19F24C6F77E004E6137 /* AllReviewsTableViewCell.swift in Sources */,
 				775BF65F24B4C7DF00845E93 /* ViewCategoryCell.swift in Sources */,
 				472229E1246BC13100E13C81 /* SceneDelegate.swift in Sources */,
 				D4A50F9024AC3121009B0349 /* User.swift in Sources */,
