@@ -85,6 +85,19 @@ class DataManager: NSObject {
              onComplete?(followList)
              
          } }
+    static func insertOrReplaceOrder(_ ordersvar: Order)
+    {
+        try? db.collection("order")
+            .document(ordersvar.buyeruid)
+            .setData(from: ordersvar, encoder: Firestore.Encoder())
+        {
+            err in
+            if let err = err {
+                print("Error adding document: \(err)")
+                
+            } else { print("Document successfully added!")
+     } }
+    }
     
     // ========================================================================================================================================================
     // ========================================================================================================================================================
@@ -186,6 +199,7 @@ class DataManager: NSObject {
     
     static func loadFollowPostItems(onComplete: (([postDetails]) -> Void)?)
     {
+        let userUID = Auth.auth().currentUser?.uid
         var followList : [Follow] = []
         var postItems : [postDetails] = []
         
@@ -212,7 +226,7 @@ class DataManager: NSObject {
                     
                     if item != nil
                     {
-                        if item?.type == "post"
+                        if item?.type == "post" && item?.followeruid == userUID
                         {
                             followList.append(item!)
                         }
@@ -260,6 +274,7 @@ class DataManager: NSObject {
     
     static func loadFollowRecipeItems(onComplete: (([recipeDetails]) -> Void)?)
     {
+        let userUID = Auth.auth().currentUser?.uid
         var followList : [Follow] = []
         var recipeItems : [recipeDetails] = []
         
@@ -286,7 +301,7 @@ class DataManager: NSObject {
                     
                     if item != nil
                     {
-                        if item?.type == "recipes"
+                        if item?.type == "recipes" && item?.followeruid == userUID
                         {
                             followList.append(item!)
                         }

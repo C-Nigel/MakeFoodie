@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
     
@@ -15,7 +19,8 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     var posty: Post?
     let VC = ViewPostViewController()
     var finalName = ""
-    
+    var newlist: [Order] = [];
+    var userList: [User] = [];
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var view2: UIView!
     @IBOutlet weak var view3: UIView!
@@ -27,6 +32,9 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     @IBOutlet weak var quantity: UITextField!
     @IBOutlet weak var dropdown: UIPickerView!
     @IBOutlet weak var itemimage: UIImageView!
+    @IBOutlet weak var subtotal: UILabel!
+    @IBOutlet weak var deliveryfee: UILabel!
+    @IBOutlet weak var totalamt: UILabel!
     
     var list = ["1", "2", "3", "4", "5"]
     
@@ -56,8 +64,15 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             for i in self.postList{
                 if i.title == self.finalName{
                     self.itemname.text = i.title
-                    self.itemprice.text = "$\(i.price)"
+                    self.itemprice.text = "$\(Double(i.price))"
                     self.itemimage.image = i.thumbnail.getImage()
+                    self.subtotal.text = "$\(i.price)"
+                    self.deliveryfee.text = "$2"
+                    self.totalamt.text = "$\(Double(i.price + 2))"
+                    DataManager.getUsernameByUID(uid: i.uid) { (username) in
+                        self.sellername.text = username
+                    }
+                    
                 }
             }
             
@@ -98,6 +113,40 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     }
     
 
+    @IBAction func submitorder(_ sender: Any) {
+        DataManager.loadUser(){
+            userListFromFirestore in
+            self.userList = userListFromFirestore
+            for i in self.userList{
+                if i.username == self.sellername.text{
+                    let selleruid: String = i.uid
+                    if Auth.auth().currentUser != nil{
+                        let user = Auth.auth().currentUser
+                        if let user = user {
+                          
+                            let buyeruid: String = user.uid
+                            self.newlist.append(Order(selleruid: selleruid, buyeruid: buyeruid, itemname: self.itemname.text!, itemprice: self.itemprice.text!, address: "", status: "Pending For Acceptance"))
+                                for i in self.newlist{
+                                    print(i.selleruid);
+                                    print(i.buyeruid);
+                                    print(i.itemprice)
+                                    print(i.status)
+                                     /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
+                                    
+                                    DataManager.insertOrReplaceOrder(i)
+                                    //self.movetologinpage()
+                            }
+                            
+                        }
+                    }
+                    
+                    
+                    
+                }
+            }
+        }
+        
+    }
     
 
     /*
