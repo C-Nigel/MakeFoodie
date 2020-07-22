@@ -15,7 +15,7 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     var posty: Post?
     let VC = ViewPostViewController()
     var finalName = ""
-    
+    var newlist: [Order] = [];
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var view2: UIView!
     @IBOutlet weak var view3: UIView!
@@ -27,6 +27,9 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     @IBOutlet weak var quantity: UITextField!
     @IBOutlet weak var dropdown: UIPickerView!
     @IBOutlet weak var itemimage: UIImageView!
+    @IBOutlet weak var subtotal: UILabel!
+    @IBOutlet weak var deliveryfee: UILabel!
+    @IBOutlet weak var totalamt: UILabel!
     
     var list = ["1", "2", "3", "4", "5"]
     
@@ -58,6 +61,10 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
                     self.itemname.text = i.title
                     self.itemprice.text = "$\(i.price)"
                     self.itemimage.image = i.thumbnail.getImage()
+                    self.subtotal.text = "$\(i.price)"
+                    self.deliveryfee.text = "$2"
+                    self.totalamt.text = String(i.price + 2)
+                    
                 }
             }
             
@@ -98,6 +105,19 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     }
     
 
+    @IBAction func submitorder(_ sender: Any) {
+        self.newlist.append(Order())
+            for i in self.newlist{
+                print(i.selleruid);
+                print(i.buyeruid);
+                print(i.itemprice)
+                print(i.status)
+                 /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
+                
+                DataManager.insertOrReplaceUser(i)
+                //self.movetologinpage()
+        }
+    }
     
 
     /*
