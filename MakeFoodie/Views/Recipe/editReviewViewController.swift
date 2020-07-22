@@ -1,18 +1,16 @@
 //
-//  addReviewViewController.swift
+//  editReviewViewController.swift
 //  MakeFoodie
 //
-//  Created by ITP312Grp2 on 15/7/20.
+//  Created by M06-3 on 7/21/20.
 //  Copyright © 2020 ITP312. All rights reserved.
 //
 
 import UIKit
 
-class addReviewViewController: UIViewController {
-
+class editReviewViewController: UIViewController {
     @IBOutlet weak var ratingControl: RatingControl!
     @IBOutlet weak var commentsTextView: UITextView!
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     var recipeList: Array<Recipe> = []
@@ -21,22 +19,22 @@ class addReviewViewController: UIViewController {
     var curruid: String = ""
     
     var reviews: Dictionary<String, Dictionary<String, String>> = [:]
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
+    override func viewDidLoad() {
         // Do any additional setup after loading the view.
         commentsTextView.layer.borderColor = UIColor.black.cgColor
         commentsTextView.layer.borderWidth = 0.3
         commentsTextView.layer.cornerRadius = 6
         
-        
-        
+        for i in self.userList {
+            if (i.uid == self.curruid) {
+                self.ratingControl.rating = Int(self.recipeList[self.selectedRow].reviews[i.uid]!["Rating"]!)!
+                self.commentsTextView.text = self.recipeList[self.selectedRow].reviews[i.uid]!["Comments"]
+                
+            }
+        }
+            
         self.reviews = self.recipeList[self.selectedRow].reviews
-    }
-    
-    @IBAction func cancelButtonPressed(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {

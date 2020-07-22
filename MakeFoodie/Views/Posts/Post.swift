@@ -12,16 +12,20 @@ class Post: Codable {
     var id: String
     var title: String
     var price: Double
+    var startTime: String
+    var endTime: String
     var desc: String
     var thumbnail: Image
     var category: String
     var uid: String
         
-    init(id: String, title: String, price: Double, desc: String, thumbnail: Image, category: String, uid: String)
+    init(id: String, title: String, price: Double, startTime:String, endTime:String, desc: String, thumbnail: Image, category: String, uid: String)
     {
         self.id = id
         self.title = title
         self.price = price
+        self.startTime = startTime
+        self.endTime = endTime
         self.desc = desc
         self.thumbnail = thumbnail
         self.category = category
