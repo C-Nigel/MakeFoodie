@@ -37,6 +37,7 @@
 		7D8E836224B84C7700F560F2 /* RecipesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E836124B84C7700F560F2 /* RecipesTableViewController.swift */; };
 		7D8E836624B8500100F560F2 /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8E836524B8500100F560F2 /* RecipeTableViewCell.swift */; };
 		7DC108BE24BA100E00C553AA /* EditRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC108BD24BA100E00C553AA /* EditRecipeViewController.swift */; };
+		7DF5EF6024C68CB1001B5B5A /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF5EF5F24C68CB1001B5B5A /* RatingControl.swift */; };
 		CA38AEA75CC022710C945B86 /* Pods_MakeFoodie_MakeFoodieUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB9FDAF0D3AFF49BABD7D32 /* Pods_MakeFoodie_MakeFoodieUITests.framework */; };
 		D42FB78B24BC4BB200F586C2 /* ForgetpwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42FB78A24BC4BB200F586C2 /* ForgetpwViewController.swift */; };
 		D42FB78D24BC4C2200F586C2 /* OrderReqViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42FB78C24BC4C2200F586C2 /* OrderReqViewController.swift */; };
@@ -120,6 +121,7 @@
 		7D8E836124B84C7700F560F2 /* RecipesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesTableViewController.swift; sourceTree = "<group>"; };
 		7D8E836524B8500100F560F2 /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
 		7DC108BD24BA100E00C553AA /* EditRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeViewController.swift; sourceTree = "<group>"; };
+		7DF5EF5F24C68CB1001B5B5A /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		814E339EB185CAB3AEF34260 /* Pods-MakeFoodieTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeFoodieTests.debug.xcconfig"; path = "Target Support Files/Pods-MakeFoodieTests/Pods-MakeFoodieTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8151CC4A9D32F30B842A8C6C /* Pods_MakeFoodie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MakeFoodie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83DB079EB02E24FF513E485F /* Pods-MakeFoodie-MakeFoodieUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeFoodie-MakeFoodieUITests.debug.xcconfig"; path = "Target Support Files/Pods-MakeFoodie-MakeFoodieUITests/Pods-MakeFoodie-MakeFoodieUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -187,7 +189,6 @@
 			children = (
 				472229DD246BC13100E13C81 /* MakeFoodie */,
 				472229F4246BC13400E13C81 /* MakeFoodieTests */,
-				472229FF246BC13400E13C81 /* MakeFoodieUITests */,
 				472229DC246BC13100E13C81 /* Products */,
 				F476E28624B4B8510036858B /* Frameworks */,
 				4F2E7DFFD1BB8DB79DA4389B /* Pods */,
@@ -286,6 +287,7 @@
 				F44580422490BF5100F1CAA6 /* Categories */,
 				F44580412490BF4500F1CAA6 /* Posts */,
 				F44580402490BF1C00F1CAA6 /* Orders */,
+				472229FF246BC13400E13C81 /* MakeFoodieUITests */,
 				F445803F2490BF1100F1CAA6 /* OrderRequest */,
 				F445803E2490BF0900F1CAA6 /* Messages */,
 				F445803D2490BE5B00F1CAA6 /* Following */,
@@ -375,6 +377,7 @@
 				7D34C5FC24B9C690008858C6 /* RecipeDetailViewController.swift */,
 				7DC108BD24BA100E00C553AA /* EditRecipeViewController.swift */,
 				D4A4AD8A24BE90F10011F00B /* addReviewViewController.swift */,
+				7DF5EF5F24C68CB1001B5B5A /* RatingControl.swift */,
 			);
 			path = Recipe;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				7D8E836224B84C7700F560F2 /* RecipesTableViewController.swift in Sources */,
 				7761BA2724B108FA003CDDF3 /* PostsTableViewController.swift in Sources */,
 				F445804A2490C08800F1CAA6 /* ItemCell.swift in Sources */,
+				7DF5EF6024C68CB1001B5B5A /* RatingControl.swift in Sources */,
 				775BF65924B4B9C100845E93 /* Post.swift in Sources */,
 				775BF66324B4C8F600845E93 /* ViewPostViewController.swift in Sources */,
 				25D10E8E24B705F1000F6DE5 /* DateTextField.swift in Sources */,
