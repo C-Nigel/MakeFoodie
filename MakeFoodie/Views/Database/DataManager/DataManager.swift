@@ -165,17 +165,41 @@ class DataManager: NSObject {
                     
                     if item != nil
                     {
-                        itemList.append(item!)
+                        getUsernameByUID(uid: item!.uid) { (username) in
+                            item?.uid = username
+                            itemList.append(item!)
+                            
+                            // Once we have compeleted processing, call the onComplete closure passed in by the caller
+                            onComplete?(itemList)
+                        }
                     }
                 }
             }
-            // Once we have compeleted processing, call the onComplete closure passed in by the caller
-            onComplete?(itemList)
+        }
+    }
+    
+    static func deleteAllfollowers(id: String, type: String)
+    {
+        db.collection("follow").whereField("following", isEqualTo: id).whereField("type", isEqualTo: type).getDocuments()
+        {
+            (QuerySnapshot, err) in
+            if let err = err
+            {
+                print("error deleting followed users \(err)")
+            }
+            else
+            {
+                for i in QuerySnapshot!.documents
+                {
+                    i.reference.delete()
+                }
+            }
         }
     }
     
     static func loadFollowPostItems(onComplete: (([postDetails]) -> Void)?)
     {
+        let userUID = Auth.auth().currentUser?.uid
         var followList : [Follow] = []
         var postItems : [postDetails] = []
         
@@ -202,7 +226,7 @@ class DataManager: NSObject {
                     
                     if item != nil
                     {
-                        if item?.type == "post"
+                        if item?.type == "post" && item?.followeruid == userUID
                         {
                             followList.append(item!)
                         }
@@ -250,6 +274,7 @@ class DataManager: NSObject {
     
     static func loadFollowRecipeItems(onComplete: (([recipeDetails]) -> Void)?)
     {
+        let userUID = Auth.auth().currentUser?.uid
         var followList : [Follow] = []
         var recipeItems : [recipeDetails] = []
         
@@ -276,7 +301,7 @@ class DataManager: NSObject {
                     
                     if item != nil
                     {
-                        if item?.type == "recipes"
+                        if item?.type == "recipes" && item?.followeruid == userUID
                         {
                             followList.append(item!)
                         }
@@ -497,6 +522,26 @@ class DataManager: NSObject {
         }
     }
     
+    static func getUsernameByUID(uid: String, onComplete: @escaping (_ username: String) -> ())
+    {
+        db.collection("user").whereField("uid", isEqualTo: uid).getDocuments()
+        {
+            (QuerySnapshot, err) in
+            if  let err = err
+            {
+                print("error getting user's name: \(err)")
+            }
+            else
+            {
+                for document in QuerySnapshot!.documents
+                {
+                    let item = try? document.data(as: userDetails.self)!
+                    onComplete(item!.username)
+                }
+            }
+        }
+    }
+    
     //zoe//
     //add or edit recipe
     static func insertOrReplaceRecipe(_ recipe: Recipe) {
@@ -589,7 +634,7 @@ class DataManager: NSObject {
     }
     
     // Add or Edit Post
-    static func insertOrEditPost(_ post: Post) {
+    static func insertOrEditPost(_ post: Post, _ completion: (() -> Void)?) {
         try? db.collection("post")
             .document(String(post.id))
             .setData(from: post, encoder: Firestore.Encoder()) // Closure omitted because last parameter accepts function
@@ -603,6 +648,8 @@ class DataManager: NSObject {
             else {
                 print("Document successfully added/modified!")
             }
+            
+            completion?()
         }
     }
     
@@ -615,6 +662,4 @@ class DataManager: NSObject {
             print("Document successfully removed!") }
          }
     }
-    
-    
 }

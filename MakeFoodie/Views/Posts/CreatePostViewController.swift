@@ -17,6 +17,8 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var takePicture: UIButton!
     @IBOutlet weak var selectPicture: UIButton!
+    @IBOutlet weak var startTimeTextField: UITextField!
+    @IBOutlet weak var endTimeTextField: UITextField!
     @IBOutlet weak var descTextView: UITextView!
     @IBOutlet weak var categoryPickerView: UIPickerView!
     
@@ -24,6 +26,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var titleError: UILabel!
     @IBOutlet weak var priceError: UILabel!
     @IBOutlet weak var thumbnailError: UILabel!
+    @IBOutlet weak var timeError: UILabel!
     @IBOutlet weak var descError: UILabel!
     
     // String array for categories
@@ -58,7 +61,8 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         // Close keyboard when click outside textField
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
-        
+        self.view.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(backgroundTap(gesture:))))
+
         // Set round border for descTextView
         self.descTextView.layer.borderColor = UIColor.black.cgColor
         self.descTextView.layer.borderWidth = 0.3
@@ -81,6 +85,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         titleError.isHidden = true
         priceError.isHidden = true
         thumbnailError.isHidden = true
+        timeError.isHidden = true
         descError.isHidden = true
         
         loadPosts()
@@ -95,6 +100,10 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             // Assign list to list from Firestore
             self.postList = postListFromFirestore
         }
+    }
+    
+    @objc func backgroundTap(gesture : UITapGestureRecognizer) {
+        view.endEditing(true)
     }
     
     // MARK: - Category PickerView
@@ -245,6 +254,67 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
+    // When click on textField, open a datePicker displaying time format to set time
+    @IBAction func startTimeTextFieldBeginEditing(_ sender: Any) {
+        let timePickerView:UIDatePicker = UIDatePicker()
+        timePickerView.datePickerMode = .time
+        startTimeTextField.inputView = timePickerView
+        //timePickerView.addTarget(self, action: #selector(startTimePickerSetValue(sender:)), for: .touchCancel)
+        timePickerView.addTarget(self, action: #selector(startTimePickerChanged(sender:)), for: .valueChanged) // When value change in datePicker, call function
+    }
+    
+    @IBAction func endTimeTextFieldBeginEditing(_ sender: Any) {
+        let timePickerView:UIDatePicker = UIDatePicker()
+        timePickerView.datePickerMode = .time
+        endTimeTextField.inputView = timePickerView
+        //timePickerView.addTarget(self, action: #selector(endTimePickerSetValue(sender:)), for: .editingDidEndOnExit)
+        timePickerView.addTarget(self, action: #selector(endTimePickerChanged(sender:)), for: .valueChanged) // When value change in datePicker call function
+    }
+    
+    // Function to set textField to datePicker time
+    @objc func startTimePickerChanged(sender:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        startTimeTextField.text = dateFormatter.string(from: sender.date)
+    }
+    
+    @objc func endTimePickerChanged(sender:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        endTimeTextField.text = dateFormatter.string(from: sender.date)
+    }
+    
+    /* Function to set datePicker time value to textField time
+    @objc func startTimePickerSetValue(sender:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        print("1")
+        dateFormatter.dateFormat = "h:mm a"
+        if (startTimeTextField.text != nil) {
+            sender.date = dateFormatter.date(from: startTimeTextField.text!)!
+            print("Ran trimming")
+        }
+        else {
+            sender.date = Date()
+            startTimeTextField.text = dateFormatter.string(from: sender.date)
+            print("empty")
+        }
+    }
+    
+    @objc func endTimePickerSetValue(sender:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        print ("2")
+        if (endTimeTextField.text != nil) {
+            sender.date = dateFormatter.date(from: endTimeTextField.text!)!
+            print("trimming end")
+        }
+        else {
+            sender.date = Date()
+            endTimeTextField.text = dateFormatter.string(from: sender.date)
+            print("empty end")
+        }
+    }*/
+    
     // MARK: - Button actions
     
     // Click on Take Picture
@@ -277,6 +347,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         var verified = true
         
         // Check again if title,price,desc is empty (White space + Blank) - If user click save after clicking add icon from prev controller
+        // Title check
         if (titleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
             titleError.isHidden = false
             titleTextField.layer.borderColor = UIColor.red.cgColor
@@ -291,6 +362,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             titleTextField.layer.cornerRadius = 6
         }
         
+        // Price check
         if (priceTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
             priceError.text = "Please enter a price."
             priceError.isHidden = false
@@ -348,6 +420,80 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
         }
         
+        // Start time check
+        if (startTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            timeError.text = "Start time not chosen."
+            timeError.isHidden = false
+            startTimeTextField.layer.borderColor = UIColor.red.cgColor
+            startTimeTextField.layer.borderWidth = 1.0
+            startTimeTextField.layer.cornerRadius = 6
+            verified = false
+        }
+        else {
+            timeError.isHidden = true
+            startTimeTextField.layer.borderColor = UIColor.black.cgColor
+            startTimeTextField.layer.borderWidth = 0.3
+            startTimeTextField.layer.cornerRadius = 6
+        }
+        
+        // End time check
+        if (endTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            timeError.text = "End time not chosen."
+            timeError.isHidden = false
+            endTimeTextField.layer.borderColor = UIColor.red.cgColor
+            endTimeTextField.layer.borderWidth = 1.0
+            endTimeTextField.layer.cornerRadius = 6
+            verified = false
+        }
+        else {
+            timeError.isHidden = true
+            endTimeTextField.layer.borderColor = UIColor.black.cgColor
+            endTimeTextField.layer.borderWidth = 0.3
+            endTimeTextField.layer.cornerRadius = 6
+        }
+        
+        // Check if both not nil
+        if (startTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == false && endTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == false) {
+            // Check if they have the same timing
+            if (startTimeTextField.text == endTimeTextField.text) {
+                timeError.text = "Time has to differ."
+                timeError.isHidden = false
+                startTimeTextField.layer.borderColor = UIColor.red.cgColor
+                startTimeTextField.layer.borderWidth = 1.0
+                startTimeTextField.layer.cornerRadius = 6
+                
+                endTimeTextField.layer.borderColor = UIColor.red.cgColor
+                endTimeTextField.layer.borderWidth = 1.0
+                endTimeTextField.layer.cornerRadius = 6
+                verified = false
+            }
+            else {
+                timeError.isHidden = true
+                startTimeTextField.layer.borderColor = UIColor.black.cgColor
+                startTimeTextField.layer.borderWidth = 0.3
+                startTimeTextField.layer.cornerRadius = 6
+                
+                endTimeTextField.layer.borderColor = UIColor.black.cgColor
+                endTimeTextField.layer.borderWidth = 0.3
+                endTimeTextField.layer.cornerRadius = 6
+            }
+        }
+        else {
+            if (startTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true && endTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+                timeError.text = "No time chosen."
+                timeError.isHidden = false
+                startTimeTextField.layer.borderColor = UIColor.red.cgColor
+                startTimeTextField.layer.borderWidth = 1.0
+                startTimeTextField.layer.cornerRadius = 6
+                
+                endTimeTextField.layer.borderColor = UIColor.red.cgColor
+                endTimeTextField.layer.borderWidth = 1.0
+                endTimeTextField.layer.cornerRadius = 6
+                verified = false
+            }
+        }
+        
+        // Desc check
         if (descTextView.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
             descError.isHidden = false
             descTextView.layer.borderColor = UIColor.red.cgColor
@@ -362,6 +508,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             descTextView.layer.cornerRadius = 6
         }
         
+        // Thumbnail check
         if (self.thumbnailImageView.image == nil) {
             thumbnailError.isHidden = false
             verified = false
@@ -370,6 +517,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             thumbnailError.isHidden = true
         }
         
+        // Check if valid
         if (verified == true) {
             // Selected row of picker view
             let row = categoryPickerView.selectedRow(inComponent: 0)
@@ -380,13 +528,15 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let parent = viewControllers?[0] as! PostsTableViewController
             let priceValue = Double(priceTextField.text!)
             
+            // Set random string
             let ref = db.collection("post")
             let docId = ref.document().documentID
             
-            let post:Post = Post(id: docId, title: titleTextField.text!, price: priceValue!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: parent.curruid)
+            let post:Post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: parent.curruid)
             
-            DataManager.insertOrEditPost(post)
-            parent.loadPosts()
+            DataManager.insertOrEditPost(post) {
+                parent.loadPosts()
+            }
             
             // Redirect back to tableView
             self.navigationController?.popViewController(animated: true)

@@ -604,7 +604,7 @@
                                                     <constraint firstAttribute="height" constant="177" id="Gaq-VR-emN"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="109" id="Xfe-dm-8OC">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReviewItem" rowHeight="109" id="Xfe-dm-8OC" customClass="AllReviewsTableViewCell" customModule="MakeFoodie" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="374" height="109"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xfe-dm-8OC" id="TcO-W9-Sga">
@@ -618,19 +618,19 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLN-uU-HsI">
-                                                                    <rect key="frame" x="315" y="11" width="49" height="20.5"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Comments" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J15-49-K3I">
+                                                                    <rect key="frame" x="20" y="39" width="334" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6We-Cg-FyK">
-                                                                    <rect key="frame" x="372" y="11" width="22" height="20.5"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="USw-H3-5mj">
+                                                                    <rect key="frame" x="332" y="11" width="22" height="20.5"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J15-49-K3I">
-                                                                    <rect key="frame" x="20" y="39" width="374.5" height="20.5"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLN-uU-HsI">
+                                                                    <rect key="frame" x="284" y="11" width="49" height="20.5"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -638,6 +638,11 @@
                                                                 </label>
                                                             </subviews>
                                                         </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="commentsLabel" destination="J15-49-K3I" id="vdf-hK-FCD"/>
+                                                            <outlet property="ratingLabel" destination="vLN-uU-HsI" id="4MJ-vg-HVs"/>
+                                                            <outlet property="usernameLabel" destination="0Iw-An-fx1" id="0ta-Ee-CQ3"/>
+                                                        </connections>
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>
@@ -682,10 +687,8 @@
                         <outlet property="addReviewButton" destination="3kH-OO-HiY" id="iff-xs-hX6"/>
                         <outlet property="allReviewsTableView" destination="uDi-NW-9Lz" id="JcZ-AO-Tq8"/>
                         <outlet property="deleteButton" destination="kEB-pt-cD3" id="fvG-8W-Ro2"/>
-                        <outlet property="deleteReviewButton" destination="pRp-mE-tar" id="q8J-od-mgM"/>
                         <outlet property="descLabel" destination="psG-RJ-0VW" id="26e-vr-beC"/>
                         <outlet property="editButton" destination="bSD-cj-9Cg" id="qyX-O3-vGt"/>
-                        <outlet property="editReviewButton" destination="fVG-5Z-Xtb" id="Rec-eO-uwj"/>
                         <outlet property="heartButton" destination="Na8-6s-Qel" id="eA3-qj-vhu"/>
                         <outlet property="ingLabel" destination="BWU-49-DI9" id="GJ3-4p-fNb"/>
                         <outlet property="instructionLabel" destination="xhd-ji-Bgc" id="u3V-Xt-DZo"/>
@@ -1025,7 +1028,7 @@
         <!--Edit review-->
         <scene sceneID="nwN-rc-V98">
             <objects>
-                <viewController id="Fog-5X-Vwt" sceneMemberID="viewController">
+                <viewController id="Fog-5X-Vwt" customClass="editReviewViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1mE-Pr-ncY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1072,8 +1075,17 @@
                         <viewLayoutGuide key="safeArea" id="z6h-CX-AtX"/>
                     </view>
                     <navigationItem key="navigationItem" title="Edit review" id="4FU-Zn-AS5">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="rA3-d5-yOT"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="rA3-d5-yOT">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="Fog-5X-Vwt" id="vZc-be-5gf"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="commentsTextView" destination="nPl-dg-4Lx" id="udG-CD-Pn6"/>
+                        <outlet property="ratingControl" destination="hiJ-WW-6vc" id="krB-iV-S20"/>
+                        <outlet property="saveButton" destination="rA3-d5-yOT" id="aLL-Mg-ci4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQA-BI-3vg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

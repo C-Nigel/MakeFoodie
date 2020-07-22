@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
+class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
 
     //labels for recipe
 
@@ -38,8 +38,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var addReviewButton: UIButton!
     
-    @IBOutlet weak var editReviewButton: UIButton!
-    @IBOutlet weak var deleteReviewButton: UIButton!
     //current user review
     @IBOutlet weak var yourUsernameLabel: UILabel!
     @IBOutlet weak var yourRatingLabel: UILabel!
@@ -68,11 +66,13 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
         getLoggedInUID()
         checkIfFollowedRecipes()
         
+        allReviewsTableView.delegate = self
+        print("viewDidLoad")
         //colors
         self.addReviewButton.tintColor = UIColor.white
         self.addReviewButton.backgroundColor = UIColor.orange
-        self.editReviewButton.tintColor = UIColor.orange
-        self.deleteReviewButton.tintColor = UIColor.orange
+        self.yourReviewEditButton.tintColor = UIColor.orange
+        self.yourReviewDeleteButton.tintColor = UIColor.orange
         
         //check if recipe uid matches current user
         if (self.recipeList[self.selectedRow].uid != self.curruid) {
@@ -83,19 +83,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
             self.deleteButton.tintColor = UIColor.clear
             
         }
-        
-        loadRecipes()
-    } //end viewDidLoad
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print("VIEWWILLAPPEAR")
-        print("selectedRow", self.selectedRow)
-        loadRecipes()
-    }
-    
-    //function to assign all labels and do checking
-    func refreshContent() {
-        print("refreshContent")
         
         //loading data to view the recipe
         titleLabel.text = self.recipeList[selectedRow].title
@@ -125,7 +112,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
             for i in self.userList {
                 if (i.uid == self.recipeList[self.selectedRow].uid) {
                     self.usernameLabel.text = i.username
-                    self.yourUsernameLabel.text = i.username
                 }
             }
         }
@@ -134,13 +120,16 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
         ingLabel.text = self.recipeList[selectedRow].ingredients
         instructionLabel.text = self.recipeList[selectedRow].instructions
 
-
+        print(self.recipeList[self.selectedRow].reviews)
         if !(self.recipeList[self.selectedRow].reviews.isEmpty) { //if reviews not empty
             for i in self.recipeList[self.selectedRow].reviews.keys { //i = keys in reviews dict
+                print("for i", i)
                 if (i == self.curruid) {
-                    print("i==curruid", i == self.curruid)
+                    print("if i", i)
                     //if has current user review, hide add review button and show your review
                     self.addReviewButton.isHidden = true
+                    self.yourReviewEditButton.isHidden = false
+                    self.yourReviewDeleteButton.isHidden = false
                     self.yourUsernameLabel.isHidden = false
                     self.yourRatingLabel.isHidden = false
                     self.yourCommentsLabel.isHidden = false
@@ -154,6 +143,14 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
                     }
                     else {
                         self.yourCommentsLabel.isHidden = true
+                    }
+                    
+                    for x in self.userList {
+                        print("userList", x.uid == i)
+                        if (x.uid == i) {
+                            yourUsernameLabel.text = x.username
+                            print(yourUsernameLabel.text)
+                        }
                     }
                     
                     //change text of reviewTitle to Other Reviews
@@ -176,7 +173,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
                         self.noReviewsLabel.isHidden = true
                         self.allReviewsTableView.isHidden = false
                     }
-                    
+                    break
                 }
                 //if current user has no review, show add review and hide your review
                     //with reviewTitle text being Reviews
@@ -209,7 +206,27 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
             self.yourReviewDeleteButton.isHidden = true
         }
         
+        loadRecipes()
+    } //end viewDidLoad
+    
+    override func viewWillAppear(_ animated: Bool) {
+        DataManager.loadRecipes() {
+            recipeListFromFirestore in
+
+            // This is a closure.
+            //
+            // This block of codes is executed when the // async loading from Firestore is complete.
+            // What it is to reassigned the new list loaded
+            // from Firestore. //
+            self.recipeList = recipeListFromFirestore
+            
+            self.viewDidLoad()
+            
+            
+            self.allReviewsTableView.reloadData()
+        }
     }
+    
     
     
     // when heart Button is pressed
@@ -273,9 +290,34 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
             // What it is to reassigned the new list loaded
             // from Firestore. //
             self.recipeList = recipeListFromFirestore
-            self.refreshContent()
         }
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return recipeList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewItem", for: indexPath) as! AllReviewsTableViewCell
+
+        let r = recipeList[indexPath.row]
+        for i in self.userList {
+            for x in r.reviews.keys {
+                print(x, "//", i.uid)
+                if (i.uid == x) {
+                    cell.usernameLabel.text = i.username
+                    cell.ratingLabel.text = r.reviews[x]!["Rating"]
+                    cell.commentsLabel.text = r.reviews[x]!["Comments"]
+                    print(i.username, r.reviews[x]!["Rating"])
+                    print(i.username, r.reviews[x]!["Comments"])
+                }
+            }
+        }
+
+        
+        return cell
+    }
+    
     
     // MARK: - Navigation
 
@@ -293,6 +335,11 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
             
         }
         if (segue.identifier == "editReview") {
+            let destView = segue.destination as! editReviewViewController
+            destView.recipeList = self.recipeList
+            destView.selectedRow = self.selectedRow
+            destView.curruid = self.curruid
+            destView.userList = self.userList
             
         }
         if (segue.identifier == "editRecipe") {
