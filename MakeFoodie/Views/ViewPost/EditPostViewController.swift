@@ -14,6 +14,8 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var thumbnailImageView: UIImageView!
+    @IBOutlet weak var startTimeTextField: UITextField!
+    @IBOutlet weak var endTimeTextField: UITextField!
     @IBOutlet weak var descTextView: UITextView!
     @IBOutlet weak var categoryPickerView: UIPickerView!
     
@@ -25,6 +27,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var titleError: UILabel!
     @IBOutlet weak var priceError: UILabel!
     @IBOutlet weak var thumbnailError: UILabel!
+    @IBOutlet weak var timeError: UILabel!
     @IBOutlet weak var descError: UILabel!
     
     // Category data
@@ -55,6 +58,10 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         takePicture.tintColor = UIColor.orange
         selectPicture.tintColor = UIColor.orange
         
+        // Close keyboard when click outside textField
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        self.view.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(backgroundTap(gesture:))))
+        
         // Set round border for descTextView
         self.descTextView.layer.borderColor = UIColor.black.cgColor
         self.descTextView.layer.borderWidth = 0.3
@@ -71,6 +78,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         titleError.isHidden = true
         priceError.isHidden = true
         thumbnailError.isHidden = true
+        timeError.isHidden = true
         descError.isHidden = true
         
         loadPosts()
@@ -87,6 +95,10 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
     }
     
+    @objc func backgroundTap(gesture : UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
     // This function is triggered when the view is about to appear.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -101,6 +113,8 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             priceTextField.text = ""
         }
         thumbnailImageView.image = post?.thumbnail.getImage()
+        startTimeTextField.text = post?.startTime
+        endTimeTextField.text = post?.endTime
         descTextView.text = post?.desc
         if let selectedCategory = categoryPickerData.firstIndex(of: post!.category) {
             categoryPickerView.selectRow(selectedCategory, inComponent: 0, animated: false)
@@ -252,6 +266,32 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             }
         }
     }
+    @IBAction func startTimeTextFieldBeginEditing(_ sender: Any) {
+        let timePickerView:UIDatePicker = UIDatePicker()
+        timePickerView.datePickerMode = .time
+        startTimeTextField.inputView = timePickerView
+        timePickerView.addTarget(self, action: #selector(startTimePickerChanged(sender:)), for: .valueChanged) // When value change in datePicker, call function
+    }
+    
+    @IBAction func endTimeTextFieldBeginEditing(_ sender: Any) {
+        let timePickerView:UIDatePicker = UIDatePicker()
+        timePickerView.datePickerMode = .time
+        endTimeTextField.inputView = timePickerView
+        timePickerView.addTarget(self, action: #selector(endTimePickerChanged(sender:)), for: .valueChanged) // When value change in datePicker, call function
+    }
+    
+    // Function to set textField to datePicker time
+    @objc func startTimePickerChanged(sender:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        startTimeTextField.text = dateFormatter.string(from: sender.date)
+    }
+    
+    @objc func endTimePickerChanged(sender:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        endTimeTextField.text = dateFormatter.string(from: sender.date)
+    }
     
     // MARK: - Button actions
     
@@ -283,6 +323,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         var verified = true
         
         // Check again if title,price,desc is empty (White space + Blank) - If user click save after clicking add icon from prev controller
+        // Title check
         if (titleTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
             titleError.isHidden = false
             titleTextField.layer.borderColor = UIColor.red.cgColor
@@ -297,6 +338,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             titleTextField.layer.cornerRadius = 6
         }
         
+        // Price check
         if (priceTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
             priceError.text = "Please enter a price."
             priceError.isHidden = false
@@ -354,6 +396,80 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             }
         }
         
+        // Start time check
+        if (startTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            timeError.text = "Start time not chosen."
+            timeError.isHidden = false
+            startTimeTextField.layer.borderColor = UIColor.red.cgColor
+            startTimeTextField.layer.borderWidth = 1.0
+            startTimeTextField.layer.cornerRadius = 6
+            verified = false
+        }
+        else {
+            timeError.isHidden = true
+            startTimeTextField.layer.borderColor = UIColor.black.cgColor
+            startTimeTextField.layer.borderWidth = 0.3
+            startTimeTextField.layer.cornerRadius = 6
+        }
+        
+        // End time check
+        if (endTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            timeError.text = "End time not chosen."
+            timeError.isHidden = false
+            endTimeTextField.layer.borderColor = UIColor.red.cgColor
+            endTimeTextField.layer.borderWidth = 1.0
+            endTimeTextField.layer.cornerRadius = 6
+            verified = false
+        }
+        else {
+            timeError.isHidden = true
+            endTimeTextField.layer.borderColor = UIColor.black.cgColor
+            endTimeTextField.layer.borderWidth = 0.3
+            endTimeTextField.layer.cornerRadius = 6
+        }
+        
+        // Check if both not nil
+        if (startTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == false && endTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == false) {
+            // Check if they have the same timing
+            if (startTimeTextField.text == endTimeTextField.text) {
+                timeError.text = "Time has to differ."
+                timeError.isHidden = false
+                startTimeTextField.layer.borderColor = UIColor.red.cgColor
+                startTimeTextField.layer.borderWidth = 1.0
+                startTimeTextField.layer.cornerRadius = 6
+                
+                endTimeTextField.layer.borderColor = UIColor.red.cgColor
+                endTimeTextField.layer.borderWidth = 1.0
+                endTimeTextField.layer.cornerRadius = 6
+                verified = false
+            }
+            else {
+                timeError.isHidden = true
+                startTimeTextField.layer.borderColor = UIColor.black.cgColor
+                startTimeTextField.layer.borderWidth = 0.3
+                startTimeTextField.layer.cornerRadius = 6
+                
+                endTimeTextField.layer.borderColor = UIColor.black.cgColor
+                endTimeTextField.layer.borderWidth = 0.3
+                endTimeTextField.layer.cornerRadius = 6
+            }
+        }
+        else {
+            if (startTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true && endTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+                timeError.text = "No time chosen."
+                timeError.isHidden = false
+                startTimeTextField.layer.borderColor = UIColor.red.cgColor
+                startTimeTextField.layer.borderWidth = 1.0
+                startTimeTextField.layer.cornerRadius = 6
+                
+                endTimeTextField.layer.borderColor = UIColor.red.cgColor
+                endTimeTextField.layer.borderWidth = 1.0
+                endTimeTextField.layer.cornerRadius = 6
+                verified = false
+            }
+        }
+        
+        // Desc check
         if (descTextView.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
             descError.isHidden = false
             descTextView.layer.borderColor = UIColor.red.cgColor
@@ -368,6 +484,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             descTextView.layer.cornerRadius = 6
         }
         
+        // Thumbnail check
         if (self.thumbnailImageView.image == nil) {
             thumbnailError.isHidden = false
             verified = false
@@ -376,6 +493,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             thumbnailError.isHidden = true
         }
         
+        // Check if valid
         if (verified == true) {
             // Selected row of picker view
             let row = categoryPickerView.selectedRow(inComponent: 0)
@@ -388,11 +506,12 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             let parent = viewControllers?[1] as! ViewPostViewController
             let priceValue = Double(priceTextField.text!)
             
-            let post:Post = Post(id: currPostId!, title: titleTextField.text!, price: priceValue!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: currPostUid!)
+            let post:Post = Post(id: currPostId!, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: currPostUid!)
             
-            DataManager.insertOrEditPost(post)
-            postsTableView.loadPosts()
-            parent.loadPosts()
+            DataManager.insertOrEditPost(post) {
+                postsTableView.loadPosts()
+                parent.loadPosts()
+            }
             
             // Redirect back to tableView
             self.navigationController?.popViewController(animated: true)

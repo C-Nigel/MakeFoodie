@@ -84,6 +84,7 @@ class PostsTableViewController: UITableViewController {
             
             // Reload content in tableView
             self.postTableView.reloadData()
+            print("tbview.loadpost")
         }
     }
 

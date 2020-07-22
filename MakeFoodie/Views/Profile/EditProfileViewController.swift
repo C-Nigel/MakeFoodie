@@ -94,12 +94,26 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         picker.sourceType = .photoLibrary // Use image from library
         self.present(picker, animated: true)
     }
+    //resize image
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+        
+    }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let chosenImage : UIImage = info[.editedImage] as! UIImage
+        var resizedImage: UIImage
+        
+        resizedImage = resizeImage(image: chosenImage, newWidth: 374)
         self.Image.isHidden = false // Ensure imageView is not hidden after selection
-        self.Image!.image = chosenImage
+        self.Image!.image = resizedImage
     
-        UIImageWriteToSavedPhotosAlbum(chosenImage, nil, nil, nil) // Save the image selected/taken by user
+        UIImageWriteToSavedPhotosAlbum(resizedImage, nil, nil, nil) // Save the image selected/taken by user
 
         picker.dismiss(animated: true) // Close picker
     }
@@ -206,6 +220,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 print(i.username);
                 print(i.dob);
                 print(i.gender)
+                print(i.imagelink)
                  /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
                 
                 DataManager.insertOrReplaceUser(i)

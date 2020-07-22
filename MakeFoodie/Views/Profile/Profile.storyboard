@@ -221,6 +221,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="descriptions" destination="VRT-Gq-amf" id="LUq-uQ-VBq"/>
+                        <outlet property="followersNo" destination="ORl-DG-Xqh" id="7Gu-WO-PLu"/>
                         <outlet property="imagey" destination="oGr-LX-aLX" id="qAu-yK-3ou"/>
                         <outlet property="username" destination="zvS-8g-ICO" id="7p5-EL-Rkd"/>
                     </connections>
