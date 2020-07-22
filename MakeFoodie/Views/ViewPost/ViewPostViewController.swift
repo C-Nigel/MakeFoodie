@@ -144,6 +144,9 @@ class ViewPostViewController: UIViewController {
             // Delete post
             DataManager.deletePost(self.post!)
             
+            // Delete followers
+            DataManager.deleteAllfollowers(id: self.post!.id, type: "post")
+            
             // Reload post in tableView
             let viewControllers = self.navigationController?.viewControllers
             let parent = viewControllers?[0] as! PostsTableViewController

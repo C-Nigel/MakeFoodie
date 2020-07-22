@@ -165,6 +165,25 @@ class DataManager: NSObject {
         }
     }
     
+    static func deleteAllfollowers(id: String, type: String)
+    {
+        db.collection("follow").whereField("following", isEqualTo: id).whereField("type", isEqualTo: type).getDocuments()
+        {
+            (QuerySnapshot, err) in
+            if let err = err
+            {
+                print("error deleting followed users \(err)")
+            }
+            else
+            {
+                for i in QuerySnapshot!.documents
+                {
+                    i.reference.delete()
+                }
+            }
+        }
+    }
+    
     static func loadFollowPostItems(onComplete: (([postDetails]) -> Void)?)
     {
         var followList : [Follow] = []
