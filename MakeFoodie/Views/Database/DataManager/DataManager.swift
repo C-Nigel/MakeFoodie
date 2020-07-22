@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+
 class DataManager: NSObject {
 
     //Create a new database if it does not already exists
@@ -26,6 +27,7 @@ class DataManager: NSObject {
             err in
             if let err = err {
                 print("Error adding document: \(err)")
+                
             } else { print("Document successfully added!")
      } }
     }
@@ -61,6 +63,28 @@ class DataManager: NSObject {
             onComplete?(userList)
             
         } }
+    static func loadFollowers(onComplete: (([Follow]) -> Void)?)
+      {
+         db.collection("follow").getDocuments { (data, err) in
+         var followList : [Follow] = []
+             if let err = err
+             { // Handle errors here.
+     //
+                 print("Error getting documents: \(err)") }
+             else
+             {
+                 for document in data!.documents{
+                     let userss = try? document.data(as: Follow.self)!
+                     if userss != nil{
+                         followList.append(userss!)
+                         
+                     }
+                 }
+           }
+    
+             onComplete?(followList)
+             
+         } }
     
     // ========================================================================================================================================================
     // ========================================================================================================================================================

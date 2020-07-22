@@ -370,7 +370,6 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
             self.navigationController?.popViewController(animated: true)
             
         }
-        
     }
     
 }

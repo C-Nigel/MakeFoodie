@@ -11,12 +11,14 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestoreSwift
 import FirebaseFirestore
+import UserNotifications
 
-class SignupViewController: UIViewController, UITextFieldDelegate {
+
+class SignupViewController: UIViewController, UITextFieldDelegate, UNUserNotificationCenterDelegate {
     
     var user : [User] = []
     var errory: Int = 0;
-  
+    var isGrantedNotificationAccess = false
     
     @IBOutlet weak var titlelabel: UILabel!
     @IBOutlet weak var emailInput: UITextField!
@@ -48,6 +50,13 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            self.isGrantedNotificationAccess = granted
+            if !granted{
+                //add alert to complain to user
+            }
+        }
         //DataManager.deleteUSER("dkilWD5p3XVG1uBq3sLxw9CR2qV2")
         self.dobInput.delegate = self
         //CHANGE BORDER OF INPUT FIELDS TO BLACK
@@ -264,6 +273,13 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                             
                             DataManager.insertOrReplaceUser(i)
                             //self.movetologinpage()
+                            if self.isGrantedNotificationAccess{
+                                print("TEST")
+                                let content = self.creationsuccess()
+                                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5.0, repeats: false)
+                                self.addNotification(trigger: trigger, content: content, identifier: "message.signup")
+                                
+                            }
                             let storyBoard: UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
                             let newViewController = storyBoard.instantiateViewController(withIdentifier: "Login")
                                     self.present(newViewController, animated: true, completion: nil)
@@ -282,7 +298,28 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             
     }
     
-    
+    //Notification when user successfully created an account
+    func creationsuccess() -> UNMutableNotificationContent{
+        let content = UNMutableNotificationContent()
+        content.title = "Signup Action"
+        content.body = "Account created successfully!"
+        content.userInfo = ["step":0]
+        return content
+    }
+    //add notification request to centre
+    func addNotification(trigger:UNNotificationTrigger?, content: UNMutableNotificationContent, identifier: String){
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request){
+            (error) in
+            if error != nil{
+                print("Error adding notification:\(String(describing: error?.localizedDescription))")
+            }
+        }
+    }
+    //in app notification
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
     //Hide keyboard when user touch outside
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)

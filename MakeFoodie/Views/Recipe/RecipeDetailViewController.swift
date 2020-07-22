@@ -74,6 +74,28 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
         self.editReviewButton.tintColor = UIColor.orange
         self.deleteReviewButton.tintColor = UIColor.orange
         
+        //check if recipe uid matches current user
+        if (self.recipeList[self.selectedRow].uid != self.curruid) {
+            //if doesnt match, hide edit and delete button
+            self.editButton.isEnabled = false
+            self.editButton.tintColor = UIColor.clear
+            self.deleteButton.isEnabled = false
+            self.deleteButton.tintColor = UIColor.clear
+            
+        }
+        
+        loadRecipes()
+    } //end viewDidLoad
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("VIEWWILLAPPEAR")
+        print("selectedRow", self.selectedRow)
+        loadRecipes()
+    }
+    
+    //function to assign all labels and do checking
+    func refreshContent() {
+        print("refreshContent")
         
         //loading data to view the recipe
         titleLabel.text = self.recipeList[selectedRow].title
@@ -103,7 +125,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
             for i in self.userList {
                 if (i.uid == self.recipeList[self.selectedRow].uid) {
                     self.usernameLabel.text = i.username
-                    self.curruid = i.uid
+                    self.yourUsernameLabel.text = i.username
                 }
             }
         }
@@ -111,22 +133,12 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
         descLabel.text = self.recipeList[selectedRow].desc
         ingLabel.text = self.recipeList[selectedRow].ingredients
         instructionLabel.text = self.recipeList[selectedRow].instructions
-        
-        //check if recipe uid matches current user
-        if (self.recipeList[self.selectedRow].uid != self.curruid) {
-            //if doesnt match, hide edit and delete button
-            self.editButton.isEnabled = false
-            self.editButton.tintColor = UIColor.clear
-            self.deleteButton.isEnabled = false
-            self.deleteButton.tintColor = UIColor.clear
-            
-        }
-        
 
 
         if !(self.recipeList[self.selectedRow].reviews.isEmpty) { //if reviews not empty
             for i in self.recipeList[self.selectedRow].reviews.keys { //i = keys in reviews dict
-                if (self.recipeList[self.selectedRow].reviews[i]!["uid"] == self.curruid) {
+                if (i == self.curruid) {
+                    print("i==curruid", i == self.curruid)
                     //if has current user review, hide add review button and show your review
                     self.addReviewButton.isHidden = true
                     self.yourUsernameLabel.isHidden = false
@@ -134,17 +146,35 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
                     self.yourCommentsLabel.isHidden = false
                     self.yourStar.isHidden = false
                     self.yourReviewLabel.isHidden = false
+                    //assign values to current user's review
+                    self.yourRatingLabel.text = self.recipeList[self.selectedRow].reviews[i]!["Rating"]
+                    
+                    if (self.recipeList[self.selectedRow].reviews[i]!["Comments"] != "") {
+                        self.yourCommentsLabel.text = self.recipeList[self.selectedRow].reviews[i]!["Comments"]
+                    }
+                    else {
+                        self.yourCommentsLabel.isHidden = true
+                    }
                     
                     //change text of reviewTitle to Other Reviews
                     self.reviewTitle.text = "Other Reviews"
-                    //pop the record of current user's review, add the updated list to otherReviews
-                    self.recipeList[self.selectedRow].reviews.removeValue(forKey: self.curruid)
-                    self.otherReviews = self.recipeList[self.selectedRow].reviews
+                    //add remaining reviews to otherReviews (not counting current user's)
+                    for i in self.recipeList[self.selectedRow].reviews.keys {
+                        if (i != self.curruid) {
+                            self.otherReviews.updateValue(self.recipeList[self.selectedRow].reviews[i]!, forKey: i)
+                        }
+                    }
                     //if other reviews is empty
                     if (self.otherReviews.isEmpty) {
                         //hide allReviewsTableView and show label no reviews
                         self.allReviewsTableView.isHidden = true
                         self.noReviewsLabel.isHidden = false
+                    }
+                    //else if other reviews not empty
+                    else {
+                        //hide no reviews label and show all reviews tableview
+                        self.noReviewsLabel.isHidden = true
+                        self.allReviewsTableView.isHidden = false
                     }
                     
                 }
@@ -178,11 +208,9 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
             self.yourReviewEditButton.isHidden = true
             self.yourReviewDeleteButton.isHidden = true
         }
+        
+    }
     
-        
-
-        
-    } //end viewDidLoad
     
     // when heart Button is pressed
     @IBAction func heartButtonPressed(_ sender: UIButton) {
@@ -236,7 +264,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
     
     //load recipes
     func loadRecipes() {
-        
         DataManager.loadRecipes() {
             recipeListFromFirestore in
 
@@ -246,18 +273,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
             // What it is to reassigned the new list loaded
             // from Firestore. //
             self.recipeList = recipeListFromFirestore
-            
-            
-            //putting data into the labels to view the recipe when view appears (after editing)
-            self.titleLabel.text = self.recipeList[self.selectedRow].title
-            
-            //convert image
-            self.thumbnailImage.image = Recipe.Image.getImage(self.recipeList[self.selectedRow].thumbnail)()
-        
-            
-            self.descLabel.text = self.recipeList[self.selectedRow].desc
-            self.ingLabel.text = self.recipeList[self.selectedRow].ingredients
-            self.instructionLabel.text = self.recipeList[self.selectedRow].instructions
+            self.refreshContent()
         }
     }
     
@@ -268,7 +284,13 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if (segue.identifier == "addReview") {
-            //pass recipeID and curruid into add review vc
+            //pass recipe and curruid into add review vc
+            let destView = segue.destination as! addReviewViewController
+            destView.recipeList = self.recipeList
+            destView.selectedRow = self.selectedRow
+            destView.curruid = self.curruid
+            destView.userList = self.userList
+            
         }
         if (segue.identifier == "editReview") {
             

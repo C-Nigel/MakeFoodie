@@ -16,10 +16,12 @@ class ProfileViewController: UIViewController {
 
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var imagey: UIImageView!
-  
+    @IBOutlet weak var followersNo: UIButton!
+    
     @IBOutlet weak var descriptions: UITextView!
     
     var userList : [User] = [];
+    var followList : [Follow] = [];
     override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -42,6 +44,17 @@ class ProfileViewController: UIViewController {
                             
                         }
                     }
+                }
+                DataManager.loadFollowers(){
+                    followListFromFirestore in
+                    self.followList = followListFromFirestore
+                    var count: Int = 0;
+                    for i in self.followList{
+                        if i.followeruid == uidd{
+                            count = count + 1;
+                        }
+                    }
+                    self.followersNo.setTitle(String(count), for: .normal)
                 }
             }
               

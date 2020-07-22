@@ -34,6 +34,7 @@ class RecipesTableViewController: UITableViewController {
                         if (i.uid == uidd) {
                             self.username = i.username
                             self.curruid = i.uid
+                            print(self.curruid)
                         }
                     }
                 }
