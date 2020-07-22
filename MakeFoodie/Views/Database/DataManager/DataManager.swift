@@ -128,12 +128,16 @@ class DataManager: NSObject {
                     
                     if item != nil
                     {
-                        itemList.append(item!)
+                        getUsernameByUID(uid: item!.uid) { (username) in
+                            item?.uid = username
+                            itemList.append(item!)
+                            
+                            // Once we have compeleted processing, call the onComplete closure passed in by the caller
+                            onComplete?(itemList)
+                        }
                     }
                 }
             }
-            // Once we have compeleted processing, call the onComplete closure passed in by the caller
-            onComplete?(itemList)
         }
     }
     
@@ -460,6 +464,26 @@ class DataManager: NSObject {
         }
     }
     
+    static func getUsernameByUID(uid: String, onComplete: @escaping (_ username: String) -> ())
+    {
+        db.collection("user").whereField("uid", isEqualTo: uid).getDocuments()
+        {
+            (QuerySnapshot, err) in
+            if  let err = err
+            {
+                print("error getting user's name: \(err)")
+            }
+            else
+            {
+                for document in QuerySnapshot!.documents
+                {
+                    let item = try? document.data(as: userDetails.self)!
+                    onComplete(item!.username)
+                }
+            }
+        }
+    }
+    
     //zoe//
     //add or edit recipe
     static func insertOrReplaceRecipe(_ recipe: Recipe) {
@@ -578,6 +602,4 @@ class DataManager: NSObject {
             print("Document successfully removed!") }
          }
     }
-    
-    
 }
