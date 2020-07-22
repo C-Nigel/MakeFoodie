@@ -17,6 +17,7 @@ class ViewPostViewController: UIViewController {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var favouriteButton: UIButton!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     
@@ -59,7 +60,6 @@ class ViewPostViewController: UIViewController {
                 }
             }
         }
-        
         checkIfFollowedPost()
         loadPosts()
     }
@@ -75,10 +75,51 @@ class ViewPostViewController: UIViewController {
             
             // For edit, set labels to new edited data
             self.titleLabel.text = self.postList[self.selectedRow].title
-            self.priceLabel.text = String(self.postList[self.selectedRow].price)
+            self.priceLabel.text = "$" + String(self.postList[self.selectedRow].price)
             self.postImageView.image = self.postList[self.selectedRow].thumbnail.getImage()
+            self.timeLabel.text = self.postList[self.selectedRow].startTime + " to " + self.postList[self.selectedRow].endTime
             self.descLabel.text = self.postList[self.selectedRow].desc
             self.categoryLabel.text = self.postList[self.selectedRow].category
+            
+            self.post?.title = self.postList[self.selectedRow].title
+            self.post?.price = self.postList[self.selectedRow].price
+            self.post?.thumbnail = self.postList[self.selectedRow].thumbnail
+            self.post?.startTime = self.postList[self.selectedRow].startTime
+            self.post?.endTime = self.postList[self.selectedRow].endTime
+            self.post?.desc = self.postList[self.selectedRow].desc
+            self.post?.category = self.postList[self.selectedRow].category
+            
+            self.compareTime()
+        }
+    }
+    
+    func compareTime() {
+        // Check if time is beyond or before current time
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 3600 * 8)
+
+        // Convert start and end time to date
+        let startingTime = dateFormatter.date(from: self.post!.startTime)
+        let endingTime = dateFormatter.date(from: self.post!.endTime)
+        
+        // Get current date
+        let now = dateFormatter.date(from: dateFormatter.string(from: Date()))
+
+        // Compare timing
+        if startingTime?.compare(now!) == .orderedAscending {
+            if endingTime?.compare(now!) == .orderedAscending {
+                // Disable order button if beyond
+                self.orderButton.isHidden = true
+            }
+            else {
+                // Enable if still within time period
+                self.orderButton.isHidden = false
+            }
+        }
+        else {
+            // Disable order button if beyond
+            self.orderButton.isHidden = true
         }
     }
     
@@ -127,9 +168,28 @@ class ViewPostViewController: UIViewController {
             priceLabel.text = "Not available"
         }
         
+        if post?.startTime != nil {
+            if post?.endTime != nil {
+                // Set label
+                timeLabel.text = post!.startTime + " to " + post!.endTime
+                
+                compareTime()
+            }
+            else {
+                timeLabel.text = "Not available"
+            }
+        }
+        else {
+            timeLabel.text = "Not available"
+        }
+        
         descLabel.text = post?.desc
         categoryLabel.text = post?.category
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        compareTime()
     }
     
     // Click on trash icon
