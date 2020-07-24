@@ -81,7 +81,7 @@ class ViewPostViewController: UIViewController {
             self.descLabel.text = self.postList[self.selectedRow].desc
             self.categoryLabel.text = self.postList[self.selectedRow].category
             
-            // Set post to updated values for edit
+            // Set post to updated values for edit + time check
             self.post?.title = self.postList[self.selectedRow].title
             self.post?.price = self.postList[self.selectedRow].price
             self.post?.thumbnail = self.postList[self.selectedRow].thumbnail

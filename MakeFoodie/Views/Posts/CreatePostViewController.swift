@@ -555,9 +555,8 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             
             let post:Post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: parent.curruid)
             
-            DataManager.insertOrEditPost(post) {
-                parent.loadPosts()
-            }
+            DataManager.insertOrEditPost(post)
+            parent.loadPosts()
             
             // Redirect back to tableView
             self.navigationController?.popViewController(animated: true)
