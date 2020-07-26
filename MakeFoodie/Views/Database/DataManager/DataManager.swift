@@ -85,6 +85,19 @@ class DataManager: NSObject {
              onComplete?(followList)
              
          } }
+    static func insertOrReplaceOrder(_ ordersvar: Order)
+    {
+        try? db.collection("order")
+            .document(ordersvar.buyeruid)
+            .setData(from: ordersvar, encoder: Firestore.Encoder())
+        {
+            err in
+            if let err = err {
+                print("Error adding document: \(err)")
+                
+            } else { print("Document successfully added!")
+     } }
+    }
     
     // ========================================================================================================================================================
     // ========================================================================================================================================================
@@ -703,7 +716,7 @@ class DataManager: NSObject {
     }
     
     // Add or Edit Post
-    static func insertOrEditPost(_ post: Post, _ completion: (() -> Void)?) {
+    static func insertOrEditPost(_ post: Post) {
         try? db.collection("post")
             .document(String(post.id))
             .setData(from: post, encoder: Firestore.Encoder()) // Closure omitted because last parameter accepts function
@@ -717,8 +730,6 @@ class DataManager: NSObject {
             else {
                 print("Document successfully added/modified!")
             }
-            
-            completion?()
         }
     }
     

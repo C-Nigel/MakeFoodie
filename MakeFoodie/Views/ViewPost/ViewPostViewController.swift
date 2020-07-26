@@ -81,6 +81,7 @@ class ViewPostViewController: UIViewController {
             self.descLabel.text = self.postList[self.selectedRow].desc
             self.categoryLabel.text = self.postList[self.selectedRow].category
             
+            // Set post to updated values for edit + time check
             self.post?.title = self.postList[self.selectedRow].title
             self.post?.price = self.postList[self.selectedRow].price
             self.post?.thumbnail = self.postList[self.selectedRow].thumbnail
@@ -97,7 +98,7 @@ class ViewPostViewController: UIViewController {
         // Check if time is beyond or before current time
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm a"
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 3600 * 8)
+        dateFormatter.timeZone = TimeZone.current
 
         // Convert start and end time to date
         let startingTime = dateFormatter.date(from: self.post!.startTime)
@@ -105,7 +106,7 @@ class ViewPostViewController: UIViewController {
         
         // Get current date
         let now = dateFormatter.date(from: dateFormatter.string(from: Date()))
-
+                
         // Compare timing
         if startingTime?.compare(now!) == .orderedAscending {
             if endingTime?.compare(now!) == .orderedAscending {
