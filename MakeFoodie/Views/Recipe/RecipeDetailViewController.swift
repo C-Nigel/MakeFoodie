@@ -67,8 +67,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
     
        override func viewDidLoad() {
         super.viewDidLoad()
-        print("recipeDetailViewController viewdidload")
-        print("selectedRow", selectedRow)
         getLoggedInUID()
         checkIfFollowedRecipes()
         
@@ -90,6 +88,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             self.deleteButton.tintColor = UIColor.clear
             
         }
+        
         
         //loading data to view the recipe
         titleLabel.text = self.recipeList[selectedRow].title
@@ -268,7 +267,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                 self.viewDidLoad()
             }
         }
-        
 
         loadRecipes()
         self.allReviewsTableView.reloadData()
@@ -285,14 +283,191 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             // from Firestore. //
             self.recipeList = recipeListFromFirestore
             
-            self.viewDidLoad()
-            
-            
+            self.loadData()
+                       
             self.allReviewsTableView.reloadData()
         }
     }
         
-    
+    func loadData() {
+        //loading data to view the recipe
+        titleLabel.text = self.recipeList[selectedRow].title
+        
+        //calculate rating
+        if (self.recipeList[selectedRow].reviews.isEmpty) {
+            ratingLabel.text = "-"
+        }
+        else {
+            var totalRating: Int = 0
+            var avgRating: Int
+            for i in self.recipeList[selectedRow].reviews.keys {
+                totalRating += Int(self.recipeList[selectedRow].reviews[i]!["Rating"]!)!
+            }
+            avgRating = totalRating/self.recipeList[selectedRow].reviews.count
+            
+            ratingLabel.text = String(avgRating)
+        }
+        
+        //convert image
+        thumbnailImage.image = Recipe.Image.getImage(self.recipeList[selectedRow].thumbnail)()
+        
+        //get username
+        DataManager.loadUser() {
+            userListFromFirestore in
+            self.userList = userListFromFirestore
+            for i in self.userList {
+                if (i.uid == self.recipeList[self.selectedRow].uid) {
+                    self.usernameLabel.text = i.username
+                }
+            }
+        }
+        
+        descLabel.text = self.recipeList[selectedRow].desc
+        ingLabel.text = self.recipeList[selectedRow].ingredients
+        instructionLabel.text = self.recipeList[selectedRow].instructions
+        if !(self.userList.isEmpty) { //if userList not empty
+            
+            if !(self.recipeList[self.selectedRow].reviews.isEmpty) { //if reviews not empty
+                for i in self.recipeList[self.selectedRow].reviews.keys { //i = keys in reviews dict
+                    if (i == self.curruid) {
+                        currUserHasReview = true
+                    }
+                    else { //if i is other uid
+                        otherUserHasReview = true
+                    }
+                }
+                if (currUserHasReview) {
+                    print("currUserHasReview")
+                    //if has current user review, hide add review button and show your review
+                    for i in self.recipeList[self.selectedRow].reviews.keys {
+                        if (i == self.curruid) {
+                            self.yourReviewEditButton.isHidden = false
+                            self.yourReviewDeleteButton.isHidden = false
+                            self.addReviewButton.isHidden = true
+                            self.yourUsernameLabel.isHidden = false
+                            self.yourRatingLabel.isHidden = false
+                            self.yourCommentsLabel.isHidden = false
+                            self.yourStar.isHidden = false
+                            self.yourReviewLabel.isHidden = false
+                            //assign values to current user's review
+                            self.yourRatingLabel.text = self.recipeList[self.selectedRow].reviews[i]!["Rating"]
+                            
+                            if (self.recipeList[self.selectedRow].reviews[i]!["Comments"] != "") {
+                                self.yourCommentsLabel.text = self.recipeList[self.selectedRow].reviews[i]!["Comments"]
+                            }
+                            else {
+                                self.yourCommentsLabel.isHidden = true
+                            }
+                            for x in self.userList {
+                                if (x.uid == i) {
+                                    yourUsernameLabel.text = x.username
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+                else {
+                    print("curr user no review")
+                    //if current user has no review, show add review and hide your review
+                    self.addReviewButton.isHidden = false
+                    self.yourUsernameLabel.isHidden = true
+                    self.yourRatingLabel.isHidden = true
+                    self.yourCommentsLabel.isHidden = true
+                    self.yourStar.isHidden = true
+                    self.yourReviewLabel.isHidden = true
+                    self.yourReviewEditButton.isHidden = true
+                    self.yourReviewDeleteButton.isHidden = true
+                    
+
+                }
+                
+                if (otherUserHasReview) {
+                    print("otherUserHasReview")
+                    if (currUserHasReview) {
+                        print("other & current user has review")
+                        //change reviewlabel to Other Reviews, hide addReview btn and show your review
+                        self.reviewTitle.text = "Other Reviews"
+                        for i in self.recipeList[self.selectedRow].reviews.keys {
+                            if (i == self.curruid) {
+                                self.yourReviewEditButton.isHidden = false
+                                self.yourReviewDeleteButton.isHidden = false
+                                self.addReviewButton.isHidden = true
+                                self.yourUsernameLabel.isHidden = false
+                                self.yourRatingLabel.isHidden = false
+                                self.yourCommentsLabel.isHidden = false
+                                self.yourStar.isHidden = false
+                                self.yourReviewLabel.isHidden = false
+                                //assign values to current user's review
+                                self.yourRatingLabel.text = self.recipeList[self.selectedRow].reviews[i]!["Rating"]
+                                
+                                if (self.recipeList[self.selectedRow].reviews[i]!["Comments"] != "") {
+                                    self.yourCommentsLabel.text = self.recipeList[self.selectedRow].reviews[i]!["Comments"]
+                                }
+                                else {
+                                    self.yourCommentsLabel.isHidden = true
+                                }
+                            }
+                            else {
+                                self.otherReviews.updateValue(self.recipeList[self.selectedRow].reviews[i]!, forKey: i)
+                            }
+                        }
+                        //hide no reviews label and show all reviews tableview
+                        self.noReviewsLabel.isHidden = true
+                        self.allReviewsTableView.isHidden = false
+                    }
+                    else {
+                        print("only other user review")
+                        //if only other user has review, assign cell labels, reviewlabel is Reviews
+                        reviewTitle.text = "Reviews"
+                        //add remaining reviews to otherReviews (not counting current user's)
+                        for i in self.recipeList[self.selectedRow].reviews.keys {
+                            if (i != self.curruid) {
+                            self.otherReviews.updateValue(self.recipeList[self.selectedRow].reviews[i]!, forKey: i)
+                            }
+                        }
+                    }
+                }
+                else { //if other user has no review
+                    print("other user no review")
+                    //if curr user has review
+                    if (currUserHasReview) {
+                        //change reviewTitle to Other Reviews
+                        reviewTitle.text = "Other Reviews"
+                    }
+                    //show no reviews label and hide tableview
+                    self.noReviewsLabel.isHidden = false
+                    self.allReviewsTableView.isHidden = true
+                }
+                
+                
+            }
+            else { //if reviews is empty
+                //hide your review, hide tableview
+                self.addReviewButton.isHidden = false
+                self.yourUsernameLabel.isHidden = true
+                self.yourRatingLabel.isHidden = true
+                self.yourCommentsLabel.isHidden = true
+                self.yourStar.isHidden = true
+                self.yourReviewLabel.isHidden = true
+                self.yourReviewEditButton.isHidden = true
+                self.yourReviewDeleteButton.isHidden = true
+                self.allReviewsTableView.isHidden = true
+            }
+        }
+        else { //if userList is empty, loadUser again
+            DataManager.loadUser() {
+                userListFromFirestore in
+                self.userList = userListFromFirestore
+                for i in self.userList {
+                    if (i.uid == self.recipeList[self.selectedRow].uid) {
+                        self.usernameLabel.text = i.username
+                    }
+                }
+            }
+        }
+        
+    } // end loadData
     
     
     
@@ -357,9 +532,9 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             // What it is to reassigned the new list loaded
             // from Firestore. //
             self.recipeList = recipeListFromFirestore
-            
-            self.viewDidLoad()
+            self.loadData()
         }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -456,6 +631,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                 
             //loadRecipes
             parent.loadRecipes()
+            self.loadRecipes()
                 
         
             
