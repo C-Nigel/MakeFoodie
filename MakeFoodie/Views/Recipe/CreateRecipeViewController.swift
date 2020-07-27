@@ -362,8 +362,8 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
             
             //going back to tableviewcontroller after adding
             self.navigationController?.popViewController(animated: true)
-            
         }
+        
         
     }
     

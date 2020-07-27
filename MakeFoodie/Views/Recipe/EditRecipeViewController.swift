@@ -365,6 +365,7 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
             //loadRecipe
             tableViewController.loadRecipes()
             parent.loadRecipes()
+            parent.viewDidLoad()
             
             //going back to RecipeDetailViewController after editing
             self.navigationController?.popViewController(animated: true)

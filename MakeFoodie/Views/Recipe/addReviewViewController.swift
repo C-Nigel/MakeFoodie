@@ -54,6 +54,7 @@ class addReviewViewController: UIViewController {
             //loadRecipe
             tableViewController.loadRecipes()
             parent.loadRecipes()
+            parent.viewDidLoad()
             
             //going back to RecipeDetailViewController after editing
             self.navigationController?.popViewController(animated: true)

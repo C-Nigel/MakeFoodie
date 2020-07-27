@@ -99,9 +99,7 @@ class DataManager: NSObject {
      } }
     }
     
-    // ========================================================================================================================================================
-    // ========================================================================================================================================================
-    // Nigel
+    //MARK: NIGEL
     
     static var names = [(String, String)]()
     
@@ -140,37 +138,119 @@ class DataManager: NSObject {
     
     static func loadRecomendedItems(onComplete: (([Item]) -> Void)?)
     {
-        db.collection("post").getDocuments()
+        // testing alorithm
+        var listOfFollowedCategories: [String] = []
+        var itemList : [Item] = []
+        db.collection("follow").whereField("type", isEqualTo: "post").whereField("followeruid", isEqualTo: Auth.auth().currentUser!.uid).getDocuments()
         {
-            // get all items from firestore and store inside Item array
-            (querySnapshot, err) in
-            
-            var itemList : [Item] = []
-            
+            (QuerySnapshot, err) in
             if let err = err
             {
-                // handles error here
-                
-                print("Error getting all items: \(err)")
+                print("\(err) at loadRecommendedItems func")
             }
             else
             {
-                for document in querySnapshot!.documents
+                if QuerySnapshot?.count == 0
                 {
-                    // this line tells Firestore to retrieve all fields and update it into our Item object automatically.
-                    
-                    // The requires the Movie object to implement the Codable protocol
-                    
-                    let item = try? document.data(as: Item.self)!
-                    
-                    if item != nil
+                    db.collection("post").getDocuments()
                     {
-                        getUsernameByUID(uid: item!.uid) { (username) in
-                            item?.uid = username
-                            itemList.append(item!)
-                            
-                            // Once we have compeleted processing, call the onComplete closure passed in by the caller
-                            onComplete?(itemList)
+                        // get all items from firestore and store inside Item array
+                        (querySnapshot, err) in
+
+                        var itemList : [Item] = []
+
+                        if let err = err
+                        {
+                            // handles error here
+
+                            print("Error getting all items: \(err)")
+                        }
+                        else
+                        {
+                            for document in querySnapshot!.documents
+                            {
+                                // this line tells Firestore to retrieve all fields and update it into our Item object automatically.
+
+                                // The requires the Movie object to implement the Codable protocol
+
+                                let item = try? document.data(as: Item.self)!
+
+                                if item != nil
+                                {
+                                    getUsernameByUID(uid: item!.uid) { (username) in
+                                        item?.uid = username
+                                        itemList.append(item!)
+
+                                        // Once we have compeleted processing, call the onComplete closure passed in by the caller
+                                        onComplete?(itemList)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for document in QuerySnapshot!.documents
+                    {
+                        let item = try? document.data(as: Follow.self)!
+                        print(item!.following)
+                        db.collection("post").whereField("id", isEqualTo: item!.following).getDocuments()
+                        {
+                            (QuerySnapshot, err) in
+                            if let err = err
+                            {
+                                print("\(err) at loadRecommendedItems func")
+                            }
+                            else
+                            {
+                                for document in QuerySnapshot!.documents
+                                {
+                                    let item = try? document.data(as: postDetails.self)!
+                                    if listOfFollowedCategories.contains(item!.category) == false
+                                    {
+                                        listOfFollowedCategories.append(item!.category)
+                                    }
+                                }
+                                print(listOfFollowedCategories)
+                                
+                                if listOfFollowedCategories.isEmpty == false
+                                {
+                                    for _ in 1...1
+                                    {
+                                        let randomSelector = listOfFollowedCategories.randomElement()
+                                        db.collection("post").whereField("category", isEqualTo: randomSelector!).getDocuments()
+                                        {
+                                            (QuerySnapshot, err) in
+                                            if let err = err
+                                            {
+                                                print("\(err) at loadRecommendedItems func")
+                                            }
+                                            else
+                                            {
+                                                for items in QuerySnapshot!.documents
+                                                {
+                                                    let item = try? items.data(as: Item.self)!
+                                                    
+                                                    if item != nil
+                                                    {
+                                                    if item?.uid != Auth.auth().currentUser?.uid
+                                                    {
+                                                        getUsernameByUID(uid: item!.uid) { (username) in
+                                                            item?.uid = username
+                                                            itemList.append(item!)
+                                                            
+                                                            // Once we have compeleted processing, call the onComplete closure passed in by the caller
+                                                            onComplete?(itemList)
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                         }
+                                     }
+                                }
+                            }
                         }
                     }
                 }
@@ -542,14 +622,17 @@ class DataManager: NSObject {
         }
     }
     
-    //zoe//
+    //MARK: ZOE
+    
     //add or edit recipe
     static func insertOrReplaceRecipe(_ recipe: Recipe) {
         try? db.collection("recipes")
             .document(String(recipe.recipeID))
             .setData(from: recipe, encoder: Firestore.Encoder()) {
                  err in
-                 if let err = err { print("Error adding document: \(err)") } else { print("Document successfully added!")
+                 if let err = err { print("Error adding document: \(err)")
+                    
+                 } else { print("Document successfully added!")
              }
                 
         }
@@ -578,7 +661,20 @@ class DataManager: NSObject {
         
     }
     
-    // Kang Ning
+    //delete recipe
+    static func deleteRecipe(_ recipe: Recipe) {            db.collection("recipes").document(recipe.recipeID).delete() { err in
+
+        if let err = err {
+            print("Error removing document: \(err)")
+        }
+        else {
+            print("Document successfully removed!") }
+        }
+    }
+
+    
+    
+    // MARK: KANG NING
     // Loads from firebase and convert to Post array
     static func loadPosts(onComplete: (([Post]) -> Void)?) {
         // getDocuments loads full list of posts in descending order of id field
