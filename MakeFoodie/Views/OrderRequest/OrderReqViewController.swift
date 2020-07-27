@@ -35,9 +35,9 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     @IBOutlet weak var subtotal: UILabel!
     @IBOutlet weak var deliveryfee: UILabel!
     @IBOutlet weak var totalamt: UILabel!
+    @IBOutlet weak var addresses: UITextField!
     
     var list = ["1", "2", "3", "4", "5"]
-    
     
     
     override func viewDidLoad() {
@@ -63,12 +63,13 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             self.postList = postListFromFirestore
             for i in self.postList{
                 if i.title == self.finalName{
+                    self.quantity.text = "1"
                     self.itemname.text = i.title
-                    self.itemprice.text = "$\(Double(i.price))"
+                    self.itemprice.text = "\(Double(i.price))"
                     self.itemimage.image = i.thumbnail.getImage()
-                    self.subtotal.text = "$\(i.price)"
-                    self.deliveryfee.text = "$2"
-                    self.totalamt.text = "$\(Double(i.price + 2))"
+                    self.subtotal.text = "\(i.price)"
+                    self.deliveryfee.text = "2"
+                    self.totalamt.text = "\(Double(i.price + 2))"
                     DataManager.getUsernameByUID(uid: i.uid) { (username) in
                         self.sellername.text = username
                     }
@@ -125,12 +126,13 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
                         if let user = user {
                           
                             let buyeruid: String = user.uid
-                            self.newlist.append(Order(selleruid: selleruid, buyeruid: buyeruid, itemname: self.itemname.text!, itemprice: self.itemprice.text!, address: "", status: "Pending For Acceptance"))
+                            self.newlist.append(Order(selleruid: selleruid, buyeruid: buyeruid, itemname: self.itemname.text!, itemprice: self.itemprice.text!, address: self.addresses.text!, status: "Pending For Acceptance"))
                                 for i in self.newlist{
                                     print(i.selleruid);
                                     print(i.buyeruid);
                                     print(i.itemprice)
                                     print(i.status)
+                                    print(i.address)
                                      /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
                                     
                                     DataManager.insertOrReplaceOrder(i)
