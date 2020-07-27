@@ -307,6 +307,9 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="PxH-5D-LFf" id="Y9d-lJ-ane"/>
+                            </connections>
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="342" id="zbp-n9-hay" customClass="PostCell" customModule="MakeFoodie" customModuleProvider="target">
@@ -395,6 +398,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="postTableView" destination="zvo-Kk-mp2" id="Jdr-O3-iEO"/>
+                        <outlet property="searchBar" destination="zvo-Kk-mp2" id="EOJ-Yg-aOu"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qAE-oI-Fnd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

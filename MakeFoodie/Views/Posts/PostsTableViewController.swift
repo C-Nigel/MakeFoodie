@@ -10,16 +10,26 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class PostsTableViewController: UITableViewController {
+class PostsTableViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet var postTableView: UITableView!
-    var postList: [Post] = []
+    @IBOutlet var searchBar: UITableView!
+    
     var userList: [User] = []
     var username: String = ""
     var curruid: String = ""
-
+    
+    // Create array of all posts for search bar
+    var allPostList: [Post] = []
+    
+    // Array for containing search items
+    var postList: [Post] = []
+    
+    // Check if searching
+    var searchUse = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         loadPosts()
     }
     
@@ -65,10 +75,10 @@ class PostsTableViewController: UITableViewController {
             postListFromFirestore in
 
             // Assign list to list from Firestore
-            self.postList = postListFromFirestore
+            self.allPostList = postListFromFirestore
 
             // Check if list is empty
-            if self.postList.count == 0 {
+            if self.allPostList.count == 0 {
                 let labelDisplay = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)) // Create label
                 labelDisplay.text = "No post has been created" // Set label text
                 labelDisplay.textAlignment = .center
@@ -86,12 +96,53 @@ class PostsTableViewController: UITableViewController {
             self.postTableView.reloadData()
         }
     }
+    
+    // Search bar function
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // Check if searchBar text is empty
+        if searchText.isEmpty == false {
+            postList = allPostList.filter({(data: Post) -> Bool in
+                searchUse = true
+                return data.title.range(of: searchText.lowercased(), options: .caseInsensitive) != nil
+            })
+            // If no post found from search
+            if postList.count == 0 {
+                let labelDisplay = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)) // Create label
+                labelDisplay.text = "No post found" // Set label text
+                labelDisplay.textAlignment = .center
+                labelDisplay.sizeToFit()
+                
+                self.tableView.backgroundView = labelDisplay
+                self.tableView.separatorStyle = .none   // Remove the lines from tableview
+            }
+            else {
+                self.tableView.backgroundView = nil  // Remove label if present
+                self.tableView.separatorStyle = .singleLine // Set lines to tableview
+            }
+        }
+        else {
+            postList = allPostList
+            searchUse = false
+        }
+
+        tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    {
+        self.searchBar.endEditing(true)
+    }
 
     // MARK: - Table view data source
 
     // Tells the UITableView how many rows there will be.
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postList.count
+        if (searchUse == true) {
+            return postList.count
+        }
+        else {
+            return allPostList.count
+        }
     }
 
     //  To create / reuse a UITableViewCell and return it to the UITableView to draw on the screen.
@@ -100,7 +151,10 @@ class PostsTableViewController: UITableViewController {
         let cell : PostCell = tableView.dequeueReusableCell (withIdentifier: "PostCell", for: indexPath) as! PostCell
 
         // Use the reused cell/newly created cell and update it
-        let p = postList[indexPath.row]
+        var p = allPostList[indexPath.row]
+        if searchUse == true {
+            p = postList[indexPath.row]
+        }
         cell.titleLabel.text = p.title
         cell.titleLabel.sizeToFit()
         cell.postImageView.image = p.thumbnail.getImage()
@@ -120,41 +174,6 @@ class PostsTableViewController: UITableViewController {
         
         return cell
     }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     // MARK: - Navigation
 
@@ -167,9 +186,17 @@ class PostsTableViewController: UITableViewController {
             let myIndexPath = self.tableView.indexPathForSelectedRow
             if(myIndexPath != nil) {
                 // Set the post object to selected post
-                let post = postList[myIndexPath!.row]
-                viewPostViewController.selectedRow = myIndexPath!.row
-                viewPostViewController.post = post
+                if (searchUse == true) {
+                    let post = postList[myIndexPath!.row]
+                    // Pass index based on allPostList and postList matching id
+                    viewPostViewController.selectedRow = allPostList.firstIndex(where: { $0.id == post.id })!
+                    viewPostViewController.post = post
+                }
+                else {
+                    let post = allPostList[myIndexPath!.row]
+                    viewPostViewController.selectedRow = myIndexPath!.row
+                    viewPostViewController.post = post
+                }
             }
         }
     }
