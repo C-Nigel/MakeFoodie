@@ -35,6 +35,9 @@ class editReviewViewController: UIViewController {
         }
             
         self.reviews = self.recipeList[self.selectedRow].reviews
+        
+        //hide keyboard when clicking outside input area
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
