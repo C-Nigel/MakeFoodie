@@ -632,7 +632,11 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             //loadRecipes
             parent.loadRecipes()
             self.loadRecipes()
-                
+               
+            //test navigate to same controller
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Recipe", bundle: nil)
+            let newViewController = storyBoard.instantiateViewController(withIdentifier: "RecipeDetailViewController")
+            self.present(newViewController, animated: false, completion: nil)
         
             
 

@@ -169,10 +169,11 @@ class RecipesTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if (segue.identifier == "viewRecipeDetails") {
             let destView = segue.destination as! RecipeDetailViewController
+            let myIndexPath = self.tableView.indexPathForSelectedRow
+            
             destView.recipeList = self.recipeList
-            destView.selectedRow = self.recipeTableView.indexPathForSelectedRow!.row
+            destView.selectedRow = myIndexPath!.row
             destView.curruid = self.curruid
-
         }
     }
     
