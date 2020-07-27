@@ -99,9 +99,7 @@ class DataManager: NSObject {
      } }
     }
     
-    // ========================================================================================================================================================
-    // ========================================================================================================================================================
-    // Nigel
+    //MARK: NIGEL
     
     static var names = [(String, String)]()
     
@@ -650,14 +648,17 @@ class DataManager: NSObject {
         }
     }
     
-    //zoe//
+    //MARK: ZOE
+    
     //add or edit recipe
     static func insertOrReplaceRecipe(_ recipe: Recipe) {
         try? db.collection("recipes")
             .document(String(recipe.recipeID))
             .setData(from: recipe, encoder: Firestore.Encoder()) {
                  err in
-                 if let err = err { print("Error adding document: \(err)") } else { print("Document successfully added!")
+                 if let err = err { print("Error adding document: \(err)")
+                    
+                 } else { print("Document successfully added!")
              }
                 
         }
@@ -686,7 +687,20 @@ class DataManager: NSObject {
         
     }
     
-    // Kang Ning
+    //delete recipe
+    static func deleteRecipe(_ recipe: Recipe) {            db.collection("recipes").document(recipe.recipeID).delete() { err in
+
+        if let err = err {
+            print("Error removing document: \(err)")
+        }
+        else {
+            print("Document successfully removed!") }
+        }
+    }
+
+    
+    
+    // MARK: KANG NING
     // Loads from firebase and convert to Post array
     static func loadPosts(onComplete: (([Post]) -> Void)?) {
         // getDocuments loads full list of posts in descending order of id field

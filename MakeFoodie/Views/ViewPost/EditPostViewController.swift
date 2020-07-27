@@ -269,15 +269,18 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBAction func startTimeTextFieldBeginEditing(_ sender: Any) {
         let timePickerView:UIDatePicker = UIDatePicker()
         timePickerView.datePickerMode = .time
+        startTimePickerSetValue(sender: timePickerView)
         startTimeTextField.inputView = timePickerView
         timePickerView.addTarget(self, action: #selector(startTimePickerChanged(sender:)), for: .valueChanged) // When value change in datePicker, call function
+
     }
     
     @IBAction func endTimeTextFieldBeginEditing(_ sender: Any) {
         let timePickerView:UIDatePicker = UIDatePicker()
         timePickerView.datePickerMode = .time
+        endTimePickerSetValue(sender: timePickerView)
         endTimeTextField.inputView = timePickerView
-        timePickerView.addTarget(self, action: #selector(endTimePickerChanged(sender:)), for: .valueChanged) // When value change in datePicker, call function
+        timePickerView.addTarget(self, action: #selector(endTimePickerChanged(sender:)), for: .valueChanged) // When value change in datePicker call function
     }
     
     // Function to set textField to datePicker time
@@ -291,6 +294,35 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         endTimeTextField.text = dateFormatter.string(from: sender.date)
+    }
+    
+    // Function to set datePicker time value to textField time
+    func startTimePickerSetValue(sender:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        
+        // Check if textfield empty
+        if (startTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == false) {
+            sender.date = dateFormatter.date(from: startTimeTextField.text!)!
+        }
+        else {
+            sender.date = Date()
+            startTimeTextField.text = dateFormatter.string(from: sender.date)
+        }
+    }
+
+    func endTimePickerSetValue(sender:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        
+        // Check if textfield empty
+        if (endTimeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == false) {
+            sender.date = dateFormatter.date(from: endTimeTextField.text!)!
+        }
+        else {
+            sender.date = Date()
+            endTimeTextField.text = dateFormatter.string(from: sender.date)
+        }
     }
     
     // MARK: - Button actions

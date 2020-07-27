@@ -29,10 +29,11 @@ class addReviewViewController: UIViewController {
         commentsTextView.layer.borderColor = UIColor.black.cgColor
         commentsTextView.layer.borderWidth = 0.3
         commentsTextView.layer.cornerRadius = 6
-        
-        
-        
+
         self.reviews = self.recipeList[self.selectedRow].reviews
+        
+        //hide keyboard when clicking outside input area
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
@@ -54,6 +55,7 @@ class addReviewViewController: UIViewController {
             //loadRecipe
             tableViewController.loadRecipes()
             parent.loadRecipes()
+            parent.viewDidLoad()
             
             //going back to RecipeDetailViewController after editing
             self.navigationController?.popViewController(animated: true)
