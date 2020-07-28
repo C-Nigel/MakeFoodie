@@ -1006,6 +1006,12 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="M5Y-y9-uoi" customClass="RatingControl" customModule="MakeFoodie" customModuleProvider="target">
                                 <rect key="frame" x="20" y="162" width="252" height="44"/>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I1e-Sv-lPq">
+                                <rect key="frame" x="144" y="111" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -1017,7 +1023,9 @@
                             <constraint firstItem="CYK-OI-eof" firstAttribute="top" secondItem="qPj-cj-84G" secondAttribute="top" constant="18" id="JYC-Cb-XAL"/>
                             <constraint firstItem="he6-F6-PUM" firstAttribute="top" secondItem="M5Y-y9-uoi" secondAttribute="bottom" constant="36" id="ZKD-wB-XE9"/>
                             <constraint firstItem="he6-F6-PUM" firstAttribute="leading" secondItem="qPj-cj-84G" secondAttribute="leading" constant="20" id="feL-Uf-HAa"/>
+                            <constraint firstItem="I1e-Sv-lPq" firstAttribute="top" secondItem="qPj-cj-84G" secondAttribute="top" constant="23" id="p7c-VL-0in"/>
                             <constraint firstItem="CYK-OI-eof" firstAttribute="leading" secondItem="qPj-cj-84G" secondAttribute="leading" constant="20" id="pPi-Kz-d2w"/>
+                            <constraint firstItem="I1e-Sv-lPq" firstAttribute="leading" secondItem="CYK-OI-eof" secondAttribute="trailing" constant="8" id="uYR-MV-wVe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qPj-cj-84G"/>
                     </view>
@@ -1037,6 +1045,7 @@
                         <outlet property="cancelButton" destination="X9w-5t-dX3" id="zJq-Y2-spl"/>
                         <outlet property="commentsTextView" destination="psU-2l-Y1N" id="boW-ZY-re2"/>
                         <outlet property="ratingControl" destination="M5Y-y9-uoi" id="M6A-if-zdQ"/>
+                        <outlet property="ratingError" destination="I1e-Sv-lPq" id="WMD-b5-E4u"/>
                         <outlet property="saveButton" destination="9WS-gS-nKn" id="c3p-cG-OW4"/>
                     </connections>
                 </viewController>
@@ -1053,19 +1062,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="llz-d8-xlH">
-                                <rect key="frame" x="20" y="115" width="116" height="30"/>
+                                <rect key="frame" x="20" y="106" width="116" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7y-Q4-HzF">
-                                <rect key="frame" x="20" y="251" width="119" height="30"/>
+                                <rect key="frame" x="20" y="242" width="119" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nPl-dg-4Lx">
-                                <rect key="frame" x="20" y="289" width="374" height="222"/>
+                                <rect key="frame" x="20" y="280" width="374" height="222"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="222" id="L2v-8M-DyF"/>
@@ -1076,8 +1085,14 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hiJ-WW-6vc" customClass="RatingControl" customModule="MakeFoodie" customModuleProvider="target">
-                                <rect key="frame" x="20" y="171" width="252" height="44"/>
+                                <rect key="frame" x="20" y="162" width="252" height="44"/>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOF-9N-anA">
+                                <rect key="frame" x="144" y="109" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -1085,10 +1100,12 @@
                             <constraint firstItem="nPl-dg-4Lx" firstAttribute="top" secondItem="U7y-Q4-HzF" secondAttribute="bottom" constant="8" id="5iH-Uj-hgx"/>
                             <constraint firstItem="hiJ-WW-6vc" firstAttribute="top" secondItem="llz-d8-xlH" secondAttribute="bottom" constant="26" id="Pjb-6d-hP8"/>
                             <constraint firstItem="hiJ-WW-6vc" firstAttribute="leading" secondItem="z6h-CX-AtX" secondAttribute="leading" constant="20" id="Spn-4d-Fid"/>
+                            <constraint firstItem="OOF-9N-anA" firstAttribute="top" secondItem="z6h-CX-AtX" secondAttribute="top" constant="21" id="U4O-ZF-SVA"/>
                             <constraint firstItem="llz-d8-xlH" firstAttribute="leading" secondItem="z6h-CX-AtX" secondAttribute="leading" constant="20" id="c0Q-Ck-0Zm"/>
                             <constraint firstItem="nPl-dg-4Lx" firstAttribute="leading" secondItem="z6h-CX-AtX" secondAttribute="leading" constant="20" id="c4N-Yx-HLt"/>
                             <constraint firstItem="U7y-Q4-HzF" firstAttribute="top" secondItem="hiJ-WW-6vc" secondAttribute="bottom" constant="36" id="s6g-1Y-3Ly"/>
-                            <constraint firstItem="llz-d8-xlH" firstAttribute="top" secondItem="z6h-CX-AtX" secondAttribute="top" constant="27" id="y5g-Vd-Mw4"/>
+                            <constraint firstItem="llz-d8-xlH" firstAttribute="top" secondItem="z6h-CX-AtX" secondAttribute="top" constant="18" id="y5g-Vd-Mw4"/>
+                            <constraint firstItem="OOF-9N-anA" firstAttribute="leading" secondItem="llz-d8-xlH" secondAttribute="trailing" constant="8" id="ySF-48-aW4"/>
                             <constraint firstItem="U7y-Q4-HzF" firstAttribute="leading" secondItem="z6h-CX-AtX" secondAttribute="leading" constant="20" id="yl7-OP-PRf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="z6h-CX-AtX"/>
@@ -1103,12 +1120,13 @@
                     <connections>
                         <outlet property="commentsTextView" destination="nPl-dg-4Lx" id="udG-CD-Pn6"/>
                         <outlet property="ratingControl" destination="hiJ-WW-6vc" id="krB-iV-S20"/>
+                        <outlet property="ratingError" destination="OOF-9N-anA" id="zDc-9x-IVJ"/>
                         <outlet property="saveButton" destination="rA3-d5-yOT" id="aLL-Mg-ci4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQA-BI-3vg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1264" y="1475"/>
+            <point key="canvasLocation" x="1263.768115942029" y="1474.5535714285713"/>
         </scene>
     </scenes>
     <resources>

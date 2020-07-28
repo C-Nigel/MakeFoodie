@@ -98,13 +98,13 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         }
         else {
             var totalRating: Int = 0
-            var avgRating: Int
+            var avgRating: Float
             for i in self.recipe!.reviews.keys {
                 totalRating += Int(self.recipe!.reviews[i]!["Rating"]!)!
             }
-            avgRating = totalRating/self.recipe!.reviews.count
+            avgRating = Float(totalRating)/Float(self.recipe!.reviews.count)
             
-            ratingLabel.text = String(avgRating)
+            ratingLabel.text = String(format: "%.1f", avgRating)
         }
         
         //convert image
@@ -234,7 +234,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                     }
                     else {
                         print("only other user review")
-                        //if only other user has review, assign cell labels, reviewlabel is Reviews
+                        //if only other user has review, reviewlabel is Reviews
                         reviewTitle.text = "Reviews"
                         //add remaining reviews to otherReviews (not counting current user's)
                         for i in self.recipe!.reviews.keys {
@@ -296,8 +296,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         
     func loadData() {
         if (self.recipe != nil) {
-            print("LOADDATA")
-            print(self.recipe!.reviews)
             //loading data to view the recipe
             titleLabel.text = self.recipe!.title
             
@@ -307,13 +305,13 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             }
             else {
                 var totalRating: Int = 0
-                var avgRating: Int
+                var avgRating: Float
                 for i in self.recipe!.reviews.keys {
                     totalRating += Int(self.recipe!.reviews[i]!["Rating"]!)!
                 }
-                avgRating = totalRating/self.recipe!.reviews.count
+                avgRating = Float(totalRating)/Float(self.recipe!.reviews.count)
                 
-                ratingLabel.text = String(avgRating)
+                ratingLabel.text = String(format: "%.1f", avgRating)
             }
             
             //convert image
@@ -443,7 +441,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                         }
                         else {
                             print("only other user review")
-                            //if only other user has review, assign cell labels, reviewlabel is Reviews
+                            //if only other user has review, reviewlabel is Reviews
                             reviewTitle.text = "Reviews"
                             //add remaining reviews to otherReviews (not counting current user's)
                             for i in self.recipe!.reviews.keys {
@@ -559,24 +557,24 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewItem", for: indexPath) as! AllReviewsTableViewCell
 
-        let r = self.otherReviews
-        for i in self.userList {
-            if (r[i.uid] != nil) {
+        var reviewKeys: Array<String> = []
+        reviewKeys = Array(self.otherReviews.keys)
+        
+        for i in userList {
+            let key = reviewKeys[indexPath.row]
+            if (key == i.uid) { //comparing review keys uid with userlist uid
                 cell.usernameLabel.text = i.username
-                cell.ratingLabel.text = r[i.uid]!["Rating"]
-                cell.commentsLabel.text = r[i.uid]!["Comments"]
-            }
-            /*for x in r.keys {
-                print(x, "//", i.uid)
-                if (i.uid == x) {
-                    cell.usernameLabel.text = i.username
-                    cell.ratingLabel.text = r[x]!["Rating"]
-                    cell.commentsLabel.text = r[x]!["Comments"]
-                    print(i.username, r[x]!["Rating"])
-                    print(i.username, r[x]!["Comments"])
+                cell.ratingLabel.text = self.otherReviews[key]!["Rating"]
+                if (self.otherReviews[key]!["Comments"]!.isEmpty) {
+                    cell.commentsLabel.text = ""
                 }
-            }*/
+                else {
+                    cell.commentsLabel.text = self.otherReviews[key]!["Comments"]
+                }
+            
+            }
         }
+        
 
         
         return cell
@@ -641,6 +639,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             
             self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.reviews, uid: self.recipe!.uid))
             
+            //reassign recipe to the new version
             self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.reviews, uid: self.recipe!.uid)
             
             if (self.recipe != nil) {

@@ -349,6 +349,7 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
             
             recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipe!.reviews, uid: self.curruid))
             
+            //reassign recipe to the new version
             self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipe!.reviews, uid: self.curruid)
             
             if (self.recipe != nil) {

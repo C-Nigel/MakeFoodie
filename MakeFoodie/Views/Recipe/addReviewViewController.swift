@@ -14,6 +14,7 @@ class addReviewViewController: UIViewController {
     @IBOutlet weak var commentsTextView: UITextView!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var ratingError: UILabel!
     
     var recipeList: Array<Recipe> = []
     var userList: Array<User> = []
@@ -50,6 +51,7 @@ class addReviewViewController: UIViewController {
             
             self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid))
             
+            //reassign recipe to the new version
             self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid)
             
             if (self.recipe != nil) {
@@ -65,6 +67,9 @@ class addReviewViewController: UIViewController {
             //going back to RecipeDetailViewController after editing
             self.navigationController?.popViewController(animated: true)
             
+        }
+        else {
+            ratingError.text = "Please choose a rating!"
         }
     }
     

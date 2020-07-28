@@ -85,13 +85,13 @@ class RecipesTableViewController: UITableViewController {
         }
         else {
             var totalRating: Int = 0
-            var avgRating: Int
+            var avgRating: Float
             for i in r.reviews.keys {
                 totalRating += Int(r.reviews[i]!["Rating"]!)!
             }
-            avgRating = totalRating/r.reviews.count
+            avgRating = Float(totalRating)/Float(r.reviews.count)
             
-            cell.ratingLabel.text = String(avgRating)
+            cell.ratingLabel.text = String(format: "%.1f", avgRating)
         }
         
         cell.descLabel.text = r.desc
@@ -105,17 +105,7 @@ class RecipesTableViewController: UITableViewController {
                 }
             }
         }
-            
-        
-        
-        /*print("for loop")
-        for i in self.userList {
-            print("in for loop")
-            if (i.uid == r.uid) {
-                cell.titleLabel.text = i.username
-            }
-        }*/
-        
+
         return cell
     }
     
