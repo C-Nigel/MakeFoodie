@@ -108,19 +108,24 @@ class ViewPostViewController: UIViewController {
         let now = dateFormatter.date(from: dateFormatter.string(from: Date()))
                 
         // Compare timing
-        if startingTime?.compare(now!) == .orderedAscending {
-            if endingTime?.compare(now!) == .orderedAscending {
-                // Disable order button if beyond
-                self.orderButton.isHidden = true
-            }
-            else {
-                // Enable if still within time period
-                self.orderButton.isHidden = false
-            }
+        if startingTime?.compare(now!) == .orderedSame || endingTime?.compare(now!) == .orderedSame {    // If start or end time and current time same
+            self.orderButton.isHidden = false
         }
         else {
-            // Disable order button if beyond
-            self.orderButton.isHidden = true
+            if startingTime?.compare(now!) == .orderedAscending {
+                if endingTime?.compare(now!) == .orderedAscending {
+                    // Disable order button if beyond
+                    self.orderButton.isHidden = true
+                }
+                else {
+                    // Enable if still within time period
+                    self.orderButton.isHidden = false
+                }
+            }
+            else {
+                // Disable order button if before
+                self.orderButton.isHidden = true
+            }
         }
     }
     

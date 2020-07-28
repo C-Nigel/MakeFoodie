@@ -29,7 +29,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="759"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sY5-eO-AtP">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="981"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1053"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="ZXe-lZ-mFA">
                                                 <rect key="frame" x="20" y="10" width="374" height="30"/>
@@ -221,8 +221,33 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="PgV-CY-Qe2">
+                                                <rect key="frame" x="20" y="707" width="374" height="30"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location: (ignore)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZW-Iv-ixp">
+                                                        <rect key="frame" x="0.0" y="0.0" width="189.5" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No location chosen." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R74-f1-FEk">
+                                                        <rect key="frame" x="201.5" y="0.0" width="172.5" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahS-0t-4QI">
+                                                <rect key="frame" x="20" y="737" width="374" height="42"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <state key="normal" title="Choose location"/>
+                                                <connections>
+                                                    <segue destination="HtW-K8-oNn" kind="show" id="kgw-uh-YPW"/>
+                                                </connections>
+                                            </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UlP-MX-Ky3">
-                                                <rect key="frame" x="20" y="707" width="374" height="266"/>
+                                                <rect key="frame" x="20" y="779" width="374" height="266"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNu-8y-0zn">
                                                         <rect key="frame" x="0.0" y="10" width="374" height="30"/>
@@ -279,6 +304,7 @@
                         <outlet property="descError" destination="Ki8-wb-3N2" id="9rf-5p-Jk9"/>
                         <outlet property="descTextView" destination="7hb-XL-Frk" id="aT0-4t-ptX"/>
                         <outlet property="endTimeTextField" destination="TeG-dc-ErB" id="Fwo-nk-Ndg"/>
+                        <outlet property="locationError" destination="R74-f1-FEk" id="qAn-Rm-Pbs"/>
                         <outlet property="priceError" destination="VJc-7s-krO" id="Lks-QU-GAv"/>
                         <outlet property="priceTextField" destination="aaN-uQ-Y4E" id="B32-Dg-vmH"/>
                         <outlet property="selectPicture" destination="Sux-5I-smk" id="Rvk-cH-oRn"/>
@@ -294,6 +320,50 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Tc-CJ-neK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1657.9710144927537" y="134.59821428571428"/>
+        </scene>
+        <!--Choose Location-->
+        <scene sceneID="KCh-5b-DUU">
+            <objects>
+                <viewController id="HtW-K8-oNn" customClass="MapViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fjz-Mn-pd5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="QUE-94-rPi">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <connections>
+                                    <outlet property="delegate" destination="HtW-K8-oNn" id="K7P-R9-B13"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="QUE-94-rPi" firstAttribute="trailing" secondItem="1mx-du-4S3" secondAttribute="trailing" id="FRR-eS-WCO"/>
+                            <constraint firstItem="QUE-94-rPi" firstAttribute="top" secondItem="1mx-du-4S3" secondAttribute="top" id="MtU-Dk-GKe"/>
+                            <constraint firstItem="QUE-94-rPi" firstAttribute="bottom" secondItem="1mx-du-4S3" secondAttribute="bottom" id="TyC-D2-UTZ"/>
+                            <constraint firstItem="QUE-94-rPi" firstAttribute="leading" secondItem="1mx-du-4S3" secondAttribute="leading" id="yyh-9o-aaN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="1mx-du-4S3"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Choose Location" id="taE-OA-WS4">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Mqx-r9-23Y">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="HtW-K8-oNn" id="8oh-oM-O0t"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="Ks1-Uw-iq3">
+                            <connections>
+                                <action selector="searchButtonPressed:" destination="HtW-K8-oNn" id="nAK-XX-EgQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="QUE-94-rPi" id="u7s-du-n2P"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lmx-Rw-829" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2560.8695652173915" y="134.59821428571428"/>
         </scene>
         <!--Posts-->
         <scene sceneID="g77-qs-aCI">
