@@ -9,7 +9,9 @@
 import UIKit
 
 class OrdersViewController: UIViewController {
+    @IBOutlet weak var tableView: UITableView!
     var orderlist: [Order] = [];
+    
     /*func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         <#code#>
     }
