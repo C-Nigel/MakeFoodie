@@ -18,8 +18,7 @@ class RecipesTableViewController: UITableViewController {
     var username: String = ""
     var uid: String = ""
     var curruid: String = ""
-    
-    var selectedRow: Int = 0
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -173,7 +172,6 @@ class RecipesTableViewController: UITableViewController {
             let recipe = recipeList[myIndexPath!.row]
             
             destView.recipeList = self.recipeList
-            destView.selectedRow = myIndexPath!.row
             destView.curruid = self.curruid
             destView.recipe = recipe
         }

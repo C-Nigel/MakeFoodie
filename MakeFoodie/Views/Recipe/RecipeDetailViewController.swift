@@ -52,7 +52,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
     @IBOutlet weak var allReviewsTableView: UITableView!
     
     var recipeList: Array<Recipe> = []
-    var selectedRow: Int = 0
     var userList: Array<User> = []
     var curruid: String = ""
     var reviews: Dictionary<String, Dictionary<String, String>> = [:]
@@ -81,7 +80,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         self.yourReviewDeleteButton.tintColor = UIColor.orange
         
         //check if recipe uid matches current user
-        if (self.recipeList[self.selectedRow].uid != self.curruid) {
+        if (self.recipe!.uid != self.curruid) {
             //if doesnt match, hide edit and delete button
             self.editButton.isEnabled = false
             self.editButton.tintColor = UIColor.clear
@@ -592,10 +591,10 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             (action:UIAlertAction!) in
             
             // Delete recipe
-            DataManager.deleteRecipe(self.recipeList[self.selectedRow])
+            DataManager.deleteRecipe(self.recipe!)
             
             // Delete followers
-            DataManager.deleteAllfollowers(id: self.recipeList[self.selectedRow].recipeID, type: "recipe")
+            DataManager.deleteAllfollowers(id: self.recipe!.recipeID, type: "recipe")
             
             let viewControllers = self.navigationController?.viewControllers
             let parent = viewControllers?[0] as! RecipesTableViewController
@@ -603,8 +602,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             //loadRecipes
             parent.loadRecipes()
             
-            //since recipe is deleted, reset selectedRow
-            self.selectedRow = 0
             
             //go to tableview
             self.navigationController?.popViewController(animated: true)
@@ -633,24 +630,25 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             (action:UIAlertAction!) in
             
             //remove review from reviews
-            for i in self.recipeList[self.selectedRow].reviews.keys {
+            for i in self.recipe!.reviews.keys {
                 if (i != self.curruid) {
-                    self.reviews.updateValue(self.recipeList[self.selectedRow].reviews[i]!, forKey: i)
+                    self.reviews.updateValue(self.recipe!.reviews[i]!, forKey: i)
                 }
             }
                        
             let viewControllers = self.navigationController?.viewControllers
             let parent = viewControllers?[0] as! RecipesTableViewController
             
-            if !(self.reviews.isEmpty) {
-                self.recipe = Recipe(recipeID: self.recipeList[self.selectedRow].recipeID, title: self.recipeList[self.selectedRow].title, desc: self.recipeList[self.selectedRow].desc, ingredients: self.recipeList[self.selectedRow].ingredients, instructions: self.recipeList[self.selectedRow].instructions, thumbnail: self.recipeList[self.selectedRow].thumbnail, reviews: self.reviews, uid: self.recipeList[self.selectedRow].uid)
-                
-                if (self.recipe != nil) {
-                    //save the updated recipe
-                    DataManager.insertOrReplaceRecipe(self.recipe!)
-                }
-                
+            self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.reviews, uid: self.recipe!.uid))
+            
+            self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.reviews, uid: self.recipe!.uid)
+            
+            if (self.recipe != nil) {
+                //save the updated recipe
+                DataManager.insertOrReplaceRecipe(self.recipe!)
             }
+                
+            
                 
             //loadRecipes
             parent.loadRecipes()
@@ -687,7 +685,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             //pass recipe and curruid into add review vc
             let destView = segue.destination as! addReviewViewController
             destView.recipeList = self.recipeList
-            destView.selectedRow = self.selectedRow
             destView.curruid = self.curruid
             destView.userList = self.userList
             destView.recipe = self.recipe
@@ -695,7 +692,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         if (segue.identifier == "editReview") {
             let destView = segue.destination as! editReviewViewController
             destView.recipeList = self.recipeList
-            destView.selectedRow = self.selectedRow
             destView.curruid = self.curruid
             destView.userList = self.userList
             destView.recipe = self.recipe
@@ -704,7 +700,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         if (segue.identifier == "editRecipe") {
             let destView = segue.destination as! EditRecipeViewController
             destView.recipeList = self.recipeList
-            destView.selectedRow = self.selectedRow
             destView.curruid = self.curruid
             destView.userList = self.userList
             destView.recipe = self.recipe

@@ -14,7 +14,6 @@ class editReviewViewController: UIViewController {
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     var recipeList: Array<Recipe> = []
-    var selectedRow: Int = 0
     var userList: Array<User> = []
     var curruid: String = ""
     
@@ -29,13 +28,13 @@ class editReviewViewController: UIViewController {
         
         for i in self.userList {
             if (i.uid == self.curruid) {
-                self.ratingControl.rating = Int(self.recipeList[self.selectedRow].reviews[i.uid]!["Rating"]!)!
-                self.commentsTextView.text = self.recipeList[self.selectedRow].reviews[i.uid]!["Comments"]
+                self.ratingControl.rating = Int(self.recipe!.reviews[i.uid]!["Rating"]!)!
+                self.commentsTextView.text = self.recipe!.reviews[i.uid]!["Comments"]
                 
             }
         }
             
-        self.reviews = self.recipeList[self.selectedRow].reviews
+        self.reviews = self.recipe!.reviews
         
         //hide keyboard when clicking outside input area
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
@@ -49,13 +48,13 @@ class editReviewViewController: UIViewController {
             let tableViewController = viewControllers?[0] as! RecipesTableViewController
             let parent = viewControllers?[1] as! RecipeDetailViewController
             
-            self.recipeList.append(Recipe(recipeID: self.recipeList[self.selectedRow].recipeID, title: self.recipeList[self.selectedRow].title, desc: self.recipeList[self.selectedRow].desc, ingredients: self.recipeList[self.selectedRow].ingredients, instructions: self.recipeList[self.selectedRow].instructions, thumbnail: self.recipeList[self.selectedRow].thumbnail, reviews:self.reviews, uid: self.recipeList[self.selectedRow].uid))
+            self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid))
             
-            self.recipe = Recipe(recipeID: self.recipeList[self.selectedRow].recipeID, title: self.recipeList[self.selectedRow].title, desc: self.recipeList[self.selectedRow].desc, ingredients: self.recipeList[self.selectedRow].ingredients, instructions: self.recipeList[self.selectedRow].instructions, thumbnail: self.recipeList[self.selectedRow].thumbnail, reviews:self.reviews, uid: self.recipeList[self.selectedRow].uid)
+            self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid)
             
             if (self.recipe != nil) {
                 parent.recipe = self.recipe
-                DataManager.insertOrReplaceRecipe(Recipe(recipeID: self.recipeList[self.selectedRow].recipeID, title: self.recipeList[self.selectedRow].title, desc: self.recipeList[self.selectedRow].desc, ingredients: self.recipeList[self.selectedRow].ingredients, instructions: self.recipeList[self.selectedRow].instructions, thumbnail: self.recipeList[self.selectedRow].thumbnail, reviews:self.reviews, uid: self.recipeList[self.selectedRow].uid))
+                DataManager.insertOrReplaceRecipe(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid))
             }
             
             //loadRecipe

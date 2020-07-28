@@ -34,7 +34,6 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
     @IBOutlet weak var recipeScrollView: UIScrollView!
         
     var recipeList: Array<Recipe> = []
-    var selectedRow: Int = 0
     var userList: Array<User> = []
     var curruid: String = ""
     var recipe: Recipe?
@@ -50,13 +49,13 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
         
         //set round border for desc and instructions
         //loading data to put it in the inputs
-        titleInput.text = self.recipeList[selectedRow].title
-        descTextView.text = self.recipeList[selectedRow].desc
-        ingredientTextView.text = self.recipeList[selectedRow].ingredients
-        instructionsTextView.text = self.recipeList[selectedRow].instructions
+        titleInput.text = self.recipe!.title
+        descTextView.text = self.recipe!.desc
+        ingredientTextView.text = self.recipe!.ingredients
+        instructionsTextView.text = self.recipe!.instructions
         
         //convert image
-        thumbnailImage.image = Recipe.Image.getImage(self.recipeList[selectedRow].thumbnail)()
+        thumbnailImage.image = Recipe.Image.getImage(self.recipe!.thumbnail)()
         
         
         self.descTextView.layer.borderColor = UIColor.black.cgColor
@@ -348,9 +347,9 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
             let tableViewController = viewControllers?[0] as! RecipesTableViewController
             let parent = viewControllers?[1] as! RecipeDetailViewController
             
-            recipeList.append(Recipe(recipeID: self.recipeList[selectedRow].recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipeList[selectedRow].reviews, uid: self.curruid))
+            recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipe!.reviews, uid: self.curruid))
             
-            self.recipe = Recipe(recipeID: self.recipeList[selectedRow].recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipeList[selectedRow].reviews, uid: self.curruid)
+            self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipe!.reviews, uid: self.curruid)
             
             if (self.recipe != nil) {
                 parent.recipe = self.recipe
