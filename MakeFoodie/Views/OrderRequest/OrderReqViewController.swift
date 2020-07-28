@@ -101,6 +101,7 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.quantity.text = self.list[row]
+        self.totalamt.text = String((self.subtotal.text! as NSString).floatValue * (self.quantity.text! as NSString).floatValue + (self.deliveryfee.text! as NSString).floatValue)
         self.dropdown.isHidden = true
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
