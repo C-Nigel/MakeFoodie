@@ -21,6 +21,7 @@ class addReviewViewController: UIViewController {
     var curruid: String = ""
     
     var reviews: Dictionary<String, Dictionary<String, String>> = [:]
+    var recipe: Recipe?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +51,12 @@ class addReviewViewController: UIViewController {
             
             self.recipeList.append(Recipe(recipeID: self.recipeList[self.selectedRow].recipeID, title: self.recipeList[self.selectedRow].title, desc: self.recipeList[self.selectedRow].desc, ingredients: self.recipeList[self.selectedRow].ingredients, instructions: self.recipeList[self.selectedRow].instructions, thumbnail: self.recipeList[self.selectedRow].thumbnail, reviews:self.reviews, uid: self.recipeList[self.selectedRow].uid))
             
-            DataManager.insertOrReplaceRecipe(Recipe(recipeID: self.recipeList[self.selectedRow].recipeID, title: self.recipeList[self.selectedRow].title, desc: self.recipeList[self.selectedRow].desc, ingredients: self.recipeList[self.selectedRow].ingredients, instructions: self.recipeList[self.selectedRow].instructions, thumbnail: self.recipeList[self.selectedRow].thumbnail, reviews:self.reviews, uid: self.recipeList[self.selectedRow].uid))
+            self.recipe = Recipe(recipeID: self.recipeList[self.selectedRow].recipeID, title: self.recipeList[self.selectedRow].title, desc: self.recipeList[self.selectedRow].desc, ingredients: self.recipeList[self.selectedRow].ingredients, instructions: self.recipeList[self.selectedRow].instructions, thumbnail: self.recipeList[self.selectedRow].thumbnail, reviews:self.reviews, uid: self.recipeList[self.selectedRow].uid)
+            
+            if (self.recipe != nil) {
+                parent.recipe = self.recipe
+                DataManager.insertOrReplaceRecipe(self.recipe!)
+            }
             
             //loadRecipe
             tableViewController.loadRecipes()

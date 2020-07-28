@@ -170,10 +170,12 @@ class RecipesTableViewController: UITableViewController {
         if (segue.identifier == "viewRecipeDetails") {
             let destView = segue.destination as! RecipeDetailViewController
             let myIndexPath = self.tableView.indexPathForSelectedRow
+            let recipe = recipeList[myIndexPath!.row]
             
             destView.recipeList = self.recipeList
             destView.selectedRow = myIndexPath!.row
             destView.curruid = self.curruid
+            destView.recipe = recipe
         }
     }
     

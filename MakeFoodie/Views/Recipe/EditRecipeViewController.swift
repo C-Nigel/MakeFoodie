@@ -37,6 +37,7 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
     var selectedRow: Int = 0
     var userList: Array<User> = []
     var curruid: String = ""
+    var recipe: Recipe?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -349,18 +350,12 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
             
             recipeList.append(Recipe(recipeID: self.recipeList[selectedRow].recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipeList[selectedRow].reviews, uid: self.curruid))
             
-            /*for i in recipeList {
-                /*print (i.title)
-                print(i.desc)
-                print(i.ingredients)
-                print(i.instructions)
-                print(i.thumbnail)
-                print(i.reviews)
-                print(i.username)*/
-                
-                DataManager.insertOrReplaceRecipe(i)
-            }*/
-            DataManager.insertOrReplaceRecipe(Recipe(recipeID: self.recipeList[selectedRow].recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipeList[selectedRow].reviews, uid: self.curruid))
+            self.recipe = Recipe(recipeID: self.recipeList[selectedRow].recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipeList[selectedRow].reviews, uid: self.curruid)
+            
+            if (self.recipe != nil) {
+                parent.recipe = self.recipe
+                DataManager.insertOrReplaceRecipe(self.recipe!)
+            }
             
             //loadRecipe
             tableViewController.loadRecipes()
