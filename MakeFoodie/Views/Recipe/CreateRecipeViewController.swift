@@ -40,6 +40,7 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
     let db = Firestore.firestore()
     
     var reviews: Dictionary<String, Dictionary<String, String>> = [:]
+    var recipe: Recipe?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -345,18 +346,11 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
             
             recipeList.append(Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid))
             
-            /*for i in recipeList {
-                /*print (i.title)
-                print(i.desc)
-                print(i.ingredients)
-                print(i.instructions)
-                print(i.thumbnail)
-                print(i.reviews)
-                print(i.username)*/
-                
-                DataManager.insertOrReplaceRecipe(i)
-            }*/
-            DataManager.insertOrReplaceRecipe(Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid))
+            self.recipe = Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid)
+            
+            if (self.recipe != nil) {
+                DataManager.insertOrReplaceRecipe(self.recipe!)
+            }
             
             parent.loadRecipes()
             

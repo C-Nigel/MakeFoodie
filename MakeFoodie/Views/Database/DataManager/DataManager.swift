@@ -135,120 +135,146 @@ class DataManager: NSObject {
         db.collection("follow").document(type + "_" + followeruid + "_" + String(following)).delete()
     }
     
-    
-    static func loadRecomendedItems(onComplete: (([Item]) -> Void)?)
+    static func getFollowedPostIDByUID(onComplete: @escaping (_ FollowedPost: QuerySnapshot) -> ())
     {
-        // testing alorithm
-        var listOfFollowedCategories: [String] = []
-        var itemList : [Item] = []
         db.collection("follow").whereField("type", isEqualTo: "post").whereField("followeruid", isEqualTo: Auth.auth().currentUser!.uid).getDocuments()
         {
             (QuerySnapshot, err) in
             if let err = err
             {
-                print("\(err) at loadRecommendedItems func")
+                print("Unable to get all user followed post: \(err)")
             }
             else
             {
-                if QuerySnapshot?.count == 0
+                onComplete(QuerySnapshot!)
+            }
+        }
+    }
+    
+    static func getAllPost(onComplete: @escaping (_ post: [Item]) -> ())
+    {
+        db.collection("post").getDocuments()
+        {
+            // get all items from firestore and store inside Item array
+            (querySnapshot, err) in
+
+            var itemList : [Item] = []
+
+            if let err = err
+            {
+                // handles error here
+
+                print("Error getting all post items: \(err)")
+            }
+            else
+            {
+                for document in querySnapshot!.documents
                 {
-                    db.collection("post").getDocuments()
+                    // this line tells Firestore to retrieve all fields and update it into our Item object automatically.
+
+                    // The requires the Movie object to implement the Codable protocol
+
+                    let item = try? document.data(as: Item.self)!
+
+                    if item != nil
                     {
-                        // get all items from firestore and store inside Item array
-                        (querySnapshot, err) in
+                        getUsernameByUID(uid: item!.uid) { (username) in
+                            item?.uid = username
+                            itemList.append(item!)
+                            itemList.shuffle()
 
-                        var itemList : [Item] = []
-
-                        if let err = err
-                        {
-                            // handles error here
-
-                            print("Error getting all items: \(err)")
-                        }
-                        else
-                        {
-                            for document in querySnapshot!.documents
-                            {
-                                // this line tells Firestore to retrieve all fields and update it into our Item object automatically.
-
-                                // The requires the Movie object to implement the Codable protocol
-
-                                let item = try? document.data(as: Item.self)!
-
-                                if item != nil
-                                {
-                                    getUsernameByUID(uid: item!.uid) { (username) in
-                                        item?.uid = username
-                                        itemList.append(item!)
-
-                                        // Once we have compeleted processing, call the onComplete closure passed in by the caller
-                                        onComplete?(itemList)
-                                    }
-                                }
-                            }
+                            // Once we have compeleted processing, call the onComplete closure passed in by the caller
+                            onComplete(itemList)
                         }
                     }
                 }
-                else
+            }
+        }
+    }
+    
+    static func getFollowedPostDetailsByID(postID: String, onComplete: @escaping (_ postDetails: postDetails) -> ())
+    {
+        db.collection("post").document(postID).getDocument()
+        {
+            (QuerySnapshot, err) in
+            if let err = err
+            {
+                print("error getting post details by ID: \(err)")
+            }
+            else
+            {
+                let item = try? QuerySnapshot!.data(as: postDetails.self)!
+                onComplete(item!)
+            }
+        }
+    }
+    
+    static func getListOfCategories(followedPost: QuerySnapshot, onComplete: @escaping (_ categories: [String]) -> ())
+    {
+        var addedCategories : [String] = []
+        for document in followedPost.documents
+        {
+            var categories:[String] = []
+            let item = try? document.data(as: Follow.self)!
+            getFollowedPostDetailsByID(postID: item!.following) { (postDetails) in
+                if addedCategories.contains(postDetails.category) == false
                 {
-                    for document in QuerySnapshot!.documents
+                    addedCategories.append(postDetails.category)
+                    categories.append(postDetails.category)
+                }
+                onComplete(categories)
+            }
+        }
+        
+    }
+    
+    
+    static func loadRecomendedItems(onComplete: (([Item]) -> Void)?)
+    {
+        var itemList : [Item] = []
+        // testing algorithm v2
+        
+        getFollowedPostIDByUID { (followedPost) in
+            
+            if followedPost.count == 0
+            {
+                // means user has not followed any post
+                // if so, recommend from all categories
+                getAllPost { (postItems) in
+                    onComplete!(postItems)
+                }
+            }
+            else
+            {
+                getListOfCategories(followedPost: followedPost) { (listOfCategories) in
+                    for category in listOfCategories
                     {
-                        let item = try? document.data(as: Follow.self)!
-                        print(item!.following)
-                        db.collection("post").whereField("id", isEqualTo: item!.following).getDocuments()
+                        db.collection("post").whereField("category", isEqualTo: category).getDocuments()
                         {
                             (QuerySnapshot, err) in
                             if let err = err
                             {
-                                print("\(err) at loadRecommendedItems func")
+                                print("error getting post by list of category: \(err)")
                             }
                             else
                             {
-                                for document in QuerySnapshot!.documents
+                                for items in QuerySnapshot!.documents
                                 {
-                                    let item = try? document.data(as: postDetails.self)!
-                                    if listOfFollowedCategories.contains(item!.category) == false
+                                    let item = try? items.data(as: Item.self)!
+                                    
+                                    if item != nil
                                     {
-                                        listOfFollowedCategories.append(item!.category)
-                                    }
-                                }
-                                print(listOfFollowedCategories)
-                                
-                                if listOfFollowedCategories.isEmpty == false
-                                {
-                                    for _ in 1...1
-                                    {
-                                        let randomSelector = listOfFollowedCategories.randomElement()
-                                        db.collection("post").whereField("category", isEqualTo: randomSelector!).getDocuments()
+                                        if item?.uid != Auth.auth().currentUser?.uid
                                         {
-                                            (QuerySnapshot, err) in
-                                            if let err = err
-                                            {
-                                                print("\(err) at loadRecommendedItems func")
+                                            getUsernameByUID(uid: item!.uid) { (username) in
+                                                item?.uid = username
+                                                itemList.append(item!)
+                                                itemList.shuffle()
+                                                
+                                                onComplete?(itemList)
                                             }
-                                            else
-                                            {
-                                                for items in QuerySnapshot!.documents
-                                                {
-                                                    let item = try? items.data(as: Item.self)!
-                                                    
-                                                    if item != nil
-                                                    {
-                                                    if item?.uid != Auth.auth().currentUser?.uid
-                                                    {
-                                                        getUsernameByUID(uid: item!.uid) { (username) in
-                                                            item?.uid = username
-                                                            itemList.append(item!)
-                                                            
-                                                            // Once we have compeleted processing, call the onComplete closure passed in by the caller
-                                                            onComplete?(itemList)
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                         }
-                                     }
+                                        }
+                                    }
                                 }
                             }
                         }

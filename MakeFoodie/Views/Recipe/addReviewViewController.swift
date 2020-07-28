@@ -14,13 +14,14 @@ class addReviewViewController: UIViewController {
     @IBOutlet weak var commentsTextView: UITextView!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var ratingError: UILabel!
     
     var recipeList: Array<Recipe> = []
-    var selectedRow: Int = 0
     var userList: Array<User> = []
     var curruid: String = ""
     
     var reviews: Dictionary<String, Dictionary<String, String>> = [:]
+    var recipe: Recipe?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,7 @@ class addReviewViewController: UIViewController {
         commentsTextView.layer.borderWidth = 0.3
         commentsTextView.layer.cornerRadius = 6
 
-        self.reviews = self.recipeList[self.selectedRow].reviews
+        self.reviews = self.recipe!.reviews
         
         //hide keyboard when clicking outside input area
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
@@ -48,9 +49,15 @@ class addReviewViewController: UIViewController {
             let tableViewController = viewControllers?[0] as! RecipesTableViewController
             let parent = viewControllers?[1] as! RecipeDetailViewController
             
-            self.recipeList.append(Recipe(recipeID: self.recipeList[self.selectedRow].recipeID, title: self.recipeList[self.selectedRow].title, desc: self.recipeList[self.selectedRow].desc, ingredients: self.recipeList[self.selectedRow].ingredients, instructions: self.recipeList[self.selectedRow].instructions, thumbnail: self.recipeList[self.selectedRow].thumbnail, reviews:self.reviews, uid: self.recipeList[self.selectedRow].uid))
+            self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid))
             
-            DataManager.insertOrReplaceRecipe(Recipe(recipeID: self.recipeList[self.selectedRow].recipeID, title: self.recipeList[self.selectedRow].title, desc: self.recipeList[self.selectedRow].desc, ingredients: self.recipeList[self.selectedRow].ingredients, instructions: self.recipeList[self.selectedRow].instructions, thumbnail: self.recipeList[self.selectedRow].thumbnail, reviews:self.reviews, uid: self.recipeList[self.selectedRow].uid))
+            //reassign recipe to the new version
+            self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid)
+            
+            if (self.recipe != nil) {
+                parent.recipe = self.recipe
+                DataManager.insertOrReplaceRecipe(self.recipe!)
+            }
             
             //loadRecipe
             tableViewController.loadRecipes()
@@ -60,6 +67,9 @@ class addReviewViewController: UIViewController {
             //going back to RecipeDetailViewController after editing
             self.navigationController?.popViewController(animated: true)
             
+        }
+        else {
+            ratingError.text = "Please choose a rating!"
         }
     }
     
