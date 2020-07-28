@@ -28,6 +28,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var thumbnailError: UILabel!
     @IBOutlet weak var timeError: UILabel!
     @IBOutlet weak var descError: UILabel!
+    @IBOutlet weak var locationError: UILabel!
     
     // String array for categories
     var categoryPickerData : [String] = [
@@ -87,6 +88,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         thumbnailError.isHidden = true
         timeError.isHidden = true
         descError.isHidden = true
+        locationError.isHidden = true
         
         loadPosts()
     }
