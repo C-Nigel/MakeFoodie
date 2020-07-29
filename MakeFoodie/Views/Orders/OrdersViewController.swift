@@ -7,25 +7,51 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseFirestoreSwift
+import FirebaseFirestore
 
-class OrdersViewController: UIViewController {
+
+class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
-    var orderlist: [Order] = [];
+    var orderList: [Order] = [];
     
-    /*func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return orderList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
-    }*/
-    
+        //tableView.register(OrderCell.self, forCellReuseIdentifier: "OrderCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderCell", for: indexPath) as! OrderCell
+        let p = orderList[indexPath.row]
+        print(p.itemname)
+        print(p.itemprice)
+        cell.itemname.text = p.itemname
+        cell.price.text = p.itemprice
+        cell.itemimage.image = p.itemimage.getImage()
+        return cell
+    }
+    func loadOrders()
+    {
+        DataManager.loadOrdersBasedOnUID()
+        {
+            orderListFromFirestore in
+            
+            
+            self.orderList = orderListFromFirestore
+        
+            
+            self.tableView.reloadData()
+        }
+    }
 
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        loadOrders()
         // Do any additional setup after loading the view.
     }
     
