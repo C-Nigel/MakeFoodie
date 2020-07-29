@@ -10,7 +10,7 @@
         <!--Recipes-->
         <scene sceneID="Gp9-Jg-ryO">
             <objects>
-                <tableViewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Y8V-FF-DNP" customClass="RecipesTableViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="recipeTableViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Y8V-FF-DNP" customClass="RecipesTableViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="u36-HP-k6f">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -113,7 +113,7 @@
                     <navigationItem key="navigationItem" title="Recipes" id="sDA-fu-cCu">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="zg8-3H-dlU">
                             <connections>
-                                <segue destination="8op-Uw-A9D" kind="show" id="0iO-A9-8SX"/>
+                                <segue destination="8op-Uw-A9D" kind="show" identifier="createRecipeFromTable" id="0iO-A9-8SX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -128,7 +128,7 @@
         <!--Create recipe-->
         <scene sceneID="EbI-W6-T4C">
             <objects>
-                <viewController id="8op-Uw-A9D" customClass="CreateRecipeViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateRecipeViewController" id="8op-Uw-A9D" customClass="CreateRecipeViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GSA-Vf-MUm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -367,7 +367,7 @@
         <!--Recipe-->
         <scene sceneID="9xf-jH-AQf">
             <objects>
-                <navigationController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="gAQ-0H-UpH" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="recipeNavigationController" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="gAQ-0H-UpH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Recipe" image="doc.plaintext" catalog="system" id="C7h-oC-tD0"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pFd-lH-deY">
@@ -987,13 +987,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="he6-F6-PUM">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="he6-F6-PUM">
                                 <rect key="frame" x="20" y="242" width="119" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="psU-2l-Y1N">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="psU-2l-Y1N">
                                 <rect key="frame" x="20" y="280" width="374" height="222"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -1003,7 +1003,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="M5Y-y9-uoi" customClass="RatingControl" customModule="MakeFoodie" customModuleProvider="target">
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="M5Y-y9-uoi" customClass="RatingControl" customModule="MakeFoodie" customModuleProvider="target">
                                 <rect key="frame" x="20" y="162" width="252" height="44"/>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I1e-Sv-lPq">

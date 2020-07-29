@@ -37,6 +37,8 @@ class ViewPostViewController: UIViewController {
     var currentUser: String = ""
     var favourite:Bool = false
     
+    @IBOutlet weak var createRecipe: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -280,6 +282,14 @@ class ViewPostViewController: UIViewController {
         if (segue.identifier == "orderreq"){
             let vc = segue.destination as! OrderReqViewController
             vc.finalName = self.nameText
+        }
+        
+        if (segue.identifier == "createRecipe") {
+            let destView = segue.destination as! CreateRecipeViewController
+            if (self.post != nil) {
+                destView.post = self.post
+                destView.curruid = self.currentUser
+            }
         }
     }
 }

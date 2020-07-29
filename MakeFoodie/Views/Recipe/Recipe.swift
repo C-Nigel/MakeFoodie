@@ -17,8 +17,9 @@ class Recipe: Codable {
     var thumbnail: Image
     var reviews: Dictionary<String, Dictionary<String, String>>
     var uid: String
+    var postId: String?
     
-    init(recipeID: String, title: String, desc: String, ingredients: String, instructions: String, thumbnail: Image, reviews: Dictionary<String, Dictionary<String, String>>, uid: String){
+    init(recipeID: String, title: String, desc: String, ingredients: String, instructions: String, thumbnail: Image, reviews: Dictionary<String, Dictionary<String, String>>, uid: String, postId: String? = ""){
         
         self.recipeID = recipeID
         self.title = title
@@ -28,6 +29,7 @@ class Recipe: Codable {
         self.thumbnail = thumbnail
         self.reviews = reviews
         self.uid = uid
+        self.postId = postId
         
     }
     
