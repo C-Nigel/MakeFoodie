@@ -103,6 +103,8 @@ class DataManager: NSObject {
     
     static var names = [(String, String)]()
     
+    
+    // create a new record when user follows a post
     static func insertRecipeAndPosttFollowData(followeruid: String, following: String, type: String)
     {
 
@@ -110,9 +112,11 @@ class DataManager: NSObject {
         db.collection("follow").document(type + "_" + followeruid + "_" + String(following)).setData(["followeruid":followeruid, "following": following, "type": type])
     }
 
+    // retrieve a specific post that the specific user has followed post
     static func retrieveRecipeAndPosttFollowData(followeruid: String, following: String, type: String, completed: @escaping (_ documentExist: Bool) -> ())
     {
         var documentExist: Bool = false
+        // get a specific document besed on the specific document ID
         db.collection("follow").document(type + "_" + followeruid + "_" + String(following)).getDocument
         {
             (document, error) in
@@ -125,18 +129,23 @@ class DataManager: NSObject {
                     documentExist = true
                 }
             }
+            // return true if document requested exist and is not nil
             print("retrieve data:" + String(documentExist))
             completed(documentExist)
         }
     }
     
+    //remove followed post data when the user unfollows a psot
     static func deleteRecipeAndPosttFollowData(followeruid: String, following: String, type: String)
     {
+        // delete specific document besed on specific document ID
         db.collection("follow").document(type + "_" + followeruid + "_" + String(following)).delete()
     }
     
+    //retrieve all followed post data for the currently logged in user
     static func getFollowedPostIDByUID(onComplete: @escaping (_ FollowedPost: QuerySnapshot) -> ())
     {
+        // retrieve all data where followeruid matches the logged in user
         db.collection("follow").whereField("type", isEqualTo: "post").whereField("followeruid", isEqualTo: Auth.auth().currentUser!.uid).getDocuments()
         {
             (QuerySnapshot, err) in
@@ -151,6 +160,7 @@ class DataManager: NSObject {
         }
     }
     
+    // get all post from all categories
     static func getAllPost(onComplete: @escaping (_ post: [Item]) -> ())
     {
         db.collection("post").getDocuments()
@@ -178,6 +188,7 @@ class DataManager: NSObject {
 
                     if item != nil
                     {
+                        // retrieve user's name based on uid and in order to show name on page
                         getUsernameByUID(uid: item!.uid) { (username) in
                             item?.uid = username
                             itemList.append(item!)
@@ -192,6 +203,7 @@ class DataManager: NSObject {
         }
     }
     
+    // get post details by specific post ID
     static func getFollowedPostDetailsByID(postID: String, onComplete: @escaping (_ postDetails: postDetails) -> ())
     {
         db.collection("post").document(postID).getDocument()
@@ -204,11 +216,15 @@ class DataManager: NSObject {
             else
             {
                 let item = try? QuerySnapshot!.data(as: postDetails.self)!
+                // return all details
                 onComplete(item!)
             }
         }
     }
     
+    // get the list of categories based on the posts the user has followed
+    // goes through followed posts and extract the category which the post is in
+    // and append it into a list, and return
     static func getListOfCategories(followedPost: QuerySnapshot, onComplete: @escaping (_ categories: [String]) -> ())
     {
         var addedCategories : [String] = []
@@ -222,13 +238,14 @@ class DataManager: NSObject {
                     addedCategories.append(postDetails.category)
                     categories.append(postDetails.category)
                 }
+                // return the list of categories
                 onComplete(categories)
             }
         }
-        
     }
     
-    
+    // called in viewDidLoad
+    // loads what post should be recommended to the user
     static func loadRecomendedItems(onComplete: (([Item]) -> Void)?)
     {
         var itemList : [Item] = []
@@ -270,7 +287,7 @@ class DataManager: NSObject {
                                                 item?.uid = username
                                                 itemList.append(item!)
                                                 itemList.shuffle()
-                                                
+                                                // return all the items to be recommended
                                                 onComplete?(itemList)
                                             }
                                         }
@@ -284,6 +301,8 @@ class DataManager: NSObject {
         }
     }
     
+    // when the owner of the post deletes her created post,
+    // all users that thas followed that post will not be able to see the post
     static func deleteAllfollowers(id: String, type: String)
     {
         db.collection("follow").whereField("following", isEqualTo: id).whereField("type", isEqualTo: type).getDocuments()
@@ -303,12 +322,15 @@ class DataManager: NSObject {
         }
     }
     
+    //MARK: follow seague tabs
+    //loads all post in which the logged in user has followed
     static func loadFollowPostItems(onComplete: (([postDetails]) -> Void)?)
     {
         let userUID = Auth.auth().currentUser?.uid
         var followList : [Follow] = []
         var postItems : [postDetails] = []
         
+        // retrieve all docuemnts
         db.collection("follow").getDocuments()
         {
             // get all items from firestore and store inside Item array
