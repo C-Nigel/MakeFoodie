@@ -33,7 +33,7 @@ class ViewPostViewController: UIViewController {
     var postList: [Post] = []
     var username: String = ""
     var nameText = ""
-    var selectedRow: Int = 0
+    var currPostId: String = ""
     var currentUser: String = ""
     var favourite:Bool = false
     
@@ -75,22 +75,27 @@ class ViewPostViewController: UIViewController {
             // Assign list to list from Firestore
             self.postList = postListFromFirestore
             
-            // For edit, set labels to new edited data
-            self.titleLabel.text = self.postList[self.selectedRow].title
-            self.priceLabel.text = "$" + String(self.postList[self.selectedRow].price)
-            self.postImageView.image = self.postList[self.selectedRow].thumbnail.getImage()
-            self.timeLabel.text = self.postList[self.selectedRow].startTime + " to " + self.postList[self.selectedRow].endTime
-            self.descLabel.text = self.postList[self.selectedRow].desc
-            self.categoryLabel.text = self.postList[self.selectedRow].category
-            
-            // Set post to updated values for edit + time check
-            self.post?.title = self.postList[self.selectedRow].title
-            self.post?.price = self.postList[self.selectedRow].price
-            self.post?.thumbnail = self.postList[self.selectedRow].thumbnail
-            self.post?.startTime = self.postList[self.selectedRow].startTime
-            self.post?.endTime = self.postList[self.selectedRow].endTime
-            self.post?.desc = self.postList[self.selectedRow].desc
-            self.post?.category = self.postList[self.selectedRow].category
+            for i in 0 ..< self.postList.count {
+                // Find the post based on Id
+                if self.postList[i].id == self.currPostId {
+                    // For edit, set labels to new edited data
+                    self.titleLabel.text = self.postList[i].title
+                    self.priceLabel.text = "$" + String(self.postList[i].price)
+                    self.postImageView.image = self.postList[i].thumbnail.getImage()
+                    self.timeLabel.text = self.postList[i].startTime + " to " + self.postList[i].endTime
+                    self.descLabel.text = self.postList[i].desc
+                    self.categoryLabel.text = self.postList[i].category
+                    
+                    // Set post to updated values for edit + time check
+                    self.post?.title = self.postList[i].title
+                    self.post?.price = self.postList[i].price
+                    self.post?.thumbnail = self.postList[i].thumbnail
+                    self.post?.startTime = self.postList[i].startTime
+                    self.post?.endTime = self.postList[i].endTime
+                    self.post?.desc = self.postList[i].desc
+                    self.post?.category = self.postList[i].category
+                }
+            }
             
             self.compareTime()
         }
@@ -110,7 +115,8 @@ class ViewPostViewController: UIViewController {
         let now = dateFormatter.date(from: dateFormatter.string(from: Date()))
                 
         // Compare timing
-        if startingTime?.compare(now!) == .orderedSame || endingTime?.compare(now!) == .orderedSame {    // If start or end time and current time same
+        // If start or end time and current time same
+        if startingTime?.compare(now!) == .orderedSame || endingTime?.compare(now!) == .orderedSame {
             self.orderButton.isHidden = false
         }
         else {
