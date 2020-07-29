@@ -18,6 +18,7 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var subView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,10 +132,11 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
     {
         if type == "post"
         {
+            self.subView.isHidden = false
             DataManager.loadFollowPostItems()
             {
                 itemListFromFirestore in
-                
+                self.subView.isHidden = true
                 // This is a closure
                 
                 // This block of codes is executed when the async loading from Firestore is complete.
@@ -149,10 +151,11 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         else if type == "recipes"
         {
+            self.subView.isHidden = false
             DataManager.loadFollowRecipeItems()
             {
                 itemListFromFirestore in
-                
+                self.subView.isHidden = true
                 // This is a closure
                 
                 // This block of codes is executed when the async loading from Firestore is complete.
@@ -167,10 +170,11 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         else if type == "user following"
         {
+            self.subView.isHidden = false
             DataManager.loadFollowingUserItems()
             {
                 itemListFromFirestore in
-                
+                self.subView.isHidden = true
                 // This is a closure
                 
                 // This block of codes is executed when the async loading from Firestore is complete.
@@ -185,9 +189,11 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         else if type == "following user"
         {
+            self.subView.isHidden = false
             DataManager.loadUserFollowingItems()
             {
                 itemListFromFirestore in
+                self.subView.isHidden = true
                 
                 // This is a closure
                 

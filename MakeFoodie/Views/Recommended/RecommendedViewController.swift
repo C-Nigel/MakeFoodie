@@ -27,7 +27,10 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
-    func loadRecommendedItems()
+    var refreshControl = UIRefreshControl()
+    var itemList : [Item] = []
+    
+    func loadRecommendedItems(onComplete: @escaping (_ status: String) -> ())
     {
         DataManager.loadRecomendedItems()
         {
@@ -43,10 +46,10 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
             //Once done, call on the Table View to reload all its contents
             
             self.tableView.reloadData()
+            onComplete("Done")
         }
     }
     
-    var itemList : [Item] = []
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -56,10 +59,18 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
 
         // Do any additional setup after loading the view.
         
-        //itemList.append(Item(
-        //title: "Very good duck rice", price: 5, desc: "Best duck and rice u will ever taste", imageName: "Ah-Seng-Braised-Duck-Rice", userName: "Ah Seng"))
-        
-        loadRecommendedItems()
+        loadRecommendedItems { (status) in
+            self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+            self.refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+            self.tableView.addSubview(self.refreshControl)
+        }
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+       // Code to refresh table view
+        loadRecommendedItems { (Status) in
+            self.refreshControl.endRefreshing()
+        }
     }
     
 
