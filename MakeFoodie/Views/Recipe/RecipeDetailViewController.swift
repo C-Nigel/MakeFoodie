@@ -554,6 +554,16 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         return self.otherReviews.count
     }
     
+    //make all reviews tableview unselectable
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil
+    }
+    
+    //make all reviews tableview not highlighted
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewItem", for: indexPath) as! AllReviewsTableViewCell
 
