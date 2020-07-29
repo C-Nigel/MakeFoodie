@@ -9,18 +9,81 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, UISearchBarDelegate {
+// Create protocol to implement drop pin zoom in
+protocol HandleMapSearch {
+    func dropPinZoomIn(placemark:MKPlacemark)
+}
+
+class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, HandleMapSearch {
 
     @IBOutlet weak var mapView: MKMapView!
     
+    //var locationManager = CLLocationManager?
+    var selectedLocation:MKPlacemark? = nil
+    var addr: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        mapView.delegate = self
+                
         let span:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.4, longitudeDelta: 0.4)   // Width and height of map region (Desired zoom level)
-        let regionCoords:CLLocationCoordinate2D = CLLocationCoordinate2DMake(1.351616, 103.808053)  // Coordinates of Singapore
+        let regionCoords:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 1.351616, longitude: 103.808053)  // Coordinates of Singapore
         let region = MKCoordinateRegion(center: regionCoords, span: span)   // Rectangular geographic region centered around a specific latitude and longitude
         mapView.setRegion(region, animated: true)   // Set region
 
+    }
+    
+    func dropPinZoomIn(placemark:MKPlacemark){
+        // Set location
+        selectedLocation = placemark
+        
+        // Remove existing annotations
+        mapView.removeAnnotations(mapView.annotations)
+        
+        // Add new annotation
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        annotation.subtitle = addr
+        mapView.addAnnotation(annotation)
+        
+        // Set region
+        let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)  // Zoom level
+        let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+    }
+    
+    // Change how annotations look
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // This behaves like the Table View's dequeue re-usable cell.
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
+        
+        // If there aren't any reusable views to dequeue, we will have to create a new one.
+        if annotationView == nil
+        {
+            let pinAnnotationView = MKPinAnnotationView(annotation: nil, reuseIdentifier: "pin")
+            annotationView = pinAnnotationView
+        }
+        let rightButton = UIButton(frame: CGRect(x: 100, y: 155, width: 50, height: 50))
+        rightButton.setTitleColor(.blue, for: .normal)
+        rightButton.setTitle("Set", for: .normal)
+        //let rightButton = UIButton(type: .contactAdd)
+        //rightButton.setTitle("Set", for: .normal)
+        rightButton.addTarget(self, action: #selector(setLocation(_:)), for: .touchUpInside)
+
+        // Assign the annotation to the pin so that iOS knows where to position it in the map.
+        annotationView?.annotation = annotation
+        
+        // Setting this to true allows the callout bubble to pop up when the user clicks on the pin
+        annotationView?.rightCalloutAccessoryView = rightButton
+        annotationView?.canShowCallout = true
+        
+        return annotationView
+    }
+    
+    @objc func setLocation(_ button:UIButton) {
+        print("Clicked on the btn in annotation!")
     }
     
     // Click cancel button
@@ -31,11 +94,18 @@ class MapViewController: UIViewController, UISearchBarDelegate {
     // Click search button
     @IBAction func searchButtonPressed(_ sender: Any) {
         // Create SearchController
-        let searchController = UISearchController(searchResultsController: nil) 
+        // Assign search bar results to table view controller
+        let searchResultsTable = storyboard!.instantiateViewController(withIdentifier: "SearchResultsTable") as! SearchResultsTable
+        searchResultsTable.mapView = mapView
+        searchResultsTable.handleMapSearchDelegate = self
+        let searchController = UISearchController(searchResultsController: searchResultsTable)
+        searchController.searchResultsUpdater = searchResultsTable
+        
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Enter a location..."
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = true
+    
         present(searchController, animated: true, completion: nil)  // Display at nav bar
     }
     

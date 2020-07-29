@@ -46,6 +46,7 @@
 		D42FB78D24BC4C2200F586C2 /* OrderReqViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42FB78C24BC4C2200F586C2 /* OrderReqViewController.swift */; };
 		D46E21DE24B56ADA00F752CF /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46E21DD24B56ADA00F752CF /* Recipe.swift */; };
 		D46E21EA24B5858E00F752CF /* CreateRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46E21E924B5858E00F752CF /* CreateRecipeViewController.swift */; };
+		D4956EC624D10CB500F2CAD5 /* SearchResultsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4956EC524D10CB500F2CAD5 /* SearchResultsTable.swift */; };
 		D4A4AD8B24BE90F10011F00B /* addReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A4AD8A24BE90F10011F00B /* addReviewViewController.swift */; };
 		D4A50F9024AC3121009B0349 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F8F24AC3121009B0349 /* User.swift */; };
 		D4A50F9424AC33AE009B0349 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9324AC33AE009B0349 /* LoginViewController.swift */; };
@@ -139,6 +140,7 @@
 		D42FB78C24BC4C2200F586C2 /* OrderReqViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderReqViewController.swift; sourceTree = "<group>"; };
 		D46E21DD24B56ADA00F752CF /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		D46E21E924B5858E00F752CF /* CreateRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeViewController.swift; sourceTree = "<group>"; };
+		D4956EC524D10CB500F2CAD5 /* SearchResultsTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsTable.swift; sourceTree = "<group>"; };
 		D4A4AD8A24BE90F10011F00B /* addReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addReviewViewController.swift; sourceTree = "<group>"; };
 		D4A50F8F24AC3121009B0349 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D4A50F9324AC33AE009B0349 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				7761BA2624B108FA003CDDF3 /* PostsTableViewController.swift */,
 				775BF65824B4B9C100845E93 /* Post.swift */,
 				7760C62B24CF09B000160075 /* MapViewController.swift */,
+				D4956EC524D10CB500F2CAD5 /* SearchResultsTable.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -775,6 +778,7 @@
 				7D8E836224B84C7700F560F2 /* RecipesTableViewController.swift in Sources */,
 				7761BA2724B108FA003CDDF3 /* PostsTableViewController.swift in Sources */,
 				F445804A2490C08800F1CAA6 /* ItemCell.swift in Sources */,
+				D4956EC624D10CB500F2CAD5 /* SearchResultsTable.swift in Sources */,
 				7DF5EF6024C68CB1001B5B5A /* RatingControl.swift in Sources */,
 				7DB949D724C6E90F008CE681 /* editReviewViewController.swift in Sources */,
 				775BF65924B4B9C100845E93 /* Post.swift in Sources */,
