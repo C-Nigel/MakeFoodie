@@ -52,6 +52,7 @@
 		D4A50F9624AC3485009B0349 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A50F9524AC3485009B0349 /* SignupViewController.swift */; };
 		D4A7D2A324CEA814004E085C /* ViewProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4A7D2A224CEA814004E085C /* ViewProfile.storyboard */; };
 		D4A9E44824C7E6E50056691B /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A9E44724C7E6E50056691B /* Order.swift */; };
+		D4ACF6E124D114A100156098 /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ACF6E024D114A100156098 /* OrderCell.swift */; };
 		D4E0721B24B57CF50035F967 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E0721A24B57CF50035F967 /* ProfileViewController.swift */; };
 		D4E0721D24B57D3D0035F967 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E0721C24B57D3D0035F967 /* OrdersViewController.swift */; };
 		F40B9CAA24B9824100B03A12 /* FollowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40B9CA924B9824100B03A12 /* FollowingViewController.swift */; };
@@ -145,6 +146,7 @@
 		D4A50F9524AC3485009B0349 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		D4A7D2A224CEA814004E085C /* ViewProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViewProfile.storyboard; sourceTree = "<group>"; };
 		D4A9E44724C7E6E50056691B /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		D4ACF6E024D114A100156098 /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
 		D4E0721A24B57CF50035F967 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D4E0721C24B57D3D0035F967 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
 		D8A80922B46711C821A3413A /* Pods-MakeFoodieTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeFoodieTests.release.xcconfig"; path = "Target Support Files/Pods-MakeFoodieTests/Pods-MakeFoodieTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 			children = (
 				F44A4F5B2484D77B00D25E49 /* Orders.storyboard */,
 				D4E0721C24B57D3D0035F967 /* OrdersViewController.swift */,
+				D4ACF6E024D114A100156098 /* OrderCell.swift */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -780,6 +783,7 @@
 				775BF65924B4B9C100845E93 /* Post.swift in Sources */,
 				775BF66324B4C8F600845E93 /* ViewPostViewController.swift in Sources */,
 				25D10E8E24B705F1000F6DE5 /* DateTextField.swift in Sources */,
+				D4ACF6E124D114A100156098 /* OrderCell.swift in Sources */,
 				7DC108BE24BA100E00C553AA /* EditRecipeViewController.swift in Sources */,
 				D4E0721B24B57CF50035F967 /* ProfileViewController.swift in Sources */,
 				472229E3246BC13100E13C81 /* ViewController.swift in Sources */,
