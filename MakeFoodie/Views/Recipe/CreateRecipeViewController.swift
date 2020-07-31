@@ -42,6 +42,9 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
     var reviews: Dictionary<String, Dictionary<String, String>> = [:]
     var recipe: Recipe?
     
+    var curruid: String = ""
+    var post: Post?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -82,6 +85,20 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         descTextView.delegate = self
         ingredientTextView.delegate = self
         instructionsTextView.delegate = self
+        
+        //check if it came from post
+        if (self.post != nil) {
+            //assign title and description
+            titleInput.text = self.post!.title
+            descTextView.text = self.post!.desc
+            thumbnailImage.image = self.post!.thumbnail.getImage()
+        }
+        
+        //show image if there is
+        if (thumbnailImage.image != nil) {
+            thumbnailImage.isHidden = false
+        }
+        
         
         loadRecipes()
         
@@ -338,26 +355,33 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         
         //if all inputs are filled
         if (valid == true) {
-            let viewControllers = self.navigationController?.viewControllers
-            let parent = viewControllers?[0] as! RecipesTableViewController
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Recipe", bundle: nil)
+            let parent = storyBoard.instantiateViewController(withIdentifier: "recipeTableViewController") as! RecipesTableViewController
             
             let ref = db.collection("recipes")
             let docId = ref.document().documentID
-            
-            recipeList.append(Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid))
-            
-            self.recipe = Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid)
+            if (self.post != nil) {
+                recipeList.append(Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: self.curruid, postId: self.post!.id))
+                
+                self.recipe = Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: self.curruid, postId: self.post!.id)
+            }
+            else {
+                recipeList.append(Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: self.curruid))
+                
+                self.recipe = Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid)
+            }
             
             if (self.recipe != nil) {
                 DataManager.insertOrReplaceRecipe(self.recipe!)
             }
             
-            parent.loadRecipes()
             
             //going back to tableviewcontroller after adding
-            self.navigationController?.popViewController(animated: true)
-        }
+            let newViewController = UIStoryboard(name: "Recipe", bundle: nil).instantiateViewController(withIdentifier: "recipeTableViewController")
+            newViewController.modalPresentationStyle = .fullScreen
+            self.present(newViewController, animated: true, completion: nil)
         
+        }
         
     }
     

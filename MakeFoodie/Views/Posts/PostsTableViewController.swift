@@ -188,13 +188,13 @@ class PostsTableViewController: UITableViewController, UISearchBarDelegate {
                 // Set the post object to selected post
                 if (searchUse == true) {
                     let post = postList[myIndexPath!.row]
-                    // Pass index based on allPostList and postList matching id
-                    viewPostViewController.selectedRow = allPostList.firstIndex(where: { $0.id == post.id })!
+                    // Pass id to get the post
+                    viewPostViewController.currPostId = post.id
                     viewPostViewController.post = post
                 }
                 else {
                     let post = allPostList[myIndexPath!.row]
-                    viewPostViewController.selectedRow = myIndexPath!.row
+                    viewPostViewController.currPostId = post.id
                     viewPostViewController.post = post
                 }
             }

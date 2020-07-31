@@ -35,7 +35,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Z4f-PW-yK3">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="523"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="558"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rr-8G-0nn">
                                                 <rect key="frame" x="20" y="8" width="374" height="30"/>
@@ -165,6 +165,13 @@
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="10" left="0.0" bottom="0.0" right="0.0"/>
                                             </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5N-mL-RU9">
+                                                <rect key="frame" x="20" y="520" width="374" height="30"/>
+                                                <state key="normal" title="Create this recipe"/>
+                                                <connections>
+                                                    <segue destination="V8e-ta-b9J" kind="show" identifier="createRecipe" id="9MZ-2p-egI"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
                                     </stackView>
@@ -204,6 +211,7 @@
                     <connections>
                         <outlet property="categoryLabel" destination="REB-DT-Qb4" id="FA5-Yo-aRe"/>
                         <outlet property="chatButton" destination="E98-53-ry2" id="PIx-tZ-0Zs"/>
+                        <outlet property="createRecipe" destination="Q5N-mL-RU9" id="ZA5-bA-rJB"/>
                         <outlet property="deleteButton" destination="O2e-gt-Qnd" id="qj1-yF-lgt"/>
                         <outlet property="descLabel" destination="y9Z-Y5-czv" id="bWz-B4-VAL"/>
                         <outlet property="favouriteButton" destination="ZFW-D3-eQ9" id="nZ6-Xq-0WE"/>
@@ -515,6 +523,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Mc-3f-3gS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="736" y="248"/>
+        </scene>
+        <!--CreateRecipeViewController-->
+        <scene sceneID="m4W-rS-ETQ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Recipe" referencedIdentifier="CreateRecipeViewController" id="V8e-ta-b9J" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="mew-Xn-fF3"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j6R-fZ-yTS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="196" y="593"/>
         </scene>
     </scenes>
     <resources>

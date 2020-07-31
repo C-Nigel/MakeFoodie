@@ -63,6 +63,41 @@ class DataManager: NSObject {
             onComplete?(userList)
             
         } }
+    static func loadOrdersBasedOnUID(onComplete: (([Order]) -> Void)?)
+      {
+         db.collection("order").getDocuments { (data, err) in
+         var orderList : [Order] = []
+             if let err = err
+             { // Handle errors here.
+     //
+                 print("Error getting documents: \(err)") }
+             else
+             {
+                 for document in data!.documents{
+                     let userss = try? document.data(as: Order.self)!
+                     if userss != nil{
+
+                        let user = Auth.auth().currentUser
+                        if let user = user {
+                          
+                            let uidd: String = user.uid
+                            if uidd == userss!.selleruid{
+                                orderList.append(userss!)
+                                print("1")
+                            }
+                           
+                        }
+                              
+                        
+                        
+                         
+                     }
+                 }
+           }
+    
+             onComplete?(orderList)
+             
+         } }
     static func loadFollowers(onComplete: (([Follow]) -> Void)?)
       {
          db.collection("follow").getDocuments { (data, err) in

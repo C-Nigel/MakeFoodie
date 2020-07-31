@@ -33,7 +33,6 @@ class RecipesTableViewController: UITableViewController {
                         if (i.uid == uidd) {
                             self.username = i.username
                             self.curruid = i.uid
-                            print(self.curruid)
                         }
                     }
                 }
@@ -41,6 +40,8 @@ class RecipesTableViewController: UITableViewController {
         }
         else {
         }
+        self.recipeTableView.delegate = self
+        self.recipeTableView.dataSource = self
         loadRecipes()
     }
     
@@ -56,7 +57,6 @@ class RecipesTableViewController: UITableViewController {
             // What it is to reassigned the new list loaded
             // from Firestore. //
             self.recipeList = recipeListFromFirestore
-            
             //reload tableView
             self.recipeTableView.reloadData()
         }
@@ -164,6 +164,11 @@ class RecipesTableViewController: UITableViewController {
             destView.recipeList = self.recipeList
             destView.curruid = self.curruid
             destView.recipe = recipe
+        }
+        if (segue.identifier == "createRecipeFromTable") {
+            let destView = segue.destination as! RecipeDetailViewController
+
+            destView.curruid = self.curruid
         }
     }
     
