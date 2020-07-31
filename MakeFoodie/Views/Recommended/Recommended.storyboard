@@ -66,6 +66,7 @@
                                             <outlet property="priceLabel" destination="wXu-7H-Xld" id="af5-a8-qSk"/>
                                             <outlet property="titleLabel" destination="sHq-gk-zST" id="80X-n8-cva"/>
                                             <outlet property="usernameLabel" destination="f8v-rj-jpM" id="skz-Fr-dw9"/>
+                                            <segue destination="DcV-Tc-AiW" kind="show" identifier="showPostDetails" id="SMe-u2-nfr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

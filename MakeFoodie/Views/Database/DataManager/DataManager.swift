@@ -161,14 +161,14 @@ class DataManager: NSObject {
     }
     
     // get all post from all categories
-    static func getAllPost(onComplete: @escaping (_ post: [Item]) -> ())
+    static func getAllPost(onComplete: @escaping (_ post: [Post]) -> ())
     {
         db.collection("post").getDocuments()
         {
             // get all items from firestore and store inside Item array
             (querySnapshot, err) in
 
-            var itemList : [Item] = []
+            var itemList : [Post] = []
 
             if let err = err
             {
@@ -184,7 +184,7 @@ class DataManager: NSObject {
 
                     // The requires the Movie object to implement the Codable protocol
 
-                    let item = try? document.data(as: Item.self)!
+                    let item = try? document.data(as: Post.self)!
 
                     if item != nil
                     {
@@ -246,9 +246,9 @@ class DataManager: NSObject {
     
     // called in viewDidLoad
     // loads what post should be recommended to the user
-    static func loadRecomendedItems(onComplete: (([Item]) -> Void)?)
+    static func loadRecomendedItems(onComplete: (([Post]) -> Void)?)
     {
-        var itemList : [Item] = []
+        var itemList : [Post] = []
         // testing algorithm v2
         
         getFollowedPostIDByUID { (followedPost) in
@@ -277,7 +277,7 @@ class DataManager: NSObject {
                             {
                                 for items in QuerySnapshot!.documents
                                 {
-                                    let item = try? items.data(as: Item.self)!
+                                    let item = try? items.data(as: Post.self)!
                                     
                                     if item != nil
                                     {
