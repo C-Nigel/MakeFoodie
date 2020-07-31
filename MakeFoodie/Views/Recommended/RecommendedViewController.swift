@@ -17,12 +17,14 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
         
         let p = itemList[indexPath.row]
-        cell.titleLabel.text = p.title
-//        cell.itemImageView.image = UIImage(named: p.imageName)
-        cell.itemImageView.image = p.thumbnail.getImage()
-        cell.usernameLabel.text = p.uid
-        cell.priceLabel.text = "$ \(p.price)"
-        cell.descriptionLabel.text = p.desc
+        DataManager.getUsernameByUID(uid: p.uid) { (usernme) in
+            cell.titleLabel.text = p.title
+    //        cell.itemImageView.image = UIImage(named: p.imageName)
+            cell.itemImageView.image = p.thumbnail.getImage()
+            cell.usernameLabel.text = usernme
+            cell.priceLabel.text = "$ \(p.price)"
+            cell.descriptionLabel.text = p.desc
+        }
         
         return cell
     }
@@ -38,10 +40,11 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
              // Set the movieItem field with the movie
             // object selected by the user.
             //
-                print(myIndexPath!.section)
-                print(myIndexPath!.row)
+//                print(myIndexPath!.section)
+//                print(myIndexPath!.row)
                 let post = itemList[myIndexPath!.row]
                 viewPostViewController.post = post
+                viewPostViewController.currPostId = post.id
             }
         }
     }

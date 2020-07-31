@@ -318,13 +318,10 @@ class DataManager: NSObject {
                                     {
                                         if item?.uid != Auth.auth().currentUser?.uid
                                         {
-                                            getUsernameByUID(uid: item!.uid) { (username) in
-                                                item?.uid = username
-                                                itemList.append(item!)
-                                                itemList.shuffle()
-                                                // return all the items to be recommended
-                                                onComplete?(itemList)
-                                            }
+                                            itemList.append(item!)
+                                            itemList.shuffle()
+                                            // return all the items to be recommended
+                                            onComplete?(itemList)
                                         }
                                     }
                                 }
