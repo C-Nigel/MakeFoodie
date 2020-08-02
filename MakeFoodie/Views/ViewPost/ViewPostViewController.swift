@@ -31,6 +31,7 @@ class ViewPostViewController: UIViewController {
     var post: Post?
     var userList: [User] = []
     var postList: [Post] = []
+    var recipeList: [Recipe] = []
     var username: String = ""
     var nameText = ""
     var currPostId: String = ""
@@ -45,6 +46,7 @@ class ViewPostViewController: UIViewController {
         // Set color to buttons
         chatButton.tintColor = UIColor.orange
         orderButton.tintColor = UIColor.orange
+        createRecipe.tintColor = UIColor.orange
         
         // Check if current logged in user is the user that created the post
         if Auth.auth().currentUser != nil {
@@ -55,15 +57,39 @@ class ViewPostViewController: UIViewController {
                 // If current user is not the user who created the post remove edit and delete button
                 if (uidd != self.post?.uid) {
                     self.navigationItem.rightBarButtonItems = nil
+                    //hide create recipe button
+                    self.createRecipe.isHidden = true
                 }
                 else {
                     // Hide follow btn + order btn if user and post creator is the same
                     favouriteButton.isHidden = true
+                    //check for postId
+                    checkRecipesForPostId()
                 }
             }
         }
         checkIfFollowedPost()
         loadPosts()
+    }
+    
+    //function to load recipes and check if postId exists
+    func checkRecipesForPostId() {
+        DataManager.loadRecipes() {
+            recipeListFromFirestore in
+
+            self.recipeList = recipeListFromFirestore
+            for i in self.recipeList {
+                if (i.postId == self.post?.id) { //if already exists
+                    //hide button
+                    self.createRecipe.isHidden = true
+                }
+                else { //if it doesnt exist
+                    //show button
+                    self.createRecipe.isHidden = false
+                }
+            }
+        }
+        
     }
     
     // Function that loads data from Firestore and refreshes tableView
