@@ -82,10 +82,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         //check if recipe uid matches current user
         if (self.recipe!.uid != self.curruid) {
             //if doesnt match, hide edit and delete button
-            self.editButton.isEnabled = false
-            self.editButton.tintColor = UIColor.clear
-            self.deleteButton.isEnabled = false
-            self.deleteButton.tintColor = UIColor.clear
+            self.navigationItem.rightBarButtonItems = nil
             
         }
         
