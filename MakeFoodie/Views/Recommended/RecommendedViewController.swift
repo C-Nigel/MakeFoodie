@@ -29,26 +29,6 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "showPostDetails")
-        {
-            let nav = segue.destination as! UINavigationController
-            let viewPostViewController = nav.topViewController as! ViewPostViewController
-            let myIndexPath = self.tableView.indexPathForSelectedRow
-            
-            if(myIndexPath != nil) {
-             // Set the movieItem field with the movie
-            // object selected by the user.
-            //
-//                print(myIndexPath!.section)
-//                print(myIndexPath!.row)
-                let post = itemList[myIndexPath!.row]
-                viewPostViewController.post = post
-                viewPostViewController.currPostId = post.id
-            }
-        }
-    }
-    
     var refreshControl = UIRefreshControl()
     var itemList : [Post] = []
     
@@ -105,5 +85,24 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "showPostDetails")
+        {
+            let nav = segue.destination as! UINavigationController
+            let viewPostViewController = nav.topViewController as! ViewPostViewController
+            let myIndexPath = self.tableView.indexPathForSelectedRow
+            
+            if(myIndexPath != nil) {
+             // Set the movieItem field with the movie
+            // object selected by the user.
+            //
+//                print(myIndexPath!.section)
+//                print(myIndexPath!.row)
+                let post = itemList[myIndexPath!.row]
+                viewPostViewController.post = post
+                viewPostViewController.currPostId = post.id
+            }
+        }
+    }
 }

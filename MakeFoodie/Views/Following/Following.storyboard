@@ -103,15 +103,38 @@
                         <viewLayoutGuide key="safeArea" id="geR-b7-0Ao"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Posts" id="yj4-dU-uHh"/>
+                    <navigationItem key="navigationItem" id="tBC-3c-jbS"/>
                     <connections>
                         <outlet property="segmentedControl" destination="rku-OL-gVO" id="PwR-em-kWB"/>
                         <outlet property="subView" destination="JAo-D0-eHQ" id="0ej-SX-Z3r"/>
                         <outlet property="tableView" destination="qvW-8b-mc8" id="cmY-1H-s9A"/>
+                        <segue destination="SSU-c0-ktC" kind="show" identifier="ViewPostVC" id="wTO-6E-nJ5"/>
+                        <segue destination="5Yt-Is-WsV" kind="show" id="Trp-ov-5M6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UJY-GV-YHu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-157.97101449275362" y="-736.60714285714278"/>
+        </scene>
+        <!--ViewPost-->
+        <scene sceneID="cei-TZ-NPc">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="viewPostVC" storyboardName="ViewPost" id="SSU-c0-ktC" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Fe6-aN-OZx"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nYS-br-64j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="695" y="-829"/>
+        </scene>
+        <!--Recipe-->
+        <scene sceneID="xzh-ZK-rnA">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Recipe" id="5Yt-Is-WsV" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Sma-Aq-3d9"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dKV-go-rak" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="772" y="-687"/>
         </scene>
     </scenes>
 </document>

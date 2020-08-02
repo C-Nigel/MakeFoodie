@@ -12,7 +12,7 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
 
      // Declare an array of Movie objects
     var indexSelected : String = "post"
-    var postList : [postDetails] = []
+    var postList : [Post] = []
     var recipeList : [recipeDetails] = []
     var followingUserList : [userDetails] = []
     
@@ -106,6 +106,51 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if indexSelected == "post"
+//        {
+//            print("hi index selected is post")
+//            let storyBoard: UIStoryboard = UIStoryboard(name: "Following", bundle: nil)
+//            //let nav = storyboard?.instantiateViewController(identifier: "Following") as! UINavigationController
+////            let viewController = nav.storyboard?.instantiateViewController(identifier: "viewPostVC") as! ViewPostViewController
+//            let viewController = storyBoard.instantiateViewController(identifier: "viewPostVC") as! ViewPostViewController
+//            viewController.post = postList[indexPath.row]
+//            viewController.currPostId = postList[indexPath.row].id
+//            self.present(viewController, animated: true)
+//        }
+//        else if indexSelected == "recipes"
+//        {
+//
+//        }
+//        else if indexSelected == "user following"
+//        {
+//
+//        }
+//        else if indexSelected == "following user"
+//        {
+//
+//        }
+//    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexSelected == "post"
+                {
+                    print("hi index selected is post")
+                    performSegue(withIdentifier: "ViewPostVC", sender: Any?.self)
+                }
+                else if indexSelected == "recipes"
+                {
+        
+                }
+                else if indexSelected == "user following"
+                {
+        
+                }
+                else if indexSelected == "following user"
+                {
+        
+                }
+    }
     
     @IBAction func segmentedControlChangedIndex(_ sender: Any)
     {
@@ -218,5 +263,25 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         // Pass the selected object to the new view controller.
     }
     */
+    
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "ViewPostVC")
+        {
+            let nav = segue.destination as! UINavigationController
+            let viewPostViewController = nav.topViewController as! ViewPostViewController
+            let myIndexPath = self.tableView.indexPathForSelectedRow
+            
+            if(myIndexPath != nil) {
+             // Set the movieItem field with the movie
+            // object selected by the user.
+            //
+                print(myIndexPath!.section)
+                print(myIndexPath!.row)
+                let post = postList[myIndexPath!.row]
+                viewPostViewController.post = post
+                viewPostViewController.currPostId = post.id
+            }
+        }
+    }
 
 }

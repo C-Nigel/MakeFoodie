@@ -356,11 +356,11 @@ class DataManager: NSObject {
     
     //MARK: follow seague tabs
     //loads all post in which the logged in user has followed
-    static func loadFollowPostItems(onComplete: (([postDetails]) -> Void)?)
+    static func loadFollowPostItems(onComplete: (([Post]) -> Void)?)
     {
         let userUID = Auth.auth().currentUser?.uid
         var followList : [Follow] = []
-        var postItems : [postDetails] = []
+        var postItems : [Post] = []
         
         // retrieve all docuemnts
         db.collection("follow").getDocuments()
@@ -409,21 +409,8 @@ class DataManager: NSObject {
                     }
                     else
                     {
-                        let item = try? querySnapshot!.data(as: postDetails.self)!
-                        
-                        if item != nil
-                        {
-                            for (key, value) in names
-                            {
-                                if key == item?.uid
-                                {
-                                    item?.uid = value
-                                }
-                            }
-                            //item?.uid = getNameByUID(UID: item!.uid)
-                            postItems.append(item!)
-                        }
-                        
+                        let item = try? querySnapshot!.data(as: Post.self)!
+                        postItems.append(item!)
                     }
                     // Once we have compeleted processing, call the onComplete closure passed in by the caller
                     onComplete?(postItems)
