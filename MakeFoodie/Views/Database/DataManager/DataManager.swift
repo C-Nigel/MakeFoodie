@@ -223,15 +223,11 @@ class DataManager: NSObject {
 
                     if item != nil
                     {
-                        // retrieve user's name based on uid and in order to show name on page
-                        getUsernameByUID(uid: item!.uid) { (username) in
-                            item?.uid = username
-                            itemList.append(item!)
-                            itemList.shuffle()
+                        itemList.append(item!)
+                        itemList.shuffle()
 
-                            // Once we have compeleted processing, call the onComplete closure passed in by the caller
-                            onComplete(itemList)
-                        }
+                        // Once we have compeleted processing, call the onComplete closure passed in by the caller
+                        onComplete(itemList)
                     }
                 }
             }
@@ -475,13 +471,6 @@ class DataManager: NSObject {
                         
                         if item != nil
                         {
-                            for (key, value) in names
-                            {
-                                if key == item?.uid
-                                {
-                                    item?.uid = value
-                                }
-                            }
                             //item?.uid = getNameByUID(UID: item!.uid)
                             recipeItems.append(item!)
                         }

@@ -76,16 +76,20 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
         if indexSelected == "post"
         {
             let p = postList[indexPath.row]
-            cell.titleLabel.text = p.title
-            cell.usernameLabel.text = p.uid
-            cell.pictureImageView.image = p.thumbnail.getImage()
+            DataManager.getUsernameByUID(uid: p.uid) { (username) in
+                cell.titleLabel.text = p.title
+                cell.usernameLabel.text = username
+                cell.pictureImageView.image = p.thumbnail.getImage()
+            }
         }
         else if indexSelected == "recipes"
         {
             let p = recipeList[indexPath.row]
-            cell.titleLabel.text = p.title
-            cell.usernameLabel.text = p.uid
-            cell.pictureImageView.image = p.thumbnail.getImage()
+            DataManager.getUsernameByUID(uid: p.uid) { (username) in
+                cell.titleLabel.text = p.title
+                cell.usernameLabel.text = username
+                cell.pictureImageView.image = p.thumbnail.getImage()
+            }
         }
         else if indexSelected == "user following"
         {
