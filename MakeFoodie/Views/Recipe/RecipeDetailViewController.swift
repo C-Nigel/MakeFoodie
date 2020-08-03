@@ -59,6 +59,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
     var currUserHasReview: Bool = false
     var otherUserHasReview: Bool = false
     var recipe: Recipe?
+    var post: Post?
     
     var favourite:Bool = false
     var loggedInUserUID = ""

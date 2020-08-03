@@ -92,6 +92,11 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
             titleInput.text = self.post!.title
             descTextView.text = self.post!.desc
             thumbnailImage.image = self.post!.thumbnail.getImage()
+            
+            let storyBoard: UIStoryboard = UIStoryboard(name: "ViewPost", bundle: nil)
+            let parent = storyBoard.instantiateViewController(withIdentifier: "postsTableViewController") as! PostsTableViewController
+            
+            parent.loadPosts()
         }
         
         //show image if there is
@@ -161,7 +166,6 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         
     //textview edited
     func textViewDidChange(_ textView: UITextView) {
-        //isfocused doesnt work , if has only isempty it shows all errors when one is empty, jumps to instructions box when typing in desc :"D
         if (textView == descTextView) {
             if (descTextView.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
                 descError.text = "Description required!"

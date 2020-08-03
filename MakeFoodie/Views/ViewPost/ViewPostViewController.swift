@@ -32,6 +32,10 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
     // Delete bar button
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     
+    //create recipe and view recipe button
+    @IBOutlet weak var createRecipeButton: UIButton!
+    @IBOutlet weak var viewRecipeButton: UIButton!
+    
     var post: Post?
     var userList: [User] = []
     var postList: [Post] = []
@@ -42,8 +46,6 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
     var currentUser: String = ""
     var favourite:Bool = false
     
-    @IBOutlet weak var createRecipe: UIButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,7 +54,8 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
         // Set color to buttons
         chatButton.tintColor = UIColor.orange
         orderButton.tintColor = UIColor.orange
-        createRecipe.tintColor = UIColor.orange
+        createRecipeButton.tintColor = UIColor.orange
+        viewRecipeButton.tintColor = UIColor.orange
         
         // Check if current logged in user is the user that created the post
         if Auth.auth().currentUser != nil {
@@ -63,15 +66,16 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
                 // If current user is not the user who created the post remove edit and delete button
                 if (uidd != self.post?.uid) {
                     self.navigationItem.rightBarButtonItems = nil
-                    //hide create recipe button
-                    self.createRecipe.isHidden = true
+                    //hide create recipe button if post does not belong to user
+                    self.createRecipeButton.isHidden = true
                 }
                 else {
                     // Hide follow btn if current user and post creator is the same
                     favouriteButton.isHidden = true
                     //check for postId
-                    checkRecipesForPostId()
+
                 }
+                checkRecipesForPostId()
             }
         }
         checkIfFollowedPost()
@@ -86,12 +90,23 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
             self.recipeList = recipeListFromFirestore
             for i in self.recipeList {
                 if (i.postId == self.post?.id) { //if already exists
-                    //hide button
-                    self.createRecipe.isHidden = true
+                    //if post belongs to user (and already exists)
+                    if (self.currentUser == self.post?.uid) {
+                        //hide createRecipeButton
+                        self.createRecipeButton.isHidden = true
+                    }
+                    //show viewRecipeButton
+                    self.viewRecipeButton.isHidden = false
+                    //if found, break out of the loop
+                    break
                 }
                 else { //if it doesnt exist
-                    //show button
-                    self.createRecipe.isHidden = false
+                    //if post belongs to user (and does not exist)
+                    if (self.currentUser == self.post?.uid) {
+                        //show createRecipeButton
+                        self.createRecipeButton.isHidden = false
+                    }
+                    self.viewRecipeButton.isHidden = true
                 }
             }
         }
@@ -389,6 +404,32 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
             if (self.post != nil) {
                 destView.post = self.post
                 destView.curruid = self.currentUser
+            }
+        }
+        
+        if (segue.identifier == "viewRecipe") {
+            let destView = segue.destination as! RecipeDetailViewController
+            if (self.post != nil) {
+                print(self.post?.id)
+                print(self.recipeList)
+                //assign destView.recipe by searching through recipeList for postId
+                for i in self.recipeList {
+                    print(i)
+                    //check if postId matches
+                    if (i.postId == self.post!.id) {
+                        print("postId match")
+                        destView.recipe = Recipe(recipeID: i.recipeID, title: i.title, desc: i.desc, ingredients: i.ingredients, instructions: i.instructions, thumbnail: i.thumbnail, reviews: i.reviews, uid: i.uid, postId: i.postId)
+                        print(destView.recipe?.postId)
+                        //if found, break out of the loop
+                        break
+                    }
+                    else {
+                        print("postId not match")
+                    }
+                }
+                print("DESTVIEW.RECIPE ", destView.recipe)
+                destView.curruid = self.currentUser
+
             }
         }
     }
