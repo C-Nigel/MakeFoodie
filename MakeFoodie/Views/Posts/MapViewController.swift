@@ -78,9 +78,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         rightButton.setTitleColor(.black, for: .normal)
         rightButton.backgroundColor = .orange
         rightButton.setTitle("Set", for: .normal)
-        
-        //let rightButton = UIButton(type: .contactAdd)
-        
+                
         // Add action after clicking
         rightButton.addTarget(self, action: #selector(setLocation(_:)), for: .touchUpInside)
         

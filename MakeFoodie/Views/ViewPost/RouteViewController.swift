@@ -60,6 +60,36 @@ class RouteViewController: UIViewController, MKMapViewDelegate, CLLocationManage
         }
     }
     
+    // Runs if user doesnt allow location permission
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        // Create alertcontroller to tell user to enable permission
+        let alertController = UIAlertController(title: "User location not found!", message: "Please go to Settings and enable permissions", preferredStyle: .alert)
+        
+        // Bring user to settings for location
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
+             }
+        }
+        
+        // If cancel go to prev controller
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
+            (action:UIAlertAction!) in
+            
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        // Add actions to alertcontroller
+        alertController.addAction(cancelAction)
+        alertController.addAction(settingsAction)
+        self.present(alertController, animated: true, completion: nil)
+
+        // func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) i think this runs when authorization change do more research (maybe add btn at this controller bar btn to display on map app? + user curr location blue dot not showing when change permission to allow from deny)
+    }
+    
     // For getting directions from user location to destination
     func getDirections(userCoordinate: CLLocationCoordinate2D, destCoordinate: CLLocationCoordinate2D) {
         // Create placemark for mapItem (User and dest)

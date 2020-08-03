@@ -94,6 +94,23 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         descError.isHidden = true
         locationError.isHidden = true
         
+        currPostId = post?.id // Get current post id to know which post to edit
+        currPostUid = post?.uid // Get curret post uid
+        titleTextField.text = post?.title
+        if post?.price != nil {
+            priceTextField.text = String(post!.price)
+        }
+        else {
+            priceTextField.text = ""
+        }
+        thumbnailImageView.image = post?.thumbnail.getImage()
+        startTimeTextField.text = post?.startTime
+        endTimeTextField.text = post?.endTime
+        descTextView.text = post?.desc
+        if let selectedCategory = categoryPickerData.firstIndex(of: post!.category) {
+            categoryPickerView.selectRow(selectedCategory, inComponent: 0, animated: false)
+        }
+        
         currLocationLat = post?.latitude
         currLocationLng = post?.longitude
         
@@ -141,27 +158,6 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         view.endEditing(true)
     }
     
-    // This function is triggered when the view is about to appear.
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        currPostId = post?.id // Get current post id to know which post to edit
-        currPostUid = post?.uid // Get curret post uid
-        titleTextField.text = post?.title
-        if post?.price != nil {
-            priceTextField.text = String(post!.price)
-        }
-        else {
-            priceTextField.text = ""
-        }
-        thumbnailImageView.image = post?.thumbnail.getImage()
-        startTimeTextField.text = post?.startTime
-        endTimeTextField.text = post?.endTime
-        descTextView.text = post?.desc
-        if let selectedCategory = categoryPickerData.firstIndex(of: post!.category) {
-            categoryPickerView.selectRow(selectedCategory, inComponent: 0, animated: false)
-        }
-    }
     
     // Picker view columns
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -628,7 +624,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             let postsTableView = viewControllers?[0] as! PostsTableViewController
             let parent = viewControllers?[1] as! ViewPostViewController
             let priceValue = Double(priceTextField.text!)
-            
+                        
             let post:Post = Post(id: currPostId!, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: currLocationLat!, longitude: currLocationLng!, locationName: locName, locationAddr: locAddress, uid: currPostUid!)
             
             DataManager.insertOrEditPost(post)
