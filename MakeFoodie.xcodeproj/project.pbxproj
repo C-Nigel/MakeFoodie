@@ -21,6 +21,8 @@
 		653AAA692484F3B7008FAC14 /* Posts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA682484F3B7008FAC14 /* Posts.storyboard */; };
 		653AAA6B2484F412008FAC14 /* ViewPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA6A2484F412008FAC14 /* ViewPost.storyboard */; };
 		653AAA6D2484F46B008FAC14 /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653AAA6C2484F46B008FAC14 /* Categories.storyboard */; };
+		775A99A624D5A466002F829C /* EditMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775A99A524D5A466002F829C /* EditMapViewController.swift */; };
+		775A99AA24D5A907002F829C /* EditSearchResultsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775A99A924D5A907002F829C /* EditSearchResultsTable.swift */; };
 		775BF65924B4B9C100845E93 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775BF65824B4B9C100845E93 /* Post.swift */; };
 		775BF65B24B4BF5500845E93 /* CategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775BF65A24B4BF5500845E93 /* CategoriesTableViewController.swift */; };
 		775BF65D24B4C00D00845E93 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775BF65C24B4C00D00845E93 /* CategoryCell.swift */; };
@@ -32,6 +34,7 @@
 		7761BA1724B0F35A003CDDF3 /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7761BA1624B0F35A003CDDF3 /* CreatePostViewController.swift */; };
 		7761BA2324B10540003CDDF3 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7761BA2224B10540003CDDF3 /* PostCell.swift */; };
 		7761BA2724B108FA003CDDF3 /* PostsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7761BA2624B108FA003CDDF3 /* PostsTableViewController.swift */; };
+		77637F3D24D6ECE600EDE872 /* RouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77637F3C24D6ECE600EDE872 /* RouteViewController.swift */; };
 		78A8FAAD3D0431FC0CC52DD3 /* Pods_MakeFoodieTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D9AB852046ADA495D49303 /* Pods_MakeFoodieTests.framework */; };
 		7D00FE16248E26240018BD08 /* Recipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D00FE15248E26240018BD08 /* Recipe.storyboard */; };
 		7D34C5FD24B9C690008858C6 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34C5FC24B9C690008858C6 /* RecipeDetailViewController.swift */; };
@@ -113,6 +116,8 @@
 		653AAA682484F3B7008FAC14 /* Posts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Posts.storyboard; sourceTree = "<group>"; };
 		653AAA6A2484F412008FAC14 /* ViewPost.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViewPost.storyboard; sourceTree = "<group>"; };
 		653AAA6C2484F46B008FAC14 /* Categories.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Categories.storyboard; sourceTree = "<group>"; };
+		775A99A524D5A466002F829C /* EditMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMapViewController.swift; sourceTree = "<group>"; };
+		775A99A924D5A907002F829C /* EditSearchResultsTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSearchResultsTable.swift; sourceTree = "<group>"; };
 		775BF65824B4B9C100845E93 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		775BF65A24B4BF5500845E93 /* CategoriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewController.swift; sourceTree = "<group>"; };
 		775BF65C24B4C00D00845E93 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
@@ -124,6 +129,7 @@
 		7761BA1624B0F35A003CDDF3 /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		7761BA2224B10540003CDDF3 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		7761BA2624B108FA003CDDF3 /* PostsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableViewController.swift; sourceTree = "<group>"; };
+		77637F3C24D6ECE600EDE872 /* RouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteViewController.swift; sourceTree = "<group>"; };
 		7D00FE15248E26240018BD08 /* Recipe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recipe.storyboard; sourceTree = "<group>"; };
 		7D34C5FC24B9C690008858C6 /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
 		7D62D19E24C6F77E004E6137 /* AllReviewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllReviewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -389,6 +395,9 @@
 				653AAA6A2484F412008FAC14 /* ViewPost.storyboard */,
 				775BF66224B4C8F600845E93 /* ViewPostViewController.swift */,
 				775BF66424B4C93000845E93 /* EditPostViewController.swift */,
+				775A99A524D5A466002F829C /* EditMapViewController.swift */,
+				775A99A924D5A907002F829C /* EditSearchResultsTable.swift */,
+				77637F3C24D6ECE600EDE872 /* RouteViewController.swift */,
 			);
 			path = ViewPost;
 			sourceTree = "<group>";
@@ -782,7 +791,9 @@
 				7761BA2724B108FA003CDDF3 /* PostsTableViewController.swift in Sources */,
 				F445804A2490C08800F1CAA6 /* ItemCell.swift in Sources */,
 				D4956EC624D10CB500F2CAD5 /* SearchResultsTable.swift in Sources */,
+				77637F3D24D6ECE600EDE872 /* RouteViewController.swift in Sources */,
 				7DF5EF6024C68CB1001B5B5A /* RatingControl.swift in Sources */,
+				775A99A624D5A466002F829C /* EditMapViewController.swift in Sources */,
 				7DB949D724C6E90F008CE681 /* editReviewViewController.swift in Sources */,
 				775BF65924B4B9C100845E93 /* Post.swift in Sources */,
 				775BF66324B4C8F600845E93 /* ViewPostViewController.swift in Sources */,
@@ -792,6 +803,7 @@
 				D4E0721B24B57CF50035F967 /* ProfileViewController.swift in Sources */,
 				472229E3246BC13100E13C81 /* ViewController.swift in Sources */,
 				D42FB78B24BC4BB200F586C2 /* ForgetpwViewController.swift in Sources */,
+				775A99AA24D5A907002F829C /* EditSearchResultsTable.swift in Sources */,
 				F40B9CAA24B9824100B03A12 /* FollowingViewController.swift in Sources */,
 				7D8E836624B8500100F560F2 /* RecipeTableViewCell.swift in Sources */,
 				775BF66124B4C7F100845E93 /* ViewCategoryTableViewController.swift in Sources */,

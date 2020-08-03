@@ -9,8 +9,9 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import MapKit
 
-class ViewPostViewController: UIViewController {
+class ViewPostViewController: UIViewController, MKMapViewDelegate {
     // Labels + fav button
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var postImageView: UIImageView!
@@ -20,6 +21,9 @@ class ViewPostViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
+    
+    // Location mapView
+    @IBOutlet weak var locationMap: MKMapView!
     
     // Buttons
     @IBOutlet weak var chatButton: UIButton!
@@ -42,6 +46,8 @@ class ViewPostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        locationMap.delegate = self
+        
         // Set color to buttons
         chatButton.tintColor = UIColor.orange
         orderButton.tintColor = UIColor.orange
@@ -57,7 +63,7 @@ class ViewPostViewController: UIViewController {
                     self.navigationItem.rightBarButtonItems = nil
                 }
                 else {
-                    // Hide follow btn + order btn if user and post creator is the same
+                    // Hide follow btn if current user and post creator is the same
                     favouriteButton.isHidden = true
                 }
             }
@@ -94,6 +100,26 @@ class ViewPostViewController: UIViewController {
                     self.post?.endTime = self.postList[i].endTime
                     self.post?.desc = self.postList[i].desc
                     self.post?.category = self.postList[i].category
+                    self.post?.latitude = self.postList[i].latitude
+                    self.post?.longitude = self.postList[i].longitude
+                    self.post?.locationName = self.postList[i].locationName
+                    self.post?.locationAddr = self.postList[i].locationAddr
+                    
+                    // Set location map
+                    let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)  // Zoom level
+                    let coordinates:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: self.postList[i].latitude, longitude: self.postList[i].longitude)
+                    let region = MKCoordinateRegion(center: coordinates, span: span)
+                    self.locationMap.setRegion(region, animated: true)
+                    
+                    // Place annotation
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = coordinates
+                    annotation.title = self.postList[i].locationName
+                    annotation.subtitle = self.postList[i].locationAddr
+                    self.locationMap.addAnnotation(annotation)
+                    
+                    // Display annotation
+                    self.locationMap.selectAnnotation(self.locationMap.annotations[0], animated: true)
                 }
             }
             
@@ -157,6 +183,26 @@ class ViewPostViewController: UIViewController {
                 self.favourite = false
             }
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // This behaves like the Table View's dequeue re-usable cell.
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
+        
+        // If there aren't any reusable views to dequeue, we will have to create a new one.
+        if annotationView == nil
+        {
+            let pinAnnotationView = MKPinAnnotationView(annotation: nil, reuseIdentifier: "pin")
+            annotationView = pinAnnotationView
+        }
+        
+        // Assign the annotation to the pin so that iOS knows where to position it in the map.
+        annotationView?.annotation = annotation
+        
+        // Set button to right of annotation and pop up when clicked
+        annotationView?.canShowCallout = true
+        
+        return annotationView
     }
     
     // This function is triggered when the view is about to appear.
@@ -262,6 +308,11 @@ class ViewPostViewController: UIViewController {
         }
     }
     
+    // When user click for directions
+    @IBAction func routeButtonPressed(_ sender: Any) {
+        
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -282,6 +333,20 @@ class ViewPostViewController: UIViewController {
                 // Set the post object to selected post
                 let currentPost = post!
                 editPostViewController.post = currentPost
+            }
+        }
+        
+        if (segue.identifier == "GetDirections") {
+            let routeViewController = segue.destination as! RouteViewController
+            if (post != nil) {
+                let lat = post!.latitude
+                let lng = post!.longitude
+                let locName = post!.locationName
+                let locAddr = post!.locationAddr
+                routeViewController.destLat = lat
+                routeViewController.destLng = lng
+                routeViewController.destName = locName
+                routeViewController.destAddr = locAddr
             }
         }
         

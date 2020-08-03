@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MapKit
 
-class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
+class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, GetLocationFromEditMap {
     
     // Inputs
     @IBOutlet weak var titleTextField: UITextField!
@@ -17,6 +18,9 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var startTimeTextField: UITextField!
     @IBOutlet weak var endTimeTextField: UITextField!
     @IBOutlet weak var descTextView: UITextView!
+    @IBOutlet weak var locationTitle: UILabel!
+    @IBOutlet weak var locationAddr: UILabel!
+    @IBOutlet weak var chooseLocation: UIButton!
     @IBOutlet weak var categoryPickerView: UIPickerView!
     
     // Image buttons
@@ -29,6 +33,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var thumbnailError: UILabel!
     @IBOutlet weak var timeError: UILabel!
     @IBOutlet weak var descError: UILabel!
+    @IBOutlet weak var locationError: UILabel!
     
     // Category data
     var categoryPickerData : [String] = [
@@ -45,11 +50,17 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         "Beverages",
         "Others"
     ]
-    
+        
     var post: Post?
     var postList: [Post] = []
     var currPostId: String?
     var currPostUid: String?
+    
+    // Location values
+    var currLocationLat: Double?
+    var currLocationLng: Double?
+    var locName: String = ""
+    var locAddress: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +68,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         // Set color to buttons
         takePicture.tintColor = UIColor.orange
         selectPicture.tintColor = UIColor.orange
+        chooseLocation.tintColor = UIColor.orange
         
         // Close keyboard when click outside textField
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
@@ -80,6 +92,20 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         thumbnailError.isHidden = true
         timeError.isHidden = true
         descError.isHidden = true
+        locationError.isHidden = true
+        
+        currLocationLat = post?.latitude
+        currLocationLng = post?.longitude
+        
+        if post?.locationName != nil {
+            locName = post!.locationName
+            locationTitle.text = locName
+        }
+        
+        if post?.locationAddr != nil {
+            locAddress = post!.locationAddr
+            locationAddr.text = locAddress
+        }
         
         loadPosts()
     }
@@ -93,6 +119,22 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             // Assign list to list from Firestore
             self.postList = postListFromFirestore
         }
+    }
+    
+    func passLocation(controller: EditMapViewController) {
+        // Run after saving in mapviewcontroller to pass value over
+        locationTitle.text = controller.selectedLocation?.name
+        locationAddr.text = controller.locationAddr
+        
+        // Set values
+        currLocationLat = controller.selectedLocation?.coordinate.latitude
+        currLocationLng = controller.selectedLocation?.coordinate.longitude
+        locName = controller.selectedLocation!.name!
+        locAddress = controller.locationAddr
+        
+        locationError.isHidden = true
+        
+        controller.navigationController?.popViewController(animated: true)
     }
     
     @objc func backgroundTap(gesture : UITapGestureRecognizer) {
@@ -345,6 +387,20 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         self.present(picker, animated: true)
     }
     
+    @IBAction func locationButtonPressed(_ sender: Any) {
+        // Display mapviewcontroller when click on choose location
+        let editMapViewController = storyboard!.instantiateViewController(withIdentifier: "EditMapViewController") as! EditMapViewController
+        editMapViewController.getLocationFromEditMapDelegate = self
+        
+        // Pass value of existing coords, name and addr
+        editMapViewController.currSelectedLat = currLocationLat
+        editMapViewController.currSelectedLng = currLocationLng
+        editMapViewController.locationName = locName
+        editMapViewController.locationAddr = locAddress
+        
+        self.navigationController?.pushViewController(editMapViewController, animated: true)
+    }
+    
     // Click on cancel button
     @IBAction func cancelButtonPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -536,6 +592,21 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             descTextView.layer.cornerRadius = 6
         }
         
+        // Location check
+        if (locationTitle.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            locationError.isHidden = false
+            verified = false
+        }
+        else {
+            if (locationAddr.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+                locationError.isHidden = false
+                verified = false
+            }
+            else {
+                locationError.isHidden = true
+            }
+        }
+        
         // Thumbnail check
         if (self.thumbnailImageView.image == nil) {
             thumbnailError.isHidden = false
@@ -558,7 +629,7 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             let parent = viewControllers?[1] as! ViewPostViewController
             let priceValue = Double(priceTextField.text!)
             
-            let post:Post = Post(id: currPostId!, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: currPostUid!)
+            let post:Post = Post(id: currPostId!, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: currLocationLat!, longitude: currLocationLng!, locationName: locName, locationAddr: locAddress, uid: currPostUid!)
             
             DataManager.insertOrEditPost(post)
             postsTableView.loadPosts()

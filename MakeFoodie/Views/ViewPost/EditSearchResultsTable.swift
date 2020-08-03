@@ -1,16 +1,16 @@
 //
-//  SearchResultsTable.swift
+//  EditSearchResultsTable.swift
 //  MakeFoodie
 //
-//  Created by ITP312Grp2 on 29/7/20.
+//  Created by Chen Kang Ning on 1/8/20.
 //  Copyright © 2020 ITP312. All rights reserved.
 //
 
 import UIKit
 import MapKit
 
-class SearchResultsTable: UITableViewController, UISearchResultsUpdating {
-    
+class EditSearchResultsTable: UITableViewController, UISearchResultsUpdating {
+
     @IBOutlet var searchTableView: UITableView!
     
     var matchingResults:[MKMapItem] = []
@@ -104,6 +104,7 @@ class SearchResultsTable: UITableViewController, UISearchResultsUpdating {
         dismiss(animated: true, completion: nil)
     }
 
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -111,4 +112,6 @@ class SearchResultsTable: UITableViewController, UISearchResultsUpdating {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
+    */
+
 }

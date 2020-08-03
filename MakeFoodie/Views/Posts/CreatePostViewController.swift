@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
+import MapKit
 
-class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
+class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, GetLocationFromMap {
     
     // Inputs
     @IBOutlet weak var titleTextField: UITextField!
@@ -20,6 +21,9 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var startTimeTextField: UITextField!
     @IBOutlet weak var endTimeTextField: UITextField!
     @IBOutlet weak var descTextView: UITextView!
+    @IBOutlet weak var chooseLocation: UIButton!
+    @IBOutlet weak var locationTitle: UILabel!
+    @IBOutlet weak var locationAddr: UILabel!
     @IBOutlet weak var categoryPickerView: UIPickerView!
     
     // Error messages
@@ -46,6 +50,9 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         "Others"
     ]
     
+    var selectedLocation:MKPlacemark? = nil
+    var address: String = ""
+    
     // Create list to contain posts from Firebase
     var postList: [Post] = []
     let db = Firestore.firestore()
@@ -59,6 +66,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         // Set color to buttons
         takePicture.tintColor = UIColor.orange
         selectPicture.tintColor = UIColor.orange
+        chooseLocation.tintColor = UIColor.orange
         
         // Close keyboard when click outside textField
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
@@ -90,6 +98,10 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         descError.isHidden = true
         locationError.isHidden = true
         
+        // Hide location labels
+        locationTitle.isHidden = true
+        locationAddr.isHidden = true
+        
         loadPosts()
     }
     
@@ -102,6 +114,22 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             // Assign list to list from Firestore
             self.postList = postListFromFirestore
         }
+    }
+    
+    func passLocation(controller: MapViewController) {
+        // Run after saving in mapviewcontroller to pass value over
+        locationTitle.text = controller.selectedLocation?.name
+        locationAddr.text = controller.locationAddr
+        
+        // Set values
+        selectedLocation = controller.selectedLocation
+        address = controller.locationAddr
+        
+        locationTitle.isHidden = false
+        locationAddr.isHidden = false
+        locationError.isHidden = true
+        
+        controller.navigationController?.popViewController(animated: true)
     }
     
     @objc func backgroundTap(gesture : UITapGestureRecognizer) {
@@ -335,6 +363,12 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.present(picker, animated: true)
     }
 
+    @IBAction func locationButtonPressed(_ sender: Any) {
+        // Display mapviewcontroller when click on choose location
+        let mapViewController = storyboard!.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+        mapViewController.getLocationFromMapDelegate = self
+        self.navigationController?.pushViewController(mapViewController, animated: true)
+    }
     
     // Click cancel button
     @IBAction func cancelButtonPressed(_ sender: Any) {
@@ -529,6 +563,21 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             descTextView.layer.cornerRadius = 6
         }
         
+        // Location check
+        if (locationTitle.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+            locationError.isHidden = false
+            verified = false
+        }
+        else {
+            if (locationAddr.text?.trimmingCharacters(in: .whitespaces).isEmpty == true) {
+                locationError.isHidden = false
+                verified = false
+            }
+            else {
+                locationError.isHidden = true
+            }
+        }
+        
         // Thumbnail check
         if (self.thumbnailImageView.image == nil) {
             thumbnailError.isHidden = false
@@ -553,7 +602,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let ref = db.collection("post")
             let docId = ref.document().documentID
             
-            let post:Post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, uid: parent.curruid)
+            let post:Post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: (selectedLocation?.coordinate.latitude)!, longitude: (selectedLocation?.coordinate.longitude)!, locationName: (selectedLocation?.name)!, locationAddr: address, uid: parent.curruid)
             
             DataManager.insertOrEditPost(post)
             parent.loadPosts()

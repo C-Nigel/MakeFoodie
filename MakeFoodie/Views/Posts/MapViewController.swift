@@ -11,16 +11,20 @@ import MapKit
 
 // Create protocol to implement drop pin zoom in
 protocol HandleMapSearch {
-    func dropPinZoomIn(placemark:MKPlacemark)
+    func dropPinZoomIn(placemark:MKPlacemark, address:String)
+}
+
+protocol GetLocationFromMap {
+    func passLocation(controller: MapViewController)
 }
 
 class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, HandleMapSearch {
 
     @IBOutlet weak var mapView: MKMapView!
     
-    //var locationManager = CLLocationManager?
     var selectedLocation:MKPlacemark? = nil
-    var addr: String = ""
+    var locationAddr: String = ""   // Store selected location formatted address
+    var getLocationFromMapDelegate: GetLocationFromMap! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +38,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
 
     }
     
-    func dropPinZoomIn(placemark:MKPlacemark){
+    func dropPinZoomIn(placemark:MKPlacemark, address:String){
         // Set location
         selectedLocation = placemark
         
@@ -45,13 +49,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
-        annotation.subtitle = addr
+        annotation.subtitle = address
+        locationAddr = address
         mapView.addAnnotation(annotation)
         
         // Set region
         let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)  // Zoom level
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         mapView.setRegion(region, animated: true)
+        
+        // Display annotation
+        mapView.selectAnnotation(mapView.annotations[0], animated: true)
     }
     
     // Change how annotations look
@@ -65,17 +73,21 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
             let pinAnnotationView = MKPinAnnotationView(annotation: nil, reuseIdentifier: "pin")
             annotationView = pinAnnotationView
         }
+        // Create button on the right to set location
         let rightButton = UIButton(frame: CGRect(x: 100, y: 155, width: 50, height: 50))
-        rightButton.setTitleColor(.blue, for: .normal)
+        rightButton.setTitleColor(.black, for: .normal)
+        rightButton.backgroundColor = .orange
         rightButton.setTitle("Set", for: .normal)
+        
         //let rightButton = UIButton(type: .contactAdd)
-        //rightButton.setTitle("Set", for: .normal)
+        
+        // Add action after clicking
         rightButton.addTarget(self, action: #selector(setLocation(_:)), for: .touchUpInside)
-
+        
         // Assign the annotation to the pin so that iOS knows where to position it in the map.
         annotationView?.annotation = annotation
         
-        // Setting this to true allows the callout bubble to pop up when the user clicks on the pin
+        // Set button to right of annotation and pop up when clicked
         annotationView?.rightCalloutAccessoryView = rightButton
         annotationView?.canShowCallout = true
         
@@ -83,7 +95,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
     }
     
     @objc func setLocation(_ button:UIButton) {
-        print("Clicked on the btn in annotation!")
+        // For passing location values from controller
+        getLocationFromMapDelegate.passLocation(controller: self)
     }
     
     // Click cancel button

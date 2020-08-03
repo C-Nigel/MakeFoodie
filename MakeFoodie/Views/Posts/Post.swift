@@ -17,9 +17,13 @@ class Post: Codable {
     var desc: String
     var thumbnail: Image
     var category: String
+    var latitude: Double
+    var longitude: Double
+    var locationName: String
+    var locationAddr: String
     var uid: String
         
-    init(id: String, title: String, price: Double, startTime:String, endTime:String, desc: String, thumbnail: Image, category: String, uid: String)
+    init(id: String, title: String, price: Double, startTime:String, endTime:String, desc: String, thumbnail: Image, category: String, latitude: Double, longitude: Double, locationName: String, locationAddr: String, uid: String)
     {
         self.id = id
         self.title = title
@@ -29,6 +33,10 @@ class Post: Codable {
         self.desc = desc
         self.thumbnail = thumbnail
         self.category = category
+        self.latitude = latitude
+        self.longitude = longitude
+        self.locationName = locationName
+        self.locationAddr = locationAddr
         self.uid = uid
     }
     
