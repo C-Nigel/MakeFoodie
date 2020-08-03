@@ -377,8 +377,9 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
             
             
             //going back to tableviewcontroller after adding
-            let newViewController = UIStoryboard(name: "Recipe", bundle: nil).instantiateViewController(withIdentifier: "recipeTableViewController")
-            newViewController.modalPresentationStyle = .fullScreen
+          
+            let newViewController = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "tabbar") as! UITabBarController
+            newViewController.selectedIndex = 2
             self.present(newViewController, animated: true, completion: nil)
         
         }

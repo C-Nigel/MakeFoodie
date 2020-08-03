@@ -196,14 +196,14 @@ class DataManager: NSObject {
     }
     
     // get all post from all categories
-    static func getAllPost(onComplete: @escaping (_ post: [Item]) -> ())
+    static func getAllPost(onComplete: @escaping (_ post: [Post]) -> ())
     {
         db.collection("post").getDocuments()
         {
             // get all items from firestore and store inside Item array
             (querySnapshot, err) in
 
-            var itemList : [Item] = []
+            var itemList : [Post] = []
 
             if let err = err
             {
@@ -219,7 +219,7 @@ class DataManager: NSObject {
 
                     // The requires the Movie object to implement the Codable protocol
 
-                    let item = try? document.data(as: Item.self)!
+                    let item = try? document.data(as: Post.self)!
 
                     if item != nil
                     {
@@ -281,9 +281,9 @@ class DataManager: NSObject {
     
     // called in viewDidLoad
     // loads what post should be recommended to the user
-    static func loadRecomendedItems(onComplete: (([Item]) -> Void)?)
+    static func loadRecomendedItems(onComplete: (([Post]) -> Void)?)
     {
-        var itemList : [Item] = []
+        var itemList : [Post] = []
         // testing algorithm v2
         
         getFollowedPostIDByUID { (followedPost) in
@@ -312,19 +312,16 @@ class DataManager: NSObject {
                             {
                                 for items in QuerySnapshot!.documents
                                 {
-                                    let item = try? items.data(as: Item.self)!
+                                    let item = try? items.data(as: Post.self)!
                                     
                                     if item != nil
                                     {
                                         if item?.uid != Auth.auth().currentUser?.uid
                                         {
-                                            getUsernameByUID(uid: item!.uid) { (username) in
-                                                item?.uid = username
-                                                itemList.append(item!)
-                                                itemList.shuffle()
-                                                // return all the items to be recommended
-                                                onComplete?(itemList)
-                                            }
+                                            itemList.append(item!)
+                                            itemList.shuffle()
+                                            // return all the items to be recommended
+                                            onComplete?(itemList)
                                         }
                                     }
                                 }
@@ -359,11 +356,11 @@ class DataManager: NSObject {
     
     //MARK: follow seague tabs
     //loads all post in which the logged in user has followed
-    static func loadFollowPostItems(onComplete: (([postDetails]) -> Void)?)
+    static func loadFollowPostItems(onComplete: (([Post]) -> Void)?)
     {
         let userUID = Auth.auth().currentUser?.uid
         var followList : [Follow] = []
-        var postItems : [postDetails] = []
+        var postItems : [Post] = []
         
         // retrieve all docuemnts
         db.collection("follow").getDocuments()
@@ -412,21 +409,8 @@ class DataManager: NSObject {
                     }
                     else
                     {
-                        let item = try? querySnapshot!.data(as: postDetails.self)!
-                        
-                        if item != nil
-                        {
-                            for (key, value) in names
-                            {
-                                if key == item?.uid
-                                {
-                                    item?.uid = value
-                                }
-                            }
-                            //item?.uid = getNameByUID(UID: item!.uid)
-                            postItems.append(item!)
-                        }
-                        
+                        let item = try? querySnapshot!.data(as: Post.self)!
+                        postItems.append(item!)
                     }
                     // Once we have compeleted processing, call the onComplete closure passed in by the caller
                     onComplete?(postItems)
