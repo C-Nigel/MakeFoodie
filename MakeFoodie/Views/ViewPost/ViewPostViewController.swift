@@ -131,6 +131,9 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
                     self.post?.locationName = self.postList[i].locationName
                     self.post?.locationAddr = self.postList[i].locationAddr
                     
+                    // Remove existing annotations
+                    self.locationMap.removeAnnotations(self.locationMap.annotations)
+                    
                     // Set location map
                     let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)  // Zoom level
                     let coordinates:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: self.postList[i].latitude, longitude: self.postList[i].longitude)
