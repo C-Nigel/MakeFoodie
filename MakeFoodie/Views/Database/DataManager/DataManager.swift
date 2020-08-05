@@ -165,7 +165,7 @@ class DataManager: NSObject {
                 }
             }
             // return true if document requested exist and is not nil
-            print("retrieve data:" + String(documentExist))
+            // print("retrieve data:" + String(documentExist))
             completed(documentExist)
         }
     }
@@ -235,7 +235,7 @@ class DataManager: NSObject {
     }
     
     // get post details by specific post ID
-    static func getFollowedPostDetailsByID(postID: String, onComplete: @escaping (_ postDetails: postDetails) -> ())
+    static func getFollowedPostDetailsByID(postID: String, onComplete: @escaping (_ postDetails: Post) -> ())
     {
         db.collection("post").document(postID).getDocument()
         {
@@ -246,7 +246,7 @@ class DataManager: NSObject {
             }
             else
             {
-                let item = try? QuerySnapshot!.data(as: postDetails.self)!
+                let item = try? QuerySnapshot!.data(as: Post.self)!
                 // return all details
                 onComplete(item!)
             }
@@ -415,11 +415,11 @@ class DataManager: NSObject {
         }
     }
     
-    static func loadFollowRecipeItems(onComplete: (([recipeDetails]) -> Void)?)
+    static func loadFollowRecipeItems(onComplete: (([Recipe]) -> Void)?)
     {
         let userUID = Auth.auth().currentUser?.uid
         var followList : [Follow] = []
-        var recipeItems : [recipeDetails] = []
+        var recipeItems : [Recipe] = []
         
         db.collection("follow").getDocuments()
         {
@@ -467,7 +467,7 @@ class DataManager: NSObject {
                     }
                     else
                     {
-                        let item = try? querySnapshot!.data(as: recipeDetails.self)!
+                        let item = try? querySnapshot!.data(as: Recipe.self)!
                         
                         if item != nil
                         {
@@ -539,13 +539,6 @@ class DataManager: NSObject {
                         
                         if item != nil
                         {
-                            for (key, value) in names
-                            {
-                                if key == item?.uid
-                                {
-                                    item?.uid = value
-                                }
-                            }
                             //item?.uid = getNameByUID(UID: item!.uid)
                             followingUserItems.append(item!)
                         }
@@ -614,13 +607,6 @@ class DataManager: NSObject {
                         
                         if item != nil
                         {
-                            for (key, value) in names
-                            {
-                                if key == item?.uid
-                                {
-                                    item?.uid = value
-                                }
-                            }
                             //item?.uid = getNameByUID(UID: item!.uid)
                             followingUserItems.append(item!)
                         }

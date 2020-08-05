@@ -408,24 +408,18 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
         if (segue.identifier == "viewRecipe") {
             let destView = segue.destination as! RecipeDetailViewController
             if (self.post != nil) {
-                print(self.post?.id)
-                print(self.recipeList)
                 //assign destView.recipe by searching through recipeList for postId
                 for i in self.recipeList {
                     print(i)
                     //check if postId matches
                     if (i.postId == self.post!.id) {
-                        print("postId match")
                         destView.recipe = Recipe(recipeID: i.recipeID, title: i.title, desc: i.desc, ingredients: i.ingredients, instructions: i.instructions, thumbnail: i.thumbnail, reviews: i.reviews, uid: i.uid, postId: i.postId)
-                        print(destView.recipe?.postId)
                         //if found, break out of the loop
                         break
                     }
                     else {
-                        print("postId not match")
                     }
                 }
-                print("DESTVIEW.RECIPE ", destView.recipe)
                 destView.curruid = self.currentUser
 
             }
