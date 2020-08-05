@@ -22,29 +22,52 @@ class ProfileViewController: UIViewController {
     
     var userList : [User] = [];
     var followList : [Follow] = [];
+    var visitorUID : String = "";
     override func viewDidLoad() {
         super.viewDidLoad()
       
         if Auth.auth().currentUser != nil{
             let user = Auth.auth().currentUser
             if let user = user {
-              
-                let uidd: String = user.uid
-                
-                DataManager.loadUser(){
-                    userListFromFirestore in
-                    self.userList = userListFromFirestore
-                    for i in self.userList{
-                        if i.uid == uidd{
-                            self.username.text = i.username
-                            if i.imagelink.getImage() != nil{
-                                self.imagey.image = i.imagelink.getImage()
+                if visitorUID != ""
+                {
+                    self.navigationItem.setRightBarButton(nil, animated: true)
+                    self.navigationItem.setLeftBarButton(nil, animated: true)
+                    DataManager.loadUser(){
+                        userListFromFirestore in
+                        self.userList = userListFromFirestore
+                        for i in self.userList{
+                            if i.uid == self.visitorUID{
+                                self.username.text = i.username
+                                if i.imagelink.getImage() != nil{
+                                    self.imagey.image = i.imagelink.getImage()
+                                }
+                                self.descriptions.text = i.description
+                                
                             }
-                            self.descriptions.text = i.description
-                            
                         }
                     }
                 }
+                else
+                {
+                    let uidd: String = user.uid
+                    
+                    DataManager.loadUser(){
+                        userListFromFirestore in
+                        self.userList = userListFromFirestore
+                        for i in self.userList{
+                            if i.uid == uidd{
+                                self.username.text = i.username
+                                if i.imagelink.getImage() != nil{
+                                    self.imagey.image = i.imagelink.getImage()
+                                }
+                                self.descriptions.text = i.description
+                                
+                            }
+                        }
+                    }
+                }
+                let uidd: String = user.uid
                 DataManager.loadFollowers(){
                     followListFromFirestore in
                     self.followList = followListFromFirestore

@@ -161,11 +161,23 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
                 }
                 else if indexSelected == "user following"
                 {
-        
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Profile", bundle: nil)
+                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "viewProfile") as! ProfileViewController
+                    let myIndexPath = self.tableView.indexPathForSelectedRow
+                    let user = followingUserList[myIndexPath!.row]
+                    newViewController.visitorUID = user.uid
+                    newViewController.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(newViewController, animated: true)
                 }
                 else if indexSelected == "following user"
                 {
-        
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Profile", bundle: nil)
+                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "viewProfile") as! ProfileViewController
+                    let myIndexPath = self.tableView.indexPathForSelectedRow
+                    let user = followingUserList[myIndexPath!.row]
+                    newViewController.visitorUID = user.uid
+                    newViewController.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(newViewController, animated: true)
                 }
     }
     
