@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dWu-VE-KCV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dWu-VE-KCV">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -185,7 +185,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3l-sn-fL0">
-                                        <rect key="frame" x="157" y="143" width="20.5" height="30"/>
+                                        <rect key="frame" x="196" y="143" width="20.5" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" image="heart" catalog="system"/>
@@ -229,10 +229,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="RecipesNo" destination="udu-6t-art" id="Sef-KA-Vs9"/>
                         <outlet property="descriptions" destination="VRT-Gq-amf" id="LUq-uQ-VBq"/>
                         <outlet property="favouriteButton" destination="f3l-sn-fL0" id="N11-dl-sGq"/>
                         <outlet property="followersNo" destination="ORl-DG-Xqh" id="7Gu-WO-PLu"/>
                         <outlet property="imagey" destination="oGr-LX-aLX" id="qAu-yK-3ou"/>
+                        <outlet property="postsNo" destination="wrZ-Ce-vNO" id="7Iy-hw-N4f"/>
                         <outlet property="username" destination="zvS-8g-ICO" id="7p5-EL-Rkd"/>
                     </connections>
                 </viewController>

@@ -19,13 +19,16 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var followersNo: UIButton!
     @IBOutlet weak var favouriteButton: UIButton!
     
+    @IBOutlet weak var RecipesNo: UIButton!
+    @IBOutlet weak var postsNo: UIButton!
     @IBOutlet weak var descriptions: UITextView!
     
     var userList : [User] = [];
     var followList : [Follow] = [];
     var visitorUID : String = "";
     var favourite:Bool = false
-    
+    var recipeList: [Recipe] = [];
+    var postList: [Post] = [];
     func checkIfFollowedUser() {
 
         DataManager.retrieveRecipeAndPosttFollowData(followeruid: Auth.auth().currentUser!.uid, following: visitorUID, type: "user") { (result) in
@@ -103,6 +106,30 @@ class ProfileViewController: UIViewController {
                         }
                     }
                     self.followersNo.setTitle(String(count), for: .normal)
+                }
+                DataManager.loadRecipes() {
+                    recipeListFromFirestore in
+                    self.recipeList = recipeListFromFirestore
+                    var count2: Int = 0;
+                    for i in self.recipeList{
+                        if i.uid == uidd{
+                            count2 += 1
+                        }
+                    }
+                    self.RecipesNo.setTitle(String(count2), for: .normal)
+                }
+                DataManager.loadPosts ()
+                {
+                    postListFromFirestore in
+                    // Assign list to list from Firestore
+                    self.postList = postListFromFirestore
+                    var count3: Int = 0;
+                    for i in self.postList{
+                        if i.uid == uidd{
+                            count3 += 1
+                        }
+                    }
+                    self.postsNo.setTitle(String(count3), for: .normal)
                 }
             }
               

@@ -2,14 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Use GPS to retrieve your current location</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Select a picture from your gallery</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Take a picture using your camera</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Save a picture into your gallery</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -24,10 +16,29 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.398517789558-clb9sic6lgu8oq5fgru1cjkckc7rdu43</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Take a picture using your camera</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Use GPS to retrieve your current location</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save a picture into your gallery</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Select a picture from your gallery</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
