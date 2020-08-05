@@ -76,7 +76,7 @@ class ProfileViewController: UIViewController {
                 else
                 {
                     let uidd: String = user.uid
-                    
+                    self.favouriteButton.isHidden = true
                     DataManager.loadUser(){
                         userListFromFirestore in
                         self.userList = userListFromFirestore
