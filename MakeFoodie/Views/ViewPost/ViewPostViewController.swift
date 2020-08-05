@@ -115,6 +115,7 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
     
     // Function that loads data from Firestore and refreshes tableView
     func loadPosts() {
+        print("ran loadPosts")
         DataManager.loadPosts ()
         {
             postListFromFirestore in
@@ -146,6 +147,8 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
                     self.post?.locationName = self.postList[i].locationName
                     self.post?.locationAddr = self.postList[i].locationAddr
                     
+                    print(self.post?.latitude)
+                    
                     // Remove existing annotations
                     self.locationMap.removeAnnotations(self.locationMap.annotations)
                     
@@ -161,7 +164,7 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
                     annotation.title = self.postList[i].locationName
                     annotation.subtitle = self.postList[i].locationAddr
                     self.locationMap.addAnnotation(annotation)
-                    
+                    print(annotation)
                     // Display annotation
                     self.locationMap.selectAnnotation(self.locationMap.annotations[0], animated: true)
                 }
@@ -311,6 +314,15 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
             // Delete followers
             DataManager.deleteAllfollowers(id: self.post!.id, type: "post")
             
+            //check if recipe exists
+            for i in self.recipeList {
+                if (i.postId == self.post!.id) {
+                    //edit postId to "" in the recipe
+                    DataManager.insertOrReplaceRecipe(Recipe(recipeID: i.recipeID, title: i.title, desc: i.desc, ingredients: i.ingredients, instructions: i.instructions, thumbnail: i.thumbnail, reviews: i.reviews, uid: i.uid, postId: ""))
+                }
+                else {}
+            }
+            
             // Reload post in tableView
             let viewControllers = self.navigationController?.viewControllers
             let parent = viewControllers?[0] as! PostsTableViewController
@@ -350,11 +362,6 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
             favourite = false
             DataManager.deleteRecipeAndPosttFollowData(followeruid: currentUser, following: post!.id, type: "post")
         }
-    }
-    
-    // When user click for directions
-    @IBAction func routeButtonPressed(_ sender: Any) {
-        
     }
     
     // MARK: - Navigation
@@ -412,7 +419,6 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
             if (self.post != nil) {
                 //assign destView.recipe by searching through recipeList for postId
                 for i in self.recipeList {
-                    print(i)
                     //check if postId matches
                     if (i.postId == self.post!.id) {
                         destView.recipe = Recipe(recipeID: i.recipeID, title: i.title, desc: i.desc, ingredients: i.ingredients, instructions: i.instructions, thumbnail: i.thumbnail, reviews: i.reviews, uid: i.uid, postId: i.postId)
@@ -422,6 +428,7 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
                     else {
                     }
                 }
+                destView.post = self.post
                 destView.curruid = self.currentUser
 
             }

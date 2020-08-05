@@ -170,6 +170,7 @@ class ViewCategoryTableViewController: UITableViewController {
             if(myIndexPath != nil) {
                 // Set the post object to selected post
                 let post = postList[myIndexPath!.row]
+                viewPostViewController.currPostId = post.id
                 viewPostViewController.post = post
             }
         }

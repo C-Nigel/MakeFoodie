@@ -43,7 +43,6 @@ class RecipesTableViewController: UITableViewController, UISearchBarDelegate {
                         if (i.uid == uidd) {
                             self.username = i.username
                             self.curruid = i.uid
-                            print("CURRUID ", self.curruid)
                         }
                     }
                 }

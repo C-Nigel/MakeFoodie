@@ -22,8 +22,9 @@ class Post: Codable {
     var locationName: String
     var locationAddr: String
     var uid: String
+    var recipeID: String?
         
-    init(id: String, title: String, price: Double, startTime:String, endTime:String, desc: String, thumbnail: Image, category: String, latitude: Double, longitude: Double, locationName: String, locationAddr: String, uid: String)
+    init(id: String, title: String, price: Double, startTime:String, endTime:String, desc: String, thumbnail: Image, category: String, latitude: Double, longitude: Double, locationName: String, locationAddr: String, uid: String, recipeID: String? = "")
     {
         self.id = id
         self.title = title
@@ -38,6 +39,7 @@ class Post: Codable {
         self.locationName = locationName
         self.locationAddr = locationAddr
         self.uid = uid
+        self.recipeID = recipeID
     }
     
     struct Image: Codable {

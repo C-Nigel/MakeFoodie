@@ -57,6 +57,10 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var postList: [Post] = []
     let db = Firestore.firestore()
     
+    var recipe: Recipe?
+    var post: Post?
+    var currentUser: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -101,6 +105,12 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         // Hide location labels
         locationTitle.isHidden = true
         locationAddr.isHidden = true
+        
+        //check if came from recipe
+        if (self.recipe != nil) {
+            titleTextField.text = self.recipe!.title
+            descTextView.text = self.recipe!.desc
+        }
         
         loadPosts()
     }
@@ -593,22 +603,36 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let row = categoryPickerView.selectedRow(inComponent: 0)
             // Get data selected from picker data
             let selectedCategory = categoryPickerData[row]
-
-            let viewControllers = self.navigationController?.viewControllers
-            let parent = viewControllers?[0] as! PostsTableViewController
+            
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Posts", bundle: nil)
+            let parent = storyBoard.instantiateViewController(withIdentifier: "PostsTableViewController") as! PostsTableViewController
+            
+            
             let priceValue = Double(priceTextField.text!)
             
             // Set random string
             let ref = db.collection("post")
             let docId = ref.document().documentID
-            
-            let post:Post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: (selectedLocation?.coordinate.latitude)!, longitude: (selectedLocation?.coordinate.longitude)!, locationName: (selectedLocation?.name)!, locationAddr: address, uid: parent.curruid)
-            
-            DataManager.insertOrEditPost(post)
+
+            if (self.recipe != nil) { //if recipe exists
+                self.post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: (selectedLocation?.coordinate.latitude)!, longitude: (selectedLocation?.coordinate.longitude)!, locationName: (selectedLocation?.name)!, locationAddr: address, uid: self.currentUser, recipeID: self.recipe!.recipeID)
+                
+                //update recipe's postId as well
+                DataManager.insertOrReplaceRecipe(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.recipe!.reviews, uid: self.recipe!.uid, postId: docId))
+            }
+            else {
+                self.post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: (selectedLocation?.coordinate.latitude)!, longitude: (selectedLocation?.coordinate.longitude)!, locationName: (selectedLocation?.name)!, locationAddr: address, uid: self.currentUser)
+            }
+            if (self.post != nil) {
+                DataManager.insertOrEditPost(self.post!)
+            }
             parent.loadPosts()
             
             // Redirect back to tableView
-            self.navigationController?.popViewController(animated: true)
+            let newViewController = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "tabbar") as! UITabBarController
+                newViewController.selectedIndex = 1
+                self.present(newViewController, animated: true, completion: nil)
+            
         }
     }
 }
