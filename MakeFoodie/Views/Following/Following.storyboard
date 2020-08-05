@@ -108,8 +108,6 @@
                         <outlet property="segmentedControl" destination="rku-OL-gVO" id="PwR-em-kWB"/>
                         <outlet property="subView" destination="JAo-D0-eHQ" id="0ej-SX-Z3r"/>
                         <outlet property="tableView" destination="qvW-8b-mc8" id="cmY-1H-s9A"/>
-                        <segue destination="SSU-c0-ktC" kind="show" identifier="ViewPostVC" id="wTO-6E-nJ5"/>
-                        <segue destination="5Yt-Is-WsV" kind="show" id="Trp-ov-5M6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UJY-GV-YHu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

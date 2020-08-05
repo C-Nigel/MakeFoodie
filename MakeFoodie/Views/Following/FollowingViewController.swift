@@ -13,7 +13,7 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
      // Declare an array of Movie objects
     var indexSelected : String = "post"
     var postList : [Post] = []
-    var recipeList : [recipeDetails] = []
+    var recipeList : [Recipe] = []
     var followingUserList : [userDetails] = []
     
     @IBOutlet weak var tableView: UITableView!
@@ -139,20 +139,45 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexSelected == "post"
                 {
-                    print("hi index selected is post")
-                    performSegue(withIdentifier: "ViewPostVC", sender: Any?.self)
+                    //performSegue(withIdentifier: "ViewPostVC", sender: Any?.self)
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "ViewPost", bundle: nil)
+                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "ViewPostVC") as! ViewPostViewController
+                    let myIndexPath = self.tableView.indexPathForSelectedRow
+                    let post = postList[myIndexPath!.row]
+                    newViewController.post = post
+                    newViewController.currPostId = post.id
+                    newViewController.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(newViewController, animated: true)
                 }
                 else if indexSelected == "recipes"
                 {
-        
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Recipe", bundle: nil)
+                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "RecipeDetailViewController") as! RecipeDetailViewController
+                    let myIndexPath = self.tableView.indexPathForSelectedRow
+                    let recipe = recipeList[myIndexPath!.row]
+                    newViewController.recipe = recipe
+                    newViewController.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(newViewController, animated: true)
                 }
                 else if indexSelected == "user following"
                 {
-        
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Profile", bundle: nil)
+                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "viewProfile") as! ProfileViewController
+                    let myIndexPath = self.tableView.indexPathForSelectedRow
+                    let user = followingUserList[myIndexPath!.row]
+                    newViewController.visitorUID = user.uid
+                    newViewController.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(newViewController, animated: true)
                 }
                 else if indexSelected == "following user"
                 {
-        
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Profile", bundle: nil)
+                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "viewProfile") as! ProfileViewController
+                    let myIndexPath = self.tableView.indexPathForSelectedRow
+                    let user = followingUserList[myIndexPath!.row]
+                    newViewController.visitorUID = user.uid
+                    newViewController.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(newViewController, animated: true)
                 }
     }
     
