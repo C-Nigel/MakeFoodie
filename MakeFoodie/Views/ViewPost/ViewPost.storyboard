@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A7V-sO-UOc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A7V-sO-UOc">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -151,7 +151,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <state key="normal" title="How do I get there?"/>
                                                 <connections>
-                                                    <action selector="routeButtonPressed:" destination="wcz-Z2-7rz" eventType="touchUpInside" id="F5S-Mq-dys"/>
                                                     <segue destination="E2P-Sc-OWD" kind="show" identifier="GetDirections" id="62V-hc-DLM"/>
                                                 </connections>
                                             </button>
@@ -189,10 +188,10 @@
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="10" left="0.0" bottom="0.0" right="0.0"/>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWu-YM-wgq">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="cWu-YM-wgq">
                                                 <rect key="frame" x="20" y="785" width="374" height="42"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5N-mL-RU9">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5N-mL-RU9">
                                                         <rect key="frame" x="0.0" y="0.0" width="189" height="42"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <state key="normal" title="Create this recipe"/>
@@ -200,8 +199,8 @@
                                                             <segue destination="V8e-ta-b9J" kind="show" identifier="createRecipe" id="9MZ-2p-egI"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgh-pg-7rz">
-                                                        <rect key="frame" x="189" y="0.0" width="185" height="42"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgh-pg-7rz">
+                                                        <rect key="frame" x="204" y="0.0" width="170" height="42"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <state key="normal" title="View this recipe"/>
                                                         <connections>
@@ -280,7 +279,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="tHQ-tY-mDq">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1144.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1152.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="lQ3-4q-ZB7">
                                                 <rect key="frame" x="20" y="8" width="374" height="30"/>
@@ -471,36 +470,37 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="hX8-ji-nut">
-                                                <rect key="frame" x="20" y="698.5" width="374" height="30"/>
+                                                <rect key="frame" x="20" y="698.5" width="374" height="38"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cI-oJ-bfx">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
+                                                        <rect key="frame" x="0.0" y="8" width="100" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No location chosen." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nak-ry-UtD">
-                                                        <rect key="frame" x="201.5" y="0.0" width="172.5" height="30"/>
+                                                        <rect key="frame" x="201.5" y="8" width="172.5" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
+                                                <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="0.0" right="0.0"/>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xNF-bU-NDO">
-                                                <rect key="frame" x="20" y="728.5" width="374" height="50"/>
+                                                <rect key="frame" x="20" y="736.5" width="374" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TkJ-cb-vzP">
-                                                <rect key="frame" x="20" y="778.5" width="374" height="50"/>
+                                                <rect key="frame" x="20" y="786.5" width="374" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cSD-Dt-LgW">
-                                                <rect key="frame" x="20" y="828.5" width="374" height="42"/>
+                                                <rect key="frame" x="20" y="836.5" width="374" height="42"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="Choose Location"/>
                                                 <connections>
@@ -508,7 +508,7 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="F3N-tn-p0E">
-                                                <rect key="frame" x="20" y="870.5" width="374" height="266"/>
+                                                <rect key="frame" x="20" y="878.5" width="374" height="266"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HK2-IX-6a7">
                                                         <rect key="frame" x="0.0" y="10" width="374" height="30"/>
@@ -747,12 +747,18 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Walking"/>
+                                <segment title="Transit"/>
                                 <segment title="Driving"/>
                             </segments>
                             <connections>
                                 <action selector="travelModePressed:" destination="E2P-Sc-OWD" eventType="valueChanged" id="vhe-uO-suI"/>
                             </connections>
                         </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" title="Maps" id="i2G-XY-a8x">
+                            <connections>
+                                <action selector="mapsButtonPressed:" destination="E2P-Sc-OWD" id="txp-02-tfV"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="9yt-gu-MIb" id="u7j-jk-I50"/>
