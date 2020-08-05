@@ -347,10 +347,10 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
             let tableViewController = viewControllers?[0] as! RecipesTableViewController
             let parent = viewControllers?[1] as! RecipeDetailViewController
             
-            recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipe!.reviews, uid: self.curruid))
+            recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipe!.reviews, uid: self.curruid, postId: self.recipe!.postId))
             
             //reassign recipe to the new version
-            self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipe!.reviews, uid: self.curruid)
+            self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipe!.reviews, uid: self.curruid, postId: self.recipe!.postId)
             
             if (self.recipe != nil) {
                 parent.recipe = self.recipe

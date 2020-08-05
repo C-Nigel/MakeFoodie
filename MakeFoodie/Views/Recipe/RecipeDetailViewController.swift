@@ -29,13 +29,14 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
     
     @IBOutlet weak var instructionLabel: UILabel!
     
+    @IBOutlet weak var viewPostButton: UIButton!
+    @IBOutlet weak var createPostButton: UIButton!
     
     //edit and delete buttons
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     
     //add review button
-
     @IBOutlet weak var addReviewButton: UIButton!
     
     //current user review
@@ -52,6 +53,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
     @IBOutlet weak var allReviewsTableView: UITableView!
     
     var recipeList: Array<Recipe> = []
+    var postList: Array<Post> = []
     var userList: Array<User> = []
     var curruid: String = ""
     var reviews: Dictionary<String, Dictionary<String, String>> = [:]
@@ -270,7 +272,8 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                 self.viewDidLoad()
             }
         }
-
+    
+        checkIfPostExists()
         loadRecipes()
         self.allReviewsTableView.reloadData()
     } //end viewDidLoad
@@ -548,6 +551,37 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         
     }
     
+    func checkIfPostExists() {
+        DataManager.loadPosts() {
+            postListFromFirestore in
+
+            self.postList = postListFromFirestore
+            for i in self.postList {
+                if (i.id == self.recipe!.postId) { //if exists
+                    //show viewPostButton
+                    self.viewPostButton.isHidden = false
+                    if (self.curruid == self.recipe!.uid) { //if exists and belongs to user
+                        //hide button
+                        self.createPostButton.isHidden = true
+                    }
+                    //if found, break out of the loop
+                    break
+                }
+                else { //if it doesnt exist
+                    //hide viewPostButton
+                    self.viewPostButton.isHidden = true
+                    if (self.curruid == self.recipe!.uid) { //if does not exist and belongs to user
+                        //show button
+                        self.createPostButton.isHidden = false
+                    }
+                }
+                
+                
+            }
+        }
+        
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.otherReviews.count
     }
@@ -602,6 +636,16 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             // Delete followers
             DataManager.deleteAllfollowers(id: self.recipe!.recipeID, type: "recipe")
             
+            //check if post exists
+            for i in self.postList {
+                if (i.id == self.recipe!.postId) {
+                    //edit the recipeID to "" in the post
+                    DataManager.insertOrEditPost(Post(id: i.id, title: i.title, price: i.price, startTime: i.startTime, endTime: i.endTime, desc: i.desc, thumbnail: i.thumbnail, category: i.category, latitude: i.latitude, longitude: i.longitude, locationName: i.locationName, locationAddr: i.locationAddr, uid: i.uid, recipeID: ""))
+                }
+                else {}
+            }
+            
+            
             let viewControllers = self.navigationController?.viewControllers
             let parent = viewControllers?[0] as! RecipesTableViewController
             
@@ -645,10 +689,10 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             let viewControllers = self.navigationController?.viewControllers
             let parent = viewControllers?[0] as! RecipesTableViewController
             
-            self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.reviews, uid: self.recipe!.uid))
+            self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.reviews, uid: self.recipe!.uid, postId: self.recipe!.postId))
             
             //reassign recipe to the new version
-            self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.reviews, uid: self.recipe!.uid)
+            self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.reviews, uid: self.recipe!.uid, postId: self.recipe!.postId)
             
             if (self.recipe != nil) {
                 //save the updated recipe
@@ -681,7 +725,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
     
     
     
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -710,6 +753,32 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             destView.curruid = self.curruid
             destView.userList = self.userList
             destView.recipe = self.recipe
+        }
+        
+        if (segue.identifier == "viewPost") {
+            let destView = segue.destination as! ViewPostViewController
+            if !(self.postList.isEmpty) {
+                if (self.recipe != nil) {
+                    //assign destView.post by searching through postList for matching id
+                    for i in self.postList {
+                        //check if postId matches
+                        if (i.id == self.recipe!.postId) {
+                            destView.post = Post(id: i.id, title: i.title, price: i.price, startTime: i.startTime, endTime: i.endTime, desc: i.desc, thumbnail: i.thumbnail, category: i.category, latitude: i.latitude, longitude: i.longitude, locationName: i.locationName, locationAddr: i.locationAddr, uid: i.uid)
+                            //if found, break out of the loop
+                            break
+                        }
+                        else {
+                        }
+                    }
+                    destView.currentUser = self.curruid
+                }
+            }
+        }
+        
+        if (segue.identifier == "createPost") {
+            let destView = segue.destination as! CreatePostViewController
+            destView.recipe = self.recipe
+            destView.currentUser = self.curruid
         }
     }
     

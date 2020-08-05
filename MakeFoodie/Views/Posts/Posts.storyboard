@@ -20,7 +20,7 @@
         <!--Create Post-->
         <scene sceneID="O05-lD-Pbs">
             <objects>
-                <viewController id="DFX-Zv-RGR" customClass="CreatePostViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreatePostVC" id="DFX-Zv-RGR" customClass="CreatePostViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EdX-eJ-EjX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
