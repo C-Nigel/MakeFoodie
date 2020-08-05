@@ -43,6 +43,7 @@ class RecipesTableViewController: UITableViewController, UISearchBarDelegate {
                         if (i.uid == uidd) {
                             self.username = i.username
                             self.curruid = i.uid
+                            print("CURRUID ", self.curruid)
                         }
                     }
                 }
@@ -55,8 +56,8 @@ class RecipesTableViewController: UITableViewController, UISearchBarDelegate {
         searchBar.placeholder = "Search Recipes"
         searchBar.delegate = self
         
-        //set background view of tableview to no recipes found view
-        self.recipeTableView.backgroundView = self.noRecipesFound
+        //remove focus on searchbar when load
+        self.searchBar.resignFirstResponder()
         
         self.recipeTableView.delegate = self
         self.recipeTableView.dataSource = self
@@ -89,9 +90,17 @@ class RecipesTableViewController: UITableViewController, UISearchBarDelegate {
         
         //if filtered is empty (no matching searches)
         if (self.filteredRecipes.isEmpty) {
+            //set background view of tableview to no recipes found view
+            self.recipeTableView.backgroundView = self.noRecipesFound
             //hide separator lines
             self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
             
+        }
+        else {
+            //set background view of tableview to nothing
+            self.recipeTableView.backgroundView = nil
+            //show separator lines
+            self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
         }
         
         tableView.reloadData()
@@ -216,11 +225,6 @@ class RecipesTableViewController: UITableViewController, UISearchBarDelegate {
             destView.recipeList = self.recipeList
             destView.curruid = self.curruid
             destView.recipe = recipe
-        }
-        if (segue.identifier == "createRecipeFromTable") {
-            let destView = segue.destination as! RecipeDetailViewController
-
-            destView.curruid = self.curruid
         }
     }
     

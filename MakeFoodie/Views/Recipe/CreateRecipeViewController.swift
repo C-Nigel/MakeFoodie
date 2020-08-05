@@ -93,9 +93,8 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
             descTextView.text = self.post!.desc
             thumbnailImage.image = self.post!.thumbnail.getImage()
             
-            let storyBoard: UIStoryboard = UIStoryboard(name: "ViewPost", bundle: nil)
-            let parent = storyBoard.instantiateViewController(withIdentifier: "postsTableViewController") as! PostsTableViewController
-            
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Posts", bundle: nil)
+            let parent = storyBoard.instantiateViewController(withIdentifier: "PostsTableViewController") as! PostsTableViewController
             parent.loadPosts()
         }
         
@@ -370,7 +369,7 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
                 self.recipe = Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: self.curruid, postId: self.post!.id)
             }
             else {
-                recipeList.append(Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: self.curruid))
+                recipeList.append(Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid))
                 
                 self.recipe = Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid)
             }

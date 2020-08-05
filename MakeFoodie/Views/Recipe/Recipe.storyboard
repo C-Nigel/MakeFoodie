@@ -113,7 +113,7 @@
                     <navigationItem key="navigationItem" title="Recipes" id="sDA-fu-cCu">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="zg8-3H-dlU">
                             <connections>
-                                <segue destination="8op-Uw-A9D" kind="show" identifier="createRecipeFromTable" id="0iO-A9-8SX"/>
+                                <segue destination="8op-Uw-A9D" kind="show" identifier="" id="0iO-A9-8SX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
