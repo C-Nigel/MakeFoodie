@@ -10,14 +10,24 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class RecipesTableViewController: UITableViewController {
+class RecipesTableViewController: UITableViewController, UISearchBarDelegate {
 
+    @IBOutlet var noRecipesFound: UIView!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet var recipeTableView: UITableView!
     var recipeList: Array<Recipe> = []
     var userList: Array<User> = []
     var username: String = ""
     var uid: String = ""
     var curruid: String = ""
+    
+    var filteredRecipes: Array<Recipe> = []
+    var isSearchBarEmpty: Bool {
+        return self.searchBar.text?.isEmpty ?? true
+    }
+    var isFiltering: Bool {
+      return !isSearchBarEmpty
+    }
 
     
     override func viewDidLoad() {
@@ -40,6 +50,14 @@ class RecipesTableViewController: UITableViewController {
         }
         else {
         }
+
+        //set search bar placeholder and delegate
+        searchBar.placeholder = "Search Recipes"
+        searchBar.delegate = self
+        
+        //set background view of tableview to no recipes found view
+        self.recipeTableView.backgroundView = self.noRecipesFound
+        
         self.recipeTableView.delegate = self
         self.recipeTableView.dataSource = self
         loadRecipes()
@@ -62,6 +80,24 @@ class RecipesTableViewController: UITableViewController {
         }
     }
     
+      
+    //for search
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.filteredRecipes = self.recipeList.filter { (recipe: Recipe) -> Bool in
+            return recipe.title.lowercased().contains(searchText.lowercased())
+        }
+        
+        //if filtered is empty (no matching searches)
+        if (self.filteredRecipes.isEmpty) {
+            //hide separator lines
+            self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+            
+        }
+        
+        tableView.reloadData()
+    }
+    
+    
     // MARK: - Table view data source
 
     /*override func numberOfSections(in tableView: UITableView) -> Int {
@@ -70,13 +106,29 @@ class RecipesTableViewController: UITableViewController {
     }*/
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //if searching
+        if isFiltering {
+          return filteredRecipes.count
+        }
+        
         return recipeList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeItem", for: indexPath) as! RecipeTableViewCell
+        
+        let r: Recipe
+        
+        //if searching
+        if isFiltering {
+            //assign r as filteredRecipes rows
+            r = self.filteredRecipes[indexPath.row]
+        }
+        else { //if not
+            //assign r as recipeList rows
+            r = self.recipeList[indexPath.row]
+        }
 
-        let r = recipeList[indexPath.row]
         cell.titleLabel.text = r.title
         cell.thumbnailImage.image = r.thumbnail.getImage()
         
