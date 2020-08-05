@@ -24,6 +24,8 @@ class RouteViewController: UIViewController, MKMapViewDelegate, CLLocationManage
     
     // Store user location
     var userLoc:CLLocation?
+    var userLocMapItem: MKMapItem?
+    var destLocMapItem: MKMapItem?
     
     // For getting directions
     var directionRequest = MKDirections.Request()
@@ -47,7 +49,6 @@ class RouteViewController: UIViewController, MKMapViewDelegate, CLLocationManage
     // When user location updates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.last!
-        print ("\(location.coordinate.latitude), \(location.coordinate.longitude)")
         
         // Set region
         let region = MKCoordinateRegion( center: location.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
@@ -86,8 +87,45 @@ class RouteViewController: UIViewController, MKMapViewDelegate, CLLocationManage
         alertController.addAction(cancelAction)
         alertController.addAction(settingsAction)
         self.present(alertController, animated: true, completion: nil)
-
-        // func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) i think this runs when authorization change do more research (maybe add btn at this controller bar btn to display on map app? + user curr location blue dot not showing when change permission to allow from deny)
+    }
+    
+    // Check if change status but still deny or not determined
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .denied || status == .restricted {
+            permissionNotAllowed()
+            self.navigationController?.popViewController(animated: true)
+        }
+        if status == .notDetermined {
+            permissionNotAllowed()
+        }
+    }
+    
+    // Function of didFailwithError to check if still denying
+    func permissionNotAllowed() {
+        // Create alertcontroller to tell user to enable permission
+        let alertController = UIAlertController(title: "User location not found!", message: "Please go to Settings and enable permissions", preferredStyle: .alert)
+        
+        // Bring user to settings for location
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
+             }
+        }
+        
+        // If cancel go to prev controller
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
+            (action:UIAlertAction!) in
+            
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        // Add actions to alertcontroller
+        alertController.addAction(cancelAction)
+        alertController.addAction(settingsAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     // For getting directions from user location to destination
@@ -99,6 +137,9 @@ class RouteViewController: UIViewController, MKMapViewDelegate, CLLocationManage
         let userMapItem = MKMapItem(placemark: userPlacemark)
         let destMapItem = MKMapItem(placemark: destPlacemark)
 
+        userLocMapItem = userMapItem
+        destLocMapItem = destMapItem
+        
         // Create annotation for dest location
         if let location = destPlacemark.location {
             let annotation = MKPointAnnotation()
@@ -174,6 +215,8 @@ class RouteViewController: UIViewController, MKMapViewDelegate, CLLocationManage
         
         return annotationView
     }
+    
+    // MARK: - Button actions
 
     // When user click on different travel mode
     @IBAction func travelModePressed(_ sender: UISegmentedControl) {
@@ -181,6 +224,8 @@ class RouteViewController: UIViewController, MKMapViewDelegate, CLLocationManage
         case 0:
             directionRequest.transportType = .walking  // Mode of transport
         case 1:
+            directionRequest.transportType = .transit
+        case 2:
             directionRequest.transportType = .automobile
         default:
             directionRequest.transportType = .walking
@@ -196,6 +241,28 @@ class RouteViewController: UIViewController, MKMapViewDelegate, CLLocationManage
             getDirections(userCoordinate: userLoc!.coordinate, destCoordinate: destCoords)
         }
     }
+
+    // When user click on the button to go to Maps app
+    @IBAction func mapsButtonPressed(_ sender: Any) {
+        // Check if nil
+        if userLocMapItem != nil && destLocMapItem != nil {
+            var launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking]   // Mode of transport
+            switch directionRequest.transportType {
+            case .walking:
+                launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking]   // Walk
+            case .transit:
+                launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeTransit]   // Transit
+            case .automobile:
+                launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]   // Drive
+            default:
+                launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking]   // Walk
+            }
+            userLocMapItem!.name = "My Location"    // Set user loc name
+            destLocMapItem!.name = destName // Set dest name
+            destLocMapItem!.openInMaps(launchOptions: launchOptions)    // Open Maps with directions to destination
+        }
+    }
+    
     
     /*
     // MARK: - Navigation

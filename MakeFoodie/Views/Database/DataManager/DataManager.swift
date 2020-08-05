@@ -165,7 +165,7 @@ class DataManager: NSObject {
                 }
             }
             // return true if document requested exist and is not nil
-            print("retrieve data:" + String(documentExist))
+            // print("retrieve data:" + String(documentExist))
             completed(documentExist)
         }
     }
@@ -539,13 +539,6 @@ class DataManager: NSObject {
                         
                         if item != nil
                         {
-                            for (key, value) in names
-                            {
-                                if key == item?.uid
-                                {
-                                    item?.uid = value
-                                }
-                            }
                             //item?.uid = getNameByUID(UID: item!.uid)
                             followingUserItems.append(item!)
                         }
@@ -614,13 +607,6 @@ class DataManager: NSObject {
                         
                         if item != nil
                         {
-                            for (key, value) in names
-                            {
-                                if key == item?.uid
-                                {
-                                    item?.uid = value
-                                }
-                            }
                             //item?.uid = getNameByUID(UID: item!.uid)
                             followingUserItems.append(item!)
                         }

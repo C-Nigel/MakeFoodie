@@ -115,6 +115,7 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
     
     // Function that loads data from Firestore and refreshes tableView
     func loadPosts() {
+        print("ran loadPosts")
         DataManager.loadPosts ()
         {
             postListFromFirestore in
@@ -146,6 +147,8 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
                     self.post?.locationName = self.postList[i].locationName
                     self.post?.locationAddr = self.postList[i].locationAddr
                     
+                    print(self.post?.latitude)
+                    
                     // Remove existing annotations
                     self.locationMap.removeAnnotations(self.locationMap.annotations)
                     
@@ -161,7 +164,7 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
                     annotation.title = self.postList[i].locationName
                     annotation.subtitle = self.postList[i].locationAddr
                     self.locationMap.addAnnotation(annotation)
-                    
+                    print(annotation)
                     // Display annotation
                     self.locationMap.selectAnnotation(self.locationMap.annotations[0], animated: true)
                 }
@@ -359,11 +362,6 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
             favourite = false
             DataManager.deleteRecipeAndPosttFollowData(followeruid: currentUser, following: post!.id, type: "post")
         }
-    }
-    
-    // When user click for directions
-    @IBAction func routeButtonPressed(_ sender: Any) {
-        
     }
     
     // MARK: - Navigation

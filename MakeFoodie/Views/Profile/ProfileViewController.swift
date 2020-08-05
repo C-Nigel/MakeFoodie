@@ -17,34 +17,82 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var imagey: UIImageView!
     @IBOutlet weak var followersNo: UIButton!
+    @IBOutlet weak var favouriteButton: UIButton!
     
     @IBOutlet weak var descriptions: UITextView!
     
     var userList : [User] = [];
     var followList : [Follow] = [];
+    var visitorUID : String = "";
+    var favourite:Bool = false
+    
+    func checkIfFollowedUser() {
+
+        DataManager.retrieveRecipeAndPosttFollowData(followeruid: Auth.auth().currentUser!.uid, following: visitorUID, type: "user") { (result) in
+            let documentFound: Bool = result
+            
+            if documentFound
+            {
+                // if record found, change button image to filld heart
+                self.favouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                self.favourite = true
+            }
+            else
+            {
+                // just in case
+                // if record not found, change button image to hollow heart
+                self.favouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                self.favourite = false
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       
         if Auth.auth().currentUser != nil{
             let user = Auth.auth().currentUser
             if let user = user {
-              
-                let uidd: String = user.uid
-                
-                DataManager.loadUser(){
-                    userListFromFirestore in
-                    self.userList = userListFromFirestore
-                    for i in self.userList{
-                        if i.uid == uidd{
-                            self.username.text = i.username
-                            if i.imagelink.getImage() != nil{
-                                self.imagey.image = i.imagelink.getImage()
+                if visitorUID != ""
+                {
+                    checkIfFollowedUser()
+                    self.navigationItem.setRightBarButton(nil, animated: true)
+                    self.navigationItem.setLeftBarButton(nil, animated: true)
+                    DataManager.loadUser(){
+                        userListFromFirestore in
+                        self.userList = userListFromFirestore
+                        for i in self.userList{
+                            if i.uid == self.visitorUID{
+                                self.username.text = i.username
+                                if i.imagelink.getImage() != nil{
+                                    self.imagey.image = i.imagelink.getImage()
+                                }
+                                self.descriptions.text = i.description
+                                
                             }
-                            self.descriptions.text = i.description
-                            
                         }
                     }
                 }
+                else
+                {
+                    let uidd: String = user.uid
+                    self.favouriteButton.isHidden = true
+                    DataManager.loadUser(){
+                        userListFromFirestore in
+                        self.userList = userListFromFirestore
+                        for i in self.userList{
+                            if i.uid == uidd{
+                                self.username.text = i.username
+                                if i.imagelink.getImage() != nil{
+                                    self.imagey.image = i.imagelink.getImage()
+                                }
+                                self.descriptions.text = i.description
+                                
+                            }
+                        }
+                    }
+                }
+                let uidd: String = user.uid
                 DataManager.loadFollowers(){
                     followListFromFirestore in
                     self.followList = followListFromFirestore
@@ -68,6 +116,22 @@ class ProfileViewController: UIViewController {
         viewDidLoad()
     }
 
+    @IBAction func favouriteButtonPressed(_ sender: UIButton) {
+        if favourite == false
+        {
+            favouriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            favourite = true
+            DataManager.insertRecipeAndPosttFollowData(followeruid: Auth.auth().currentUser!.uid, following: visitorUID, type: "user")
+            
+        }
+        else
+        {
+            favouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            favourite = false
+            DataManager.deleteRecipeAndPosttFollowData(followeruid: Auth.auth().currentUser!.uid, following: visitorUID, type: "user")
+        }
+    }
+    
     @IBAction func logout(_ sender: Any) {
         let firebaseAuth = Auth.auth()
         do {
