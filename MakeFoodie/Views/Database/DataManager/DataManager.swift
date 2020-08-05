@@ -165,7 +165,7 @@ class DataManager: NSObject {
                 }
             }
             // return true if document requested exist and is not nil
-            print("retrieve data:" + String(documentExist))
+            // print("retrieve data:" + String(documentExist))
             completed(documentExist)
         }
     }

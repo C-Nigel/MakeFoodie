@@ -178,12 +178,21 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nil" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="22" translatesAutoresizingMaskIntoConstraints="NO" id="zvS-8g-ICO">
-                                        <rect key="frame" x="19" y="146" width="374" height="23"/>
+                                        <rect key="frame" x="19" y="146" width="330" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3l-sn-fL0">
+                                        <rect key="frame" x="157" y="143" width="20.5" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <state key="normal" image="heart" catalog="system"/>
+                                        <connections>
+                                            <action selector="favouriteButtonPressed:" destination="SJ2-0Q-0dp" eventType="touchUpInside" id="l2H-0t-06b"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
@@ -221,6 +230,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="descriptions" destination="VRT-Gq-amf" id="LUq-uQ-VBq"/>
+                        <outlet property="favouriteButton" destination="f3l-sn-fL0" id="N11-dl-sGq"/>
                         <outlet property="followersNo" destination="ORl-DG-Xqh" id="7Gu-WO-PLu"/>
                         <outlet property="imagey" destination="oGr-LX-aLX" id="qAu-yK-3ou"/>
                         <outlet property="username" destination="zvS-8g-ICO" id="7p5-EL-Rkd"/>
@@ -418,6 +428,7 @@
         <image name="bag.fill" catalog="system" width="128" height="128"/>
         <image name="camera" catalog="system" width="128" height="96"/>
         <image name="doc.plaintext" catalog="system" width="115" height="128"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="square.and.pencil" catalog="system" width="128" height="118"/>
         <image name="square.grid.2x2" catalog="system" width="128" height="114"/>
         <image name="square.grid.2x2.fill" catalog="system" width="128" height="114"/>
