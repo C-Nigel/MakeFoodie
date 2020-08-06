@@ -72,6 +72,9 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         super.viewDidLoad()
         getLoggedInUID()
         checkIfFollowedRecipes()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(RecipeDetailViewController.tapFunction))
+        usernameLabel.isUserInteractionEnabled = true
+        usernameLabel.addGestureRecognizer(tap)
         
         allReviewsTableView.delegate = self
         allReviewsTableView.dataSource = self
@@ -293,6 +296,16 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                        
             self.allReviewsTableView.reloadData()
         }
+    }
+    
+    @objc func tapFunction(sender:UITapGestureRecognizer)
+    {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Profile", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "viewProfile") as! ProfileViewController
+
+        newViewController.visitorUID = recipe?.uid as! String
+        newViewController.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(newViewController, animated: true)
     }
         
     func loadData() {

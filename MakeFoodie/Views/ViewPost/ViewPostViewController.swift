@@ -49,6 +49,10 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(RecipeDetailViewController.tapFunction))
+        usernameLabel.isUserInteractionEnabled = true
+        usernameLabel.addGestureRecognizer(tap)
+        
         locationMap.delegate = self
         
         // Set color to buttons
@@ -80,6 +84,16 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
         }
         checkIfFollowedPost()
         loadPosts()
+    }
+    
+    @objc func tapFunction(sender:UITapGestureRecognizer)
+    {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Profile", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "viewProfile") as! ProfileViewController
+
+        newViewController.visitorUID = post?.uid as! String
+        newViewController.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(newViewController, animated: true)
     }
     
     //function to load recipes and check if postId exists

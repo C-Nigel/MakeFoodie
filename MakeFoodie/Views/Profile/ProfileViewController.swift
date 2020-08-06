@@ -58,6 +58,10 @@ class ProfileViewController: UIViewController {
             if let user = user {
                 if visitorUID != ""
                 {
+                    if visitorUID == Auth.auth().currentUser?.uid
+                    {
+                        self.favouriteButton.isHidden = true
+                    }
                     checkIfFollowedUser()
                     self.navigationItem.setRightBarButton(nil, animated: true)
                     self.navigationItem.setLeftBarButton(nil, animated: true)
