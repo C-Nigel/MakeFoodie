@@ -84,6 +84,8 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         self.addReviewButton.backgroundColor = UIColor.orange
         self.yourReviewEditButton.tintColor = UIColor.orange
         self.yourReviewDeleteButton.tintColor = UIColor.orange
+        self.viewPostButton.tintColor = UIColor.orange
+        self.createPostButton.tintColor = UIColor.orange
         
         //check if recipe uid matches current user
         if (self.recipe!.uid != self.curruid) {
