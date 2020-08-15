@@ -359,22 +359,22 @@ class CreateRecipeViewController: UIViewController, UITextViewDelegate, UIImageP
         //if all inputs are filled
         if (valid == true) {
             let storyBoard: UIStoryboard = UIStoryboard(name: "Recipe", bundle: nil)
-            let parent = storyBoard.instantiateViewController(withIdentifier: "recipeTableViewController") as! RecipesTableViewController
+            let parent = storyBoard.instantiateViewController(withIdentifier: "RecipesTableViewController") as! RecipesTableViewController
             
             let ref = db.collection("recipes")
             let docId = ref.document().documentID
             if (self.post != nil) { //if post exists
                 recipeList.append(Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: self.curruid, postId: self.post!.id))
                 
-                self.recipe = Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: self.curruid, postId: self.post!.id)
+                self.recipe = Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: Auth.auth().currentUser!.uid, postId: self.post!.id)
                 
                 //update post's recipeID as well
                 DataManager.insertOrEditPost(Post(id: self.post!.id, title: self.post!.title, price: self.post!.price, startTime: self.post!.startTime, endTime: self.post!.endTime, desc: self.post!.desc, thumbnail: self.post!.thumbnail, category: self.post!.category, latitude: self.post!.latitude, longitude: self.post!.longitude, locationName: self.post!.locationName, locationAddr: self.post!.locationAddr, uid: self.post!.uid, recipeID: docId))
             }
             else {
-                recipeList.append(Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid))
+                recipeList.append(Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: Auth.auth().currentUser!.uid))
                 
-                self.recipe = Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: parent.curruid)
+                self.recipe = Recipe(recipeID: docId,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.reviews, uid: Auth.auth().currentUser!.uid)
             }
             
             if (self.recipe != nil) {

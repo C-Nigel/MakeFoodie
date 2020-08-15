@@ -429,6 +429,10 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
         }
         
         if (segue.identifier == "viewRecipe") {
+            UIStoryboard(name: "Recipe", bundle: nil).instantiateViewController(withIdentifier: "RecipesTableViewController") as! RecipesTableViewController
+            //newViewController.selectedIndex = 2
+            //self.navigationController?.addChild(newViewController)
+            
             let destView = segue.destination as! RecipeDetailViewController
             if (self.post != nil) {
                 //assign destView.recipe by searching through recipeList for postId

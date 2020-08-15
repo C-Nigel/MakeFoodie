@@ -75,6 +75,9 @@ class RecipesTableViewController: UITableViewController, UISearchBarDelegate {
             // What it is to reassigned the new list loaded
             // from Firestore. //
             self.recipeList = recipeListFromFirestore
+            self.recipeTableView.delegate = self
+            self.recipeTableView.dataSource = self
+            
             //reload tableView
             self.recipeTableView.reloadData()
         }
