@@ -44,6 +44,23 @@ class RouteViewController: UIViewController, MKMapViewDelegate, CLLocationManage
         
         // Set starting transport type as walking
         directionRequest.transportType = .walking
+        
+        // Background to foreground check if permission changed
+        NotificationCenter.default.addObserver(self, selector: #selector(changeSettingsPermission(notfication:)), name: NSNotification.Name(rawValue: "changeLocAuth"), object: nil)
+    }
+    
+    // Check after changing permissions from settings
+    @objc func changeSettingsPermission(notfication: NSNotification) {
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedWhenInUse, .authorizedAlways:
+            lm?.startUpdatingLocation()
+        case .denied, .restricted:
+            permissionNotAllowed()
+        case .notDetermined:
+            lm?.requestWhenInUseAuthorization()
+        default:
+            break
+        }
     }
     
     // When user location updates
@@ -61,7 +78,7 @@ class RouteViewController: UIViewController, MKMapViewDelegate, CLLocationManage
         }
     }
     
-    // Runs if user doesnt allow location permission
+    /* Runs if user doesnt allow location permission
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         // Create alertcontroller to tell user to enable permission
         let alertController = UIAlertController(title: "User location not found!", message: "Please go to Settings and enable permissions", preferredStyle: .alert)
@@ -87,16 +104,15 @@ class RouteViewController: UIViewController, MKMapViewDelegate, CLLocationManage
         alertController.addAction(cancelAction)
         alertController.addAction(settingsAction)
         self.present(alertController, animated: true, completion: nil)
-    }
+    }*/
     
     // Check if change status but still deny or not determined
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .denied || status == .restricted {
             permissionNotAllowed()
-            self.navigationController?.popViewController(animated: true)
         }
         if status == .notDetermined {
-            permissionNotAllowed()
+            manager.requestWhenInUseAuthorization() // Location permission
         }
     }
     

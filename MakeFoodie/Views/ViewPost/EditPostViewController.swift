@@ -624,8 +624,14 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             let postsTableView = viewControllers?[0] as! PostsTableViewController
             let parent = viewControllers?[1] as! ViewPostViewController
             let priceValue = Double(priceTextField.text!)
-                        
-            let post:Post = Post(id: currPostId!, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: currLocationLat!, longitude: currLocationLng!, locationName: locName, locationAddr: locAddress, uid: currPostUid!)
+            
+            var newLocName = locName
+            
+            if newLocName == "Your location" {
+                newLocName = "User chosen location"
+            }
+            
+            let post:Post = Post(id: currPostId!, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: currLocationLat!, longitude: currLocationLng!, locationName: newLocName, locationAddr: locAddress, uid: currPostUid!)
             
             DataManager.insertOrEditPost(post)
             postsTableView.loadPosts()

@@ -585,7 +585,7 @@
             </objects>
             <point key="canvasLocation" x="1260.8695652173915" y="105.80357142857143"/>
         </scene>
-        <!--Edit Map View Controller-->
+        <!--Edit Location-->
         <scene sceneID="gll-av-fcU">
             <objects>
                 <viewController storyboardIdentifier="EditMapViewController" id="BjK-jj-L6D" customClass="EditMapViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
@@ -593,7 +593,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="UTX-vW-FxO">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTX-vW-FxO">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <connections>
                                     <outlet property="delegate" destination="BjK-jj-L6D" id="aK7-2Q-3kN"/>
@@ -609,7 +609,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3KW-yR-GyV"/>
                     </view>
-                    <navigationItem key="navigationItem" id="5vO-aq-z8s">
+                    <navigationItem key="navigationItem" title="Edit Location" id="5vO-aq-z8s">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="E1z-TI-BK9">
                             <connections>
                                 <action selector="cancelButtonPressed:" destination="BjK-jj-L6D" id="arr-ja-WZu"/>
@@ -742,8 +742,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="nGl-O4-i0J">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="u95-mL-Vrx">
-                            <rect key="frame" x="139.5" y="5.5" width="135" height="33"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="u95-mL-Vrx">
+                            <rect key="frame" x="105.5" y="5.5" width="203" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Walking"/>
