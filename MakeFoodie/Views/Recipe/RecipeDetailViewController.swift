@@ -284,20 +284,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
     } //end viewDidLoad
     
     override func viewWillAppear(_ animated: Bool) {
-        DataManager.loadRecipes() {
-            recipeListFromFirestore in
-
-            // This is a closure.
-            //
-            // This block of codes is executed when the // async loading from Firestore is complete.
-            // What it is to reassigned the new list loaded
-            // from Firestore. //
-            self.recipeList = recipeListFromFirestore
-            
-            self.loadData()
-                       
-            self.allReviewsTableView.reloadData()
-        }
+        self.loadRecipes()
     }
     
     @objc func tapFunction(sender:UITapGestureRecognizer)
@@ -311,6 +298,9 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
     }
         
     func loadData() {
+        print("self.recipe", self.recipe!)
+        print(self.recipe!.title)
+        print(titleLabel)
         if (self.recipe != nil) {
             //loading data to view the recipe
             titleLabel.text = self.recipe!.title
@@ -661,8 +651,8 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             }
             
             
-            let viewControllers = self.navigationController?.viewControllers
-            let parent = viewControllers?[0] as! RecipesTableViewController
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Recipe", bundle: nil)
+            let parent = storyBoard.instantiateViewController(withIdentifier: "RecipesTableViewController") as! RecipesTableViewController
             
             //loadRecipes
             parent.loadRecipes()
@@ -701,8 +691,8 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                 }
             }
                        
-            let viewControllers = self.navigationController?.viewControllers
-            let parent = viewControllers?[0] as! RecipesTableViewController
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Recipe", bundle: nil)
+            let parent = storyBoard.instantiateViewController(withIdentifier: "RecipesTableViewController") as! RecipesTableViewController
             
             self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.reviews, uid: self.recipe!.uid, postId: self.recipe!.postId))
             
@@ -717,7 +707,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             
                 
             //loadRecipes
-            parent.loadRecipes()
+            //parent.loadRecipes()
             self.loadRecipes()
             self.loadData()
                
@@ -771,6 +761,8 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         }
         
         if (segue.identifier == "viewPost") {
+            UIStoryboard(name: "Posts", bundle: nil).instantiateViewController(withIdentifier: "PostsTableViewController") as! PostsTableViewController
+            
             let destView = segue.destination as! ViewPostViewController
             if !(self.postList.isEmpty) {
                 if (self.recipe != nil) {
@@ -788,6 +780,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                     destView.currentUser = self.curruid
                 }
             }
+            self.present(destView, animated: true)
         }
         
         if (segue.identifier == "createPost") {

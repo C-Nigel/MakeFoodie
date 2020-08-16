@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gAQ-0H-UpH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gAQ-0H-UpH">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -10,7 +10,7 @@
         <!--Recipes-->
         <scene sceneID="Gp9-Jg-ryO">
             <objects>
-                <tableViewController storyboardIdentifier="recipeTableViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Y8V-FF-DNP" customClass="RecipesTableViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="RecipesTableViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Y8V-FF-DNP" customClass="RecipesTableViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="u36-HP-k6f">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -759,7 +759,7 @@
                         <outlet property="ratingLabel" destination="vhC-8S-wSS" id="9X1-30-YlF"/>
                         <outlet property="reviewTitle" destination="915-RI-dRG" id="w5C-RD-iBJ"/>
                         <outlet property="thumbnailImage" destination="rXF-1D-5dT" id="WC9-sM-DtE"/>
-                        <outlet property="titleLabel" destination="Zi7-Wl-mAJ" id="sdl-KD-Inc"/>
+                        <outlet property="titleLabel" destination="Zi7-Wl-mAJ" id="ObY-Wx-UIo"/>
                         <outlet property="usernameLabel" destination="25E-11-mcY" id="MRe-C1-PPM"/>
                         <outlet property="viewPostButton" destination="IFx-eS-YCM" id="xHq-cs-0lg"/>
                         <outlet property="yourCommentsLabel" destination="xtW-Bm-OLi" id="6tJ-S6-9zI"/>

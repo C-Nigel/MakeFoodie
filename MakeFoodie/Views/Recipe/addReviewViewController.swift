@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class addReviewViewController: UIViewController {
 
@@ -43,16 +45,16 @@ class addReviewViewController: UIViewController {
     
     @IBAction func saveButtonPressed(_ sender: Any) {
         if (ratingControl.rating != 0) {
-            self.reviews.updateValue(["Rating": String(self.ratingControl.rating), "Comments": self.commentsTextView.text], forKey: self.curruid)
+            self.reviews.updateValue(["Rating": String(self.ratingControl.rating), "Comments": self.commentsTextView.text], forKey: Auth.auth().currentUser!.uid)
             
-            let viewControllers = self.navigationController?.viewControllers
-            let tableViewController = viewControllers?[0] as! RecipesTableViewController
-            let parent = viewControllers?[1] as! RecipeDetailViewController
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Recipe", bundle: nil)
+            let tableViewController = storyBoard.instantiateViewController(withIdentifier: "RecipesTableViewController") as! RecipesTableViewController
+            let parent = storyBoard.instantiateViewController(withIdentifier: "RecipeDetailViewController") as! RecipeDetailViewController
             
-            self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid))
+            self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid, postId: self.recipe!.postId))
             
             //reassign recipe to the new version
-            self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid)
+            self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid, postId: self.recipe!.postId)
             
             if (self.recipe != nil) {
                 parent.recipe = self.recipe
@@ -60,12 +62,18 @@ class addReviewViewController: UIViewController {
             }
             
             //loadRecipe
-            tableViewController.loadRecipes()
-            parent.loadRecipes()
-            parent.viewDidLoad()
+            //tableViewController.recipeTableView.reloadData()
+            //parent.loadRecipes()
+            //parent.loadData() //-- labels are nil
+            //parent.viewDidLoad()
             
             //going back to RecipeDetailViewController after editing
+            CATransaction.begin()
+            CATransaction.setCompletionBlock({parent.loadRecipes()})
+            
             self.navigationController?.popViewController(animated: true)
+            
+            CATransaction.commit()
             
         }
         else {

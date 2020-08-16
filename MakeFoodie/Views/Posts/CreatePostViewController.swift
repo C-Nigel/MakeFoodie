@@ -81,6 +81,13 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.descTextView.layer.borderWidth = 0.3
         self.descTextView.layer.cornerRadius = 6
         
+        //check if came from recipe
+        if (self.recipe != nil) {
+            titleTextField.text = self.recipe!.title
+            descTextView.text = self.recipe!.desc
+            thumbnailImageView.image = self.recipe!.thumbnail.getImage()
+        }
+        
         // If no image in imageView, hide it
         if (self.thumbnailImageView.image == nil)
         {
@@ -106,11 +113,6 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         locationTitle.isHidden = true
         locationAddr.isHidden = true
         
-        //check if came from recipe
-        if (self.recipe != nil) {
-            titleTextField.text = self.recipe!.title
-            descTextView.text = self.recipe!.desc
-        }
         
         loadPosts()
     }
