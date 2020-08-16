@@ -68,7 +68,12 @@ class addReviewViewController: UIViewController {
             //parent.viewDidLoad()
             
             //going back to RecipeDetailViewController after editing
+            CATransaction.begin()
+            CATransaction.setCompletionBlock({parent.loadRecipes()})
+            
             self.navigationController?.popViewController(animated: true)
+            
+            CATransaction.commit()
             
         }
         else {
