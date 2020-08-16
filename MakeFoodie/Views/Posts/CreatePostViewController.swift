@@ -81,6 +81,13 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.descTextView.layer.borderWidth = 0.3
         self.descTextView.layer.cornerRadius = 6
         
+        //check if came from recipe
+        if (self.recipe != nil) {
+            titleTextField.text = self.recipe!.title
+            descTextView.text = self.recipe!.desc
+            thumbnailImageView.image = self.recipe!.thumbnail.getImage()
+        }
+        
         // If no image in imageView, hide it
         if (self.thumbnailImageView.image == nil)
         {
@@ -106,11 +113,6 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         locationTitle.isHidden = true
         locationAddr.isHidden = true
         
-        //check if came from recipe
-        if (self.recipe != nil) {
-            titleTextField.text = self.recipe!.title
-            descTextView.text = self.recipe!.desc
-        }
         
         loadPosts()
     }
@@ -609,19 +611,24 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             
             
             let priceValue = Double(priceTextField.text!)
+            var locName = selectedLocation?.name
+            
+            if locName == "Your location" {
+                locName = "User chosen location"
+            }
             
             // Set random string
             let ref = db.collection("post")
             let docId = ref.document().documentID
 
             if (self.recipe != nil) { //if recipe exists
-                self.post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: (selectedLocation?.coordinate.latitude)!, longitude: (selectedLocation?.coordinate.longitude)!, locationName: (selectedLocation?.name)!, locationAddr: address, uid: self.currentUser, recipeID: self.recipe!.recipeID)
+                self.post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: (selectedLocation?.coordinate.latitude)!, longitude: (selectedLocation?.coordinate.longitude)!, locationName: locName!, locationAddr: address, uid: Auth.auth().currentUser!.uid, recipeID: self.recipe!.recipeID)
                 
                 //update recipe's postId as well
                 DataManager.insertOrReplaceRecipe(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.recipe!.reviews, uid: self.recipe!.uid, postId: docId))
             }
             else {
-                self.post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: (selectedLocation?.coordinate.latitude)!, longitude: (selectedLocation?.coordinate.longitude)!, locationName: (selectedLocation?.name)!, locationAddr: address, uid: self.currentUser)
+                self.post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: (selectedLocation?.coordinate.latitude)!, longitude: (selectedLocation?.coordinate.longitude)!, locationName: locName!, locationAddr: address, uid: Auth.auth().currentUser!.uid)
             }
             if (self.post != nil) {
                 DataManager.insertOrEditPost(self.post!)

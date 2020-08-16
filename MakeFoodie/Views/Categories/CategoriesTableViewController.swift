@@ -12,6 +12,7 @@ class CategoriesTableViewController: UITableViewController {
     @IBOutlet var categoriesTableView: UITableView!
     // Array for categories
     var categories : [String] = [
+        "Nearby Location",
         "Western",
         "Chinese",
         "Indian",
@@ -28,6 +29,7 @@ class CategoriesTableViewController: UITableViewController {
     
     // Array of images from assets
     var categoryImages: [String] = [
+        "nearby",
         "western",
         "chinese",
         "indian",

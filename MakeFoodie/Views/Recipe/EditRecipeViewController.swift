@@ -342,30 +342,23 @@ class EditRecipeViewController: UIViewController, UITextViewDelegate, UIImagePic
         
         //if all inputs are filled
         if (valid == true) {
-            
-            let viewControllers = self.navigationController?.viewControllers
-            let tableViewController = viewControllers?[0] as! RecipesTableViewController
-            let parent = viewControllers?[1] as! RecipeDetailViewController
-            
-            recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipe!.reviews, uid: self.curruid, postId: self.recipe!.postId))
-            
-            //reassign recipe to the new version
-            self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipe!.reviews, uid: self.curruid, postId: self.recipe!.postId)
-            
-            if (self.recipe != nil) {
-                parent.recipe = self.recipe
-                DataManager.insertOrReplaceRecipe(self.recipe!)
+            if ((self.navigationController?.viewControllers.count)! >= 2) {
+                let parent = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] as! RecipeDetailViewController
+
+                recipeList.append(Recipe(recipeID: self.recipe!.recipeID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews: self.recipe!.reviews, uid: self.recipe!.uid, postId: self.recipe!.postId))
+                    
+                self.recipe = Recipe(recipeID: self.recipe!.recipeID,title: self.titleInput.text!, desc: self.descTextView.text!, ingredients: self.ingredientTextView.text!, instructions: self.instructionsTextView.text!, thumbnail: Recipe.Image.init(withImage: thumbnailImage.image!), reviews:self.recipe!.reviews, uid: self.recipe!.uid, postId: self.recipe!.postId)
+                
+                if (self.recipe != nil) {
+                    parent.recipe = self.recipe
+                    DataManager.insertOrReplaceRecipe(self.recipe!)
+                }
             }
             
-            //loadRecipe
-            tableViewController.loadRecipes()
-            parent.loadRecipes()
-            parent.viewDidLoad()
             
-            //going back to RecipeDetailViewController after editing
             self.navigationController?.popViewController(animated: true)
-            
         }
     }
-    
 }
+    
+

@@ -35,6 +35,8 @@
 	<string>Take a picture using your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Use GPS to retrieve your current location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Use GPS to retrieve your current location</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Save a picture into your gallery</string>
 	<key>NSPhotoLibraryUsageDescription</key>

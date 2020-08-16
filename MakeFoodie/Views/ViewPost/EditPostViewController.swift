@@ -139,16 +139,18 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func passLocation(controller: EditMapViewController) {
-        // Run after saving in mapviewcontroller to pass value over
-        locationTitle.text = controller.selectedLocation?.name
-        locationAddr.text = controller.locationAddr
-        
-        // Set values
-        currLocationLat = controller.selectedLocation?.coordinate.latitude
-        currLocationLng = controller.selectedLocation?.coordinate.longitude
-        locName = controller.selectedLocation!.name!
-        locAddress = controller.locationAddr
-        
+        if controller.selectedLocation != nil {
+            // Run after saving in mapviewcontroller to pass value over
+            locationTitle.text = controller.selectedLocation?.name
+            locationAddr.text = controller.locationAddr
+            
+            // Set values
+            currLocationLat = controller.selectedLocation?.coordinate.latitude
+            currLocationLng = controller.selectedLocation?.coordinate.longitude
+            locName = controller.selectedLocation!.name!
+            locAddress = controller.locationAddr
+        }
+
         locationError.isHidden = true
         
         controller.navigationController?.popViewController(animated: true)
@@ -624,8 +626,14 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             let postsTableView = viewControllers?[0] as! PostsTableViewController
             let parent = viewControllers?[1] as! ViewPostViewController
             let priceValue = Double(priceTextField.text!)
-                        
-            let post:Post = Post(id: currPostId!, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: currLocationLat!, longitude: currLocationLng!, locationName: locName, locationAddr: locAddress, uid: currPostUid!)
+            
+            var newLocName = locName
+            
+            if newLocName == "Your location" {
+                newLocName = "User chosen location"
+            }
+            
+            let post:Post = Post(id: currPostId!, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: currLocationLat!, longitude: currLocationLng!, locationName: newLocName, locationAddr: locAddress, uid: currPostUid!)
             
             DataManager.insertOrEditPost(post)
             postsTableView.loadPosts()

@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 // Create protocol to implement drop pin zoom in
 protocol HandleMapSearch {
@@ -18,9 +19,11 @@ protocol GetLocationFromMap {
     func passLocation(controller: MapViewController)
 }
 
-class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, HandleMapSearch {
+class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate, HandleMapSearch {
 
     @IBOutlet weak var mapView: MKMapView!
+    
+    var lm : CLLocationManager?
     
     var selectedLocation:MKPlacemark? = nil
     var locationAddr: String = ""   // Store selected location formatted address
@@ -30,6 +33,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         super.viewDidLoad()
         
         mapView.delegate = self
+        
+        lm = CLLocationManager()
+        lm?.delegate = self
+        lm?.desiredAccuracy = kCLLocationAccuracyBest   // Best accuracy
+        lm?.distanceFilter = 0
+        lm?.requestWhenInUseAuthorization() // Location permission
+        lm?.startUpdatingLocation()
                 
         let span:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.4, longitudeDelta: 0.4)   // Width and height of map region (Desired zoom level)
         let regionCoords:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 1.351616, longitude: 103.808053)  // Coordinates of Singapore
@@ -59,7 +69,21 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         mapView.setRegion(region, animated: true)
         
         // Display annotation
-        mapView.selectAnnotation(mapView.annotations[0], animated: true)
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .authorizedAlways, .authorizedWhenInUse:
+                for i in 0..<mapView.annotations.count {
+                    if mapView.annotations[i] is MKUserLocation {}
+                    else {
+                        mapView.selectAnnotation(mapView.annotations[i], animated: true)
+                    }
+                }
+            case .notDetermined, .restricted, .denied:
+                mapView.selectAnnotation(mapView.annotations[0], animated: true)
+            @unknown default:
+                break
+            }
+        }
     }
     
     // Change how annotations look
@@ -67,12 +91,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegat
         // This behaves like the Table View's dequeue re-usable cell.
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
         
+        // User location annotation
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
         // If there aren't any reusable views to dequeue, we will have to create a new one.
         if annotationView == nil
         {
             let pinAnnotationView = MKPinAnnotationView(annotation: nil, reuseIdentifier: "pin")
             annotationView = pinAnnotationView
         }
+        
         // Create button on the right to set location
         let rightButton = UIButton(frame: CGRect(x: 100, y: 155, width: 50, height: 50))
         rightButton.setTitleColor(.black, for: .normal)
