@@ -12,10 +12,33 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 
+extension Array where Element: Equatable {
+
+    // Remove first collection element that is equal to the given `object`:
+    mutating func remove(object: Element) {
+        guard let index = firstIndex(of: object) else {return}
+        remove(at: index)
+    }
+
+}
+
 class DataManager: NSObject {
 
     //Create a new database if it does not already exists
     static let db = Firestore.firestore()
+    static var allCategories:[String] = ["Western",
+    "Chinese",
+    "Indian",
+    "Japanese",
+    "Korean",
+    "Thai",
+    "Halal",
+    "Vegetarian",
+    "Baked Goods",
+    "Snacks",
+    "Beverages",
+    "Others"]
+    
     
     //ADD NEW USER IN DATABASE OR REPLACE CURRENT INFO
     static func insertOrReplaceUser(_ usersvar: User)
@@ -275,6 +298,22 @@ class DataManager: NSObject {
         }
     }
     
+    static func getAllFromSpecificCategory(category: String, onComplete: @escaping (_ items: QuerySnapshot) -> ())
+    {
+        db.collection("post").whereField("category", isEqualTo: category).getDocuments()
+        {
+            (QuerySnapshot, err) in
+            if let err = err
+            {
+                print("errer getting all items from specific post: \(err)")
+            }
+            else
+            {
+                onComplete(QuerySnapshot!)
+            }
+        }
+    }
+    
     // called in viewDidLoad
     // loads what post should be recommended to the user
     static func loadRecomendedItems(onComplete: (([Post]) -> Void)?)
@@ -295,29 +334,35 @@ class DataManager: NSObject {
             else
             {
                 getListOfCategories(followedPost: followedPost) { (listOfCategories) in
-                    for category in listOfCategories
+                    for category in allCategories
                     {
-                        db.collection("post").whereField("category", isEqualTo: category).getDocuments()
-                        {
-                            (QuerySnapshot, err) in
-                            if let err = err
+                        getAllFromSpecificCategory(category: category) { (QuerySnapshot) in
+                            for items in QuerySnapshot.documents
                             {
-                                print("error getting post by list of category: \(err)")
-                            }
-                            else
-                            {
-                                for items in QuerySnapshot!.documents
+                                let item = try? items.data(as: Post.self)!
+
+                                if item != nil
                                 {
-                                    let item = try? items.data(as: Post.self)!
-                                    
-                                    if item != nil
+                                    if item?.uid != Auth.auth().currentUser?.uid
                                     {
-                                        if item?.uid != Auth.auth().currentUser?.uid
+                                        if listOfCategories.contains(item!.category)
                                         {
                                             itemList.append(item!)
                                             itemList.shuffle()
                                             // return all the items to be recommended
                                             onComplete?(itemList)
+                                        }
+                                        else
+                                        {
+                                            let fraction = Float.random(in: 0..<1)
+                                            print(fraction)
+                                            if fraction < 0.3
+                                            {
+                                                itemList.append(item!)
+                                                itemList.shuffle()
+                                                // return all the items to be recommended
+                                                onComplete?(itemList)
+                                            }
                                         }
                                     }
                                 }

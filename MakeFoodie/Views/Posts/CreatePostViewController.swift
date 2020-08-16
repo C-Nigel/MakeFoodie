@@ -620,13 +620,13 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let docId = ref.document().documentID
 
             if (self.recipe != nil) { //if recipe exists
-                self.post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: (selectedLocation?.coordinate.latitude)!, longitude: (selectedLocation?.coordinate.longitude)!, locationName: locName!, locationAddr: address, uid: self.currentUser, recipeID: self.recipe!.recipeID)
+                self.post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: (selectedLocation?.coordinate.latitude)!, longitude: (selectedLocation?.coordinate.longitude)!, locationName: locName!, locationAddr: address, uid: Auth.auth().currentUser!.uid, recipeID: self.recipe!.recipeID)
                 
                 //update recipe's postId as well
                 DataManager.insertOrReplaceRecipe(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.recipe!.reviews, uid: self.recipe!.uid, postId: docId))
             }
             else {
-                self.post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: (selectedLocation?.coordinate.latitude)!, longitude: (selectedLocation?.coordinate.longitude)!, locationName: locName!, locationAddr: address, uid: self.currentUser)
+                self.post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: (selectedLocation?.coordinate.latitude)!, longitude: (selectedLocation?.coordinate.longitude)!, locationName: locName!, locationAddr: address, uid: Auth.auth().currentUser!.uid)
             }
             if (self.post != nil) {
                 DataManager.insertOrEditPost(self.post!)
