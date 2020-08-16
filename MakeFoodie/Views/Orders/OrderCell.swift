@@ -12,6 +12,8 @@ class OrderCell: UITableViewCell {
     @IBOutlet weak var itemimage: UIImageView!
     @IBOutlet weak var itemname: UILabel!
     @IBOutlet weak var price: UILabel!
+    @IBOutlet weak var orderuidlb: UILabel!
+    
     
     
     override func awakeFromNib() {

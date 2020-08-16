@@ -276,7 +276,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UNUserNotific
                             if self.isGrantedNotificationAccess{
                                 print("TEST")
                                 let content = self.creationsuccess()
-                                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5.0, repeats: false)
+                                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2.0, repeats: false)
                                 self.addNotification(trigger: trigger, content: content, identifier: "message.signup")
                                 
                             }

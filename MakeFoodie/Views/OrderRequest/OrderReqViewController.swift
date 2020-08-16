@@ -12,7 +12,7 @@ import FirebaseAuth
 import FirebaseFirestoreSwift
 import FirebaseFirestore
 
-class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
+class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UNUserNotificationCenterDelegate{
     
     var namee: String = "";
     var postList: [Post] = [];
@@ -21,6 +21,7 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     var finalName = ""
     var newlist: [Order] = [];
     var userList: [User] = [];
+    var isGrantedNotificationAccess = false
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var view2: UIView!
     @IBOutlet weak var view3: UIView!
@@ -42,6 +43,13 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            self.isGrantedNotificationAccess = granted
+            if !granted{
+                //add alert to complain to user
+            }
+        }
         let myColor = UIColor.black
         view1.layer.borderColor = myColor.cgColor
         view1.layer.borderWidth = 1.0
@@ -65,11 +73,11 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
                 if i.title == self.finalName{
                     self.quantity.text = "1"
                     self.itemname.text = i.title
-                    self.itemprice.text = "\(Double(i.price))"
+                    self.itemprice.text = String(format: "%.2f", Double(i.price))
                     self.itemimage.image = i.thumbnail.getImage()
-                    self.subtotal.text = "\(i.price)"
+                    self.subtotal.text = String(format: "%.2f", i.price)
                     self.deliveryfee.text = "2"
-                    self.totalamt.text = "\(Double(i.price + 2))"
+                    self.totalamt.text = String(format: "%.2f", Double(i.price + 2))
                     DataManager.getUsernameByUID(uid: i.uid) { (username) in
                         self.sellername.text = username
                     }
@@ -113,6 +121,28 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    //Notification when user successfully created an account
+    func creationsuccess() -> UNMutableNotificationContent{
+        let content = UNMutableNotificationContent()
+        content.title = "Order action"
+        content.body = "Order submitted successfully!"
+        content.userInfo = ["step":0]
+        return content
+    }
+    //add notification request to centre
+    func addNotification(trigger:UNNotificationTrigger?, content: UNMutableNotificationContent, identifier: String){
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request){
+            (error) in
+            if error != nil{
+                print("Error adding notification:\(String(describing: error?.localizedDescription))")
+            }
+        }
+    }
+    //in app notification
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
     
 
     @IBAction func submitorder(_ sender: Any) {
@@ -127,7 +157,7 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
                         if let user = user {
                           
                             let buyeruid: String = user.uid
-                            self.newlist.append(Order(selleruid: selleruid, buyeruid: buyeruid, itemname: self.itemname.text!, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, address: self.addresses.text!, status: "Pending For Acceptance"))
+                            self.newlist.append(Order(selleruid: selleruid, buyeruid: buyeruid, itemname: self.itemname.text!, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, address: self.addresses.text!,orderuid: UUID().uuidString, status: "Pending For Acceptance"))
                                 for i in self.newlist{
                                     print(i.selleruid);
                                     print(i.buyeruid);
@@ -137,6 +167,16 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
                                      /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
                                     
                                     DataManager.insertOrReplaceOrder(i)
+                                    if self.isGrantedNotificationAccess{
+                                        print("TEST")
+                                        let content = self.creationsuccess()
+                                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2.0, repeats: false)
+                                        self.addNotification(trigger: trigger, content: content, identifier: "message.orderreq")
+                                        
+                                    }
+                                    let storyBoard: UIStoryboard = UIStoryboard(name: "Profile", bundle: nil)
+                                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "tabbar")
+                                            self.present(newViewController, animated: true, completion: nil)
                                     //self.movetologinpage()
                             }
                             

@@ -83,7 +83,7 @@ class DataManager: NSObject {
                             let uidd: String = user.uid
                             if uidd == userss!.selleruid{
                                 orderList.append(userss!)
-                                print("1")
+                                
                             }
                            
                         }
@@ -91,6 +91,28 @@ class DataManager: NSObject {
                         
                         
                          
+                     }
+                 }
+           }
+    
+             onComplete?(orderList)
+             
+         } }
+    static func loadOrders(onComplete: (([Order]) -> Void)?)
+      {
+         db.collection("order").getDocuments { (data, err) in
+         var orderList : [Order] = []
+             if let err = err
+             { // Handle errors here.
+     //
+                 print("Error getting documents: \(err)") }
+             else
+             {
+                 for document in data!.documents{
+                     let userss = try? document.data(as: Order.self)!
+                     if userss != nil{
+                        orderList.append(userss!)
+ 
                      }
                  }
            }

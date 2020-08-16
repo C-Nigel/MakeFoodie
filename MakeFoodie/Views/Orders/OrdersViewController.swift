@@ -16,6 +16,8 @@ import FirebaseFirestore
 class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     var orderList: [Order] = [];
+    var listy: [Order] = [];
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return orderList.count
@@ -30,6 +32,7 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.itemname.text = p.itemname
         cell.price.text = p.itemprice
         cell.itemimage.image = p.itemimage.getImage()
+        cell.orderuidlb.text = p.orderuid
         return cell
     }
     func loadOrders()
@@ -45,7 +48,23 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.tableView.reloadData()
         }
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "showorder"){
+            let detailViewController = segue.destination as! IndividualOrderViewController
+            let myIndexPath = self.tableView.indexPathForSelectedRow
+            if(myIndexPath != nil) {
+                // Set the post object to selected post
 
+                let order = orderList[myIndexPath!.row]
+                // Pass id to get the post
+                detailViewController.orderuidd = order.orderuid
+
+
+                
+            }
+        
+        }
+     }
     
     
     override func viewDidLoad() {
@@ -53,6 +72,9 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         loadOrders()
         // Do any additional setup after loading the view.
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        viewDidLoad()
     }
     
 

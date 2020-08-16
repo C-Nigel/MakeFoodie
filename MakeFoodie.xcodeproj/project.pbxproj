@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		19C9ED4DF29F85ECF2819255 /* Pods_MakeFoodie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8151CC4A9D32F30B842A8C6C /* Pods_MakeFoodie.framework */; };
 		2583F3B924B8D230008AD820 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2583F3B824B8D230008AD820 /* EditProfileViewController.swift */; };
+		259B905824E7EDB70077F61B /* IndividualOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B905724E7EDB70077F61B /* IndividualOrderViewController.swift */; };
 		25D10E8E24B705F1000F6DE5 /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D10E8D24B705F1000F6DE5 /* DateTextField.swift */; };
 		472229DF246BC13100E13C81 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472229DE246BC13100E13C81 /* AppDelegate.swift */; };
 		472229E1246BC13100E13C81 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472229E0246BC13100E13C81 /* SceneDelegate.swift */; };
@@ -94,6 +95,7 @@
 
 /* Begin PBXFileReference section */
 		2583F3B824B8D230008AD820 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		259B905724E7EDB70077F61B /* IndividualOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndividualOrderViewController.swift; sourceTree = "<group>"; };
 		25D10E8D24B705F1000F6DE5 /* DateTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
 		2AB9FDAF0D3AFF49BABD7D32 /* Pods_MakeFoodie_MakeFoodieUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MakeFoodie_MakeFoodieUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FE8F8F411FBC29084B6451D /* Pods-MakeFoodie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MakeFoodie.release.xcconfig"; path = "Target Support Files/Pods-MakeFoodie/Pods-MakeFoodie.release.xcconfig"; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				F44A4F5B2484D77B00D25E49 /* Orders.storyboard */,
 				D4E0721C24B57D3D0035F967 /* OrdersViewController.swift */,
 				D4ACF6E024D114A100156098 /* OrderCell.swift */,
+				259B905724E7EDB70077F61B /* IndividualOrderViewController.swift */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -788,6 +791,7 @@
 				25D10E8E24B705F1000F6DE5 /* DateTextField.swift in Sources */,
 				D4ACF6E124D114A100156098 /* OrderCell.swift in Sources */,
 				7DC108BE24BA100E00C553AA /* EditRecipeViewController.swift in Sources */,
+				259B905824E7EDB70077F61B /* IndividualOrderViewController.swift in Sources */,
 				D4E0721B24B57CF50035F967 /* ProfileViewController.swift in Sources */,
 				472229E3246BC13100E13C81 /* ViewController.swift in Sources */,
 				D42FB78B24BC4BB200F586C2 /* ForgetpwViewController.swift in Sources */,
