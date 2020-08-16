@@ -104,7 +104,7 @@ class DataManager: NSObject {
                         if let user = user {
                           
                             let uidd: String = user.uid
-                            if uidd == userss!.selleruid{
+                            if uidd == userss!.selleruid && userss!.status == "Pending For Acceptance"{
                                 orderList.append(userss!)
                                 
                             }
