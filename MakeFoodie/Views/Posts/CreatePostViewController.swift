@@ -630,6 +630,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             else {
                 self.post = Post(id: docId, title: titleTextField.text!, price: priceValue!, startTime: startTimeTextField.text!, endTime: endTimeTextField.text!, desc: descTextView.text!, thumbnail: Post.Image.init(withImage: thumbnailImageView.image!), category: selectedCategory, latitude: (selectedLocation?.coordinate.latitude)!, longitude: (selectedLocation?.coordinate.longitude)!, locationName: locName!, locationAddr: address, uid: Auth.auth().currentUser!.uid)
             }
+            print("commit chk")
             if (self.post != nil) {
                 DataManager.insertOrEditPost(self.post!)
             }
