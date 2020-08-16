@@ -38,8 +38,9 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
             lm = CLLocationManager()
             lm?.delegate = self
             lm?.desiredAccuracy = kCLLocationAccuracyBest   // Best accuracy
-            lm?.requestWhenInUseAuthorization() // Location permission
             lm?.distanceFilter = 0
+            lm?.requestWhenInUseAuthorization() // Location permission
+            lm?.startUpdatingLocation()
             
             // Background to foreground check if permission changed
             NotificationCenter.default.addObserver(self, selector: #selector(changeSettingsPermission(notfication:)), name: NSNotification.Name(rawValue: "changeLocAuth"), object: nil)
@@ -48,9 +49,7 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
             if CLLocationManager.locationServicesEnabled() {
                 switch CLLocationManager.authorizationStatus() {
                 case .authorizedAlways, .authorizedWhenInUse:
-                    // Set user coordinate
-                    userCoord = CLLocation(latitude: (lm?.location?.coordinate.latitude)!, longitude: (lm?.location?.coordinate.longitude)!)
-                    loadPosts()
+                        loadPosts()
                 case .notDetermined:
                     lm?.requestWhenInUseAuthorization() // Location permission
                 case .restricted, .denied:
@@ -92,9 +91,7 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
     @objc func changeSettingsPermission(notfication: NSNotification) {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse, .authorizedAlways:
-            // Set user coordinate
-            userCoord = CLLocation(latitude: (lm?.location?.coordinate.latitude)!, longitude: (lm?.location?.coordinate.longitude)!)
-            loadPosts()
+                loadPosts()
         case .denied, .restricted:
             permissionNotAllowed()
         case .notDetermined:
@@ -102,6 +99,13 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
         default:
             break
         }
+    }
+    
+    // When user location updates
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations.last!
+        // Set user coord as current location coords
+        userCoord = location
     }
     
     // This function is triggered when the view is about to appear.
@@ -205,26 +209,31 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
                 self.tableView.backgroundView = nil  // Remove label if present
                 self.tableView.separatorStyle = .singleLine // Set lines to tableview
 
-                // Append post to modifiedList
-                for index in 0..<self.postList.count {
-                    if self.postList[index].uid != self.curruid {
-                        self.modifiedList.append(self.postList[index])
+                if self.userCoord != nil {
+                    // Append post to modifiedList
+                    for index in 0..<self.postList.count {
+                        if self.postList[index].uid != self.curruid {
+                            self.modifiedList.append(self.postList[index])
+                        }
                     }
-                }
-                
-                // Calculate distance between user location and dest
-                for post in self.modifiedList {
-                    let coords = CLLocation(latitude: post.latitude, longitude: post.longitude)
-                    let dist = self.calculateDistance(self.userCoord!, coords)
-                    self.locationDist.append(dist)
-                }
-                                
-                // Combine array to sort by ascending order together
-                let combined = zip(self.locationDist, self.modifiedList).sorted(by: {$0.0 < $1.0})
+                    
+                    // Calculate distance between user location and dest
+                    for post in self.modifiedList {
+                        let coords = CLLocation(latitude: post.latitude, longitude: post.longitude)
+                        let dist = self.calculateDistance(self.userCoord!, coords)
+                        self.locationDist.append(dist)
+                    }
+                                    
+                    // Combine array to sort by ascending order together
+                    let combined = zip(self.locationDist, self.modifiedList).sorted(by: {$0.0 < $1.0})
 
-                // Extract individual array after sorting
-                self.locationDist = combined.map {$0.0}
-                self.modifiedList = combined.map {$0.1}
+                    // Extract individual array after sorting
+                    self.locationDist = combined.map {$0.0}
+                    self.modifiedList = combined.map {$0.1}
+                }
+                else {
+                    self.tableView.reloadData()
+                }
             }
             
             // Reload content in tableView
@@ -265,7 +274,12 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if viewCategoryTitle == "Nearby Location" {
-            return modifiedList.count
+            if userCoord != nil {
+                return modifiedList.count
+            }
+            else {
+                return postList.count
+            }
         }
         else {
             return postList.count
@@ -276,32 +290,50 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
         let cell : ViewCategoryCell = tableView.dequeueReusableCell (withIdentifier: "ViewCategoryCell", for: indexPath) as! ViewCategoryCell
 
         if viewCategoryTitle == "Nearby Location" {
-            // Use the reused cell/newly created cell and update it
-            let p = modifiedList[indexPath.row]
-            cell.titleLabel.text = p.title
-            cell.titleLabel.sizeToFit()
-            cell.postImageView.image = p.thumbnail.getImage()
-            cell.priceLabel.text = "$\(p.price)"
-            cell.descLabel.text = p.desc
-            
-            DataManager.loadUser() {
-                userListFromFirestore in
-                self.userList = userListFromFirestore
-                for i in self.userList {
-                    if (i.uid == p.uid) {
-                        cell.usernameLabel.text = i.username
+            if userCoord != nil {
+                // Use the reused cell/newly created cell and update it
+                let p = modifiedList[indexPath.row]
+                
+                DataManager.loadUser() {
+                    userListFromFirestore in
+                    self.userList = userListFromFirestore
+                    for i in self.userList {
+                        if (i.uid == p.uid) {
+                            cell.usernameLabel.text = i.username
+                        }
                     }
                 }
+                
+                cell.titleLabel.text = p.title
+                cell.titleLabel.sizeToFit()
+                cell.postImageView.image = p.thumbnail.getImage()
+                cell.priceLabel.text = "$\(p.price)"
+                cell.descLabel.text = p.desc
+            }
+            else {
+                // Use the reused cell/newly created cell and update it
+                let p = postList[indexPath.row]
+                
+                DataManager.loadUser() {
+                    userListFromFirestore in
+                    self.userList = userListFromFirestore
+                    for i in self.userList {
+                        if (i.uid == p.uid) {
+                            cell.usernameLabel.text = i.username
+                        }
+                    }
+                }
+                
+                cell.titleLabel.text = p.title
+                cell.titleLabel.sizeToFit()
+                cell.postImageView.image = p.thumbnail.getImage()
+                cell.priceLabel.text = "$\(p.price)"
+                cell.descLabel.text = p.desc
             }
         }
         else {
             // Use the reused cell/newly created cell and update it
             let p = postList[indexPath.row]
-            cell.titleLabel.text = p.title
-            cell.titleLabel.sizeToFit()
-            cell.postImageView.image = p.thumbnail.getImage()
-            cell.priceLabel.text = "$\(p.price)"
-            cell.descLabel.text = p.desc
             
             DataManager.loadUser() {
                 userListFromFirestore in
@@ -312,9 +344,15 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
                     }
                 }
             }
+            
+            cell.titleLabel.text = p.title
+            cell.titleLabel.sizeToFit()
+            cell.postImageView.image = p.thumbnail.getImage()
+            cell.priceLabel.text = "$\(p.price)"
+            cell.descLabel.text = p.desc
         }
-        cell.usernameLabel.sizeToFit()
         
+        cell.usernameLabel.sizeToFit()
         return cell
     }
 
