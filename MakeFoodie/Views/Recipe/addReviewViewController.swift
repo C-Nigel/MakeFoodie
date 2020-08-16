@@ -47,18 +47,18 @@ class addReviewViewController: UIViewController {
         if (ratingControl.rating != 0) {
             self.reviews.updateValue(["Rating": String(self.ratingControl.rating), "Comments": self.commentsTextView.text], forKey: Auth.auth().currentUser!.uid)
             
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Recipe", bundle: nil)
-            let tableViewController = storyBoard.instantiateViewController(withIdentifier: "RecipesTableViewController") as! RecipesTableViewController
-            let parent = storyBoard.instantiateViewController(withIdentifier: "RecipeDetailViewController") as! RecipeDetailViewController
-            
-            self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid, postId: self.recipe!.postId))
-            
-            //reassign recipe to the new version
-            self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid, postId: self.recipe!.postId)
-            
-            if (self.recipe != nil) {
-                parent.recipe = self.recipe
-                DataManager.insertOrReplaceRecipe(self.recipe!)
+            if ((self.navigationController?.viewControllers.count)! >= 2) {
+                let parent = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] as! RecipeDetailViewController
+                
+                self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid, postId: self.recipe!.postId))
+                
+                //reassign recipe to the new version
+                self.recipe = Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews:self.reviews, uid: self.recipe!.uid, postId: self.recipe!.postId)
+                
+                if (self.recipe != nil) {
+                    parent.recipe = self.recipe
+                    DataManager.insertOrReplaceRecipe(self.recipe!)
+                }
             }
             
             //loadRecipe
@@ -68,12 +68,7 @@ class addReviewViewController: UIViewController {
             //parent.viewDidLoad()
             
             //going back to RecipeDetailViewController after editing
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({parent.loadRecipes()})
-            
             self.navigationController?.popViewController(animated: true)
-            
-            CATransaction.commit()
             
         }
         else {

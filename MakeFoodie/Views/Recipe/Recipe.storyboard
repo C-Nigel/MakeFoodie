@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gAQ-0H-UpH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gAQ-0H-UpH">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -10,7 +10,7 @@
         <!--Recipes-->
         <scene sceneID="Gp9-Jg-ryO">
             <objects>
-                <tableViewController storyboardIdentifier="RecipesTableViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Y8V-FF-DNP" customClass="RecipesTableViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="RecipesTableViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y8V-FF-DNP" customClass="RecipesTableViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="u36-HP-k6f">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -149,7 +149,7 @@
         <!--Create recipe-->
         <scene sceneID="EbI-W6-T4C">
             <objects>
-                <viewController storyboardIdentifier="CreateRecipeViewController" id="8op-Uw-A9D" customClass="CreateRecipeViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateRecipeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8op-Uw-A9D" customClass="CreateRecipeViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GSA-Vf-MUm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -406,7 +406,7 @@
         <!--View recipe-->
         <scene sceneID="0F5-cE-W5I">
             <objects>
-                <viewController storyboardIdentifier="RecipeDetailViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="v7T-2Q-sR7" customClass="RecipeDetailViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RecipeDetailViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="v7T-2Q-sR7" customClass="RecipeDetailViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mqY-ZG-l9b">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -778,7 +778,7 @@
         <!--Edit recipe-->
         <scene sceneID="cgS-Zp-tkm">
             <objects>
-                <viewController storyboardIdentifier="EditRecipeViewController" id="kp5-0o-Li9" customClass="EditRecipeViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditRecipeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kp5-0o-Li9" customClass="EditRecipeViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CIv-Bg-i3u">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1021,7 +1021,7 @@
         <!--Add review-->
         <scene sceneID="dpk-Kv-SW4">
             <objects>
-                <viewController storyboardIdentifier="UIViewController-y6Z-4k-Gxh" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="qxj-Ia-cEx" customClass="addReviewViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UIViewController-y6Z-4k-Gxh" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qxj-Ia-cEx" customClass="addReviewViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g3w-RH-vc3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1101,7 +1101,7 @@
         <!--Edit review-->
         <scene sceneID="nwN-rc-V98">
             <objects>
-                <viewController id="Fog-5X-Vwt" customClass="editReviewViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="Fog-5X-Vwt" customClass="editReviewViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1mE-Pr-ncY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -298,9 +298,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
     }
         
     func loadData() {
-        print("self.recipe", self.recipe!)
-        print(self.recipe!.title)
-        print(titleLabel)
         if (self.recipe != nil) {
             //loading data to view the recipe
             titleLabel.text = self.recipe!.title
@@ -651,11 +648,12 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             }
             
             
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Recipe", bundle: nil)
-            let parent = storyBoard.instantiateViewController(withIdentifier: "RecipesTableViewController") as! RecipesTableViewController
             
-            //loadRecipes
-            parent.loadRecipes()
+            //loadRecipes if it came from table view
+            if (self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2].restorationIdentifier == "RecipesTableViewController") {
+                let parent = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] as! RecipesTableViewController
+                parent.loadRecipes()
+            }
             
             
             //go to tableview
@@ -761,7 +759,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         }
         
         if (segue.identifier == "viewPost") {
-            UIStoryboard(name: "Posts", bundle: nil).instantiateViewController(withIdentifier: "PostsTableViewController") as! PostsTableViewController
             
             let destView = segue.destination as! ViewPostViewController
             if !(self.postList.isEmpty) {
@@ -780,7 +777,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                     destView.currentUser = self.curruid
                 }
             }
-            self.present(destView, animated: true)
         }
         
         if (segue.identifier == "createPost") {

@@ -63,6 +63,10 @@ class RecipesTableViewController: UITableViewController, UISearchBarDelegate {
         loadRecipes()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadRecipes()
+    }
+    
     //load recipes
     func loadRecipes() {
         
