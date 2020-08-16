@@ -139,16 +139,18 @@ class EditPostViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func passLocation(controller: EditMapViewController) {
-        // Run after saving in mapviewcontroller to pass value over
-        locationTitle.text = controller.selectedLocation?.name
-        locationAddr.text = controller.locationAddr
-        
-        // Set values
-        currLocationLat = controller.selectedLocation?.coordinate.latitude
-        currLocationLng = controller.selectedLocation?.coordinate.longitude
-        locName = controller.selectedLocation!.name!
-        locAddress = controller.locationAddr
-        
+        if controller.selectedLocation != nil {
+            // Run after saving in mapviewcontroller to pass value over
+            locationTitle.text = controller.selectedLocation?.name
+            locationAddr.text = controller.locationAddr
+            
+            // Set values
+            currLocationLat = controller.selectedLocation?.coordinate.latitude
+            currLocationLng = controller.selectedLocation?.coordinate.longitude
+            locName = controller.selectedLocation!.name!
+            locAddress = controller.locationAddr
+        }
+
         locationError.isHidden = true
         
         controller.navigationController?.popViewController(animated: true)
