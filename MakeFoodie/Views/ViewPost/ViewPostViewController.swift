@@ -34,6 +34,7 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
     //create recipe and view recipe button
     @IBOutlet weak var createRecipeButton: UIButton!
     @IBOutlet weak var viewRecipeButton: UIButton!
+    @IBOutlet weak var routeButton: UIButton!
     
     var post: Post?
     var userList: [User] = []
@@ -58,6 +59,7 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
         orderButton.tintColor = UIColor.orange
         createRecipeButton.tintColor = UIColor.orange
         viewRecipeButton.tintColor = UIColor.orange
+        routeButton.tintColor = UIColor.orange
         
         // Check if current logged in user is the user that created the post
         if Auth.auth().currentUser != nil {

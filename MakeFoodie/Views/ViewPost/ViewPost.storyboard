@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A7V-sO-UOc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A7V-sO-UOc">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -241,10 +241,11 @@
                         <outlet property="orderButton" destination="3qL-ll-PQb" id="jiz-xW-eYd"/>
                         <outlet property="postImageView" destination="R3g-wT-2uB" id="asF-v9-PYJ"/>
                         <outlet property="priceLabel" destination="VlP-qc-ytn" id="uVm-Ft-PHX"/>
+                        <outlet property="routeButton" destination="5yf-5q-tJt" id="Dox-Ce-kxf"/>
                         <outlet property="timeLabel" destination="1CN-2F-fPz" id="CQp-9l-0Df"/>
                         <outlet property="titleLabel" destination="6rr-8G-0nn" id="E6e-lf-AIY"/>
                         <outlet property="usernameLabel" destination="79Y-Ow-p9Y" id="PrA-Ek-eG7"/>
-                        <outlet property="viewRecipeButton" destination="bgh-pg-7rz" id="v1n-53-F1c"/>
+                        <outlet property="viewRecipeButton" destination="bgh-pg-7rz" id="Kdc-wM-x9u"/>
                         <segue destination="6v1-bb-EuW" kind="show" identifier="orderreq" id="TWm-V2-Vqe"/>
                     </connections>
                 </viewController>
