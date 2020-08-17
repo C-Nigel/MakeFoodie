@@ -768,6 +768,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                         //check if postId matches
                         if (i.id == self.recipe!.postId) {
                             destView.post = Post(id: i.id, title: i.title, price: i.price, startTime: i.startTime, endTime: i.endTime, desc: i.desc, thumbnail: i.thumbnail, category: i.category, latitude: i.latitude, longitude: i.longitude, locationName: i.locationName, locationAddr: i.locationAddr, uid: i.uid)
+                            destView.currPostId = i.id
                             //if found, break out of the loop
                             break
                         }
