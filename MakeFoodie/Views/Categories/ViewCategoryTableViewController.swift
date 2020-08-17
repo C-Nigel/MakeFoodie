@@ -217,19 +217,30 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
                         }
                     }
                     
-                    // Calculate distance between user location and dest
-                    for post in self.modifiedList {
-                        let coords = CLLocation(latitude: post.latitude, longitude: post.longitude)
-                        let dist = self.calculateDistance(self.userCoord!, coords)
-                        self.locationDist.append(dist)
+                    if self.modifiedList.count == 0 {
+                        let labelDisplay = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)) // Create label
+                        labelDisplay.text = "No posts under this category" // Set label text
+                        labelDisplay.textAlignment = .center
+                        labelDisplay.sizeToFit()
+                        
+                        self.tableView.backgroundView = labelDisplay
+                        self.tableView.separatorStyle = .none   // Remove the lines from tableview
                     }
-                                    
-                    // Combine array to sort by ascending order together
-                    let combined = zip(self.locationDist, self.modifiedList).sorted(by: {$0.0 < $1.0})
+                    else {
+                        // Calculate distance between user location and dest
+                        for post in self.modifiedList {
+                            let coords = CLLocation(latitude: post.latitude, longitude: post.longitude)
+                            let dist = self.calculateDistance(self.userCoord!, coords)
+                            self.locationDist.append(dist)
+                        }
+                                        
+                        // Combine array to sort by ascending order together
+                        let combined = zip(self.locationDist, self.modifiedList).sorted(by: {$0.0 < $1.0})
 
-                    // Extract individual array after sorting
-                    self.locationDist = combined.map {$0.0}
-                    self.modifiedList = combined.map {$0.1}
+                        // Extract individual array after sorting
+                        self.locationDist = combined.map {$0.0}
+                        self.modifiedList = combined.map {$0.1}
+                    }
                 }
                 else {
                     self.tableView.reloadData()
@@ -263,6 +274,23 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
             else {
                 self.tableView.backgroundView = nil  // Remove label if present
                 self.tableView.separatorStyle = .singleLine // Set lines to tableview
+                
+                // Append post to modifiedList
+                for index in 0..<self.postList.count {
+                    if self.postList[index].uid != self.curruid {
+                        self.modifiedList.append(self.postList[index])
+                    }
+                }
+                
+                if self.modifiedList.count == 0 {
+                    let labelDisplay = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)) // Create label
+                    labelDisplay.text = "No posts under this category" // Set label text
+                    labelDisplay.textAlignment = .center
+                    labelDisplay.sizeToFit()
+                    
+                    self.tableView.backgroundView = labelDisplay
+                    self.tableView.separatorStyle = .none   // Remove the lines from tableview
+                }
             }
             
             // Reload content in tableView
@@ -282,7 +310,7 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
             }
         }
         else {
-            return postList.count
+            return modifiedList.count
         }
     }
 
@@ -333,7 +361,7 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
         }
         else {
             // Use the reused cell/newly created cell and update it
-            let p = postList[indexPath.row]
+            let p = modifiedList[indexPath.row]
             
             DataManager.loadUser() {
                 userListFromFirestore in
@@ -401,18 +429,18 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
             let viewPostViewController = segue.destination as! ViewPostViewController
             let myIndexPath = self.tableView.indexPathForSelectedRow
             if(myIndexPath != nil) {
-                if viewCategoryTitle == "Nearby Location" {
+                //if viewCategoryTitle == "Nearby Location" {
                     // Set the post object to selected post
                     let post = modifiedList[myIndexPath!.row]
                     viewPostViewController.currPostId = post.id
                     viewPostViewController.post = post
-                }
+                /*}
                 else {
                     // Set the post object to selected post
                     let post = postList[myIndexPath!.row]
                     viewPostViewController.currPostId = post.id
                     viewPostViewController.post = post
-                }
+                }*/
             }
         }
     }
