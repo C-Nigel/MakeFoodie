@@ -287,6 +287,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
     } //end viewDidLoad
     
     override func viewWillAppear(_ animated: Bool) {
+        checkIfPostExists()
         self.loadRecipes()
     }
     
@@ -649,6 +650,10 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                 if (i.id == self.recipe!.postId) {
                     //edit the recipeID to "" in the post
                     DataManager.insertOrEditPost(Post(id: i.id, title: i.title, price: i.price, startTime: i.startTime, endTime: i.endTime, desc: i.desc, thumbnail: i.thumbnail, category: i.category, latitude: i.latitude, longitude: i.longitude, locationName: i.locationName, locationAddr: i.locationAddr, uid: i.uid, recipeID: ""))
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "ViewPost", bundle: nil)
+                    let parent = storyBoard.instantiateViewController(withIdentifier: "ViewPostVC") as! ViewPostViewController
+                    parent.currPostId = i.id
+                    //parent.loadPosts()
                 }
                 else {}
             }
@@ -694,9 +699,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                     self.reviews.updateValue(self.recipe!.reviews[i]!, forKey: i)
                 }
             }
-                       
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Recipe", bundle: nil)
-            let parent = storyBoard.instantiateViewController(withIdentifier: "RecipesTableViewController") as! RecipesTableViewController
+            
             
             self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.reviews, uid: self.recipe!.uid, postId: self.recipe!.postId))
             
