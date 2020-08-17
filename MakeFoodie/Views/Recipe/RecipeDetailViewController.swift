@@ -86,6 +86,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         self.yourReviewDeleteButton.tintColor = UIColor.orange
         self.viewPostButton.tintColor = UIColor.orange
         self.createPostButton.tintColor = UIColor.orange
+        self.heartButton.tintColor = UIColor.orange
         
         //set current user uid
         self.curruid = Auth.auth().currentUser!.uid
@@ -280,6 +281,18 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                 self.viewDidLoad()
             }
         }
+        
+        if (self.recipe!.uid == self.curruid) {
+            //hide your review, hide add button
+            self.addReviewButton.isHidden = true
+            self.yourUsernameLabel.isHidden = true
+            self.yourRatingLabel.isHidden = true
+            self.yourCommentsLabel.isHidden = true
+            self.yourStar.isHidden = true
+            self.yourReviewLabel.isHidden = true
+            self.yourReviewEditButton.isHidden = true
+            self.yourReviewDeleteButton.isHidden = true
+        }
     
         checkIfPostExists()
         loadRecipes()
@@ -350,15 +363,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                     self.yourReviewLabel.isHidden = true
                     self.yourReviewEditButton.isHidden = true
                     self.yourReviewDeleteButton.isHidden = true
-                    self.allReviewsTableView.isHidden = true
-                }
-                else { //if reviews not empty
-                    if (self.recipe!.reviews.keys.contains(self.curruid)) {
-                        currUserHasReview = true
-                    }
-                    else {
-                        currUserHasReview = false
-                    }
                     
                     for i in self.recipe!.reviews.keys { //i = keys in reviews dict
                         if (i != self.curruid) {
@@ -486,6 +490,18 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                 }
             }
         }
+        if (self.recipe!.uid == self.curruid) {
+            //hide your review, hide add button
+            self.addReviewButton.isHidden = true
+            self.yourUsernameLabel.isHidden = true
+            self.yourRatingLabel.isHidden = true
+            self.yourCommentsLabel.isHidden = true
+            self.yourStar.isHidden = true
+            self.yourReviewLabel.isHidden = true
+            self.yourReviewEditButton.isHidden = true
+            self.yourReviewDeleteButton.isHidden = true
+        }
+
         checkIfPostExists()
         
     } // end loadData
