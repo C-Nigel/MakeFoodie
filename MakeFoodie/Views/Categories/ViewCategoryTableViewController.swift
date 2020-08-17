@@ -194,7 +194,8 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
 
             // Assign list to list from Firestore
             self.postList = postListFromFirestore
-
+            self.modifiedList.removeAll()
+            
             // Check if list is empty
             if self.postList.count == 0 {
                 let labelDisplay = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)) // Create label
@@ -429,18 +430,17 @@ class ViewCategoryTableViewController: UITableViewController, CLLocationManagerD
             let viewPostViewController = segue.destination as! ViewPostViewController
             let myIndexPath = self.tableView.indexPathForSelectedRow
             if(myIndexPath != nil) {
-                //if viewCategoryTitle == "Nearby Location" {
+                if userCoord != nil {
                     // Set the post object to selected post
                     let post = modifiedList[myIndexPath!.row]
                     viewPostViewController.currPostId = post.id
                     viewPostViewController.post = post
-                /*}
+                }
                 else {
-                    // Set the post object to selected post
                     let post = postList[myIndexPath!.row]
                     viewPostViewController.currPostId = post.id
                     viewPostViewController.post = post
-                }*/
+                }
             }
         }
     }
