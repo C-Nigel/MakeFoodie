@@ -26,7 +26,6 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var locationMap: MKMapView!
     
     // Buttons
-    @IBOutlet weak var chatButton: UIButton!
     @IBOutlet weak var orderButton: UIButton!
     
     // Delete bar button
@@ -56,7 +55,6 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
         locationMap.delegate = self
         
         // Set color to buttons
-        chatButton.tintColor = UIColor.orange
         orderButton.tintColor = UIColor.orange
         createRecipeButton.tintColor = UIColor.orange
         viewRecipeButton.tintColor = UIColor.orange
