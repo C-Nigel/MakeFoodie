@@ -87,6 +87,9 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
         self.viewPostButton.tintColor = UIColor.orange
         self.createPostButton.tintColor = UIColor.orange
         
+        //set current user uid
+        self.curruid = Auth.auth().currentUser!.uid
+        
         //check if recipe uid matches current user
         if (self.recipe!.uid != self.curruid) {
             //if doesnt match, hide edit and delete button
@@ -157,7 +160,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                     }
                 }
                 if (currUserHasReview) {
-                    print("currUserHasReview")
+                    //print("currUserHasReview")
                     //if has current user review, hide add review button and show your review
                     for i in self.recipe!.reviews.keys {
                         if (i == self.curruid) {
@@ -188,7 +191,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                     }
                 }
                 else {
-                    print("curr user no review")
+                    //print("curr user no review")
                     //if current user has no review, show add review and hide your review
                     self.addReviewButton.isHidden = false
                     self.yourUsernameLabel.isHidden = true
@@ -204,9 +207,9 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                 
                 if (otherUserHasReview) {
                     self.noReviewsLabel.isHidden = true
-                    print("otherUserHasReview")
+                    //print("otherUserHasReview")
                     if (currUserHasReview) {
-                        print("other & current user has review")
+                        //print("other & current user has review")
                         //change reviewlabel to Other Reviews, hide addReview btn and show your review
                         self.reviewTitle.text = "Other Reviews"
                         for i in self.recipe!.reviews.keys {
@@ -238,7 +241,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                         self.allReviewsTableView.isHidden = false
                     }
                     else {
-                        print("only other user review")
+                        //print("only other user review")
                         //if only other user has review, reviewlabel is Reviews
                         reviewTitle.text = "Reviews"
                         //add remaining reviews to otherReviews (not counting current user's)
@@ -250,7 +253,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                     }
                 }
                 else { //if other user has no review
-                    print("other user no review")
+                    //print("other user no review")
                     //if curr user has review
                     if (currUserHasReview) {
                         //change reviewTitle to Other Reviews
@@ -284,6 +287,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
     } //end viewDidLoad
     
     override func viewWillAppear(_ animated: Bool) {
+        checkIfPostExists()
         self.loadRecipes()
     }
     
@@ -482,6 +486,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                 }
             }
         }
+        checkIfPostExists()
         
     } // end loadData
     
@@ -559,13 +564,11 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
 
             self.postList = postListFromFirestore
             for i in self.postList {
-                if (i.id == self.recipe!.postId) { //if exists
+                if (i.id == self.recipe!.postId) { //if post exists
                     //show viewPostButton
                     self.viewPostButton.isHidden = false
-                    if (self.curruid == self.recipe!.uid) { //if exists and belongs to user
-                        //hide button
-                        self.createPostButton.isHidden = true
-                    }
+                    //hide create button
+                    self.createPostButton.isHidden = true
                     //if found, break out of the loop
                     break
                 }
@@ -575,6 +578,10 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                     if (self.curruid == self.recipe!.uid) { //if does not exist and belongs to user
                         //show button
                         self.createPostButton.isHidden = false
+                    }
+                    else { //if doesnt exist and doesnt belong
+                        //hide create post button
+                        self.createPostButton.isHidden = true
                     }
                 }
                 
@@ -643,6 +650,10 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                 if (i.id == self.recipe!.postId) {
                     //edit the recipeID to "" in the post
                     DataManager.insertOrEditPost(Post(id: i.id, title: i.title, price: i.price, startTime: i.startTime, endTime: i.endTime, desc: i.desc, thumbnail: i.thumbnail, category: i.category, latitude: i.latitude, longitude: i.longitude, locationName: i.locationName, locationAddr: i.locationAddr, uid: i.uid, recipeID: ""))
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "ViewPost", bundle: nil)
+                    let parent = storyBoard.instantiateViewController(withIdentifier: "ViewPostVC") as! ViewPostViewController
+                    parent.currPostId = i.id
+                    //parent.loadPosts()
                 }
                 else {}
             }
@@ -688,9 +699,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                     self.reviews.updateValue(self.recipe!.reviews[i]!, forKey: i)
                 }
             }
-                       
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Recipe", bundle: nil)
-            let parent = storyBoard.instantiateViewController(withIdentifier: "RecipesTableViewController") as! RecipesTableViewController
+            
             
             self.recipeList.append(Recipe(recipeID: self.recipe!.recipeID, title: self.recipe!.title, desc: self.recipe!.desc, ingredients: self.recipe!.ingredients, instructions: self.recipe!.instructions, thumbnail: self.recipe!.thumbnail, reviews: self.reviews, uid: self.recipe!.uid, postId: self.recipe!.postId))
             
@@ -768,6 +777,7 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                         //check if postId matches
                         if (i.id == self.recipe!.postId) {
                             destView.post = Post(id: i.id, title: i.title, price: i.price, startTime: i.startTime, endTime: i.endTime, desc: i.desc, thumbnail: i.thumbnail, category: i.category, latitude: i.latitude, longitude: i.longitude, locationName: i.locationName, locationAddr: i.locationAddr, uid: i.uid)
+                            destView.currPostId = i.id
                             //if found, break out of the loop
                             break
                         }

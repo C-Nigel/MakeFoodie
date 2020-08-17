@@ -119,7 +119,7 @@
         <scene sceneID="Uyw-LN-I2H">
             <objects>
                 <navigationController title="recommended" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="0Sr-Fb-pp6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recipe" image="star.fill" catalog="system" id="dYQ-NC-F1X"/>
+                    <tabBarItem key="tabBarItem" title="Recommended" image="star.fill" catalog="system" id="dYQ-NC-F1X"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="8ru-QR-zMV">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

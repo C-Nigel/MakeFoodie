@@ -26,7 +26,6 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var locationMap: MKMapView!
     
     // Buttons
-    @IBOutlet weak var chatButton: UIButton!
     @IBOutlet weak var orderButton: UIButton!
     
     // Delete bar button
@@ -56,7 +55,6 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
         locationMap.delegate = self
         
         // Set color to buttons
-        chatButton.tintColor = UIColor.orange
         orderButton.tintColor = UIColor.orange
         createRecipeButton.tintColor = UIColor.orange
         viewRecipeButton.tintColor = UIColor.orange
@@ -102,27 +100,46 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
             recipeListFromFirestore in
 
             self.recipeList = recipeListFromFirestore
-            for i in self.recipeList {
-                if (i.postId == self.post?.id) { //if already exists
-                    //if post belongs to user (and already exists)
-                    if (self.currentUser == self.post?.uid) {
+            if (self.recipeList.isEmpty) {
+                //hide view recipe
+                print("empty")
+                self.viewRecipeButton.isHidden = true
+                //if belong to user
+                if (self.currentUser == self.post?.uid) {
+                    //show createRecipeButton
+                    self.createRecipeButton.isHidden = false
+                }
+                else { //if post does not belong
+                    self.createRecipeButton.isHidden = true
+                }
+                
+            }
+            else { //if list not empty
+                for i in self.recipeList {
+                    if (i.postId == self.post?.id) { //if already exists
+                        print("exists")
                         //hide createRecipeButton
                         self.createRecipeButton.isHidden = true
+                        //show viewRecipeButton
+                        self.viewRecipeButton.isHidden = false
+                        //if found, break out of the loop
+                        break
                     }
-                    //show viewRecipeButton
-                    self.viewRecipeButton.isHidden = false
-                    //if found, break out of the loop
-                    break
-                }
-                else { //if it doesnt exist
-                    //if post belongs to user (and does not exist)
-                    if (self.currentUser == self.post?.uid) {
-                        //show createRecipeButton
-                        self.createRecipeButton.isHidden = false
+                    else { //if it doesnt exist
+                        print("not")
+                        //if post belongs to user (and does not exist)
+                        if (self.currentUser == self.post?.uid) {
+                            //show createRecipeButton
+                            self.createRecipeButton.isHidden = false
+                        }
+                        else { //if post does not belong
+                            self.createRecipeButton.isHidden = true
+                        }
+                        self.viewRecipeButton.isHidden = true
                     }
-                    self.viewRecipeButton.isHidden = true
                 }
             }
+            
         }
         
     }
@@ -304,6 +321,8 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
         descLabel.text = post?.desc
         categoryLabel.text = post?.category
         
+        checkRecipesForPostId()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -334,11 +353,11 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
                 else {}
             }
             
-            // Reload post in tableView
-            let viewControllers = self.navigationController?.viewControllers
-            let parent = viewControllers?[0] as! PostsTableViewController
-            parent.loadPosts()
-            
+            if (self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2].restorationIdentifier == "PostsTableViewController") {
+                // Reload post in tableView
+                let parent = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] as! PostsTableViewController
+                parent.loadPosts()
+            }
             // Go back to tableView
             self.navigationController?.popViewController(animated: true)
         }
