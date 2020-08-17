@@ -564,7 +564,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
             self.postList = postListFromFirestore
             for i in self.postList {
                 if (i.id == self.recipe!.postId) { //if post exists
-                    print("EXISTS self.curruid == self.recipe!.uid ", self.curruid, "//", self.recipe!.uid, "//", self.curruid == self.recipe!.uid)
                     //show viewPostButton
                     self.viewPostButton.isHidden = false
                     //hide create button
@@ -575,7 +574,6 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                 else { //if it doesnt exist
                     //hide viewPostButton
                     self.viewPostButton.isHidden = true
-                    print("DOES NOT EXIST self.curruid == self.recipe!.uid ", self.curruid, "//", self.recipe!.uid, "//", self.curruid == self.recipe!.uid)
                     if (self.curruid == self.recipe!.uid) { //if does not exist and belongs to user
                         //show button
                         self.createPostButton.isHidden = false
