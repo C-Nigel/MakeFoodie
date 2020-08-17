@@ -79,11 +79,28 @@ class RecipesTableViewController: UITableViewController, UISearchBarDelegate {
             // What it is to reassigned the new list loaded
             // from Firestore. //
             self.recipeList = recipeListFromFirestore
+            
+            //if recipeList is empty
+            if (self.recipeList.isEmpty) {
+                //set background view of tableview to no recipes found view
+                self.recipeTableView.backgroundView = self.noRecipesFound
+                //hide separator lines
+                self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+                
+            }
+            else {
+                //set background view of tableview to nothing
+                self.recipeTableView.backgroundView = nil
+                //show separator lines
+                self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
+            }
+            
             self.recipeTableView.delegate = self
             self.recipeTableView.dataSource = self
             
             //reload tableView
             self.recipeTableView.reloadData()
+            
         }
     }
     

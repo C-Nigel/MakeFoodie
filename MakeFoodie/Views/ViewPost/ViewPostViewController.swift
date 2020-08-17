@@ -102,11 +102,8 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
             self.recipeList = recipeListFromFirestore
             for i in self.recipeList {
                 if (i.postId == self.post?.id) { //if already exists
-                    //if post belongs to user (and already exists)
-                    if (self.currentUser == self.post?.uid) {
-                        //hide createRecipeButton
-                        self.createRecipeButton.isHidden = true
-                    }
+                    //hide createRecipeButton
+                    self.createRecipeButton.isHidden = true
                     //show viewRecipeButton
                     self.viewRecipeButton.isHidden = false
                     //if found, break out of the loop
@@ -117,6 +114,9 @@ class ViewPostViewController: UIViewController, MKMapViewDelegate {
                     if (self.currentUser == self.post?.uid) {
                         //show createRecipeButton
                         self.createRecipeButton.isHidden = false
+                    }
+                    else { //if post does not belong
+                        self.createRecipeButton.isHidden = true
                     }
                     self.viewRecipeButton.isHidden = true
                 }
