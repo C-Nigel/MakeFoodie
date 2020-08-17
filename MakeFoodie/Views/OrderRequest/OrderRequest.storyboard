@@ -147,12 +147,19 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fws-0O-nMo">
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Postal Code" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fws-0O-nMo">
                                                 <rect key="frame" x="276" y="21" width="129" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Invalid Postal Code!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGU-Qm-pha">
+                                                <rect key="frame" x="252" y="57" width="153" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
@@ -207,6 +214,7 @@
                         <outlet property="addresses" destination="Fws-0O-nMo" id="Fvi-Tf-uG2"/>
                         <outlet property="deliveryfee" destination="uus-cy-qdZ" id="Jt8-Yp-OZ7"/>
                         <outlet property="dropdown" destination="dLv-I5-dZX" id="SBF-we-wso"/>
+                        <outlet property="errormsg" destination="OGU-Qm-pha" id="2j7-eT-Cts"/>
                         <outlet property="itemimage" destination="GnN-js-4VW" id="3xY-OO-fma"/>
                         <outlet property="itemname" destination="XMd-T6-KhL" id="BYM-Wi-AW4"/>
                         <outlet property="itemprice" destination="ss2-4w-zrX" id="tYe-xq-3Qe"/>

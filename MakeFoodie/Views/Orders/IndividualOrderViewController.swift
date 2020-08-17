@@ -34,7 +34,7 @@ class IndividualOrderViewController: UIViewController {
                 if i.orderuid == self.orderuidd{
                     self.itemname.text = i.itemname
                     self.itemprice.text = i.itemprice
-                    self.address.text = i.address
+                    self.address.text = i.postalcode
                     self.itemimage.image = i.itemimage.getImage()
           
                 }
@@ -51,13 +51,13 @@ class IndividualOrderViewController: UIViewController {
             self.orderList = orderListFromFirestore
             for i in self.orderList{
                 if i.orderuid == self.orderuidd{
-                    self.newList.append(Order(selleruid: i.selleruid, buyeruid: i.buyeruid, itemname: i.itemname, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, address: i.address,orderuid: i.orderuid, status: "Accepted"))
+                    self.newList.append(Order(selleruid: i.selleruid, buyeruid: i.buyeruid, itemname: i.itemname, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, postalcode: i.postalcode,orderuid: i.orderuid, status: "Accepted"))
                         for i in self.newList{
                             print(i.selleruid);
                             print(i.buyeruid);
                             print(i.itemprice)
                             print(i.status)
-                            print(i.address)
+                  
                              /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
                             
                             DataManager.insertOrReplaceOrder(i)
@@ -78,13 +78,13 @@ class IndividualOrderViewController: UIViewController {
             self.orderList = orderListFromFirestore
             for i in self.orderList{
                 if i.orderuid == self.orderuidd{
-                    self.newList.append(Order(selleruid: i.selleruid, buyeruid: i.buyeruid, itemname: i.itemname, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, address: i.address,orderuid: i.orderuid, status: "Rejected"))
+                    self.newList.append(Order(selleruid: i.selleruid, buyeruid: i.buyeruid, itemname: i.itemname, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, postalcode: i.postalcode,orderuid: i.orderuid, status: "Rejected"))
                         for i in self.newList{
                             print(i.selleruid);
                             print(i.buyeruid);
                             print(i.itemprice)
                             print(i.status)
-                            print(i.address)
+                        
                              /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
                             
                             DataManager.insertOrReplaceOrder(i)

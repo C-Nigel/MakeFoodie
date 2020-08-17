@@ -224,6 +224,9 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                  /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
                 
                 DataManager.insertOrReplaceUser(i)
+                errormsg.textColor = UIColor.green
+                errormsg.text = "Proile updated successfully!"
+                
                 //self.movetologinpage()
         }
         

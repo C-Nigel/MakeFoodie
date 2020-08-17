@@ -42,12 +42,13 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
         passwordy.layer.borderWidth = 1.0
         //GOOGLE SIGN IN BUTTON
         let googleButton = GIDSignInButton()
-        googleButton.frame = CGRect(x: 150, y: 600, width: view.frame.width/2, height: 120)
+        googleButton.frame = CGRect(x: 110, y: 550, width: view.frame.width/2 - 30, height: 120)
         view.addSubview(googleButton)
         GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance()?.presentingViewController = self
-        GIDSignIn.sharedInstance().signIn()
+        //IF GOOGLE SIGN IN ERROR UNCOMMENT CODE BELOW
+        //GIDSignIn.sharedInstance().signIn()
 
         // Do any additional setup after loading the view.
     }

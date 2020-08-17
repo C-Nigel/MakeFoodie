@@ -37,6 +37,7 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     @IBOutlet weak var deliveryfee: UILabel!
     @IBOutlet weak var totalamt: UILabel!
     @IBOutlet weak var addresses: UITextField!
+    @IBOutlet weak var errormsg: UILabel!
     
     var list = ["1", "2", "3", "4", "5"]
     
@@ -50,6 +51,8 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
                 //add alert to complain to user
             }
         }
+        errormsg.isHidden = true;
+        errormsg.text = "";
         let myColor = UIColor.black
         view1.layer.borderColor = myColor.cgColor
         view1.layer.borderWidth = 1.0
@@ -143,51 +146,67 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound])
     }
-    
+    public func validateAddress(phoneNumber: String) -> Bool {
+       let phoneNumberRegex = "^[1-9]\\d{5}$"
+       let trimmedString = phoneNumber.trimmingCharacters(in: .whitespaces)
+       let validatePhone = NSPredicate(format: "SELF MATCHES %@", phoneNumberRegex)
+       let isValidPhone = validatePhone.evaluate(with: trimmedString)
+       return isValidPhone
+    }
 
     @IBAction func submitorder(_ sender: Any) {
-        DataManager.loadUser(){
-            userListFromFirestore in
-            self.userList = userListFromFirestore
-            for i in self.userList{
-                if i.username == self.sellername.text{
-                    let selleruid: String = i.uid
-                    if Auth.auth().currentUser != nil{
-                        let user = Auth.auth().currentUser
-                        if let user = user {
-                          
-                            let buyeruid: String = user.uid
-                            self.newlist.append(Order(selleruid: selleruid, buyeruid: buyeruid, itemname: self.itemname.text!, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, address: self.addresses.text!,orderuid: UUID().uuidString, status: "Pending For Acceptance"))
-                                for i in self.newlist{
-                                    print(i.selleruid);
-                                    print(i.buyeruid);
-                                    print(i.itemprice)
-                                    print(i.status)
-                                    print(i.address)
-                                     /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
-                                    
-                                    DataManager.insertOrReplaceOrder(i)
-                                    if self.isGrantedNotificationAccess{
-                                        print("TEST")
-                                        let content = self.creationsuccess()
-                                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2.0, repeats: false)
-                                        self.addNotification(trigger: trigger, content: content, identifier: "message.orderreq")
+        errormsg.isHidden = true;
+        errormsg.text = "";
+        let validateAddresses = validateAddress(phoneNumber: addresses.text!)
+        if validateAddresses == false{
+            errormsg.isHidden = false;
+            errormsg.text = "Invalid postal code!";
+        }
+        else{
+            DataManager.loadUser(){
+                userListFromFirestore in
+                self.userList = userListFromFirestore
+                for i in self.userList{
+                    if i.username == self.sellername.text{
+                        let selleruid: String = i.uid
+                        if Auth.auth().currentUser != nil{
+                            let user = Auth.auth().currentUser
+                            if let user = user {
+                              
+                                let buyeruid: String = user.uid
+                                self.newlist.append(Order(selleruid: selleruid, buyeruid: buyeruid, itemname: self.itemname.text!, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, postalcode: self.addresses.text!,orderuid: UUID().uuidString, status: "Pending For Acceptance"))
+                                    for i in self.newlist{
+                                        print(i.selleruid);
+                                        print(i.buyeruid);
+                                        print(i.itemprice)
+                                        print(i.status)
                                         
-                                    }
-                                    let storyBoard: UIStoryboard = UIStoryboard(name: "Profile", bundle: nil)
-                                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "tabbar")
-                                            self.present(newViewController, animated: true, completion: nil)
-                                    //self.movetologinpage()
+                                         /*db.collection("user").addDocument(data: ["username":i.username, "dob":i.dob, "gender":gender, "phoneNo":"", "description":"",  "uid": i.uid])*/
+                                        
+                                        DataManager.insertOrReplaceOrder(i)
+                                        if self.isGrantedNotificationAccess{
+                                            print("TEST")
+                                            let content = self.creationsuccess()
+                                            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2.0, repeats: false)
+                                            self.addNotification(trigger: trigger, content: content, identifier: "message.orderreq")
+                                            
+                                        }
+                                        let storyBoard: UIStoryboard = UIStoryboard(name: "Profile", bundle: nil)
+                                        let newViewController = storyBoard.instantiateViewController(withIdentifier: "tabbar")
+                                                self.present(newViewController, animated: true, completion: nil)
+                                        //self.movetologinpage()
+                                }
+                                
                             }
-                            
                         }
+                        
+                        
+                        
                     }
-                    
-                    
-                    
                 }
             }
         }
+        
         
     }
     
