@@ -378,7 +378,7 @@ class DataManager: NSObject {
                                         {
                                             let fraction = Float.random(in: 0..<1)
                                             print(fraction)
-                                            if fraction < 0.3
+                                            if fraction < 0.5
                                             {
                                                 itemList.append(item!)
                                                 itemList.shuffle()
@@ -419,9 +419,9 @@ class DataManager: NSObject {
     
     //MARK: follow seague tabs
     //loads all post in which the logged in user has followed
-    static func loadFollowPostItems(onComplete: (([Post]) -> Void)?)
+    static func loadFollowPostItems(uid: String, onComplete: (([Post]) -> Void)?)
     {
-        let userUID = Auth.auth().currentUser?.uid
+        let userUID = uid
         var followList : [Follow] = []
         var postItems : [Post] = []
         
@@ -482,9 +482,9 @@ class DataManager: NSObject {
         }
     }
     
-    static func loadFollowRecipeItems(onComplete: (([Recipe]) -> Void)?)
+    static func loadFollowRecipeItems(uid: String, onComplete: (([Recipe]) -> Void)?)
     {
-        let userUID = Auth.auth().currentUser?.uid
+        let userUID = uid
         var followList : [Follow] = []
         var recipeItems : [Recipe] = []
         
@@ -550,9 +550,9 @@ class DataManager: NSObject {
         }
     }
     
-    static func loadFollowingUserItems(onComplete: (([userDetails]) -> Void)?)
+    static func loadFollowingUserItems(uid: String, onComplete: (([userDetails]) -> Void)?)
     {
-        let userUID = Auth.auth().currentUser?.uid
+        let userUID = uid
         var followList : [followForUsers] = []
         var followingUserItems : [userDetails] = []
         
@@ -618,7 +618,7 @@ class DataManager: NSObject {
         }
     }
     
-    static func loadUserFollowingItems(onComplete: (([userDetails]) -> Void)?)
+    static func loadUserFollowingItems(uid: String, onComplete: (([userDetails]) -> Void)?)
     {
         let userUID = Auth.auth().currentUser?.uid
         var followList : [followForUsers] = []

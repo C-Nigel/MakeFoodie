@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class FollowingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -15,6 +18,7 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
     var postList : [Post] = []
     var recipeList : [Recipe] = []
     var followingUserList : [userDetails] = []
+    var visitoruid : String = ""
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -204,83 +208,167 @@ class FollowingViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func loadFollowItems(type: String)
     {
-        if type == "post"
+        if visitoruid == ""
         {
-            self.subView.isHidden = false
-            DataManager.loadFollowPostItems()
+            if type == "post"
             {
-                itemListFromFirestore in
-                self.subView.isHidden = true
-                // This is a closure
-                
-                // This block of codes is executed when the async loading from Firestore is complete.
-                // What it is to reassigned the new list loaded from Firestore.
-                
-                self.postList = itemListFromFirestore
-                
-                //Once done, call on the Table View to reload all its contents
-                
-                self.tableView.reloadData()
+                self.subView.isHidden = false
+                DataManager.loadFollowPostItems(uid: Auth.auth().currentUser!.uid)
+                {
+                    itemListFromFirestore in
+                    self.subView.isHidden = true
+                    // This is a closure
+                    
+                    // This block of codes is executed when the async loading from Firestore is complete.
+                    // What it is to reassigned the new list loaded from Firestore.
+                    
+                    self.postList = itemListFromFirestore
+                    
+                    //Once done, call on the Table View to reload all its contents
+                    
+                    self.tableView.reloadData()
+                }
+            }
+            else if type == "recipes"
+            {
+                self.subView.isHidden = false
+                DataManager.loadFollowRecipeItems(uid: Auth.auth().currentUser!.uid)
+                {
+                    itemListFromFirestore in
+                    self.subView.isHidden = true
+                    // This is a closure
+                    
+                    // This block of codes is executed when the async loading from Firestore is complete.
+                    // What it is to reassigned the new list loaded from Firestore.
+                    
+                    self.recipeList = itemListFromFirestore
+                    
+                    //Once done, call on the Table View to reload all its contents
+                    
+                    self.tableView.reloadData()
+                }
+            }
+            else if type == "user following"
+            {
+                self.subView.isHidden = false
+                DataManager.loadFollowingUserItems(uid: Auth.auth().currentUser!.uid)
+                {
+                    itemListFromFirestore in
+                    self.subView.isHidden = true
+                    // This is a closure
+                    
+                    // This block of codes is executed when the async loading from Firestore is complete.
+                    // What it is to reassigned the new list loaded from Firestore.
+                    
+                    self.followingUserList = itemListFromFirestore
+                    
+                    //Once done, call on the Table View to reload all its contents
+                    
+                    self.tableView.reloadData()
+                }
+            }
+            else if type == "following user"
+            {
+                self.subView.isHidden = false
+                DataManager.loadUserFollowingItems(uid: Auth.auth().currentUser!.uid)
+                {
+                    itemListFromFirestore in
+                    self.subView.isHidden = true
+                    
+                    // This is a closure
+                    
+                    // This block of codes is executed when the async loading from Firestore is complete.
+                    // What it is to reassigned the new list loaded from Firestore.
+                    
+                    self.followingUserList = itemListFromFirestore
+                    
+                    //Once done, call on the Table View to reload all its contents
+                    
+                    self.tableView.reloadData()
+                }
             }
         }
-        else if type == "recipes"
+        else
         {
-            self.subView.isHidden = false
-            DataManager.loadFollowRecipeItems()
+            if type == "post"
             {
-                itemListFromFirestore in
-                self.subView.isHidden = true
-                // This is a closure
-                
-                // This block of codes is executed when the async loading from Firestore is complete.
-                // What it is to reassigned the new list loaded from Firestore.
-                
-                self.recipeList = itemListFromFirestore
-                
-                //Once done, call on the Table View to reload all its contents
-                
-                self.tableView.reloadData()
+                self.subView.isHidden = false
+                DataManager.loadFollowPostItems(uid: visitoruid)
+                {
+                    itemListFromFirestore in
+                    self.subView.isHidden = true
+                    // This is a closure
+                    
+                    // This block of codes is executed when the async loading from Firestore is complete.
+                    // What it is to reassigned the new list loaded from Firestore.
+                    
+                    self.postList = itemListFromFirestore
+                    
+                    //Once done, call on the Table View to reload all its contents
+                    
+                    self.tableView.reloadData()
+                }
+            }
+            else if type == "recipes"
+            {
+                self.subView.isHidden = false
+                DataManager.loadFollowRecipeItems(uid: visitoruid)
+                {
+                    itemListFromFirestore in
+                    self.subView.isHidden = true
+                    // This is a closure
+                    
+                    // This block of codes is executed when the async loading from Firestore is complete.
+                    // What it is to reassigned the new list loaded from Firestore.
+                    
+                    self.recipeList = itemListFromFirestore
+                    
+                    //Once done, call on the Table View to reload all its contents
+                    
+                    self.tableView.reloadData()
+                }
+            }
+            else if type == "user following"
+            {
+                self.subView.isHidden = false
+                DataManager.loadFollowingUserItems(uid: visitoruid)
+                {
+                    itemListFromFirestore in
+                    self.subView.isHidden = true
+                    // This is a closure
+                    
+                    // This block of codes is executed when the async loading from Firestore is complete.
+                    // What it is to reassigned the new list loaded from Firestore.
+                    
+                    self.followingUserList = itemListFromFirestore
+                    
+                    //Once done, call on the Table View to reload all its contents
+                    
+                    self.tableView.reloadData()
+                }
+            }
+            else if type == "following user"
+            {
+                self.subView.isHidden = false
+                DataManager.loadUserFollowingItems(uid: visitoruid)
+                {
+                    itemListFromFirestore in
+                    self.subView.isHidden = true
+                    
+                    // This is a closure
+                    
+                    // This block of codes is executed when the async loading from Firestore is complete.
+                    // What it is to reassigned the new list loaded from Firestore.
+                    
+                    self.followingUserList = itemListFromFirestore
+                    
+                    //Once done, call on the Table View to reload all its contents
+                    
+                    self.tableView.reloadData()
+                }
             }
         }
-        else if type == "user following"
-        {
-            self.subView.isHidden = false
-            DataManager.loadFollowingUserItems()
-            {
-                itemListFromFirestore in
-                self.subView.isHidden = true
-                // This is a closure
-                
-                // This block of codes is executed when the async loading from Firestore is complete.
-                // What it is to reassigned the new list loaded from Firestore.
-                
-                self.followingUserList = itemListFromFirestore
-                
-                //Once done, call on the Table View to reload all its contents
-                
-                self.tableView.reloadData()
-            }
-        }
-        else if type == "following user"
-        {
-            self.subView.isHidden = false
-            DataManager.loadUserFollowingItems()
-            {
-                itemListFromFirestore in
-                self.subView.isHidden = true
-                
-                // This is a closure
-                
-                // This block of codes is executed when the async loading from Firestore is complete.
-                // What it is to reassigned the new list loaded from Firestore.
-                
-                self.followingUserList = itemListFromFirestore
-                
-                //Once done, call on the Table View to reload all its contents
-                
-                self.tableView.reloadData()
-            }
-        }
+        
     }
     
     /*

@@ -99,44 +99,84 @@ class ProfileViewController: UIViewController {
                         }
                     }
                 }
-                let uidd: String = user.uid
-                DataManager.loadFollowers(){
-                    followListFromFirestore in
-                    self.followList = followListFromFirestore
-                    var count: Int = 0;
-                    for i in self.followList{
-                        if i.followeruid == uidd{
-                            count = count + 1;
-                        }
-                    }
-                    self.followersNo.setTitle(String(count), for: .normal)
-                }
-                DataManager.loadRecipes() {
-                    recipeListFromFirestore in
-                    self.recipeList = recipeListFromFirestore
-                    var count2: Int = 0;
-                    for i in self.recipeList{
-                        if i.uid == uidd{
-                            count2 += 1
-                        }
-                    }
-                    self.RecipesNo.setTitle(String(count2), for: .normal)
-                }
-                DataManager.loadPosts ()
+                if visitorUID == ""
                 {
-                    postListFromFirestore in
-                    // Assign list to list from Firestore
-                    self.postList = postListFromFirestore
-                    var count3: Int = 0;
-                    for i in self.postList{
-                        if i.uid == uidd{
-                            count3 += 1
+                    let uidd: String = user.uid
+                    DataManager.loadFollowers(){
+                        followListFromFirestore in
+                        self.followList = followListFromFirestore
+                        var count: Int = 0;
+                        for i in self.followList{
+                            if i.followeruid == uidd{
+                                count = count + 1;
+                            }
                         }
+                        self.followersNo.setTitle(String(count), for: .normal)
                     }
-                    self.postsNo.setTitle(String(count3), for: .normal)
+                    DataManager.loadRecipes() {
+                        recipeListFromFirestore in
+                        self.recipeList = recipeListFromFirestore
+                        var count2: Int = 0;
+                        for i in self.recipeList{
+                            if i.uid == uidd{
+                                count2 += 1
+                            }
+                        }
+                        self.RecipesNo.setTitle(String(count2), for: .normal)
+                    }
+                    DataManager.loadPosts ()
+                    {
+                        postListFromFirestore in
+                        // Assign list to list from Firestore
+                        self.postList = postListFromFirestore
+                        var count3: Int = 0;
+                        for i in self.postList{
+                            if i.uid == uidd{
+                                count3 += 1
+                            }
+                        }
+                        self.postsNo.setTitle(String(count3), for: .normal)
+                    }
+                }
+                else
+                {
+                    DataManager.loadFollowers(){
+                        followListFromFirestore in
+                        self.followList = followListFromFirestore
+                        var count: Int = 0;
+                        for i in self.followList{
+                            if i.following == self.visitorUID{
+                                count = count + 1;
+                            }
+                        }
+                        self.followersNo.setTitle(String(count), for: .normal)
+                    }
+                    DataManager.loadRecipes() {
+                        recipeListFromFirestore in
+                        self.recipeList = recipeListFromFirestore
+                        var count2: Int = 0;
+                        for i in self.recipeList{
+                            if i.uid == self.visitorUID{
+                                count2 += 1
+                            }
+                        }
+                        self.RecipesNo.setTitle(String(count2), for: .normal)
+                    }
+                    DataManager.loadPosts ()
+                    {
+                        postListFromFirestore in
+                        // Assign list to list from Firestore
+                        self.postList = postListFromFirestore
+                        var count3: Int = 0;
+                        for i in self.postList{
+                            if i.uid == self.visitorUID{
+                                count3 += 1
+                            }
+                        }
+                        self.postsNo.setTitle(String(count3), for: .normal)
+                    }
                 }
             }
-              
         }
         else{
             
@@ -172,6 +212,13 @@ class ProfileViewController: UIViewController {
         }
     }
     // Do any additional setup after loading the view.
+    @IBAction func followerButtonPressed(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Following", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "FollowingViewController") as! FollowingViewController
+        newViewController.visitoruid = visitorUID
+        newViewController.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(newViewController, animated: true)
+    }
 }
     
 
