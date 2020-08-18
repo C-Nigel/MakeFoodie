@@ -226,6 +226,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 DataManager.insertOrReplaceUser(i)
                 errormsg.textColor = UIColor.green
                 errormsg.text = "Proile updated successfully!"
+                errormsg.isHidden = false;
                 
                 //self.movetologinpage()
         }

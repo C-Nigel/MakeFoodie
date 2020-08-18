@@ -13,6 +13,7 @@ class IndividualOrderViewController: UIViewController {
     @IBOutlet weak var itemimage: UIImageView!
     @IBOutlet weak var itemname: UILabel!
     @IBOutlet weak var itemprice: UILabel!
+    @IBOutlet weak var quantity: UILabel!
     @IBOutlet weak var address: UITextView!
     var orderitem : Order?
     var orderuidd: String="";
@@ -36,6 +37,7 @@ class IndividualOrderViewController: UIViewController {
                     self.itemprice.text = i.itemprice
                     self.address.text = i.postalcode
                     self.itemimage.image = i.itemimage.getImage()
+                    self.quantity.text = i.quantity
           
                 }
             }
@@ -51,7 +53,7 @@ class IndividualOrderViewController: UIViewController {
             self.orderList = orderListFromFirestore
             for i in self.orderList{
                 if i.orderuid == self.orderuidd{
-                    self.newList.append(Order(selleruid: i.selleruid, buyeruid: i.buyeruid, itemname: i.itemname, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, postalcode: i.postalcode,orderuid: i.orderuid, status: "Accepted"))
+                    self.newList.append(Order(selleruid: i.selleruid, buyeruid: i.buyeruid, itemname: i.itemname, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, quantity: i.quantity, postalcode: i.postalcode,orderuid: i.orderuid, status: "Accepted"))
                         for i in self.newList{
                             print(i.selleruid);
                             print(i.buyeruid);
@@ -78,7 +80,7 @@ class IndividualOrderViewController: UIViewController {
             self.orderList = orderListFromFirestore
             for i in self.orderList{
                 if i.orderuid == self.orderuidd{
-                    self.newList.append(Order(selleruid: i.selleruid, buyeruid: i.buyeruid, itemname: i.itemname, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, postalcode: i.postalcode,orderuid: i.orderuid, status: "Rejected"))
+                    self.newList.append(Order(selleruid: i.selleruid, buyeruid: i.buyeruid, itemname: i.itemname, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, quantity: i.quantity, postalcode: i.postalcode,orderuid: i.orderuid, status: "Rejected"))
                         for i in self.newList{
                             print(i.selleruid);
                             print(i.buyeruid);

@@ -15,16 +15,18 @@ class Order: Codable {
     var itemname: String
     var itemimage: Image
     var itemprice: String
+    var quantity: String
     var postalcode: String
     var orderuid: String
     var status: String
         
-    init(selleruid: String, buyeruid: String, itemname: String, itemimage: Image, itemprice: String, postalcode: String, orderuid: String, status: String){
+    init(selleruid: String, buyeruid: String, itemname: String, itemimage: Image, itemprice: String, quantity: String, postalcode: String, orderuid: String, status: String){
         self.selleruid = selleruid
         self.buyeruid = buyeruid
         self.itemname = itemname
         self.itemimage = itemimage
         self.itemprice = itemprice
+        self.quantity = quantity
         self.postalcode = postalcode
         self.orderuid = orderuid
         self.status = status
