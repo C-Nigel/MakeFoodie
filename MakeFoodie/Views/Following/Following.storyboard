@@ -10,7 +10,7 @@
         <!--Follows-->
         <scene sceneID="SbK-8r-YTO">
             <objects>
-                <viewController title="Follows" id="zGb-4Y-xNj" customClass="FollowingViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FollowingViewController" title="Follows" id="zGb-4Y-xNj" customClass="FollowingViewController" customModule="MakeFoodie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="s2A-9f-BxN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
