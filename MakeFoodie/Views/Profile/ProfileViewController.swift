@@ -107,7 +107,7 @@ class ProfileViewController: UIViewController {
                         self.followList = followListFromFirestore
                         var count: Int = 0;
                         for i in self.followList{
-                            if i.followeruid == uidd{
+                            if i.following == uidd && i.type == "user"{
                                 count = count + 1;
                             }
                         }
