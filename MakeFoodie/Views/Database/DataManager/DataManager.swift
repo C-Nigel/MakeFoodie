@@ -168,7 +168,7 @@ class DataManager: NSObject {
     static func insertOrReplaceOrder(_ ordersvar: Order)
     {
         try? db.collection("order")
-            .document(ordersvar.buyeruid)
+            .document(ordersvar.orderuid)
             .setData(from: ordersvar, encoder: Firestore.Encoder())
         {
             err in
