@@ -363,7 +363,15 @@ class RecipeDetailViewController: UIViewController, UIScrollViewDelegate, UITabl
                     self.yourReviewLabel.isHidden = true
                     self.yourReviewEditButton.isHidden = true
                     self.yourReviewDeleteButton.isHidden = true
-                    
+                    self.allReviewsTableView.isHidden = true
+                }
+                else { // if reviews not empty
+                    if (self.recipe!.reviews.keys.contains(self.curruid)) {
+                        currUserHasReview = true
+                    }
+                    else {
+                        currUserHasReview = false
+                    }
                     for i in self.recipe!.reviews.keys { //i = keys in reviews dict
                         if (i != self.curruid) {
                             otherUserHasReview = true

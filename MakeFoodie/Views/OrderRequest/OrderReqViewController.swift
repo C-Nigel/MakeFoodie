@@ -174,7 +174,7 @@ class OrderReqViewController: UIViewController, UITextFieldDelegate, UIPickerVie
                             if let user = user {
                               
                                 let buyeruid: String = user.uid
-                                self.newlist.append(Order(selleruid: selleruid, buyeruid: buyeruid, itemname: self.itemname.text!, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, postalcode: self.addresses.text!,orderuid: UUID().uuidString, status: "Pending For Acceptance"))
+                                self.newlist.append(Order(selleruid: selleruid, buyeruid: buyeruid, itemname: self.itemname.text!, itemimage: Order.Image.init(withImage: self.itemimage.image!),itemprice: self.itemprice.text!, quantity: self.quantity.text!, postalcode: self.addresses.text!,orderuid: UUID().uuidString, status: "Pending For Acceptance"))
                                     for i in self.newlist{
                                         print(i.selleruid);
                                         print(i.buyeruid);
